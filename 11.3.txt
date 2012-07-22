@@ -1,0 +1,25 @@
+11.3  The Project Inception
+
+Before  we  get  into  the  day-to-day  delivery  of  a  project,  we  need  to understand  what  it  is  all  about.  To  do  this,  we  get  all  the  stakehold- ers  together  to  establish  a  vision  or  purpose  for  the  project:  what  is it  we  are  trying  to  achieve  here?  This  should  be  a  single  pithy  state- ment, something like this: improve our supply chain or understand our customers better.
+
+BDD defines a stakeholder as anyone who cares about the work we are undertaking, whether they are the people whose problem we are trying to solve—known as the core stakeholders—or the people who are going to  help  solve  it—who  we  call  the  incidental  stakeholders.  This  latter group  includes  the  operations  folk  who  will  monitor  the  application, the  support  team  who  will  diagnose  problems  and  add  new  features, the legal and security experts who will ensure the application is fit for the purpose from an organizational risk perspective, and in fact all the people  representing  what  we  usually  call  nonfunctional  requirements. From  a  BDD  perspective,  there  is  no  such  thing  as  a  nonfunctional requirement,  just  a  feature  with  an  incidental  stakeholder.  Even  the people in the delivery team are stakeholders. (Who would you say is the stakeholder for having an automated build?)
+
+It  is  the  core  stakeholders’  responsibility  to  define  the  vision  and  the incidental  stakeholders’  to  help  them  understand  what’s  possible,  at what  cost,  and  with  what  likelihood.  This  is  the  objective  of  the  up- front thinking—that and nothing more.
+
+Now  we  can’t  just  go  off  and  start  coding  improve  our  supply  chain. We  need  to  understand  what  that  means  first,  so  we  work  with  the core stakeholders—the people whose vision it is—to identify outcomes or goals. How will they know when this project has achieved its purpose? What will they be able to do that they can’t do now? There should only be a few of these, or the project will quickly lose its focus. If you find  yourself  looking  at  more  than  a  handful  of  outcomes,  either  you are going too low level too quickly or this may be a bigger problem than you think and should be broken out into a program of smaller projects.
+
+For  the  supply  chain  example,  some  outcomes  might  be  the ordering process is easier  or  better access to suppliers’ information.  Some  people recommend these outcomes should be SMART  (see the sidebar on page 142), but this becomes less important as you build trust between the core stakeholders and the delivery team.
+
+To  achieve  these  outcomes,  we  are  going  to  need  some  software.  We describe  the  sorts  of  things  the  software  needs  to  do  as  feature  sets or themes. The terms are synonymous, so use whichever feels best for you.  Themes  are  things  like  reporting  or  customer  registration,  again too high level to start coding but specific enough to have some useful conversations around.
+
+Finally, we are in a position to talk about the specific features or stories  that  make  up  these  themes.  (See  the  sidebar  on  page  144  for  a discussion of stories and features.)
+
+This  is  the  level  where  we  will  actually  be  working  day-to-day—these describe the behavior we will implement in software.
+
+You can see how this gives us traceability right back to a specific stake-holder need. Each feature is there only because it is adding value to a feature set. Each feature set is contributing to one or more of the outcomes, and each outcome is part of the overall purpose of the project. Too often Agile teams dive straight into the feature or story level without taking the time to think about the overall shape of the delivery.
+
+At this stage, you could be forgiven for thinking this looks a lot like tra- ditional top-down decomposition. The difference is that we stop before a traditional analysis phase would, again remembering to only do just enough.
+
+It is dangerous to get too hung up on the detail of features because it can create false expectations with your stakeholders. Remember, they name to us with a need or problem, so success for them will be if we can meet that need and solve that problem. By focusing on the details, we inadvertently  shift  their  attention  so  that  they  now  associate  success with delivering the features we drove out during the planning.
+
+A better use of our efforts during an inception is to try to identify and mitigate  the  “gotchas.”  Where  are  the  risky  areas—in  terms  of  tech- nology or integration points, an unknown business domain, access to key stakeholders, market conditions, external dependencies—that are likely  to  derail  our  nascent  project?  Keeping  a  log  of  these  risks  and assumptions is at least as important as the breakdown of the project objectives.

@@ -1,0 +1,133 @@
+16.7  Custom Matchers
+
+RSpec’s built-in matchers support most of the expectations we’d like to write in our examples out of the box. There are cases, however, in which a subtle change would allow us to express exactly what we want to say rather than almost  exactly what we want to say. For those situations, we can easily write our own custom matchers.
+
+You’re  already  using  some  of  these  if  you’re  using  the  
+rspec-rails  gem. render_template( ),  for  example,  is  a  
+Rails-domain-specific  matcher  for expecting that a specific template gets rendered by a controller action. Without that matcher, we’d write expectations such as this:
+
+response.rendered_template.should == "accounts/index"
+
+With  this  custom  matcher,  we  are  able  to  write  examples  using  language closer to the domain:
+
+response.should render_template("accounts/index")
+
+All of RSpec’s built-in matchers follow a simple protocol, which we use to write our own custom matchers from scratch. We’ll go over the protocol in a bit, but first let’s take a look at RSpec’s Matcher DSL for defining custom matchers in just a few lines of code.
+
+Matcher DSL
+
+RSpec’s Matcher DSL  makes defining custom matchers a snap.1  Let’s say we’re working on a personnel application, and we want to specify that joe.should report_to(beatrice).
+
+To get there, we would probably start off with something  
+ like joe.reports_to?(beatrice).should be_true. That’s a good start, but it presents a couple of problems. If it fails, the failure message says expected true, got false. That’s accurate but not very helpful.
+ 
+Another  problem  is  that  it  just  doesn’t  read  as  well  as  it  could.  We really want to say joe.should report_to(beatrice). And if it fails, we want the message to tell us we were expecting an employee who reports to Beatrice.
+
+
+
+1.  The Matcher DSL is based on suggestions from Yehuda Katz.
+ 
+We  can  solve  the  readability  and  feedback  problems  using  RSpec’s Matcher DSL to generate a report_to( ) method, like this:
+
+RSpec::Matchers.define :report_to do |boss|
+	match do |employee|
+		employee.reports_to?(boss)
+	end 
+end
+
+The define( ) method on RSpec::Matchers defines a report_to( ) method that accepts a single argument.2  We can then call report_to(beatrice) to create an instance of RSpec::Matchers::Matcher  configured with beatrice  as the boss, and the match declaration stored for later evaluation.
+
+Now when we say that joe.should report_to(beatrice), the report_to() method creates an instance of RSpec::Matchers::Matcher that will call the block with joe.
+
+The  match  block  should  return  a  boolean  value.  True  indicates  a match, which will pass if we use should( ) and fail if we use should_not( ). False  indicates  no  match,  which  will  do  the  reverse:  fail  if  we  use should( ) and pass if we use should_not( ).
+
+In the event of a failure, the matcher generates a message from its name and the expected and actual values. In this example, the message would be something like this:
+
+expected <Employee: Joe> to report to <Employee: Beatrice>
+
+The  representation  of  the  employee  objects  depends  on  how  to_s( )  is implemented on the Employee class, but the matcher gleans “report to” from the Symbol passed to define( ).
+
+In the event of a failure using should_not( ), the generated message would read like this: 
+
+expected <Employee: Joe> not to report to <Employee: Beatrice>
+
+These default messages generally work well, but sometimes we’ll want a bit of control over the failure messages. We can get that by overriding   them,  and  the  description,  with  blocks  that  return  the  messages  we want.
+
+
+2.  Spec::Matchers in RSpec-1
+ 
+
+
+RSpec::Matchers.define :report_to do |boss|
+	match do |employee|
+		employee.reports_to?(boss)
+	end
+
+	failure_message_for_should do |employee|
+		"expected the team run by #{boss} to include #{employee}"
+	end
+
+	failure_message_for_should_not do |employee|
+		"expected the team run by #{boss} to exclude #{employee}"
+	end
+
+	description do
+		"expected a member of the team run by #{boss}"
+	end 
+end
+
+The  block  passed  to  failure_message_for_should( )  will  be  called,  and  the result  will  be  displayed  in  the  event  of  a  should( )  failure.  The  block passed  to  failure_message_for_should_not( )  will  be  called,  and  the  result will be displayed in the event of a should_not( ) failure. The description( ) will  be  displayed  when  this  matcher  is  used  to  generate  its  own description.
+
+As with the stock matchers, RSpec’s Matcher DSL will probably cover 80  percent  of  the  remaining  20  percent.  Still,  there  are  cases  where you’ll  want  even  more  control  over  certain  types  of  things.  As  of  this writing,  for  example,  there  is  no  support  for  passing  a  block  to  the matcher itself. RSpec’s built-in change( ) matcher needs that ability to express expectations like this:
+
+account = Account.new 
+lambda do
+	account.deposit(Money.new(50, :USD))
+end.should change{ account.balance }.by(Money.new(50, :USD))
+
+We  can’t  easily  define  a  matcher  that  accepts  a  block  with  the  DSL because Ruby won’t let us pass one block to another without first packaging it as a Proc object. We probably could do it with some gymnastics, but in cases like this, it is often simpler to just write some clear code using RSpec’s Matcher protocol.
+
+Matcher Protocol
+
+A  matcher  in  RSpec  is  any  object  that  responds  to  a  specific  set  of messages. The simplest matchers only need to respond to these two:
+
+matches?  The  should( )  and  should_not( )  methods  use  this  to  decide whether the expectation passes or fails. Return true for a passing expection or false for a failure.
+
+failure_message_for_should  The failure message to be used when you use should( ) and the matches?( ) method returns false.
+
+Here’s the report_to( ) matcher we used in Section 16.7, Matcher DSL , on page 240, written using these two methods:
+
+class ReportTo
+	def initialize(manager)
+		@manager = manager
+	end
+
+	def matches?(employee)
+		@employee = employee employee.reports_to?(@manager)
+	end
+
+	def failure_message_for_should
+		"expected #{@employee} to report to #{@manager}"
+	end 
+end
+
+def report_to(manager) 
+	ReportTo.new(manager)
+end
+
+This  is  clearly  more  verbose  than  the  Matcher  DSL,  because  we  have to define a class and a method. We also have to store state in order to generate the failure message, which is not necessary in the DSL because it delivers the actual and expected objects to the match and message declaration blocks. Still, if writing a matcher this way is more expressive than using the DSL in a given circumstance, then a custom matcher from scratch is the way to go.
+
+The following methods are also part of the protocol, supported by the should( ) and should_not( ) methods, but they’re completely optional:
+
+failure_message_for_should_not  Optional. The failure message to be used when you use should_not( ) and the matches?( ) method returns true.
+ 
+description  Optional. The description to be displayed when you don’t provide  one  for  the  example  (in  other  words,  it { ... }  instead  of  it "should ... " do ... end).
+
+does_not_match?  Optional. On rare occasions it can be useful for the matcher to know if it’s being called by should( ) or should_not( ). In these cases, we can implement a does_not_match?( ) method on the matcher.
+
+The  should_not( )  method  will  call  does_not_match?( )  if  it  is  implemented. When it does, it considers a response of true to be a success and false to be a failure.
+
+If the matcher does not respond to does_not_match?( ), should_not( ) will call matches?( ) and consider a response of false to be a success and true to be a failure.
+
+With  just  these  few  methods  and  the  expressive  support  of  the  Ruby language, we can create some sophisticated matchers. While we recommend using the Matcher DSL first, this simple protocol offers a robust backup plan.
+

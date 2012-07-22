@@ -1,0 +1,7 @@
+6.3  What We’ve Learned
+
+In this chapter, we explored scenario outlines in Cucumber, which allow us to express groups of similar scenarios in a readable, scannable, and DRY format.
+
+We also added a new feature to an existing code base. In doing so, we introduced a change that would lead to many failures at once if we had used  brute  force  and  just  made  the  change:  adding  a  parameter  to  a method signature. Instead of brute force, we assigned a default value to the parameter. This kept the existing specs passing and allowed us to  make  progress  on  the  Cucumber  scenarios.  We  later  removed  the default parameter, once it became obsolete.
+
+Although this is just one simple technique, it demonstrates and rein forces the notion that code is always in motion, and we are able to keep it moving with confidence if we keep the examples passing.

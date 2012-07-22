@@ -1,0 +1,141 @@
+6.2  Responding to Change
+
+At this point, all the RSpec code examples are passing, but we have failing Cucumber scenarios. We’re “in the meantime,” so to speak, where changing  requirements  from  the  outside  are  rendering  our  requirements on the inside incorrect.
+
+Our new step definition wants Game.start( ) to accept the secret code as an argument, but our RSpec examples assume that start( ) does not take any arguments. If we just add the argument to start( ), then the specs fail  with  an  argument  error  as  well,  but  with  0 for 1  instead  of  1 for 0. To keep the specs passing while we’re making changes to support the scenarios, modify start( ) to accept an argument with a default value, like so:
+
+Download cb/17/lib/codebreaker/game.rb
+
+def start(secret=nil)
+	@output.puts 'Welcome to Codebreaker!'
+	@output.puts 'Enter guess:'
+end
+
+Run the specs, and they should all still pass. Now run the codebreaker_submits_guess scenarios, and you should see this:
+
+14 scenarios (14 undefined)
+42 steps (28 undefined, 14 passed)
+0m0.028s
+
+At this point, the scenarios are either passing or undefined, but none is failing, and the specs are passing. Now we can go in and modify the specs to pass a secret code to start( ), like this:
+
+Download cb/18/spec/codebreaker/game_spec.rb
+
+it "sends a welcome message" do
+	output.should_receive(:puts).with('Welcome to Codebreaker!')
+	game.start('1234')
+end
+
+it "prompts for the first guess" do 
+	output.should_receive(:puts).with('Enter guess:') 
+	game.start('1234')
+end
+ 
+
+Run the examples, and watch them pass. Now modify start( ) again, this time removing the default value from the method definition:
+
+Download cb/18/lib/codebreaker/game.rb
+
+def start(secret)
+	@output.puts 'Welcome to Codebreaker!'
+	@output.puts 'Enter guess:'
+end
+
+Run the examples one more time, and they should still pass. Now run the codebreaker_submits_guess scenarios again, and they should still be passing or undefined. But what about the codebreaker_starts_game scenario?
+
+Assess the Impact on Other Features
+
+Now  that  we  don’t  have  any  failures  in  the  feature  we’re  working  on or the specs, run cucumber with no arguments to run all (both) of the features. The output should include this:
+
+When I start a new game
+	wrong number of arguments (0 for 1) (ArgumentError)
+	./features/step_definitions/codebreaker_steps.rb:25:in `start'
+
+The step definition for When I start a new game is still calling start( ) with no argument. Modify that as follows:
+
+Download cb/19/features/step_definitions/codebreaker_steps.rb
+
+When /^I start a new game$/ do
+	game = Codebreaker::Game.new(output)
+	game.start('1234')
+end
+
+Now all the specs should be passing, and all the scenarios are either passing or undefined.
+
+A Small Change Goes a Long Way
+
+We  still  have  twenty-eight  steps  undefined,  but  we  now  have  fourteen passing steps in codebreaker_submits_guess.feature. These are all the Given steps. Remember, each row in the tables represents a separate scenario. Until we get to the point where the failures are logical failures, as opposed to runtime errors due to structural discrepancies, a small change is likely to impact all of the scenarios at once.
+
+The remaining undefined steps are the When steps that actually submit the guess and the Then steps that set the expectation that the game should mark the guess. Copy the snippet for the When step into code-breaker_steps.rb, and modify it as follows:
+
+Download cb/20/features/step_definitions/codebreaker_steps.rb
+
+When /^I guess "([^"]*)"$/ do |guess|
+	@game.guess(guess)
+end
+
+Similar to the Given step, we capture the guess in the regular expression and pass it on to the Game, this time via the guess( ) method. This new step is expecting an @game instance variable, so modify the Given step as follows:
+
+Download cb/20/features/step_definitions/codebreaker_steps.rb
+
+Given /^the secret code is "([^"]*)"$/ do |secret|
+	@game = Codebreaker::Game.new(output)
+	@game.start(secret)
+end
+
+Run the features again, and you’ll see this in the output:
+
+Scenarios: no matches
+	| code | guess | mark |
+	| 1234 | 5555  |      |
+	undefined method `guess' for #<Codebreaker::Game:0x10219f728> 
+	(NoMethodError)
+
+We wrote the code we wish we had, but we don’t have it! The Game has no guess( ) method, so we’ll need to add one. Add this to game.rb:
+
+Download cb/21/lib/codebreaker/game.rb
+
+class Game
+	def initialize(output)
+		@output = output
+	end
+
+	def start(secret)
+		@output.puts 'Welcome to Codebreaker!'
+		@output.puts 'Enter guess:'
+	end
+
+	def guess(guess)
+	end 
+end
+
+Now run the scenarios:
+
+14 scenarios (14 undefined)
+42 steps (14 undefined, 28 passed)
+0m0.024s
+
+You can implement step definitions for undefined steps with these snippets: 
+
+Then /^the mark should be "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had 
+end
+
+Again,  there  are  no  failures,  but  now  there  are  only  fourteen  steps undefined.  These  are  the  Then  steps.  Copy  the  last  snippet  to  code-breaker_steps.rb, and modify it like this:
+
+Download cb/22/features/step_definitions/codebreaker_steps.rb
+
+Then /^the mark should be "([^"]*)"$/ do |mark|
+	output.messages.should include(mark)
+end
+
+Now run the scenarios again, and you should see this:
+
+Scenarios: no matches
+	| code | guess | mark |
+	| 1234 | 5555  |      |
+	expected ["Welcome to Codebreaker!", "Enter guess:"] to include ""
+	(Spec::Expectations::ExpectationNotMetError)
+
+Fantastic! Instead of an exception or a structural error, we’re getting a logical failure on the Then step. Even though this is happening in all fourteen scenarios, this is good news because we know that we have all the step definitions we need and everything is wired up correctly. Now it’s time to drill down to RSpec and drive out the solution with isolated code examples.
+

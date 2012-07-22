@@ -1,0 +1,11 @@
+22.4  What We’ve Learned
+
+Automating a browser with Selenium is a deep topic, with a lot of tiny details. Let’s take a second to review what we’ve just learned.
+
+•  Webrat  allows  you  to  migrate  from  simulated  scenarios  to  Selenium  when  it  becomes  appropriate  for  your  application.  There’s no need to worry that you’ll have to rewrite all your existing step definitions if and when that day comes.
+
+•  Running in a Selenium environment involves multiple Ruby pro- cesses, so we need to turn off the per-scenario transactions that helped  ensure  the  database  state  stayed  isolated.  Without  this convenience, we have to take steps to ensure our scenarios clean up after themselves.
+
+•  The  Webrat  API  works  with  Selenium,  but  we’re  not  limited  to it.  It’s  easy  to  drop  down  to  the  selenium-client  API  as  needed. For  maximum  flexibility,  selenium-client  allows  executing  arbitrary JavaScript inside the browser window.
+•  The  fully  integrated  nature  of  Selenium-backed  scenarios  is  a double-edged sword. With many moving parts, the chance of ob- scure bugs creeping in increases. Although there are no silver bullets to many of these issues, being aware of what you might run into will save you some trouble down the line.
+ 

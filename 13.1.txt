@@ -1,0 +1,20 @@
+13.1  should, should_not, and matchers
+
+RSpec achieves a high level of expressiveness and readability by exploiting open classes in Ruby to add the methods should( ) and should_not( ) to every object in the system. Each method accepts either a matcher  or a Ruby expression using a specific subset of Ruby operators. A matcher is an object that tries to match against an expected outcome.
+
+Let’s take a look at an example using the equal matcher, which you can access through the method equal(expected):
+
+result.should equal(5)
+
+When the Ruby interpreter encounters this line, it begins by evaluating equal(5). This is an RSpec method that returns a matcher object configured to match for equality with the value 5. The matcher then becomes the argument to result.should.
+
+Behind the scenes, the should( ) method calls matcher.matches?, passing self (the result object) as the argument. Because should( ) is added to every object, it can be any object. Similarly, the matcher can be any object that responds to matches?(object).
+
+If matches?(self) returns true, then the expectation is met and execution moves on to the next line in the example. If matches?(self) returns false, should( ) asks the matcher for a failure message and raises an ExpectationNotMetError with that message.
+
+should_not( ) works the opposite way. If matches?(self) returns false, then the expectation is met, and execution moves on to the next line in the example. If it returns true, then an ExpectationNotMetError is raised with a message returned by matcher.failure_message_for_should_not.
+
+Note  that  should( )  calls  matcher.failure_message_for_should,  while  should_not( )  uses  matcher.failure_message_for_should_not,  allowing  the  matcher to provide meaningful messages in either situation. Clear, meaningful feedback is one of RSpec’s primary goals.
+
+The should( ) and should_not( ) methods can also take any of several operators such as == and =~. You can read more about those in Section 13.6, Operator Expressions, on page 186. Right now, let’s take a closer look at RSpec’s built-in matchers.
+

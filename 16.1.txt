@@ -1,0 +1,24 @@
+16.1  Metadata
+
+Every example group and each example within has rich metadata associated with it. To see what this metadata looks like, type the following into a file named metadata.rb:
+
+describe "something" do
+	it "does something" do
+		p example.metadata
+	end 
+end
+
+Now run that file with the rspec command:
+
+rspec metadata.rb
+
+The output contains the contents of a hash with keys such as:example_group, :description,:location,:caller, and so on. RSpec uses this metadata internally  for  things  such  as  reporting  and  filtering.  Additionally,  we can  add  arbitrary  metadata  by  passing  a  Ruby  hash to the describe( ) and it( ) methods like this:
+
+describe "something", :a => "A" do
+	it "does something", :b => "B" do
+		puts example.metadata[:a]
+		puts example.metadata[:b]
+	end 
+end
+
+Run that with rspec, and you’ll see A and B printed in the output. OK, great! But now you must be wondering what we can actually do  with this ability. We’ll get to that soon, but first we need to introduce another concept: configuration.

@@ -1,0 +1,8 @@
+16.4  Extension Modules
+
+In  addition  to  the  filter  methods,  the  Configuration  object  exposes  two methods  we  can  use  to  extend  the  behavior  of  individual  example groups. Both of these accept options, which are matched against meta- data in each group in order to filter the groups to which the extension applies.
+
+include(*modules, options={})  Includes the submitted module or modules  in  selected  example  groups,  making  their  methods  available to the examples in each group.
+
+extend(*modules, options={})  Extends  selected  example  groups  with the submitted module or modules. This is the recommended way to make macros (see Section 16.8, Macros, on page 244) available to example groups.
+ 

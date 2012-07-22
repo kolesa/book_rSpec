@@ -1,0 +1,44 @@
+1.3  RSpec
+
+RSpec was created by Steven Baker in 2005. Steven had heard about BDD  from 
+ Aslak  Hellesoy,  who  had  been  working  on  a  project  with Dan North 
+when the idea first came to light. Steven was already inter - ested in the 
+idea when Dave Astels suggested that with languages like Smalltalk and 
+Ruby, we could more freely explore new TDD frameworks that could encourage 
+focus on behavior. And RSpec was born.
+
+Although the syntactic details have evolved since Steven’s original ver - 
+sion of RSpec, the basic premise remains. We use RSpec to write exe- 
+cutable  examples  of  the  expected  behavior  of  a  small  bit  of  code 
+ in  a controlled context. Here’s how that might look:
+
+describe MovieList do
+context "when first created" do it "is empty" do
+movie_list = MovieList.new movie_list.should be_empty
+end end
+end
+
+The it( ) method creates an example  of the behavior of a MovieList, with 
+the  context  being  that  the  MovieList  was  just  created.  The  
+expression movie_list.should be_empty is self-explanatory. Just read it out 
+loud. You’ll see  how  be_empty( )  interacts with  movie_list  in  Section 
+13.3,  Predicate Matchers, on page 180.
+
+Running this code in a shell with the rspec command yields the follow- ing 
+specification:
+
+MovieList when first created is empty
+Add some more contexts and examples, and the resulting output looks even 
+more like a specification for a MovieList object.
+
+MovieList when first created
+is empty
+
+MovieList with 1 item 
+   is not empty 
+   includes that item
+
+Of course, we’re talking about the specification of an object, not a sys- 
+tem. You could specify application behavior with RSpec. Many do. Ide- ally, 
+ however,  for  specifying  application  behavior,  we  want  something 
+that communicates in broader strokes. And for that, we use Cucumber.

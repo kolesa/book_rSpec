@@ -1,0 +1,145 @@
+
+Appendix B
+
+ RSpec’s  Built-in  Expectations  
+
+Here is a summary of all the expectations that are supported directly by RSpec.
+
+Equality
+
+
+Expression Passes                   If...
+
+
+actual.should equal(expected)     actual.equal?(expected) 
+actual.should eql(expected)       actual.eql?(expected) 
+actual.should == expected         actual == expected
+
+Expression                         Passes Unless... 
+actual.should_not equal(expected) actual.equal?(expected) 
+actual.should_not eql(expected)   actual.eql?(expected) 
+actual.should_not == expected     actual == expected
+
+
+Arbitrary Predicates
+
+
+Expression                              Passes If... 
+actual.should be_[predicate]       actual.predicate? 
+actual.should be_a_[predicate]     actual.predicate? 
+actual.should be_an_[predicate]    actual.predicate?
+
+Expression                                Passes If...
+actual.should be_[predicate](*args)    actual.predicate?(*args) 
+actual.should be_a_[predicate](*args)  actual.predicate?(*args) 
+actual.should be_an_[predicate](*args) actual.predicate?(*args)
+
+Arbitrary Predicates (continued)
+
+Expression Passes Unless... 
+actual.should_not be_[predicate]       actual.predicate? 
+actual.should_not be_a_[predicate]     actual.predicate? 
+actual.should_not be_an_[predicate]    actual.predicate?
+
+Expression Passes Unless... 
+actual.should_not be_[predicate](*args)    actual.predicate?(*args) 
+actual.should_not be_a_[predicate](*args)  actual.predicate?(*args) 
+actual.should_not be_an_[predicate](*args) actual.predicate?(*args)
+
+
+Regular Expressions
+
+
+Expression                              Passes If...
+actual.should match(expected)       actual.match?(expected)
+actual.should =~ expected           actual =~ expected
+
+
+Expression                              Passes Unless... 
+actual.should_not match(expected)   actual.match?(expected) 
+actual.should_not =~ expected       actual =~ expected
+
+
+Comparisons
+   
+Expression                              Passes If... 
+actual.should be < expected           actual < expected 
+actual.should be <= expected          actual <= expected 
+actual.should be >= expected          actual >= expected 
+actual.should be > expected           actual > expected
+
+
+Collections
+
+
+Expression                             Passes If...
+actual.should include(expected)       actual.include?(expected)
+actual.should have(n).items           actual.items.length == n or actual.items.size == n               
+actual.should have_exactly(n).items   actual.items.length == n or actual.items.size == n 
+actual.should have_at_least(n).items  actual.items.length >= n or actual.items.size >= n 
+actual.should have_at_most(n).items   actual.items.length <= n or actual.items.size <= n
+ 
+Collections (continued)
+
+Expression                                 Passes Unless...
+actual.should_not include(expected)       actual.include?(expected)             
+actual.should_not have(n).items           actual.items.length == n or actual.items.size == n             
+actual.should_not have_exactly(n).items   actual.items.length == n or actual.items.size == n
+
+Errors
+
+Expression                                  Passes If...
+proc.should raise_error                   proc raises any error 
+proc.should raise_error(type)             raises specified type of error
+proc.should raise_error(message)          raises error with specified message
+proc.should raise_error(type, message)    raises specified type of error with specified message
+
+
+Expression                                  Passes Unless... 
+proc.should_not raise_error                proc raises any error 
+proc.should_not raise_error(type)          raises specified type of error
+proc.should_not raise_error(message)       raises error with specified message
+proc.should_not raise_error(type, message) raises specified type of error with specified message
+
+Symbols
+
+Expression                                    Passes If...
+proc.should throw_symbol                    proc throws any symbol 
+proc.should throw_symbol(type)              proc throws specified symbol
+
+Expression  Passes Unless... 
+proc.should_not throw_symbol                proc throws any symbol 
+proc.should_not throw_symbol(type)          proc throws specified symbol
+
+
+Floating-Point Comparisons
+
+
+Expression  
+Passes                                          If...
+actual.should be_close(expected, delta)       actual > (expected - delta) and < (expected + delta)
+
+
+Expression                                     Passes Unless...
+actual.should_not be_close(expected, delta)   actual < (expected + delta) and > (expected - delta)
+
+Contracts
+
+Expression                                     Passes If...
+actual.should respond_to(*messages)           messages.each { |m| actual.respond_to?(m) }
+
+
+Expression                                     Passes Unless...
+actual.should_not respond_to(*messages)       messages.each { |m| actual.respond_to?(m) }
+
+
+When All Else Fails...
+
+
+Expression                                       Passes If...
+actual.should satisfy { |actual| block }       the block returns true
+
+
+Expression                                       Passes Unless...
+actual.should_not satisfy { |actual| block }   the block returns true
+ 

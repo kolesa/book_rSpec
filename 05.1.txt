@@ -1,0 +1,75 @@
+5.1  Getting Started with RSpec
+
+To get going, create a spec directory, with a subdirectory named codebreaker. Now create a file named game_spec.rb in spec/codebreaker/. As we progress, we’ll maintain a parallel structure like this in which each source file (for example, lib/codebreaker/game.rb) has a parallel spec file (for  example,  spec/codebreaker/game_spec.rb).  See  the  Joe Asks. . .  on the next page for more on this. Add the following to game_spec.rb:
+
+Download cb/08/spec/codebreaker/game_spec.rb
+
+Line 1  require 'spec_helper'
+	2
+	3  module Codebreaker
+	4  	  describe Game do
+	5 		 describe "#start" do
+	6 			it "sends a welcome message"
+	7 			it "prompts for the first guess"
+	8 		 end
+	9  	  end
+	10 end
+
+
+Joe Asks. . .
+
+ Shouldn’ t  We  Avoid  a  One-to-One  Mapping ?  
+  
+
+Perhaps  you’ve  heard  that  a  one-to-one  mapping  between objects and their specs is a BDD no-no. There is some truth to this, but the devil is in the details.
+
+We want to avoid a strict  adherence to a structure  in which every object has a single example group and every method has  a  single  code  example.  That  sort  of  structure  leads  to long examples that take an object through many phases, set- ting expectations at several stopping points in each example. Examples like these are difficult to write to begin with and much more difficult to understand and debug later.
+
+A  one-to-one  mapping  of  spec-file  to  application-code-file, however,  is  not  only  perfectly  fine  but  actually  beneficial.  It makes it easier to understand where to find the specs for code you  might  be  looking  at.  It  also  makes  it  easier  for  tools  to automate  shortcuts  like  the  one  in  the  RSpec  TextMate  bun- dle, which switches between spec-file and application-code- file with Ctrl+Shift+Down.
+
+The  first  two  statements  are  standard  Ruby.  We  require  a  file  named spec_helper.rb on line 1. We’ll actually store that file in the spec directory, which RSpec adds to the global $LOAD_PATH. More on that in a minute.
+
+The  second  statement  declares  a  Ruby  module  named  Codebreaker. This isn’t necessary in order to run the specs, but it provides some conveniences. For example, we don’t have to fully qualify Game on line 4.
+
+The describe( ) method hooks into RSpec’s API and returns a subclass of  RSpec::Core::ExampleGroup.  As  its  name  suggests,  this  is  a  group  of examples  of  the  expected  behavior  of  an  object.  If  you’re  accustomed to xUnit tools like Test::Unit, you can think  of an ExampleGroup as being akin to a TestCase.
+
+The it( ) method creates an example. Technically, it’s an instance of the ExampleGroup returned by describe( ), but you really don’t need to worry about  that  at  this  point.  We’ll  get  into  the  details  of  the  underlying framework in Chapter 12, Code Examples, on page 150.
+ 
+Connect the Specs to the Code
+
+Before we can run this, we need to add the spec_helper.rb  required on line 1. Create that now, and add the following:
+
+Download cb/08/spec/spec_helper.rb
+
+require 'codebreaker'
+
+Similar  to  what  we  did  with  Cucumber’s  env.rb  in  the  previous  chap- ter,  spec/codebreaker/game_spec.rb  requires  spec/spec_helper.rb,  which requires  lib/codebreaker.rb,  which,  in  turn,  requires  lib/codebreaker/ game.rb.
+
+Open a shell and cd to the codebreaker project root directory, and run the game_spec.rb file with the rspec command, (1)  like this:
+
+rspec spec/codebreaker/game_spec.rb --format doc
+
+You should see output similar to this:
+
+Codebreaker::Game
+	#start
+		sends a welcome message (PENDING: Not Yet Implemented)
+		prompts for the first guess (PENDING: Not Yet Implemented)
+
+Pending:
+	Codebreaker::Game#start sends a welcome message
+		# Not Yet Implemented
+		# ./spec/codebreaker/game_spec.rb:6
+	Codebreaker::Game#start prompts for the first guess
+		# Not Yet Implemented
+		# ./spec/codebreaker/game_spec.rb:7
+
+The --format doc option tells RSpec to format the output using the same nesting we see in the nested describe blocks in the file. We see Codebreaker::Game  on  the  first  line  because  we  wrapped  describe Game do inside the Codebreaker module.
+
+The second line shows the string we passed to describe( ), and the third and fourth lines show the strings we passed to it( ). 
+
+“PENDING:  Not  Yet  Implemented”  tells  us  that  we  have  to  implement those  examples,  which  we  do  by  passing  a  block  to  the  it( )  method. Without the block, the example is considered pending.
+
+1.  The rspec command is installed when you install the rspec gem.
+ 
+After RSpec outputs all  the strings  we  passed to describe( ) and it( ), it lists all the pending examples and their locations. This is followed by a summary that tells us how many examples were run, how many failed, and how many are pending.

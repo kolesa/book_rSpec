@@ -1,0 +1,15 @@
+8.5  What We’ve Learned
+
+In this chapter, we took a closer look at refactoring and how it impacts the resulting design. We were able to refactor with confidence because we  ran  the  specs  between  each  step,  so  we  always  knew  right  away when we introduced a problem.
+
+We looked at two structural refactorings in detail: Extract Method and Extract Class. We also talked about a few specific code smells: Temporary Variable, Long Method, and Large Class.
+
+Refactoring  is  not  a  direct  path;  some  of  the  steps  seem  to  take  us further in the wrong direction, even though they really help us to set up a step we are about to make. We can often make it easier to remove a code smell by clarifying it first.
+
+Each step in a refactoring draws our attention to different parts of the design. This process often reveals new code smells that had either gone unnoticed or hadn’t been there before.
+
+After  a  refactoring,  we  should  look  at  our  specs  and  make  sure  they still document responsibilities correctly. Documentation is a key value of executable code examples.
+
+Lastly, we discussed using exploratory testing as a means of discovering bugs and misconceptions, rather than trying to think of everything in a vacuum before we’ve written any code.
+
+In the next chapter, we’ll address a couple of fallacies in our marking that may have been discovered in exploratory testing. So, put down this book for a few minutes, and go explore! See you at the top of the next chapter.

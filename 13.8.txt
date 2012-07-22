@@ -1,0 +1,48 @@
+13.8  Subjectivity
+
+The subject  of an example is the object being described. In the happy RSpecUser example, the subject is an instance of RSpecUser, instantiated in the before block.
+
+RSpec  offers  an  alternative  to  setting  up  instance  variables  in  before blocks like this, in the form of the subject( ) method. You can use this method in a few different ways, ranging from explicit and consequently verbose to implicit access that can make things more concise. First let’s discuss explicit interaction with the subject.
+
+Explicit Subject
+
+In  an  example  group,  you  can  use  the  subject( )  method  to  define  an explicit subject by passing it a block, like this:
+
+describe Person do
+	subject { Person.new(:birthdate => 19.years.ago) }
+end
+
+Then you can interact with that subject like this:
+
+describe Person do
+	subject { Person.new(:birthdate => 19.years.ago) }
+	specify { subject.should be_eligible_to_vote }
+end
+
+Delegation to Subject
+
+Once a subject is declared, the example will delegate should( ) and should_not( ) to that subject, allowing you to clean that up even more:
+
+describe Person do
+	subject { Person.new(:birthdate => 19.years.ago) }
+	it { should be_eligible_to_vote }
+end
+
+Here the should( ) method has no explicit receiver, so it is received by the example itself. The example then calls subject( ) and delegates should( ) to it. Note that we used it( ) in this case, rather than specify( ). Read that aloud and compare it to the previous example, and you’ll see why.
+
+The previous example reads “Specify subject should be eligible to vote,” whereas this example reads “It should be eligible to vote.” Getting more concise, yes? It turns out that, in some cases, we can make things even more concise using an implicit subject.
+
+Implicit Subject
+
+In the happy RSpecUser example, we created the subject by calling new on  the  RSpecUser  class  without  any  arguments.  In  cases  like  this,  we can leave out the explicit subject declaration, and RSpec will create an implicit subject for us:
+
+describe RSpecUser do
+	it { should be_happy }
+end
+
+Now that  is concise! Can’t get much more concise than this. Here, the subject( ) method used internally by the example returns a new instance of RSpecUser.
+
+Of course, this works only when all the pieces fit. The describe( ) method has to receive a class that can be instantiated safely without any arguments  to  new( ),  and  the  resulting  instance  has  to  be  in  the  correct state.
+
+One word of caution: seeing things so concise like this breeds a desire to make everything else concise. Be careful to not  let the goal of keeping things  concise  get  in  the  way  of  expressing  what  you  really  want  to express. Delegating to an implicit subject takes a lot for granted, and it should be used only when all the pieces really fit, rather than coercing the pieces to fit.
+

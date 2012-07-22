@@ -1,0 +1,122 @@
+12.3  Hooks: Before, After, and Around
+
+If  we  were  developing  a  stack,  we’d  want  to  describe  how  a  stack behaves when it is empty, almost empty, almost full, and full. And we’d want  to  describe  how  the  push( ),  pop( ),  and  peek( )  methods  behave under each of those conditions.
+
+If we multiply the four states by the three methods, we’re going to be describing twelve different scenarios that we’ll want to group together by  either  state  or  method.  We’ll  talk  about  grouping  by  method  later this chapter. Right now, let’s talk about grouping things by initial state, using RSpec’s before( ) hook.
+
+
+before(:each)
+To group examples by initial state, or context , RSpec provides a before( ) method  that  can  run  either  one  time  before  :all  the  examples  in  an example  group  or  once  before  :each  of  the  examples.  In  general,  it’s better  to  use  before(:each)  because  that  re-creates  the  context  before each example and keeps state from leaking from example to example. Here’s how this might look for the stack examples:
+
+Download describeit/stack.rb
+
+describe Stack do
+	context "when empty" do
+		before(:each) do
+			@stack = Stack.new
+		end 
+	end
+ 
+
+
+	context "when almost empty (with one element)" do
+		before(:each) do
+			@stack = Stack.new
+			@stack.push 1
+		end 
+	end
+
+	context "when almost full (with one element less than capacity)" do
+		before(:each) do
+			@stack = Stack.new
+			(1..9).each { |n| @stack.push n }
+		end 
+	end
+
+	context "when full" do
+		before(:each) do
+			@stack = Stack.new
+			(1..10).each { |n| @stack.push n }
+		end 
+	end
+end
+
+As we add examples to each of these example groups, the code in the block  passed  to  before(:each)  will  be  executed  before  each  example  is executed,  putting  the  environment  in  the  same  known  starting  state before each example in that group.
+
+before(:all)
+
+In  addition  to before(:each), we  can  also  say  before(:all). This  gets  run once  and  only  once  in  its  own  instance  of  Object,1 but  its  instance variables get copied to each instance in which the examples are run. A word of caution in using this: in general, we want to have each example run in complete isolation from one another. As soon as we start sharing state across examples, unexpected things begin to happen.
+
+Consider a stack. The pop( ) method removes the top item from a stack, which means the second example that uses the same stack instance is starting off with a stack that has one less item than in the before(:all) block. When that example fails, this fact is going to make it more challenging to understand the failure.
+
+Even if it seems to you that sharing state won’t be a problem right now in any given example, this is sure to change over time. Problems created by sharing state across examples are notoriously difficult to find. If we have to be debugging at all, the last thing we want to be debugging is the examples.
+
+
+1.  In nested example groups in rspec-1.x, it gets run once per example group.
+ 
+So, what is before(:all) actually good for? One example might be opening a  network  connection  of  some  sort.  Generally,  this  is  something  we wouldn’t be doing in the isolated examples that RSpec is really aimed at. If we’re using RSpec to drive higher -level examples, however, then this might be a good case for using before(:all).
+
+after(:each)
+
+Following  the  execution  of  each  example,  before(:each)’s  counterpart after(:each) is executed. This is rarely necessary because each example runs in its own scope, and the instance variables consequently go out of scope after each example.
+
+There are cases, however, when after(:each) can be quite useful. If you’re dealing with a system that maintains some global state that you want to modify just for one example, a common idiom for this is to set aside the global state in an instance variable in before(:each) and then restore it in after(:each), like this:
+
+before(:each) do
+	@original_global_value = $some_global_value
+	$some_global_value = temporary_value
+end
+
+after(:each) do
+	$some_global_value = @original_global_value
+end
+
+after(:each)  is guaranteed to run after each example, even if there are failures  or  errors  in  any  before  blocks  or  examples,  so  this  is  a  safe approach to restoring global state.
+
+after(:all)
+We  can  also  define  some  code  to  be  executed  after(:all)  of  the  examples in an example group. This is even more rare than after(:each), but there are cases in which it is justified. Examples include closing down browsers,  closing  database  connections,  closing  sockets,  and  so  onbasically, any resources that we want to ensure get shut down but not after 
+every example.
+
+around(:each)
+
+RSpec provides an around( ) hook to support APIs that require a block. The most common use case for this is database transactions:
+
+around do |example| 
+	DB.transaction { example.run }
+end
+
+RSpec passes the current running example to the block, which is then responsible  for  calling  the  example’s  run( )  method.  You  can  also  pass the example to a method within the block as a block itself:
+
+around do |example| 
+	DB.transaction &example
+end
+
+One pitfall of this structure is that the block is responsible for handling errors and cleaning up after itself. In the previous example, we assume that the transaction( ) method does this, but that is not always the case. Consider the following:
+
+around do |example| 
+do_some_stuff_before 
+example.run 
+do_some_stuff_after
+end
+
+If  the  example  fails  or  raises  an  error,  do_some_stuff_after( )  will  not  be executed,  and  the  environment  may  not  be  correctly  torn  down.  We could get around that with a begin/ensure/end structure, like this:
+
+around do |example|
+	begin 
+		do_some_stuff_before 
+		example.run
+	ensure
+		do_some_stuff_after
+	end 
+end
+
+But  now  this  hook  has  a  lot  of  responsibility,  and  the  readability  is starting to wane. For cases like this, we recommend sticking to before and after hooks:
+
+before { do_some_stuff_before }
+after  { do_some_stuff_after }
+
+after hooks are guaranteed to run even if there is an error in an example or  a  before,  so  this  removes  the  burden  of  error  handling  we  have  in around hooks and is arguably more readable.
+
+So, we’ve now explored before  and after :each  and before  and after :all. These methods are very useful in helping to organize our examples by removing duplication—not just for the sake of removing duplication but with the express purpose of improving clarity and thereby making the examples easier to understand.
+
+But sometimes we want to share things across a wider scope. The next two sections will address that problem by introducing helper methods and shared examples.

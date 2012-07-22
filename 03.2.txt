@@ -1,0 +1,135 @@
+3.2  Planning the First Release
+
+As you’ll read about in Chapter 11, Writing Software That Matters, on page 138, one of the three principles of BDD is “Enough is enough.” We want to avoid the pitfalls of the Big Design Up Front,2  but we also want to  do  enough  planning  to  know  we’re  heading  in  the  right  direction. We’ll do some of that planning in this chapter, picking out user stories for our first iteration.
+
+For  the  first release,  we  simply  want  to be  able  to play  the game.  We should  be  able  to  type  a  command  in  a  shell  to  start  it  up,  submit guesses, and see the mark for each of our guesses until we crack the code. Now that may sound like an over -simplification, and it certainly leaves  open  more  questions  than  it  answers,  but  it  gives  us  a  target on which to set our sights, which serves as a basis from which we can start assembling a list of user stories that will get us there.
+
+2.  BDUF is designing an application in significant detail before writing the first line of code.
+
+
+
+Selecting Stories
+
+A  great  way  to  get  started  gathering  user  stories  is  to  do  a  high-level brain dump of the sorts of things we might like to do. Here are some titles to get started:
+
+•  Code-breaker starts game
+
+•  Code-breaker submits guess
+
+•  Code-breaker wins game
+
+•  Code-breaker loses game
+
+•  Code-breaker plays again
+
+•  Code-breaker requests hint
+
+•  Code-breaker saves score
+
+See how each of these is phrased as role + action? The role is the code breaker  role  each  time  because  this  game  has  only  one  kind  of  user.
+
+In other applications, we might have several different kinds of users, in which case we want to express stories in terms of a specific role (not just  a  generic  user ),  because  that  impacts  how  we  think  about  each requirement  and  why  we’re  implementing  code  to  satisfy  it.  See  the sidebar on the next page for more on this.
+
+These are also high level and don’t tell us much about how the system 
+should  respond  to  these  actions.  Let’s  take  these  titles  and  
+generate some user stories from them.
+
+A Token for a Conversation
+
+We’ll use the simple format described in Extreme Programming Installed [JAH02]. The idea is that there should be just enough information to serve  as  a  token  for  a  conversation  that  should  take  place  as  we  get closer to implementation.3
+
+
+3.  In Extreme Programming, index cards are the preferred medium for user stories. This keeps them lightweight and reinforces the idea that these are not formal documentation. There is an XP joke that if you can’t fit a requirement on an index card, you should get a smaller card.
+ 
+ Focus  on  the  Role 
+
+Mike  Cohn,  author  of  User  Stories  Applied  [Coh04],  talked about focusing on the role when writing user stories at the Agile 2006 Conference. The example he gave was that of an airline reservation system, pointing out that the regular business trav- eler booking a flight wants very different things from such a sys- tem than the occasional vacation traveler.
+
+Think about that for a minute. Imagine yourself in these two dif- ferent  roles  and  the  different  sorts  of  details  you  would  want from  such  a  system  based  on  your  goals.  For  starters,  the business  traveler  might  want  to  maintain  a  profile  of  regular itineraries,  while  the  vacationer  might  be  more  interested  in finding package deals that include hotel and car at a discount.
+
+Focusing  on  this  distinction  is  a  very  powerful  tool  in  getting down to the details of the features required of a system.
+
+Code-breaker starts game  The  code-breaker  opens  a  shell,  types  a command,  and  sees  a  welcome  message  and  a  prompt  to  enter the first guess.
+
+Code-breaker submits guess  The  code-breaker  enters  a  guess,  and the system replies by marking the guess according to the marking algorithm.
+
+Code-breaker wins game  The  code-breaker  enters  a  guess  that matches the secret code  exactly. The system responds  by mark- ing the guess with four + signs and a message congratulating the code-breaker  on  breaking  the  code  in  however  many  guesses  it took.
+
+We  can  already  see  some  of  the  challenges  ahead:  “according  to  the marking  algorithm”  is  going  to  require  some  conversation  with  the stakeholders. In fact, this is where we’ll spend the majority of our time both planning and developing, because the marking algorithm is where much of the complexity lies.
+
+Continuing with stories for the other titles:
+
+Code-breaker loses game  After some number of turns, the game tells the code-breaker that the game is over (need to decide how many turns and whether to reveal the code).
+ 
+
+
+Code-breaker plays again  After  the  game  is  won  or  lost,  the  system prompts the code-breaker to play again. If the code-breaker indi- cates yes, a new game begins. If the code-breaker indicates no, the system shuts down.
+
+Code-breaker requests hint  At  any  time  during  a  game,  the  codebreaker can request a hint, at which point the system reveals one of the numbers in the secret code.
+
+Code-breaker saves score  After  the  game  is  won  or  lost,  the  codebreaker  can  opt  to  save  information  about  the  game:  who  (ini- tials?), how many turns, and so on.
+
+Note the deliberate lack of detail and even some open questions. We’ll get  into  some  detail  as  we  choose  which  of  these  stories  we  want  to include in the release, and then we’ll get more detailed in each iteration within the release. But at each phase, we want to do just enough planning to keep on moving, and no more.
+
+Narrowing Things Down
+
+Now that we have some stories, (4)  let’s consider them in the context of the stated goal for the initial release: to simply be able to play the game. Looking at the original list of stories, there are only two that are absolutely necessary to meet that goal:
+
+•  Code-breaker starts game
+
+•  Code-breaker submits guess
+
+We definitely have to be able to start the game somehow so that one is a no-brainer. Once we’ve started the game, if we can submit a guess and get the mark, then we can submit more guesses. As soon as we get a perfect mark, the game is won, and we hit Ctrl+C to stop the game and start the game back up to play again. What do you think?
+
+Maybe it would be a bit more satisfying to play if the game told us when we won—a bit of positive feedback to motivate us to play again. That sounds like it’s pretty important, so let’s add the Code-breaker wins game story to our release plan.
+
+Of course, having to hit Ctrl+C and then restart the game to play again is a little cheesy, don’t you think? That just won’t do, so let’s also add the  Code-breaker  plays  again  story  as  well.  So,  now  our  release  plan includes these four stories:
+
+
+4.  If we were developing this for commercial distribution, we’d likely 
+have dozens more stories, even for such a simple game.
+ 
+•  Code-breaker starts game
+
+•  Code-breaker submits guess
+
+•  Code-breaker wins game
+
+•  Code-breaker plays again
+
+Hmmm. Seeing those together brings up the question of what will hap- pen if the code-breaker doesn’t win after some number of guesses. How else  will  we  know  when  to  prompt  the  code-breaker  to  play  again? Maybe we should add the Code-breaker loses game  story. What do you think?
+
+Wait, wait, wait! We’re heading down a slippery slope here. Pretty soon we’ll be including our entire backlog of stories in the first release! Let’s step  back  for  a  second.  What  is  the  release  goal?  To  be  able  to  play the game. Let’s examine that a bit. Why does playing the game matter? Why do we want to be able to play the game?
+
+Context Matters
+
+Perhaps  our  plan  is  to  sell  the  game  to  millions  of  people  and  retire young. More likely, it’s for a class project for school. OK, which class?
+If it’s a usability class, then hitting Ctrl+C just won’t fly. But if it’s an algorithms  class,  then  the  most  important  thing  is  that  the  marking algorithm works correctly.
+
+The point is that our goal is to write software that matters, and what matters  depends  entirely  on  context  and  is  the  purview  of  the  stake- holders!  In  our  case,  the  primary  stakeholder  is  you!  You’re  reading this  book  and  trying  to  learn  something  about  RSpec  and  Cucumber and the process of BDD. You’re also a programmer, so it’s quite likely that you are perfectly capable of hitting Ctrl+C.
+
+Given  this  context,  we’ll  go  with  Code-breaker  starts  game  and  Code- breaker submits guess.  Together,  those  two  stories  should  suffice  to  get us to the point where we can play the game—unless, of course, we’re missing something.
+
+The Hidden Story
+
+It turns out that there is one feature of the game that we haven’t discussed  yet!  We  won’t  really  see  the  evidence  of  it  until  we  submit  a guess and the game marks it. Can you guess what it is? Think about how the game will be able to mark the guess. It has to mark it against something, right?
+
+The secret code!
+
+The game will need to generate a secret code that is different every time in order for it to be truly enjoyable. Now is this a user story? This is one of those gray areas that challenges the boundaries of what a user story is. 
+Ask one experienced XPer, and you’ll hear that this is really part of the Code-breaker starts game story based on the idea that the secret code should be generated when the game starts up.
+
+The next person might argue that it’s really part of the Code-breaker submits guess story because that’s the first time the user gets any feedback from the system that depends on the guess.
+
+User Stories Are a Planning Tool
+
+We’re going to take a third stance and make it a separate story based on practicality. We’re going to have a lot to cover in these chapters, and we want to keep things small enough to accomplish in a reasonable time so we can check things off the list as we go. Does that sound selfish? Does that sound like we’re putting the developer’s needs ahead of those of the stakeholder?
+
+Absolutely not! We’re just planning! And user stories are, above all else, a planning tool. Although you can find many definitions of what a user story is and therefore must be in order to earn the title, here is a simple set  of  criteria  that  David  learned  from  Bob  Koss  at  Object  Mentor.  A user story must have the following characteristics:
+
+Have business value  Clearly, the game is no fun unless it generates a different secret code each time.
+
+Be testable  That’s  easy.  We  just  start  up  a  bunch  of  games  and  ask for the code. As you’ll see when we develop this part, this reveals some interesting questions about designing for testability.
+
+Be small enough to implement in one iteration  This  is  the  motiva- tion  for  separating  this  story.  It’s  a  guideline  that  allows  us  to balance implementation concerns with requirements.
+So, now we have our release plan with three stories. It’s time to start breaking it down into iterations.

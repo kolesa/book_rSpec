@@ -1,0 +1,7 @@
+Chapter 18
+
+  Cucumber  Detail  
+
+In  the  previous  chapter,  we  learned  about  Cucumber’s  Gherkin  language for expressing features and scenarios in plain text. In this chapter, we’ll take a look at the Ruby code we write to connect the plain-text scenarios to the code we’re writing.
+
+We’ll also take a look at some more advanced techniques we can use in the scenarios to manage complexity as our suite of scenarios grows. But before  we  can  get  into  that,  we’ll  begin  with  the  basic  bit  of  glue that we use to connect scenario steps to code: step definitions.

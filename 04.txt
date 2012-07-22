@@ -1,0 +1,75 @@
+Chapter 4
+
+Automating Features  with  Cucumber  
+
+
+In the previous chapter, we selected the stories for the first iteration and wrote them out as features and scenarios in plain text using Cucumber. Now it’s time to put those scenarios to work to guide us as we develop code.
+
+At this point, the feature files should be in the features/ directory, each with the .feature file extension. Cucumber recognizes this extension and treats these files as input. Here are the contents of the two files:
+
+Download cb/02/features/codebreaker_starts_game.feature
+
+Feature: code-breaker starts game
+
+	As a code-breaker
+	I want to start a game
+	So that I can break the code
+
+	Scenario: start game
+		Given I am not yet playing
+		When I start a new game
+		Then I should see "Welcome to Codebreaker!"
+		And I should see "Enter guess:"
+
+Download cb/02/features/codebreaker_submits_guess.feature
+
+Feature: code-breaker submits guess
+
+The code-breaker submits a guess of four numbers.  The game marks the guess with + and - signs.
+
+For each number in the guess that matches the number and position of a number in the secret code, the mark includes one + sign. For each number in the guess that matches the number but not the position of a number in the secret code, the mark includes one - sign.
+
+Scenario Outline: submit guess
+	Given the secret code is "<code>"
+	When I guess "<guess>"
+	Then the mark should be "<mark>"
+
+	Scenarios: no matches
+	| code | guess | mark |
+	| 1234 | 5555  |      |
+
+	Scenarios: 1 number correct
+		| code | guess | mark |
+		| 1234 | 1555  | +    |
+		| 1234 | 2555  | -    |
+
+	Scenarios: 2 numbers correct
+		| code | guess | mark |
+		| 1234 | 5254  | ++   |
+		| 1234 | 5154  | +-   |
+		| 1234 | 2545  | --   |
+
+	Scenarios: 3 numbers correct
+		| code | guess | mark |
+		| 1234 | 5234  | +++  |
+		| 1234 | 5134  | ++-  |
+		| 1234 | 5124  | +--  |
+		| 1234 | 5123  | ---  |
+
+	Scenarios: all numbers correct
+		| code | guess | mark |
+		| 1234 | 1234  | ++++ |
+		| 1234 | 1243  | ++-- |
+		| 1234 | 1423  | +--- |
+		| 1234 | 4321  | ---- |
+
+We should also have an env.rb  file in features/support  directory. The .rb extension tells Cucumber that we’re using Ruby.
+
+If  you  didn’t  try  to  run  the  features  in  the  previous  chapter,  try  it now. Open a shell to the codebreaker directory, and type cucumber. You should see output that looks just like the text in the .feature files, plus some additional information that we’ll talk about as we progress.
+ 
+ Downloada ble  Files 
+ 
+
+The Codebreaker source files you download from http://pragprog.com/titles/achbd/source_code  are stored in a series of numbered  directories  like  code/cb/01.  Each  numbered  direc- tory represents a snapshot of the development process, which allows you to watch the evolution of the project, rather than just see its ultimate output.
+
+The  numbered  directories  each  stand  in  for  the  project  root. For example, code/cb/01/features and code/cb/02/features each represent  the  same  features  directory  in  the  root  codebreaker directory on your system.

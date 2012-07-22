@@ -1,0 +1,16 @@
+16.10  What We’ve Learned
+
+In  this  chapter,  we  explored  the  utilities  and  extension  points  that RSpec provides to support extending RSpec to meet your specific needs. These include the following:
+
+•  Metadata associated with every group and example is used inter - nally by RSpec for reporting. It can also be extended with arbitrary key/value pairs passed to the describe( ) and it( ) methods. This can then be used to filter examples to run.
+
+•  Global configuration lets us assign before and after blocks to every example  group.  We  can  also  use  it  to  add  methods  to  example groups by extending them with custom modules, and we can add methods to individual examples by including custom modules.
+
+•  We  can  use  custom  matchers  to  build  up  a  DSL  for  expressing code examples.
+
+•  Macros also support DSLs but with a different flavor than the custom  matchers.  Because  they  generate  code  themselves,  we  can also use them to express groups of expectations in a single com- mand.
+
+•  Custom formatters let us control the output that RSpec provides so  we  can  produce  different  spec  reports  for  different  purposes and audiences.
+
+In  practice,  we  find  that  the  global  configuration,  custom  matchers defined with the Matcher DSL, and macros tend to be the most common ways that we extend RSpec. There are already numerous matcher and macro libraries for RSpec that are targeted at Rails development. Custom formatters tend to be the domain of IDEs that support RSpec, such as NetBeans and RubyMine.
+ 

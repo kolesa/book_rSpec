@@ -1,0 +1,22 @@
+19.3  Setting Up a Rails 2 Project
+
+To set up a Rails 2 project, we need to first install all of the gems we need:
+
+$ [sudo] gem install rails --version 2.3.10
+$ [sudo] gem install rspec-rails --version 1.3.3
+$ [sudo] gem install cucumber-rails --version 0.3.2
+$ [sudo] gem install database_cleaner --version 0.5.0
+$ [sudo] gem install webrat --version 0.7.1
+$ [sudo] gem install selenium-client --version 1.2.18
+$ [sudo] gem install sqlite3-ruby --version 1.3.1
+
+Now run the following commands:
+
+$ rails showtime
+$ cd showtime
+$ script/generate rspec
+$ script/generate cucumber --webrat --rspec
+$ rake db:migrate
+$ rake db:test:prepare
+
+At this point, you can run the rake spec and rake cucumber commands, and you should see output similar to that which we saw previously in the Rails 3 app.

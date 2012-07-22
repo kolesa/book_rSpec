@@ -1,0 +1,57 @@
+17.4  Gherkin
+
+Cucumber  is  an  interpreter.  Just  like  the  ruby  executable  
+interprets Ruby code  in .rb files, the Cucumber executable interprets Gherkin code in .feature files.
+
+ Internationalization  
+ 
+
+The Gherkin keywords are translated into thirty-five different languages. This means you can write features in your own native language. All you need to do is to have a header in your .feature file with the language you’re using. For example, if you want to use Portuguese, the first two lines might look like this:
+
+# language: pt
+Ele e portugues
+
+Or in English:
+
+# language: en
+Feature: Addition
+
+If you don’t provide a language header, Cucumber will default to English.
+
+To see what languages are available, just run this:
+
+cucumber --i18n help
+
+To  see  the  translations  for  a  particular  language,  specify  the language code. Here’s an example:
+
+cucumber --i18n fr
+
+
+The  Gherkin  grammar  consists  of  a  few  keywords  that  you  must  use when you write a feature file:
+
+•  Feature
+•  Background
+•  Scenario
+•  Scenario outline
+•  Scenarios (or examples)
+•  Given
+•  When
+•  Then
+•  And (or but)
+•  | (which is used to define tables)
+•  """ (which is used to define multiline strings)
+•  # (which is used for comments)
+
+You can write whatever you want after a keyword. The keywords Given, When, Then, And, and But indicate steps in a scenario, which we use to build up a domain-specific language for a project.
+
+Every  feature  file  must  start  with  the  Feature  keyword,  followed  by  a colon and a description. The description can be on several lines, and the most common pattern is to have a short name followed by a brief narrative on the next few lines, like this:
+
+# language: en
+Feature: Compute distance
+	In order to calculate fuel consumption
+	As a driver
+	I want to see the total distance of a trip
+
+It is important to point out that Cucumber does not care what you write here. It will simply ignore everything from the top of the file until it sees one of the keywords Background, Scenario, or Scenario Outline. The only reason we write this text is for communication purposes.
+
+Now that we have seen how to start a feature, let’s dive into the interesting  parts.  We’ll  start  with  scenarios  and  cover  the  other  keywords later.

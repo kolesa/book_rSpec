@@ -1,0 +1,82 @@
+19.1  Outside-In Rails Development
+
+Outside-in  Rails  development  means  starting  with  views  and  working our  way  in  toward  the  models.  This  approach  lets  customer-defined acceptance criteria drive development and puts us in a position to discover objects and interfaces earlier on in the process and make design decisions based on real need.
+
+The BDD cycle with Rails is the same outside-in process we use with any other framework (or no framework), web, desktop, command line, or  even  an  API.  The  cycle  (depicted  in  Figure  19.1,  on  the  following page)  is  the  same  cycle  depicted  in  Figure  1.1,  on  page  29;  however, we’ve added some detail to help map it to Rails.
+
+1.  Start with a scenario. Make sure you have a clear understanding of the scenario and the expected outcomes, including how the UI should support a user interacting with the app.
+
+2.  Run  the  scenario  with  Cucumber.  This  reveals  which  steps  are undefined, or pending. Most, if not all, of the steps will be pending at first.
+
+3.  Write  a  step  definition  for  the  first  step.  Run  the  scenario  with Cucumber, and watch it fail.
+
+4.  Drive  out  the  view  implementation  using  the  red/green/refactor cycle with RSpec. You’ll discover assigned instance variables, controllers, controller actions, and models that the view will need in order  to do its job.
+
+5.  Drive  out  the  controller  with  RSpec,  ensuring  that  the  instance variables are properly assigned. With the controller in place, you’ll know what models it needs to do its job.
+
+6.  Drive out those objects with RSpec, ensuring that they provide the methods needed by the view and the controller. This typically leads to generating the required migrations for fields in the database.
+ 
+
+1
+red  2
+
+3
+red
+
+refactor
+
+refactor
+5
+
+
+7
+RSpec
+
+green
+
+4
+
+
+
+green 6
+Cucumber
+
+
+
+(start with Cucumber)
+
+1 Focus on one scenario
+
+2 Write failing step definition
+(drop down to RSpec)
+
+Repeat #1 –#7
+when scenario is passing
+
+
+3 Write failing view spec Repeat #3 –#5 for 
+discovered controllers,
+4 Implement view
+
+5 Refactor view
+controller actions,
+models, etc., until step is passing
+
+
+Repeat #2 –#7 until scenario is passing
+(when step is passing)
+
+6
+
+
+7 Refactor
+
+Figure 19.1: The BDD cycle in Rails
+ 
+7.  Once you have implemented all of the objects and methods that you  have  discovered  are  needed,  execute  the  scenario  with  Cucumber again to make sure the step is satisfied.
+
+Once the step is passing, move on to the next unimplemented step, and continue working outside in. When a scenario is done, move on to the next scenario or, better yet, ask the nearest customer to validate that it’s working as expected and then move on to the next scenario.
+
+This is outside-in Rails development—implementing a scenario from its outermost-point down and building what we discover is needed to make it work.
+
+Now that you have a high-level view of the outside-in process in Rails, let’s get started by setting up a Rails project with the necessary tools. This will let us explore ground zero in the following chapters.

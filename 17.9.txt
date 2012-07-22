@@ -1,0 +1,35 @@
+17.9  Declarative and Imperative Scenario Styles
+
+Although there are many different approaches to writing steps and scenarios,  we  can  talk  about  two  general  approaches  that  offer  different costs and benefits: declarative and imperative.
+
+To illustrate the difference between these two styles, consider the following two scenarios:
+
+Scenario: transfer money (declarative) 
+	Given I have $100 in checking
+	And I have $20 in savings
+	When I transfer $15 from checking to savings
+	Then I should have $85 in checking
+	And I should have $35 in savings
+
+Scenario: transfer money (imperative) 
+	Given I have $100 in checking
+	And I have $20 in savings
+	When I go to the transfer form
+	And I select "Checking" from "Source Account" 
+	And I select "Savings" from "Target Account" 
+	And I fill in "Amount" with "15"
+	And I press "Execute Transfer"
+	Then I should see that I have $85 in checking
+	And I should see that I have $35 in savings
+
+These two scenarios tell the same story but at different levels of abstraction. The imperative scenario has five When steps that go step-by-step through filling in and submitting a form, whereas the declarative scenario wraps all that activity up into a single step. These two approaches impact different parts of the process in different ways.
+
+Imperative  steps  are  more  composable,  which  means  we  can  generally support more scenarios with fewer step definitions. This means we spend  more  time  in  the  early  iterations  building  generic  step  defini- tions, and more of the long-term maintenance burden is borne by the plain-text features.
+
+Conversely, declarative steps tend to be more customized to each scenario,  which  means  that  the  work  of  writing  step  definitions  spreads out  more  throughout  the  development  of  an  app.  It  also  means  that more  of  the  maintenance  burden  is  borne  by  the  step  definitions,  in Ruby.
+
+If  you’re  on  a  larger  team  with  dedicated  business  analysts  who  can manage  the plain-text scenarios,  then the  imperative style puts  more power in their hands and makes it easy for them to compose new scenarios with little developer involvement. If you’re on a smaller team in which the developers are responsible for business analysis and testing tasks  as  well  as  development  tasks,  then  the  declarative  style  might make more sense.
+
+We  also  need  to  consider  the  communication  value  of  the  scenarios and  the  needs  of  the  customer  team.  Imperative  scenarios  are  more verbose, which makes some customers very happy, while it makes the eyes  of  others  glaze  over  because  there  is  so  much  more  to  read.  We want to specify business value, but those words  mean different things to different people and in different contexts.
+
+Many  people  report  that  the  right  answer  is  a  balance  of  imperative and  declarative  scenarios  in  the  same  project.  In  our  money  transfer example, we could have a single scenario with the imperative approach and then a series of declarative scenarios to cover common alternative paths.

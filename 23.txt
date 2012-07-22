@@ -1,0 +1,7 @@
+Chapter 23
+
+ Rails  Views  
+
+The user interface is subject to more change than just about any other part of an application. These changes are driven by usability concerns, design aesthetics, and evolving requirements. Clearly, this makes producing simple, flexible views desirable and beneficial, but there is more.
+
+We  use  views  to  display  data  provided  by  models  that  are,  in  turn, provided by controllers. As such, these views are clients of controllers and  models.  By  focusing  on  views  first,  writing  the  code  we  wish  we had, we are able to keep the views simple and lean on them to tell us what they need from the rest of the stack. This leads to controllers and models  with  targeted  APIs  that  are  well  aligned  with  the  application behavior.

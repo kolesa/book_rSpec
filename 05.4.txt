@@ -1,0 +1,120 @@
+5.4  Refactor
+
+In  the  preface  to  his  seminal  book  on  Refactoring  [FBB+ 99],  Martin Fowler writes, “Refactoring is the process of changing a software system in such a way that it does not alter the external behavior of the code yet improves its internal structure.”
+
+How do we know that we’re not changing behavior? We run the exam- ples between every change. If they pass, we’ve refactored successfully.If any fail, we know that the very last change we made caused a problem,  and  we  either  quickly  recognize  and  address the  problem or  roll back that step to get back to green and try again.
+
+Fowler  talks  about  changing  the  designs  of  systems,  but  on  a  more granular  scale,  we  want  to  refactor  to,  for  example, eliminate  dup- lication  in  the  implementation  and  examples.  Looking back  at  game_ spec.rb, we can see that the first two lines of each example are identical. Perhaps you noticed this earlier, but we prefer to refactor in the green rather than in the red. Also, the intent of the examples is expressed in the last two lines of each.
+ 
+before(:each)
+In this case, we have a very clear break between what is context and what  is  behavior,  so  let’s  take  advantage  of  that  and  move  the  context  to  a  block  that  is  executed  before  each  of  the  examples. Modify game_spec.rb as follows:
+
+Download cb/14/spec/codebreaker/game_spec.rb
+
+require 'spec_helper'
+
+module Codebreaker 
+	describe Game do
+		describe "#start" do
+			before(:each) do
+				@output = double('output').as_null_object
+				@game = Game.new(@output)
+			end
+
+			it "sends a welcome message" do
+				@output.should_receive(:puts).with('Welcome to Codebreaker!')
+				@game.start
+			end
+
+			it "prompts for the first guess" do
+				@output.should_receive(:puts).with('Enter guess:')
+				@game.start
+			end 
+		end
+	end 
+end
+
+Just  as  you  might  expect  from  reading  this,  the  block  passed  to before(:each)  will  be  run  before  each  example.  The  before  block  and the example are executed in the same object, so they have access to the same instance variables.
+
+Adding all of those @ symbols can be tedious and error prone, so RSpec offers an alternative approach.
+
+let(:method) {}
+
+When the code in a before block is only creating instance variables and assigning them values, which is most of the time, we can use RSpec’s let( ) method instead. let( ) takes a symbol representing a method name and a block, which represents the implementation of that method.
+
+Here’s the same example, using let( ):
+
+Download cb/15/spec/codebreaker/game_spec.rb
+
+require 'spec_helper'
+
+module Codebreaker 
+	describe Game do
+		describe "#start" do
+			let(:output) { double('output').as_null_object }
+			let(:game) { Game.new(output) }
+
+			it "sends a welcome message" do
+				output.should_receive(:puts).with('Welcome to Codebreaker!') 
+				game.start
+			end
+
+			it "prompts for the first guess" do 
+				output.should_receive(:puts).with('Enter guess:') 
+				game.start
+			end 
+		end
+	end 
+end
+
+The first call to let( ) defines a memoized output( ) method that returns a  double  object.  Memoized  means  that  the  first  time  the  method  is invoked,  the  return  value  is  cached  and  that  same  value  is returned every subsequent time the method is invoked within the same scope. That fact doesn’t affect our current example, but it will come in handy a bit later.
+
+Now run the feature again:
+
+Feature: code-breaker starts game
+
+	As a code-breaker
+	I want to start a game
+	So that I can break the code
+
+	Scenario: start game
+		Given I am not yet playing
+		When I start a new game
+		Then I should see "Welcome to Codebreaker!"
+		And I should see "Enter guess:"
+
+1 scenario (1 passed)
+4 steps (4 passed)
+0m0.003s
+ 
+And voila! We now have our first passing code examples and our first passing feature. There were a lot of steps to get there, but in practice this  all  really  takes  just  a  few  minutes,  even  with  all  the  wiring  and require statements.
+
+We’ve also set up quite a bit of infrastructure. You’ll see, as we move along,  that  there  is  less  and  less  new  material  needed  to  add  more features, code examples, and application code. It just builds gradually on what we’ve already developed.
+
+Now that we have a passing feature, it would be nice to see it in action. For  that,  we’ll  need  to  create  and  execute  a  simple  script.  Create  a bin  in  the  project  root  directory  (sibling  to  lib  and  spec),  and  add  a bin/codebreaker  file. If you’re on a *nix system, enter this code in that file:
+
+Download cb/15/bin/codebreaker
+
+#!/usr/bin/env ruby
+$LOAD_PATH.unshift File.expand_path('../../lib',  FILE )
+require 'codebreaker'
+
+game = Codebreaker::Game.new(STDOUT)
+game.start
+
+Windows users use the same script without the first line and also add bin/codebreaker.bat with the following:
+
+Download cb/15/bin/codebreaker.bat
+
+@"ruby.exe" "%~dpn0" %*
+
+If you’re on *nix, now run chmod +x bin/codebreaker so we can execute it, and then run this:
+
+$ bin/codebreaker 
+Welcome to Codebreaker! 
+Enter guess:
+
+Now  look  at  that!  Who  knew  that  this  little  bit  of  code  was  actually going  to  start  to  make  something  work?  Of  course,  our  Codebreaker game  just  says  hello  and  then  climbs  back  in  its  cave,  so  we  have  a ways to go before you’ll want to show this off to all your friends.
+
+In the next chapter, we’ll start to get down to the real fun, submitting guesses and having the game score them. But before we move on, let’s review what we’ve done thus far.
+ 

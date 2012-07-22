@@ -1,0 +1,22 @@
+
+Part IV
+
+Cucumber
+
+Chapter 17
+
+ Intro  to  Cucumber  
+
+A  common  understanding  of  done  is  crucial  to  the  success  of  any project.  How  do  we  know  when  we’re  done  if  we  can’t  agree  on  what done  means? Such agreement is pretty easy to find in many kinds of projects. A cake is done when it reaches the right consistency. A building is done when the city inspector says it meets code. If we apply the right tests and they pass, we’ll know when we’re done. But with software, there’s a catch.
+
+We use software because we long ago recognized that requirements for computer programs evolve and that changing programs with a soldering iron to meet changing requirements is not very pragmatic.
+
+The  notion  of  evolving  requirements  is  central  to  the  very  existence  of software.
+
+That brings up a very interesting question: if software requirements are evolving, how can we know what the right tests are? How can we know when we’re done?
+
+Enter Cucumber.
+
+Cucumber supports collaboration and communication between stake- holders and the delivery team. It uses a simple language for describing scenarios  that  can  be  written  and  read  with  ease  by  both  technical and  nontechnical  people.  These  scenarios  represent  customer  acceptance tests and are used to automate the system we’re developing.
+
+Thanks to the simple format, Cucumber scenarios are very easy to modify  as  we  learn  more  about  the  needs  of  the  software  throughout  the development cycle. And thanks to Cucumber’s tagging feature, which you’ll  read  about  later  in  Section  17.11,  Tags,  on  page  265,  we  can easily  build  workflows  around  scenarios,  identifying  them  as  works in  progress,  regression  tests,  or  both  (scenarios  that  we’re revisiting because of changes in requirements).

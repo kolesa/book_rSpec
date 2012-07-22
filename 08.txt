@@ -1,0 +1,7 @@
+Chapter 8
+  
+  Refactoring  with  Confdence  
+
+In his book Refactoring [FBB+ 99], Martin Fowler describes refactoring as “a change made to the internal structure of software to make it easier to understand and cheaper to modify without changing its observable behavior.”
+
+In this chapter, we’re going to examine the guess method that we left in the previous chapter and look for ways we can improve it with the goal of making it easier to understand and cheaper to modify. To do that, we need to recognize problems when we see them. And for that, one must have a nose for smelly code!

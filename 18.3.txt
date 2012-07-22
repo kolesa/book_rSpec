@@ -1,0 +1,56 @@
+18.3  Calling Steps Within Step Definitions
+
+We  often  find  ourselves  repeating  a  series  of  steps  across  scenarios. One  approach  to  reducing  this  duplication  is  to  define  a  higher -level step that encapsulates several steps.
+
+Consider the following scenario steps for transferring money from one account to another:
+
+When I select checking as the source account 
+And I select savings as the target account 
+And I set $20.00 as the amount
+And I click transfer
+
+That’s fine if it appears in one scenario, but if it appears in several, we might want to condense these four steps into one, like this:
+
+When I transfer $20.00 from checking to savings
+
+Cucumber  makes  it  easy  for  us  to  do  this,  by  allowing  us  to  invoke steps from within step definitions. Assuming that we already have the four-step  definitions  for  the  four-step  version  earlier,  we  can  write  a step definition for the one-step version like this:
+
+When /I transfer (.*) from (.*) to (.*)/ do |amount, source, target| 
+	When "I select #{source} as the source account"
+	When "I select #{target} as the target account"
+	When "I set #{amount} as the amount"
+	When "I click transfer"
+end
+
+This can also be expressed like this, using some additional sugar provided by Cucumber:
+
+When /I transfer (.*) from (.*) to (.*)/ do |amount, source, target|
+	steps %Q{
+		When I select #{source} as the source account And I select #{target} as the target account 
+		And I set #{amount} as the amount
+		And I click transfer
+	}
+end
+ 
+Joe Asks. . .
+
+ When  Should  I  Quote  Ar g um ents ? 
+
+There are two common styles for steps that take arguments. First is the implicit style, where you can’t see where the argument is:
+
+When I select checking as the source account
+
+The second is explicit:
+
+When I select "checking" as the source account
+
+There are a couple of benefits to using the explicit style. First, the double quotes give us a hint that this might be an argument, which might make it easier to reuse a step definition. The second benefit is that Cucumber will be extra helpful when gen- erating snippets for undefined steps that use quotes and sug- gest the capture groups for you. This doesn’t mean you should always use the explicit style; it also adds “noise.” Discuss the pros and cons with your team.
+
+Both approaches have the same result, so pick the one that you find easiest to read, write, and maintain.
+
+Calling steps from step definitions can help keep things DRY, but they add additional layers of indirection. If we’re calling steps that call steps that call steps, it can become difficult to understand failures.
+
+This technique also results in different levels of abstraction across step definitions: some with simple Ruby statements, and some with calls to other steps, which we typically do from within the feature files.
+
+We recommend that you experiment with the different approaches and decide for yourself which work better based on the balance of readabil- ity and maintainability.
+

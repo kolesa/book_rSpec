@@ -1,0 +1,22 @@
+24.4  What We’ve Learned
+
+In this chapter, we learned the following:
+
+•  Controllers  coordinate  the  interaction  between  the  user  and  the application and should know what to do but not how to do it.
+•  Specifying the desired interaction helps us to discover objects with well-named methods to encapsulate the real work.
+•  Controller  specs  use  a  custom  example  group  provided  by  the rspec-rails library.
+
+•  Controller specs live in a directory tree parallel to the controllers themselves  and  follow  a  naming  convention  of  spec/controllers/my_controller_spec.rb for app/controllers/my_controller.rb.
+
+•  Use the redirect_to( ) matcher to confirm redirects.
+
+•  Use  the  render_template( )  matcher  to  confirm  the  template  being rendered.
+
+•  Use the assigns( ) method to confirm the instance variables assigned for the view.
+
+•  Use the flash( ) method to confirm the flash messages stored for the view.
+
+•  Use mock_model( ) and stub_model( ) to isolate controller specs from the database and underlying business logic of your models.
+
+Until this point we’ve been specifying the behavior of the Rails parts of our  applications  and  using  that  process  to  discover  the  needs  of  our model. Well, here’s where the rubber hits the road. In the next and final chapter of our exploration of RSpec and Rails, we’ll take a close look at specifying the behavior of Rails’ models.
+ 

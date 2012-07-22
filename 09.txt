@@ -1,0 +1,9 @@
+Chapter 9
+
+ Feeding  Back  What  We’ve  Lear ned  
+
+At the end of the previous chapter, we asked you to do some exploratory testing.  How  did  it  go?  Did  you  discover  anything  odd?  Did  you  find any  bugs?  Any  requirements  that  we  may  have  missed  in  our  initial planning?
+
+One  issue  you  may  have  encountered  is  the  way  in  which  the  Marker handles duplicate matches. If the secret code is 1234  and the guess is 1155, we get a mark of +-. We didn’t really discuss what should happen in  a  case  like  this  earlier,  but  now  that  we  see  it,  it  does make  us question what the correct mark should be.
+
+In this chapter, we’ll examine this question and document the results in Cucumber scenarios. Then we’ll write code examples and evolve the Marker  to  handle  these  new  requirements.  In  the  process,  we’ll  do  a bit  more  refactoring,  which  we’ll  discover  is  made  far  simpler  by  the refactoring we’ve already done.

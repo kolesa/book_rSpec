@@ -1,0 +1,61 @@
+14.5  More on Method Stubs
+
+The examples we saw before only touch the surface of the API for test doubles.  In  this  section  and  the  next,  we’ll  take  a  deeper  look  at  the utilities supported by RSpec::Mocks.
+
+One-Line Shortcut
+
+Most of the time that we use method stubs, we simply return a stubbed value. For these cases, RSpec offers a simple shortcut:
+
+customer = double('customer', :name => 'Bryan')
+
+The double( ), mock( ), and stub( ) methods each accept a hash after the optional name. Each key/value pair in the hash is converted to a stub using the key as the method name and the value as the return value. The previous example is a shortcut for this:
+
+customer = double('customer')
+customer.stub(:name).and_return('Bryan')
+
+The hash can be of any length, so if we have more than one method we want to stub, we just add key/value pairs for each method:
+
+customer = double('customer',
+:name => 'Bryan',
+:open_source_projects => ['Webrat','Rack::Test']
+)
+
+Implementation Injection
+
+From time to time we might stub a method that ends up getting called more than once in an example and we want to supply different return values  for  it  based  on  the  arguments.  One  way  to  handle  this  is  to supply a block to the stub( ) method, like this:
+
+ages = double('ages')
+ages.stub(:age_for) do |what|
+	if what == 'drinking'
+		21
+	elsif what == 'voting'
+		18
+	end 
+end
+
+This is essentially what Meszaros calls the Fake pattern, in which a real method is replaced by a lightweight implementation. We’re just injecting the implementation with a block, rather than defining a method directly on the object.
+
+This is especially useful in cases in which we want to define the stub in a before( ) block and use it in several examples. The downside of this is that we separate the data and calculation from the example, so we recommend using that approach only for cases in which the returned value (21, 18, or nil in this case) is not part of what’s being specified in the examples.
+
+Stub Chain
+
+Let’s say we’re building an educational website with Ruby on Rails, and we need a database query that finds all the published articles written in the last week by a particular author. Using a custom DSL built on ActiveRecord named scopes, we can express that query like so:
+
+Article.recent.published.authored_by(params[:author_id])
+
+Now let’s say that we want to stub the return value of authored_by( ) for an example. Using standard stubbing, we might come up with some- thing like this:
+
+recent      = double() 
+published   = double() 
+authored_by = double() 
+article     = double()
+Article.stub(:recent).and_return(recent)
+recent.stub(:published).and_return(published)
+published.stub(:authored_by).and_return(article)
+
+That’s a lot  of stubs! Instead of revealing intent, it does a great job of hiding  it.  It’s  complex,  it’s  confusing,  and  if  we  should  ever  decide  to change  any  part  of  the  chain,  we’re  in  for  some  pain  changing  this. For these reasons, many people simply avoid writing stubs when they’d otherwise want to. Those people don’t know about RSpec’s stub_chain( ) method, which allows us to write this:
+
+article = double()
+Article.stub_chain(:recent, :published, :authored_by).and_return(article)
+
+Much nicer! Now this is still quite coupled to the implementation, but it’s also quite a bit easier to see what’s going on and map this to any changes we might make in the implementation.

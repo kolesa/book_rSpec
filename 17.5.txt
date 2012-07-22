@@ -1,0 +1,31 @@
+17.5  Scenarios
+
+Scenarios are concrete examples of how we want the software to behave. They are more explicit than some traditional ways to describe requirements  and  help  us  raise  and  answer  questions  that  we  might  miss otherwise. Consider this requirement: it shouldn’t be possible to book a room if the hotel is full.
+
+This leaves a lot of open questions. If the hotel is full, is it still possible to try to book and get an error if we try? Is the booking option disabled? Or is it hidden? What do we display?
+
+Scenarios  allow  us  to  answer  these  questions  by  describing  exactly what should happen under what circumstances. The first part of a scenario  is  the  Scenario  keyword,  followed  by  a  colon  and  then  a  name that describes the scenario in one sentence. Here is the beginning of a feature, with a title, a narrative, and the introductory line of a scenario:
+
+Feature: Traveler books room
+	In order to reduce staff
+	As a hotel owner
+	I want travelers to book rooms on the web
+
+Scenario: Successful booking
+
+Each scenario is made up of steps that appear below the Scenario keyword  and  are  typically  indented  two  spaces.  We’ll  talk  about  steps  in the next section.
+
+When you start writing a new feature, it’s generally easiest to start with a  scenario  that  describes  the  most  common  “happy  path.”  Once  you are done with that, you can add more scenarios that describe different edge cases:
+
+Feature: Traveler books room
+	In order to reduce staff
+	As a hotel owner
+	I want travelers to book rooms on the web
+
+	Scenario: Successful booking
+
+	Scenario: Hotel is full
+
+	Scenario: Visitor forgets to enter email
+
+Let’s  take  a  closer  look  at  the  first  scenario,  Successful booking.  What does  a  successful  booking  look  like?  We  have  to  fill  in  some  steps  to make this a concrete example.

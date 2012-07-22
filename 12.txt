@@ -1,0 +1,40 @@
+ 
+Part III
+
+RSpec
+
+Chapter 12
+
+  Code  Examples  
+
+In  this  part  of  the  book,  we’ll  explore  the  details  of  RSpec’s  built-in expectations, mock objects framework, command-line tools, IDE integration, and extension points.
+
+Our goal is to make Test-Driven Development a more joyful and productive  experience  with  tools  that  elevate  the  design  and  documentation aspects  of  TDD  to  first-class  citizenship.  Here  are  some  words  you’ll need to know as we reach for that goal:
+
+subject code  The code whose behavior we are specifying with RSpec.
+
+expectation  An  expression  of  how  the  subject  code  is  expected  to behave. You’ll read about state-based expectations in Chapter 13, RSpec::Expectations, on page 170, and you’ll learn about interaction expectations in Chapter 14, RSpec::Mocks, on page 191.
+
+code example  An executable example of how the subject code can be used  and  its  expected  behavior  (expressed  with  expectations)  in a  given  context.  In  BDD,  we  write  the  code  examples  before  the subject code they document.
+
+The example terminology comes from Brian Marick, whose website is even named http://exampler.com. Using example  instead of test reminds us that writing them is a design and documentation prac- tice, even though once they are written and the code is developed against them, they become regression tests.
+
+example group  A group of code examples.
+
+spec, aka spec file  A file that contains one or more example groups.
+
+
+ Familiar  Str ucture,  New  Nomenclature 
+ 
+
+If you already have some experience with Test::Unit or similar tools in other languages and/or TDD, the words we’re using here map directly to words you’re already familiar with:
+
+•  Assertion becomes expectation.
+
+•  Test method becomes code example
+
+•  Test case becomes example group
+
+In  addition  to  finding  these  new  names  used  throughout  this book, you’ll find them in RSpec’s code base as well.
+
+In this chapter, you’ll learn how to organize executable code examples in example groups in a number of different ways, run arbitrary bits of code before and after each example, and even share examples across groups.

@@ -1,0 +1,26 @@
+Chapter 22
+
+Automating the Browser  with  Webrat  and  Selenium  
+
+
+In  the  previous  chapter,  we  explored  how  Webrat  can  simulate  the core  functionality  of  a  web  browser  that  you  need  when  building  a web  application—navigating  to  pages,  filling  out  forms,  and  submit- ting them to the server. This will allow you to specify 80 percent of the behavior for most applications without ever loading up Firefox.
+
+This simulated approach doesn’t help when you depend on rich client- side interactions built with JavaScript, however, and for that we look to Selenium. (1)  Selenium is a software  testing tool originally developed at ThoughtWorks that can automate most modern web browsers. Webrat supports a Selenium mode that translates the Webrat API calls to Sele- nium calls, allowing you to run the exact same Cucumber feature with and without running a real web browser.
+
+By  writing  your  step  definitions  with  the  Webrat  API,  you  don’t  have to rewrite them as your application evolves to include more client-side enhancements. You can always use whichever execution mode is appropriate  for  a  given  scenario  (or  run  the  same  scenario  in  both  modes) without having to use different tools.
+
+1.  http://seleniumhq.org/
+
+Before we get started, we need to install a couple of new gems. Add the database_cleaner and selenium_client gems to your Gemfile:
+
+Download automated_browser/01/Gemfile
+
+group :development, :test do
+	gem "rspec-rails", ">= 2.0.0"
+	gem "cucumber-rails", ">= 0.3.2"
+	gem "webrat", ">= 0.7.2"
+	gem "database_cleaner", ">= 0.5.2"
+	gem "selenium-client", ">= 1.2.18"
+end
+
+Now run bundle install, and we’re all set to proceed.

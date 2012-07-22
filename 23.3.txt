@@ -1,0 +1,73 @@
+23.3  Specifying Helpers
+
+Rails  helpers  keep  model  transformations,  markup  generation,  and other  sorts  of  view  logic  cleanly  separated  from  erb  templates. This makes templates clean and maintainable and makes it easier to reuse little display nuggets that have a habit of reappearing throughout our applications.
+
+Consider  the  common  problem  of  displaying  parts  of  a  view  only  to administrators. One nice solution is to use a block helper, like this:
+
+<%- display_for(:admin) do -%> 
+	Only admins should see this
+<%- end -%>
+
+The  rspec-rails  plug-in  provides  a  specialized  ExampleGroup  for  speci- fying  helpers  in  isolation.  To  see  this  in  action,  create  a  spec/helpers/ application_helper_spec.rb  file.  Assuming  that  views  have  access  to  a current_user( ) method, here’s an example for the case in which the cur- rent_user is in the given role:
+
+Download rails_views/roles/01/spec/helpers/application_helper_spec.rb
+
+require 'spec_helper'
+
+describe ApplicationHelper do 
+	describe "#display_for(:role)" do
+		context "when the current user has the role" do 
+			it "displays the content" do
+				user = stub('User', :in_role? => true)
+				helper.stub(:current_user).and_return(user)
+				content = helper.display_for(:existing_role) {"content"}
+				content.should == "content"
+			end 
+		end
+	end
+end
+
+The helper( ) method returns an object that includes the helper module passed to describe( ). In this case, that’s the ApplicationHelper. If you run that spec now, you should see it fail with this:
+
+undefined method `display_for' for #<ActionView::Base:0x103367190>
+
+Here’s the implementation that gets this to pass:
+
+Download rails_views/roles/02/app/helpers/application_helper.rb
+
+module ApplicationHelper
+	def display_for(role)
+		yield 
+	end
+end
+
+Now add another example for the negative case:
+
+Download rails_views/roles/03/spec/helpers/application_helper_spec.rb
+
+context "when the current user does not have the role" do 
+	it "does not 
+		display the content" do
+		user = stub('User', :in_role? => false)
+		helper.stub(:current_user).and_return(user)
+		content = helper.display_for(:existing_role) {"content"}
+		content.should == nil 
+	end
+end
+
+That example fails with this:
+
+expected: nil,
+	got: "content" (using ==)
+
+And here’s the modified display_for( ) method that passes both examples:
+
+Download rails_views/roles/04/app/helpers/application_helper.rb
+
+module ApplicationHelper
+	def display_for(role)
+		yield if current_user.in_role?(role)
+	end 
+end
+
+As  you  can  see,  helper  specs  make  it  easy  to  drive  out  presentation logic in granular, reusable chunks. So now that we know how to write view and helper specs, let’s explore the question we posed at the beginning of the chapter.

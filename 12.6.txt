@@ -1,0 +1,123 @@
+12.6  Nested Example Groups
+
+Nesting example groups is a great way to organize examples within one spec. Here’s a simple example:
+
+describe "outer" do 
+	describe "inner" do 
+	end
+end
+
+As we discussed earlier in this chapter, the outer group is a subclass of ExampleGroup. In this example, the inner group is a subclass of the outer  group.  This  means  that  any  helper  methods  and/or  before  and after declarations, included modules, and so on, declared in the outer group are available in the inner group.
+
+If we declare before and after blocks in both the inner and outer groups, they’ll be run as follows:
+
+1.  Outer before
+2.  Inner before
+3.  Example
+4.  Inner after
+5.  Outer after
+
+To demonstrate this, copy this into a Ruby file:
+
+describe "outer" do
+	before(:each) { puts "first" }
+	describe "inner" do
+		before(:each) { puts "second" }
+		it { puts "third"}
+		after(:each) { puts "fourth" }
+	end
+	after(:each) { puts "fifth" }
+end
+
+If  you  run  that  with  the  rspec  command,  you  should  see  output  like this:
+
+first 
+second 
+third 
+fourth 
+fifth
+
+Because  they  are  all  run  in  the  context  of  the  same  object,  we  can share  state  across  the  before  blocks  and  examples.  This  allows  us  to do  a  progressive  setup.  For  example,  let’s  say  we  want  to  express  a given in the outer group, an event (or when) in the inner group, and the expected outcome in the examples themselves. We could do something like this:
+
+describe Stack do
+	before(:each) do
+		@stack = Stack.new(:capacity => 10)
+	end
+	describe "when full" do
+		before(:each) do
+			(1..10).each {|n| @stack.push n}
+		end
+		describe "when it receives push" do 
+			it "should raise an error" do
+				lambda { @stack.push 11 }.should raise_error(StackOverflowError)
+			end 
+		end
+	end
+	describe "when almost full (one less than capacity)"
+		before(:each) do
+			(1..9).each {|n| @stack.push n}
+		end
+		describe "when it receives push" do 
+			it "should be full" do
+				@stack.push 10
+				@stack.should be_full
+			end	
+		end
+	end 
+end
+At this point, you might be thinking, “w00t! Now that is DRY!” Or, perhaps, “Oh my God, it’s so complicated!” Either way, you’re right. It is DRY,and  it’s so complicated. In the end, you have to find what works for you, and this structure is one option that is available to you. Handle with care.
+
+Nested examples, however, are quite useful for organization of concepts even when we don’t use them to build up state. Consider this variation:
+
+describe Stack do
+	describe "when full" do
+		before(:each) do
+			@stack = Stack.new(:capacity => 10) (
+			1..10).each {|n| @stack.push n}
+		end
+		describe "when it receives push" do 
+			it "should raise an error" do
+				lambda { @stack.push 11 }.should raise_error(StackOverflowError)
+			end 
+		end
+	end
+	describe "when almost full (one less than capacity)"
+		before(:each) do
+			@stack = Stack.new(:capacity => 10) 
+			(1..9).each {|n| @stack.push n}
+		end
+		describe "when it receives push" do 
+			it "should be full" do
+				@stack.push 10
+				@stack.should be_full
+			end 
+		end
+	end 
+end
+
+Or this one, with no setup:
+
+describe Stack do
+	describe "when full" do
+		describe "when it receives push" do 
+			it "should raise an error" do
+				stack = Stack.new(:capacity => 10) 
+				(1..10).each {|n| stack.push n}
+				lambda { stack.push 11 }.should raise_error(StackOverflowError)
+			end 
+		end
+	end
+	describe "when almost full (one less than capacity)"
+		describe "when it receives push" do 
+			it "should be full" do
+				stack = Stack.new(:capacity => 10) (1..9).each {|n| stack.push n} 
+				stack.push 10
+				stack.should be_full
+			end 
+		end
+	end
+end
+
+Now  this  is  probably  the  most  readable  of  all  three  examples.  The nested  describe  blocks  provide  documentation  and  conceptual  cohesion, and each example contains all the code it needs. The great thing about this approach is that if you have a failure in one of these exam- ples, you don’t have to look anywhere else to understand it. It’s all right there.
+
+On the flip side, this is the least DRY of all three examples. If we change the stack’s constructor, we’ll have to change it in two places here and many more in a complete example. So, you need to balance these concerns.  Sadly,  there’s  no  one  true  way.  And  if  there  were,  we’d  all  be looking  for  new  careers,  so  let’s  be  glad  for  the  absence  of  the  silver bullet.

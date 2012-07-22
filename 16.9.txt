@@ -1,0 +1,51 @@
+16.9  Custom Formatters
+
+RSpec uses message formatters to generate the output you see when running a suite of specs. These formatters receive notification of events, such  as  when  an  example  group  is  about  to  be  run  or  an  individual example fails.
+ 
+RSpec  ships  with  a  number  of  built-in  formatters  designed  to  generate plain-text output, an all-purpose HTML formatter, and a TextMate- specific HTML formatter as well. You’re probably already familiar with the progress bar formatter, which is the default formatter when you run the rspec command with no options. Run rspec --help to see a full listing of all the built-in formatters.
+
+If none of the built-in formatters satisfies your specific reporting needs, you  can  easily  create  a  custom formatter.  This  can  be  very  useful  for building out custom spec reports for co-workers or a client. And if you happen to be an IDE developer, custom formatters are definitely your friend.
+
+In this section, we’ll review the APIs for the various parts of the puzzle that RSpec uses to write all of its built-in formatters and anybody can use to write a custom formatter.
+
+Formatter API
+
+The simplest way to write a custom formatter is to subclass RSpec::Core:: Formatters::BaseFormatter, which implements all the required methods as no-ops. This allows us to implement only the methods we care about and  reduces  the  risk  that  changes  in  future  versions  of  RSpec  will impact the formatter.
+
+Here is a list of all the required methods as of this writing, but be sure to look at the documentation for RSpec::Core::Formatters::BaseFormatter to ensure that you have the latest information:
+
+initialize(output)  The output is STDOUT by default but can be overridden on the command line to be a filename, in which case a File object is passed to initialize( ).
+
+	To  handle  either  possibility,  RSpec’s  built-in  formatters  write  to the  output  object  with  output  <<  "text",  which  works  for  any  IO object.
+
+start(example_count)  This  is  the  first  method  that  is  called.  example_count is the total count of examples that will be run, allowing the formatter to keep track of progress (how many examples have run compared to how many there are altogether).
+
+example_group_started(example_group)  Called as an example group is started. The example_group includes metadata that can be used for reporting, including its description, location, and so on.
+
+example_started(example)  Called as an example is started. The example includes an execution_result in its metadata.
+
+example_passed(example)  Called when an example passes. The exam- ple is the same object that was passed to example_started( ).
+
+example_pending(example)  Called when an example is declared pending. The example is the same object that was passed to example_started( ).
+
+example_failed(example)  Called when an example fails. The example is the same object that was passed to example_started( ).
+
+start_dump()  Called after all of the code examples have been executed.
+
+def dump_summary(duration, example_count, failure_count, pending_count)  duration is the total time it took to run the suite. example_count  is  the  total  number  of  examples  that  were  run.  failure_count is the number of examples that failed. pending_count  is the number of examples that are pending.
+
+dump_failures()  Trigger  to  output  messages  about  failures.  It  is  up to the formatter to collect information about failed examples and generate the appropriate output.
+
+dump_pending()  Trigger to output messages about pending examples. It is up to the formatter to collect information about pending examples and generate the appropriate output.
+
+close()  Called once at the very end of the run, signaling the formatter to clean up any resources it still has open.
+
+Invoking a Custom Formatter
+
+Once we’ve put in all of the energy to write a formatter using the APIs we’ve discussed, we’ll probably want to start using it! Invoking a custom formatter couldn’t be much simpler. We just need to require the file in which it is defined and then add its class to the command line.
+
+Let’s  say  we  have  a  PDF  formatter  that  generates  a  PDF  document that  we  can  easily  ship  around  to  colleagues.  Here  is  the  command we’d use, assuming that it is named PdfFormatter and defined in format- ters/pdf_formatter.rb:
+
+rspec spec --require formatters/pdf_formatter --format PdfFormatter:report.pdf
+
+The structure of the --format  argument is FORMAT[:WHERE]. FORMAT  can be any of the built-in formatters or the name of the class of a custom formatter. WHERE  is STDOUT by default or a filename. Either way, that’s what gets submitted to the initialize() method of the formatter.

@@ -1,0 +1,138 @@
+2.3  Hello Cucumber
+
+For Cucumber, we’re going to need a little bit more structure, so let’s create  a  small  project  directory  named  hello.  Inside  the  hello  directory, add two directories named features  and spec, and then move the greeter_spec.rb file from the RSpec example into the hello/spec directory. Now create a file greeter_says_hello.feature  in the features  directory, and enter the following text:
+
+Download hello/3/features/greeter_says_hello.feature
+
+Feature: greeter says hello
+
+	In order to start learning RSpec and Cucumber
+	As a reader of The RSpec Book
+	I want a greeter to say Hello
+
+	Scenario: greeter says hello
+		Given a greeter
+		When I send it the greet message
+		Then I should see "Hello Cucumber!"
+
+In the shell, cd to the project root, the hello directory, and type cucumber features. You should see output like this:
+
+Feature: greeter says hello
+	In order to start learning RSpec and Cucumber
+	As a reader of The RSpec Book
+	I want a greeter to say Hello
+
+Scenario: greeter says hello  # features/greeter_says_hello.feature:7
+Given a greeter # features/greeter_says_hello.feature:8
+When I send it the greet message  # features/greeter_says_hello.feature:9
+Then I should see "Hello Cucumber!" # features/greeter_says_hello.feature:10
+
+1 scenario (1 undefined)
+3 steps (3 undefined)
+0m0.003s
+You can implement step definitions for undefined steps with these snippets:
+Given /^a greeter$/ do
+	pending # express the regexp above with the code you wish you had 
+end
+ 
+
+When /^I send it the greet message$/ do
+	pending # express the regexp above with the code you wish you had 
+end
+
+Then /^I should see "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had 
+end
+
+We’ll go into the details of this output later, but the high points are that we see the feature and scenario text from the greeter_says_hello.feature file, a summary of everything that was run, and then some code snip- pets that we can use for our step definitions.
+
+A step definition is a method that creates a step. In this example, we use the Given( ), When( ), and Then( ) methods to write step definitions, each of which takes a Regexp and a block. Cucumber will read the first step in the scenario, Given a greeter ; look for a step definition whose regular 
+expression matches that step; and then execute that step definition’s block.
+To get this scenario to pass, we need to store step definitions in a file that Cucumber can load. Go ahead and add a step_definitions  directory inside hello/features, and add a file named greeter_steps.rb  with the following code:
+
+Download hello/4/features/step_definitions/greeter_steps.rb
+
+Given /^a greeter$/ do
+	@greeter = CucumberGreeter.new
+end
+
+When /^I send it the greet message$/ do
+	@message = @greeter.greet
+end
+
+Then /^I should see "([^"]*)"$/ do |greeting|
+	@message.should == greeting
+end
+
+This  looks  a  lot  like  the  code  snippets  that  we  got  from  running  the cucumber command, but we’ve added some code in each step definition. Now run cucumber features again, and the output should look more like this:
+
+Feature: greeter says hello
+	In order to start learning RSpec and Cucumber
+	As a reader of The RSpec Book
+	I want a greeter to say Hello
+ 
+
+
+Scenario: greeter says hello <?
+# features/greeter_says_hello.feature:7
+Given a greeter  <?
+# features/step_definitions/greeter_steps.rb:1
+uninitialized constant CucumberGreeter (NameError)
+./features/step_definitions/greeter_steps.rb:2:in `/^a greeter$/'
+features/greeter_says_hello.feature:8:in `Given a greeter' When I send it 
+the greet message  <?
+# features/step_definitions/greeter_steps.rb:5
+Then I should see "Hello Cucumber!" <?
+# features/step_definitions/greeter_steps.rb:9
+
+Failing Scenarios:
+cucumber features/greeter_says_hello.feature:7 # Scenario: greeter says 
+hello
+
+1 scenario (1 failed)
+3 steps (1 failed, 2 skipped)
+0m0.003s
+
+The first step is failing because we haven’t defined a CucumberGreeter. The next two steps are being skipped because the first one failed. Again, to  keep  things  simple,  go  ahead  and  define  the  missing  class  right alongside the step definitions in greeter_steps.rb.
+
+Here is the full listing:
+
+Download hello/5/features/step_definitions/greeter_steps.rb
+
+class CucumberGreeter
+	def greet
+		"Hello Cucumber!"
+	end 
+end
+
+Given /^a greeter$/ do
+	@greeter = CucumberGreeter.new
+end
+
+When /^I send it the greet message$/ do
+	@message = @greeter.greet
+end
+
+Then /^I should see "([^"]*)"$/ do |greeting|
+	@message.should == greeting
+end
+
+Now we should get different output when we run cucumber features:
+
+Feature: greeter says hello
+	In order to start learning RSpec and Cucumber
+	As a reader of The RSpec Book
+	I want a greeter to say Hello
+ 
+Scenario: greeter says hello # features/greeter_says_hello.feature:7
+Given a greeter # features/step_definitions/greeter_steps.rb:7
+When I send it the greet message  # features/step_definitions/greeter_steps.rb:11
+Then I should see "Hello Cucumber!" # features/step_definitions/greeter_steps.rb:15
+
+1 scenario (1 passed)
+3 steps (3 passed)
+0m0.003s
+
+This  time,  the  scenario  and  all  of  its  steps  pass.  So,  now  we  have  a passing  RSpec example and  a  passing  Cucumber  scenario.  You   can type rspec spec, and the rspec command will run everything inside the spec  directory. If you moved greeter_spec.rb to the spec  directory, then you  should  see  output  similar  to  the  output  you  saw  at  the  end  of Section 2.2, Hello RSpec, on page 31.
+
+There is certainly a lot of detail yet to cover here, but that’s why this is a book and not a blog post! In the chapters that follow, you’ll learn all about RSpec and Cucumber and how to use them in the context of Behaviour -Driven Development. So, what are you waiting for? All the good stuff is yet to come. Turn the page already!

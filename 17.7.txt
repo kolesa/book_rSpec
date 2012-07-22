@@ -1,0 +1,39 @@
+17.7  The cucumber Command
+
+Once we have a file with a feature in it, we can run it with the cucumber command: (3)
+
+cucumber
+
+The  cucumber  command  runs  all  the  *.feature  files  below  the  features directory.  In  our  case,  we  have  only  one,  so  Cucumber  runs  it  and prints out the following:
+
+# language:en
+Feature: Traveler books room
+	In order to reduce staff
+	As a hotel owner
+	I want travelers to book rooms on the web
+
+	Scenario: Successful booking                  # features/book_room.feature:7
+	Given a hotel with "5" rooms and "0" bookings # features/book_room.feature:8
+
+1 scenario (1 undefined)
+1 step (1 undefined)
+0m0.001s
+
+You can implement step definitions for undefined steps with these snippets: 
+
+Given /^a hotel with "([^"]*)" rooms and "([^"]*)" bookings$/ do |arg1, arg2|
+	pending # express the regexp above with the code you wish you had
+end
+
+The  output  is  very  similar  to  the  text  in  features/booking.feature,  with some  extra  information.  The  first  thing  we  notice  is  that  the  Scenario and Step lines each have comments at the end of the line, which display the  location  of  the  scenario  as  a  filename  and  line  number.  This  is particularly  useful  if  you  want  to  execute  a  single  scenario.  Copy  the location and try running it again:
+
+cucumber features/book_room.feature:7
+
+You should see exactly the same output as before. You’ll find yourself using this technique often as you write more features and scenarios—if you run all of the features and only a few of them fail, you only want to run the failing ones while you are working yourself back to green.
+
+The  next thing we  notice is  a  couple  of  lines  summarizing  how  many scenarios and steps we have and the result of running them. Cucumber reports that we had an undefined step. This is Cucumber’s way of telling us that it recognizes a step, but it doesn’t know what to do with it. We need a step definition to move on.
+
+3.  Run gem install cucumber if you haven’t already.
+
+Cucumber always tries to be helpful and tell you the next thing to do, so  it  will  suggest  how  you  can  implement  a  step  definition  whenever it  encounters  an  undefined  step.  We’ll  talk  about  step  definitions  in Section 18.1, Step Definitions, on page 269, but, for now, let’s talk about the step keywords.
+

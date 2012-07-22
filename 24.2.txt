@@ -1,0 +1,372 @@
+24.2  Context-Specific Examples
+
+Controllers typically do different things depending on whether the work they  delegate  succeeds  or  fails.  We  started  with  the  happy  path,  in which  a  save  succeeds.  But  what  happens  when  it  fails?  Before  we address that, let’s wrap the success path examples in a context:
+
+When save() Succeeds
+
+Download 
+rails_controllers/messages/15/spec/controllers/messages_controller_spec.rb
+
+require 'spec_helper'
+
+describe MessagesController do 
+	describe "POST create" do
+		let(:message) { mock_model(Message).as_null_object }
+
+		before do
+			Message.stub(:new).and_return(message)
+		end
+
+	it "creates a new message" do
+		Message.should_receive(:new). 
+			with("text" => "a quick brown fox"). 
+			and_return(message)
+		post :create, :message => { "text" => "a quick brown fox" }
+	end
+
+	it "saves the message" do 
+		message.should_receive(:save) post :create
+	end
+
+	context "when the message saves successfully" do 
+		it "sets a flash[:notice] message"
+
+			it "redirects to the Messages index" do
+				post :create
+				response.should redirect_to(:action => "index")
+			end 
+		end
+	end 
+end
+
+The only example that we already have that is specific to the happy path is the one that specifies the redirect to index, so that’s the only one we move to the next context. We’ll also want a flash notice, so that’s added as a pending example. Now let’s fill that one in.
+
+Download 
+rails_controllers/messages/16/spec/controllers/messages_controller_spec.rb
+
+it "sets a flash[:notice] message" do
+	post :create
+	flash[:notice].should eq("The message was saved successfully.")
+end
+
+Run that, and watch it fail:
+
+Failure/Error: flash[:notice].should eq("The message was saved successfully.")
+expected "The message was saved successfully."
+	got nil
+
+It fails because the flash[:notice] is nil, so update the create action to add a flash message when the save succeeds:
+
+Download 
+rails_controllers/messages/17/app/controllers/messages_controller.rb
+
+def create
+	message = Message.new(params[:message])
+	if message.save
+		flash[:notice] = "The message was saved successfully."
+	end
+	redirect_to :action => "index"
+end
+
+Run that, and you’ll see that it passes. Now we have two passing examples that specify the happy path, so let’s move on to examples of what should happen when the save fails.
+ 
+When save() Fails
+
+Instead of redirecting to the index, we’ll want to rerender the new template, which will need an @message  instance variable assigned. Add a new context with pending examples for these requirements:
+
+Download 
+rails_controllers/messages/18/spec/controllers/messages_controller_spec.rb
+
+context "when the message fails to save" do 
+	it "assigns @message"
+	it "renders the new template"
+end
+
+Now fill in the first example:
+
+Download rails_controllers/messages/19/spec/controllers/messages_controller_spec.rb
+
+it "assigns @message" do 
+	message.stub(:save).and_return(false) 
+	post :create
+	assigns[:message].should eq(message)
+end
+
+The  assigns( )  method  returns  a  hash  representing  instance  variables that were assigned to the view by the controller. Run rake spec:controllers, and the new example fails with this:
+
+expected #<Message:0x81b0b900 @name="Message_1005">
+got nil
+
+Now convert the local message variables to instance variables to make it pass:
+
+Download 
+rails_controllers/messages/20/app/controllers/messages_controller.rb
+
+def create
+	@message = Message.new(params[:message])
+	if @message.save
+		flash[:notice] = "The message was saved successfully."
+	end
+	redirect_to :action => "index"
+end
+
+Run  rake  spec:controllers,  and  you’ll  see  no  failures  and  one  pending example remaining. Fill that one in as follows:
+
+Download rails_controllers/messages/21/spec/controllers/messages_controller_spec.rb
+
+it "renders the new template" do 
+	message.stub(:save).and_return(false) 
+	post :create
+	response.should render_template("new")
+end
+ 
+Run rake spec:controllers again, and you’ll see this fail with the following:
+
+Failure/Error: response.should render_template("new")
+expecting <"new"> but rendering with <"">
+
+Update the controller action as follows to get that to pass:
+
+Download 
+rails_controllers/messages/22/app/controllers/messages_controller.rb
+
+def create
+	@message = Message.new(params[:message])
+	if @message.save
+		flash[:notice] = "The message was saved successfully."
+		redirect_to :action => "index"
+	else
+		render :action => "new"
+	end 
+end
+
+Run rake spec:controllers one more time, and you should see that all the examples are passing: (2)
+
+MessagesController
+	POST create
+		creates a new message 
+		saves the message
+		when the message saves successfully 
+			sets a flash[:notice] message 
+			redirects to the Messages index
+		when the message fails to save 
+		assigns @message
+		renders the new template
+
+Finished in 0.03591 seconds
+6 examples, 0 failures
+
+
+Learn from the Output
+
+Reviewing this output, it’s easy to spot that we have a bit of redundancy in the examples. We have an example that specifies that the controller action  tries  to  save  the  message,  but  we  also  have  two  contexts  that describe what happens when we try to save the message. There’s really no need for the “saves the message” example anymore, so go ahead and delete it.
+
+
+2.  If you started with a fresh Rails app in this chapter, instead of continuing with the app from the previous chapter, you’ll probably get a missing template error on messages/new at  this  point.  If  that  happens,  just  create  an  empty  app/views/messages/new.html.erb  file, and everything should pass.
+ 
+
+
+Tidy Up
+
+Now let’s look for any opportunities to clean up the spec:
+
+Download rails_controllers/messages/23/spec/controllers/messages_controller_spec.rb
+
+require 'spec_helper'
+
+describe MessagesController do 
+	describe "POST create" do
+	let(:message) { mock_model(Message).as_null_object }
+
+	before do
+		Message.stub(:new).and_return(message)
+	end
+
+	it "creates a new message" do
+		Message.should_receive(:new).
+			with("text" => "a quick brown fox"). 
+			and_return(message)
+		post :create, :message => { "text" => "a quick brown fox" }
+	end
+
+	context "when the message saves 
+		successfully" do 
+			it "sets a flash[:notice] message" do
+				post :create
+				flash[:notice].should eq("The message was saved successfully.")
+			end
+
+			it "redirects to the Messages index" do
+				post :create
+				response.should redirect_to(:action => "index")
+			end 
+		end
+
+		context "when the message fails to save" do 
+			it "assigns @message" do
+				message.stub(:save).and_return(false)
+				post :create
+				assigns[:message].should eq(message)
+			end
+
+			it "renders the new template" do 
+				message.stub(:save).and_return(false) 
+				post :create
+				response.should render_template("new")
+			end 
+		end
+	end
+end
+ 
+
+
+The  most  obvious  bit  is  the  duplication  in  the  past  two  examples,  so let’s extract that to a before hook inside the failure context:
+
+Download rails_controllers/messages/24/spec/controllers/messages_controller_spec.rb
+
+context "when the message fails to save" do
+	before do
+		message.stub(:save).and_return(false)
+	end
+
+	it "assigns @message" do
+		post :create
+		assigns[:message].should eq(message)
+	end
+
+	it "renders the new template" do
+		post :create
+		response.should render_template("new")
+	end
+
+Once  that’s  in  place,  there  is  an  imbalance  between  the  success  and failure  contexts.  The  success  context  has  no  code  in  it  that  explicitly shows  the  successful  save.  It  doesn’t  need  it  to  run,  because  as_null_ object( )  causes  the  message  to  return  a  truthy  value  in  response  to save( ).3  Even so, we can make the spec clearer by adding a before hook to the success context, and then if we remove as_null_object( ) later, those examples should still pass. Go ahead and update as follows:
+
+Download 
+rails_controllers/messages/24/spec/controllers/messages_controller_spec.rb
+
+context "when the message saves successfully" do
+	before do
+		message.stub(:save).and_return(true)
+	end
+
+	it "sets a flash[:notice] message" do
+		post :create
+		flash[:notice].should eq("The message was saved successfully.")
+	end
+
+	it "redirects to the Messages index" do
+		post :create
+		response.should redirect_to(:action => "index")
+	end 
+end
+
+
+3.  Rubyists use the term truthy to indicate any value other than false or nil.
+ 
+Now everything is balanced and clear. The “creates a message” example is outside of either the contexts because that should happen in any case. The before hooks in the two contexts are balanced and make perfectly clear what the contexts mean in code.
+
+What We Just Did
+
+The  create( )  action  we  just  implemented  is  typical  in  Rails  apps.  The controller  passes  the  params  it  receives  to  the  model,  delegating  the real work. By specifying the interactions with the model instead of the result of the model’s work, we are able to keep the spec and the implementation simple and readable.
+
+This  is  what  it  means  to  have  a  controller  know  what  to  do  without knowing the details of how to do it. Any complexity related to building a message will be specified and implemented in the Message model.
+
+The  spec  we  used  to  drive  this  action  into  existence  can  be  used  to illustrate some basic conventions we like to follow for controller specs:
+
+Directory organization  The  directory  structure  for  controller  specs parallels the directory structure found in app/controllers/.
+
+File naming  Each  controller  spec  is  named  after  the  controller  it provides  examples  for,  with  _spec.rb  appended  to  the  filename. For  example,  sessions_controller_spec.rb  contains  the  specs  for  sessions_controller.rb.
+
+Always require spec_helper.rb  Each  controller  spec  should  require the spec_helper.rb file, which sets up the environment with all the right example group classes and utility methods.
+
+Example group names  The  docstring  passed  to  the  outermost describe( ) block in a controller spec typically includes the type of request and the action the examples are for.
+
+While driving out the create( ) action, we focused on one example at a time. Once each example passed, we looked for and extracted any duplication to a before  block, allowing each example to stay focused, clear, and DRY. And when we found examples that pertained to a given con- text, we used context blocks with clear descriptions to organize them.This  spec  also  introduced  a  number  of  methods  that  provide  a  good foundation  for  writing  controller  specs.  Many  of  these  methods  come directly  from  ActionController::TestCase,  which  Rails  uses  for  functional tests. Let’s look closer at each of the methods we used.
+ 
+
+
+assigns[]
+
+We use assigns  to access a hash, which we use to specify the instance variables that we expect to be assigned in the view.
+
+Note that the assigns hash in controller specs is different from the one in view specs. In view specs, we use assigns to set instance variables for a view before rendering the view. In controller specs, we use assigns to set expectations about instance variables assigned for the view after calling the controller action.
+
+flash[]
+
+We  use  flash  to  access  a  hash,  which  we  use  to  specify  messages  we expect to be stored in the flash. It uses the same API to access flash in the spec as you would use in the controller, which makes it convenient and easy to remember when working with flash.
+
+post
+
+We use the post( ) method to simulate a POST request. It can take three arguments.  The  first  argument  is  the  name  of  the  action  to  call.  The second argument (optional) is a hash of key/value pairs to make up the params. The third argument (also optional) is a hash of key/value pairs that make up the session hash for the controller.
+
+# no params or session data post :create
+
+# with params
+post :create, :id => 2
+
+# with params and session data
+post :create, { :id => 2 }, { :user_id => 99 }
+
+The post( ) method comes directly from ActionController::TestCase, which offers  similar  methods  for  get,  put,  delete,  head,  and  even  xml_http_ request requests. All but the xml_http_request and its alias, xhr, have the same signature as the post( ) method.
+
+The xml_http_request( ) and xhr( ) methods introduce one additional argument  to  the  front:  the  type  of  request  to  make.  Then  the  other  argu- ments are just shifted over. Here’s an example:
+
+# no params or session data xhr :get, :index
+
+# with params
+xhr :get, :show, :id => 2
+
+# with params and session data
+xhr :get, :show, { :id => 2 }, { :user_id => 99 }
+
+ Isolation  from  View  Templates 
+
+By  default,  controller  specs  do  not  render  view  templates. When we stub out the model layer as well, we can drive out controllers in complete isolation from the code in our views and models. This keeps the controller specs lean and reduces the noise involved with managing a web of dependencies in the view or the model. It also provides quick fault isolation.  You’ll always know that a failing controller spec means that the controller is not behaving correctly.
+
+The one slight rub is that the view templates do need to exist even though we don’t render them. This was not the case with RSpec-1/Rails-2, but the way in which ActionView locates tem- plates changed sufficiently in Rails 3 that it didn’t make sense to try to support isolation from even the existence of templates.
+
+If you’re more comfortable with the views being rendered, you can tell the spec to do so with the render_views( ) method:*
+
+describe MessagesController do
+	render_views
+	...
+
+In this mode, controller specs are like Rails functional tests—one set of examples for both controllers and views. The benefit of this approach is that you get wider coverage from each spec. Experienced Rails developers may find this an easier approach to begin with; however, we encourage you to explore using the isolation mode and revel in its benefits.
+
+*.  integrate_views( ) in rspec-rails-1
+
+render_template
+
+We use the render_template( ) method to specify the template we expect a  controller  action  to  render.  It  takes  a  single  argument—the  path  to the template that we are rendering.
+
+The path argument can be in any of three forms. The first is the path to the template minus the app/views/ portion:
+
+response.should render_template("messages/new")
+
+The second is a shorthand form of the first. If the template being rendered  is  part  of  the  controller  being  spec’d,  you  can  pass  in just  the template name:
+
+# this will expand to "messages/new" in a MessagesController spec response.should render_template("new")
+
+The third approach is to specify the full filename of the template to be rendered including the filename extension. This lets us specify that the controller  should  pick  a  template  in  the  same  way  it  does  when  the app  runs.  For example,  we  can  set  an  expectation  that  the  controller will  find  and  render  the  messages/new.js.erb  template  when  making  a request for JavaScript:
+
+# controller action
+def new
+	respond_to :js, :html
+end
+
+# in the spec
+	get :new, :format => "js"
+	response.should render_template("new.js.erb")
+
+redirect_to
+
+We use the redirect_to( ) method to specify that the action should redirect to a predefined location. It has the same API as its Rails’ counterpart, assert_redirected_to( ).
+
+# relying on route helpers
+response.should redirect_to(messages_path)
+
+# relying on ActiveRecord conventions response.should redirect_to(@message)
+
+# being specific
+response.should redirect_to(:controller => "messages", :action => "new")
+

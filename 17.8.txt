@@ -1,0 +1,15 @@
+17.8  Given/When/Then
+
+“Given I have $100 in my checking account, When I withdraw $70, Then I should have $30 left.” That’s how anybody might describe a real-life scenario in conversation. This is why we use Given, When, and Then in BDD, whether we’re talking about application behavior or object-level behavior. It’s all behavior!
+
+This is also why Cucumber uses Given, When, and Then as keywords in scenarios. We can also use And and But as synonyms for whichever of Given, When, or Then appeared before. If we say “Given x, And y,” then And means Given. If we say “Then x, But not y,” then But means Then.
+
+Given  indicates  something  that  we  accept  to  be  true  in  a  scenario: Given  I  have  $20  in  my  checking  account;  Given  the world  is round; Given today is a holiday; and so on. These statements provide context for the events and outcomes that we talk about later in the scenario.
+
+Given is often misconstrued to mean preconditions, but that is a different  concept.  Preconditions  are  part  of  a  contract  that  indi- cates we can go no further unless a precondition is met. Givens are not bound by precondition contracts and can explicitly violate them in order to specify how an app should behave under condi- tions it should, in theory, never be in (Given the world is flat).
+
+When  indicates the event in a scenario: When I withdraw $15; When I fly in a perfectly straight line perpendicular to the earth’s axis; and so on. We generally prefer to have a single event in any sce- nario,  because  this  makes  it  easier  to  understand  the  intent  of each scenario and what may have gone wrong when it fails.
+
+Then  indicates an expected outcome: Then I should have $5 remaining; Then I should be at a higher altitude than when I started; and so on. It’s OK to have more than one outcome in a scenario (hence And and But), but we want to make sure they are cohesive.
+
+Consider a scenario in which we transfer money from one account to  another,  and  we  have  two  outcomes:  Then  I  should  have  $20 in checking, And I should have $30 in savings. If we add, Then I should earn $0.04 interest in my savings account, while that may be  a  legitimate  outcome  of  the  scenario,  it  is  not  related  to  the other outcomes and becomes a source of confusion. Better to put that in a separate scenario.

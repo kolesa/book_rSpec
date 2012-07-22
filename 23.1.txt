@@ -1,0 +1,98 @@
+23.1  Writing View Specs
+
+A view spec is a collection of code examples for a particular view template. Unlike examples for plain old Ruby objects (POROs), view examples are inherently state-based. We provide data to the view and then set expectations about the rendered content.
+
+In most cases, we’re interested in the semantic content as it pertains to requirements of the application, as opposed to the syntactical correctness of the markup. The main exception to this is forms, in which case we do want to specify that form elements are rendered correctly within a form tag.
+
+Now you may be thinking that we’ve already covered these same details with  Cucumber  and  Webrat  in  the  past  couple  of  chapters,  so  why should we also have isolated view specs? This question is being asked quite a lot as we prepare to print this book, so you’re not alone if you’re asking it. We’ll address this question at the end of the chapter, in Section 23.4, When Should I Write View Specs?, on page 343, but that will make more sense after you get a feel for how view specs work and the benefits they provide.
+
+Getting Started
+
+We need to generate a fresh Rails app and configure it to use rspec-rails: 
+Start by generating the app:
+
+rails new messages
+cd messages
+
+Next, copy the following to the Gemfile:
+
+group :development, :test do
+	gem "rspec-rails", ">= 2.0.0"
+	gem "webrat", ">= 0.7.2"
+end
+
+Lastly, install the bundle and run the rspec:install generator:
+
+bundle install
+script/rails generate rspec:install 
+rake db:migrate
+
+That’s it! RSpec is ready to go.
+
+We’re going to build a view that displays a message, and we’ll drive it out  with  a  spec.  Create  a  ./spec/views/messages/  directory,  and  add  a show.html.erb_spec.rb file with the following content:
+
+Download rails_views/messages/01/spec/views/messages/show.html.erb_spec.rb
+
+require 'spec_helper'
+
+describe "messages/show.html.erb" do
+	it "displays the text attribute of the message" do
+		render
+		rendered.should contain("Hello world!")
+	end 
+end
+
+render(), rendered(), and contain()
+Given no arguments, the render( ) method on the first line in the example  renders  the  file  passed  to  the  outermost  describe( )  block,  “messages/show.html.erb” in this case. The rendered( ) method returns the rendered content, which is passed to the contain( ) matcher on the second  line.  If  the  rendered  content  contains  the  text  “Hello  world!” the example will pass. Note that this looks only at rendered text. If “Hello world!”  is  embedded  in  a  comment  or  in  a  JavaScript  document.write statement, for example, it would not be recognized by contain( ).
+
+The rspec:install generator we ran earlier added some rake tasks we can use to run specs. Go ahead and run this:
+
+rake spec
+
+You should see the following failure:
+
+Missing template messages/show.html.erb
+
+The  template  doesn’t  exist  yet,  so  add  show.html.erb  to  the  app/views/ messages/  directory  (which  you’ll  need  to  create),  and  run  the  spec again. Now we get this output:
+
+expected the following element's content to include "Hello world!"
+
+This time it failed because there’s nothing in the show.html.erb template. Observing  the  practice  of  temporary  sins  to  get  to  the  green  bar,  add “Hello world!” to the show.html.erb file, run the spec again, and watch it pass. Now we know that the example is correctly wired up to the view implementation.
+
+The sin was creating duplication between the spec and the implementation. Let’s see what we can do about washing that away. The example says that messages/show.html.erb displays the text of the supplied message, but the implementation is simply hard-coded. Based on the example, here’s the code we wish we had in show.html.erb:
+
+Download rails_views/messages/03/app/views/messages/show.html.erb
+
+<%= @message.text %>
+
+Add that to the file and run the example again, and now you should see undefined method ‘text’ for nil:NilClass, referencing the line we just added. The view expects an @message variable to be set up for it. This will be the controller’s responsibility once we get there, but in this case there is no controller yet. This puts the responsibility on the view spec itself.
+
+assign()
+View specs expose an assign  method, which we use to provide data to the view. Modify the spec as follows:
+
+Download rails_views/messages/04/spec/views/messages/show.html.erb_spec.rb
+
+describe "messages/show.html.erb" do
+	it "displays the text attribute of the message" do 
+		assign(:message, double("Message", :text => "Hello world!")) 
+		render
+		rendered.should contain("Hello world!")
+	end 
+end
+
+The new first line of the example creates a test double, which stubs the text( ) method with a return value of “Hello world!” and assigns it to an @message instance variable on the view.
+
+Run rake spec again, and it should pass. And that’s it for the first example. Pretty simple, right? Although this example didn’t do justice to the intricacies  views  are  often  composed  of,  it  did  give  us  just  enough  to start us with a foundation on which to build.
+
+In addition to understanding the basics of a view spec, here are a few more things we can glean from what we just did:
+
+Directory organization  The directory structure for view specs mimics the  directory  structure  found  in  app/views/.  For  example,  specs found in spec/views/messages/  will be for view templates found in app/views/messages/.
+
+File naming  View  specs  are  named  after  the  template  they  provide examples for, with an _spec.rb appended to the filename. For exam- ple, index.html.erb  would have a corresponding spec named index. html.erb_spec.rb.
+
+Always require spec_helper.rb  Every view spec will need to require the spec_helper.rb file. Otherwise, you’ll get errors about core rspec or rspec-rails methods not existing.
+
+Describing view specs  The outer describe( ) block in a view spec uses the path to the view minus the app/views/ portion. This is used by the render( ) method when it is called with no arguments, keeping things clean and DRY.
+
+Now that you have the basics down, let’s explore a little deeper.
+

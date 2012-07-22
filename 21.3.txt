@@ -1,0 +1,200 @@
+21.3  Manipulating Forms
+
+Once  we’ve  reached  a  page  of  interest,  we’ll  want  to  trigger  actions before  we  can  specify  outcomes.  In  the  context  of  a  web-based  appli- cation, that usually translates to filling out and submitting forms. Let’s take a look at Webrat’s methods to do that. They’ll serve as the bread and butter of most of our When step definitions.
+
+fill_in()
+
+You  will  use  fill_in( )  to  type  text  into  text  fields,  password  fields,  and <textarea>s. We saw an example of this in the When step definition of our box-office example:
+
+When /^I create a movie Caddyshack in the Comedy genre$/ do
+	# ...
+	fill_in "Title", :with => "Caddyshack"
+	# ...
+end
+
+fill_in( ) supports referencing form fields by id, name, and <label> text. Therefore, if we have a conventional Rails form with proper label tags like this:
+
+<dl>
+	<dt>
+		<label for="movie_title">Title</label>
+	</dt>
+	<dd>
+		<input type="text" name="movie[title]" id="movie_title" />
+	</dd>
+</dl>
+
+then all of the following would be functionally equivalent:
+
+Line 1  When /^I fill in the movie title Caddyshack$/ do
+-  # using the field's label's text
+-  fill_in "Title", :with => "Caddyshack"
+-  end
+5
+-  When /^I fill in the movie title Caddyshack$/ do
+-  # using the field's id
+-  fill_in "movie_title", :with => "Caddyshack"
+-  end
+10
+-  When /^I fill in the movie title Caddyshack$/ do
+-  # using the field's name
+-  fill_in "movie[title]", :with => "Caddyshack"
+-  end
+ 
+
+
+In  practice,  referencing  fields  by  label  text  is  preferred.  That  way,  we can avoid coupling our step definitions to class and field names, which are  more  likely  to  change  as  we  evolve  the  application.  In  the  pre- vious  example,  if  we  renamed  the  Movie  class  to  Film,  we’d  have  to change  line  8,  which  uses  the  field  id,  and  line  13,  which  uses  the field name, but line 3 would continue to work just fine. Unless other - wise noted, Webrat’s other form manipulation methods support target- ing fields using these three strategies.
+
+Beyond making your step definitions easier to write and maintain, providing active form field labels is a good habit to get into for accessibility and usability.
+
+check() and uncheck()
+
+check( )  lets  you  click  a  checkbox  that  was  not  selected  by  default  or had been previously not selected. Here’s an example:
+
+When /^I create a movie Caddyshack in the Comedy genre$/ do
+	# ...
+	check "Comedy"
+	# ...
+end
+
+To deselect a checkbox that was selected by default or has been previously selected, you’d write this:
+
+When /^I uncheck Save as draft$/ do
+	uncheck "Save as draft"
+end
+
+
+choose()
+
+You’ll use choose( ) to manipulate radio form fields. Just like a browser with a GUI, Webrat ensures only one radio button of a given group is checked at a time.
+
+Let’s say we wanted to select “Premium" from a list of plan levels on a signup page. You might write the following:
+
+When /^I choose to create a Premium plan$/ do
+	choose "Premium"
+end
+
+
+select()
+
+You’ll use select( ) to pick options from select drop-down boxes.
+ 
+When /^I create a movie Caddyshack in the Comedy genre$/ do
+	# ...
+	select "1980"
+	# ...
+end
+
+By default, Webrat will find the first option on the page that matches the  text.  This  is  usually  fine.  If  you’d  like  to  be  more  specific  or  you have  multiple  selects  with  overlapping  options,  you  can  provide  the :from  option.  Then,  Webrat  will  look  for  the  option  only  inside  selects matching the label, name, or ID. Here’s an example:
+
+When /^I create a movie Caddyshack in the Comedy genre$/ do
+	# ...
+	select "1980", :from => "Release Year"
+	# ...
+end
+
+select_date(), select_time(), and select_datetime()
+
+When  rendering  a  form,  Rails  typically  exposes  date  and  time  values as a series of <select> fields. Each individual select doesn’t get its own <label>, so filling in a date using Webrat’s select( ) method is a bit cumbersome:
+When /^I select October 1, 1984 as my birthday$/ do
+	select "October", :from => "birthday_2i"
+	select "1", :from => "birthday_3i"
+	select "1984", :from => "birthday_1i"
+end
+
+To  ease  this  pain,  Webrat now supports filling  out conventional  Rails date  and  time  fields  with  the  select_date( ),  select_time( ),  and  select_ datetime( ) methods. They act like a thin layer on top of select( ) to hide away the Rails-specific implementation details. Here’s how you might use them:
+
+When /^I select April 26, 1982$/ do
+	# Select the month, day and year for the given date select_date 
+	Date.parse("April 26, 1982")
+end
+
+When /^I select 3:30pm$/ do
+	# Select the hour and minute for the given time select_time 
+	Time.parse("3:30PM")
+end
+
+When /^I select January 23, 2004 10:30am$/ do
+	# Select the month, day, year, hour and minute for the given time 
+	select_datetime Time.parse("January 23, 2004 10:30AM")
+end
+ 
+All  three  of  the  methods  also  support  Strings  instead  of  Date  or  Time objects, in which case they’ll do the required parsing internally.
+
+attach_file()
+
+To simulate file uploads, Webrat provides the attach_file( ) method. Instead of passing a file field’s value as a string, it stores an ActionController::TestUploadedFile in the params hash that acts like a Tempfile object a controller would normally receive during a multipart request.
+
+When you use it, you’ll want to save the fixture file to be uploaded somewhere in your app’s source code. We usually put these in spec/fixtures. Here’s how you could implement a step definition for uploading a photo:
+
+When /^I attach my Vacation photo$/ do
+	attach_file "Photo", "#{Rails.root}/spec/fixtures/vacation.jpg"
+end
+
+By default, Rails’ TestUploadedFile uses the text/plain MIME type. When that’s not right, you can pass in a specific MIME type as a third parameter to attach_file( ):
+
+When /^I attach my Vacation photo$/ do
+	attach_file "Photo", "#{Rails.root}/spec/fixtures/vacation.jpg", 
+	"image/jpeg"
+end
+
+
+set_hidden_field
+
+Occasionally, it can be useful to manipulate the value of a hidden form field when using the Simulated Browser approach. The fill_in( ) method, like an app’s real users, will never manipulate a hidden field, so Webrat provides a set_hidden_field( ) specifically for this purpose:
+
+When /^I select Bob from the contact list dialog$/ do 
+	set_hidden_field "user_id", :to => @bob.id
+end
+
+Use  this  method  with  caution.  It’s  interacting  with  the  application  in a  different  way  than  any  end  user  actually  would,  so  not  all  of  the integration confidence normally associated with the Simulated Browser style applies, but it can help in a pinch.
+
+click_button
+
+After  you’ve  filled  out  your  fields  using  the  previous  methods,  you’ll submit the form.
+
+If there’s only one submit button on the page, you can simply use this:
+
+When /^I click the button$/ do 
+	click_button
+end
+
+If you’d like to be a bit more specific or there is more than one button on the page, click_button( ) supports specifying the button’s value, id, or name. Let’s say you have the following HTML on your page:
+
+<input type="submit" id="save_button" name="save" value="Apply Changes" />
+
+There are three ways you could click it using the Webrat API:
+
+When /^I click the button$/ do
+	# Clicking a button by id 
+	click_button "save_button"
+end
+
+When /^I click the button$/ do
+	# Clicking a button by the name attribute 
+	click_button "save"
+end
+
+When /^I click the button$/ do
+	# Clicking a button by its text (value attribute)
+	click_button "Apply Changes"
+end
+
+Just like when navigating from page to page, when Webrat submits a form, it will automatically follow any redirects and ensure the final page did  not  return  a  server  error.  There’s  no  need  to  check  the  response code of the request by hand. The returned page is stored, ready to be manipulated or inspected by subsequent Webrat methods.
+
+submit_form()
+
+Occasionally, you might need to submit a form that doesn’t have a submit button. The most common example is a select field that is enhanced with JavaScript to autosubmit its containing form. Webrat provides the submit_form( ) method to help in these situations. To use it, you’ll need to specify the <form>’s id value:
+
+When /^I submit the quick navigation form$/ do
+	submit_form "quick_nav"
+end
+
+reload
+
+Real browsers provide a reload button to send another request for the current page to the server. Webrat provides the reload( ) method to simulate this action:
+
+When /^I reload the page$/ do
+	reload
+end
+
+You might find yourself using this if you want to ensure that refreshing a  page  after  an  important  form  submission  behaves  properly.  Webrat will repeat the last request, resubmitting forms and their data.

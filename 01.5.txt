@@ -1,0 +1,85 @@
+1.5  The BDD Cycle
+
+At each green point in the RSpec cycle, we’ll check the Cucumber cycle.
+If  it  is  still  red,  the  resulting  feedback  should  guide  us  to  
+the  next action in the RSpec cycle. If it is green, we can jump out to 
+Cucumber, refactor if appropriate, and then repeat the cycle by writing a 
+new failing Cucumber step.
+In  the  next  chapter,  we’ll  get  you  set  up  with  Cucumber  and  
+RSpec and  walk  you  through  a  simple  example  of  each  tool.  In  the 
+ tutorial that begins in Chapter 3, Describing Features, on page 37, we’ll 
+use a number of features in Cucumber and RSpec. In most cases, we’ll only 
+touch the surface of a feature, covering just enough to be able to use it 
+as needed for this project, with references to other places in the book 
+where  you  can  go  to  learn  more  of  the  detail  and  philosophy  
+behind each feature.
+
+3.  Although we use Cucumber to focus on high-level behavior and use 
+RSpec to focus
+on more granular behavior, each can be used for either purpose.
+
+1
+red  2
+
+3
+red
+refactor
+
+refactor
+5
+
+
+7
+RSpec
+
+green
+
+4
+
+
+
+green 6
+Cucumber
+
+
+
+(start with Cucumber)
+
+1 Focus on one scenario
+
+2 Write failing step definition
+
+(drop down to RSpec)
+
+
+Repeat #1–#7
+when scenario is passing
+
+
+3 Write failing example
+
+4 Get the example to pass
+
+5 Refactor
+
+
+
+Repeat #3–#5 until step is passing
+
+
+Repeat #2–#7 until scenario is passing
+(when step is passing)
+
+6
+
+
+7 Refactor
+
+
+
+
+Figure 1.1: The BDD cycle
+ 
+
+
+

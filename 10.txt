@@ -1,0 +1,10 @@
+
+Part II
+
+Behaviour-Driven Development
+
+Chapter 10
+
+ The  Case  for  BDD  
+
+Most of the software we write will never get used. It’s nothing personalit’s just that as an industry we are not very good at giving people what they want. It turns out that the underlying reason for this is that traditional software methods are set up to fail—they actually work against us.  Heroic  individuals  deliver  software  in  spite  of their  development process rather than because of it. In this chapter, we look at how and why projects fail and shine a spotlight on some of the challenges facing Agile development.

@@ -1,0 +1,72 @@
+4.3  Test Double
+
+A  fake  object  that  pretends  to  be  real  object  is  called  a  test  double. You’re probably familiar with stubs and mocks. Test double is a generic name  for  them,  along  with  fakes,  spies,  and  so  on,  and  so  on.  You’ll read all about test doubles in Chapter 14, RSpec::Mocks, on page 191.
+
+Given that we’ll use a test double for output, here is what we want the step definition to look like:
+
+Download cb/06/features/step_definitions/codebreaker_steps.rb
+
+Then /^I should see "([^"]*)"$/ do |message|
+	output.messages.should include(message)
+end
+
+Again, we’re writing the code we wish we had so that we know what code to add. This line suggests that our fake object should have a messages collection. We’ll also want it to have a puts( ) method that the Game can use.
+ 
+Here’s what that looks like:
+
+Download cb/06/features/step_definitions/codebreaker_steps.rb
+
+class Output
+	def messages
+		@messages ||= []
+	end
+
+	def puts(message)
+		messages << message
+	end end
+
+	def output
+		@output ||= Output.new
+	end
+
+The output( ) method uses a caching technique called memoization. The first time output( ) is called, it creates an Output, stores it in an @output variable, and returns it. If it gets called again, it returns the same Output object.
+
+Now  we  need  to  give  the  Game  a  reference  to  the  Output.  Modify the When step as follows:
+
+Download cb/06/features/step_definitions/codebreaker_steps.rb
+
+When /^I start a new game$/ do
+	game = Codebreaker::Game.new(output)
+	game.start
+end
+
+Run cucumber after making these modifications and additions to codebreaker_steps.rb. You should see the following output:
+
+Scenario: start game
+	Given I am not yet playing
+	When I start a new game
+		wrong number of arguments (1 for 0) (ArgumentError)
+
+We need to modify the game to accept the output object passed to new:
+
+Download cb/07/lib/codebreaker/game.rb
+
+module Codebreaker
+	class Game
+		def initialize(output)
+		end
+
+		def start
+		end 
+	end
+end
+
+Now run Cucumber again, and this time you should see this:
+
+Scenario: start game
+	Given I am not yet playing
+	When I start a new game
+	Then I should see "Welcome to Codebreaker!"
+		expected [] to include "Welcome to Codebreaker!"
+
+So far, all the failures we’ve seen have been because of exceptions and errors.  We  now  have  our  first  logical  error,  so  it’s  time  to  add  some behavior to our Game. For that we’re going to shift gears and jump over to RSpec. Before we do, however, let’s review what we’ve just learned.

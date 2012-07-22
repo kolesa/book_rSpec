@@ -1,0 +1,5 @@
+15.2  TextMate
+
+The  RSpec  development  team  maintains  a  TextMate  bundle  that  provides a number of useful commands and snippets. The bundle has been relatively stable for some time now, but when we add new features to RSpec, they are sometimes accompanied with an addition or a change to the TextMate bundle.
+
+See http://github.com/rspec/rspec-tmbundle for installation details.

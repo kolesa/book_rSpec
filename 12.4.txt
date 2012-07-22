@@ -1,0 +1,101 @@
+12.4  Helper Methods
+
+Another approach to cleaning up our examples is to use helper methods that we define right in the example group, which are then accessible from all the examples in that group. Imagine that we have several examples in one example group, and at one point in each example we need to perform some action that is somewhat verbose.
+
+describe Thing do
+	it "should do something when ok" do 
+		thing = Thing.new 
+		thing.set_status('ok')
+		thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+		...
+	end
+
+it "should do something else when not so good" do
+	thing = Thing.new thing.set_status('not so good')
+	thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+	...
+	end 
+end
+
+Both examples need to create a new Thing  and assign it a status. This can be extracted out to a helper like this:
+
+describe Thing do
+	def create_thing(options)
+		thing = Thing.new 
+		thing.set_status(options[:status]) thing
+	end
+
+	it "should do something when ok" do
+		thing = create_thing(:status => 'ok')
+		thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+		...
+	end
+ 
+	it "should do something else when not so good" do
+		thing = create_thing(:status => 'not so good')
+		thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+		...
+	end 
+end
+
+One idiom you can apply to clean this up even more is to yield self from initializers in your objects. Assuming that Thing’s initialize( ) method does this and set_status( ) does as well, you can write the previous like this:
+
+describe Thing do
+	def given_thing_with(options)
+		yield Thing.new do |thing|
+			thing.set_status(options[:status])
+		end 
+	end
+
+	it "should do something when ok" do
+		given_thing_with(:status => 'ok') do |thing|
+			thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+			...
+		end 
+	end
+
+	it "should do something else when not so good" do
+		given_thing_with(:status => 'not so good') do |thing|
+			thing.do_fancy_stuff(1, true, :move => 'left', :obstacles => nil)
+			...
+		end 
+	end
+end
+
+Obviously,  this  is  a  matter  of  personal  taste,  but  you  can  see  that this  cleans  things  up  nicely,  reducing  the  noise  level  in  each  of  the examples. Of course, with almost all benefits come drawbacks. In this case, the drawback is that we have to look elsewhere to understand the meaning  of  given_thing_with.  This  sort  of  indirection  can  make  under - standing failures quite painful when overused.
+A good guideline to follow is to keep things consistent within each code base. If all the code examples in your system look like the earlier one, even your new teammates who might not be familiar with these idioms will quickly learn and adapt. If there is only one example like this in the entire code base, then that might be a bit more confusing. So, as you strive to keep things clean, be sure to keep them consistent as well.
+
+Sharing Helper Methods
+
+If we have helper methods we want to share across example groups, we can define them in one or more modules and then include the modules in the example groups we want to have access to them.
+
+module UserExampleHelpers
+	def create_valid_user
+		User.new(:email => 'email@example.com', :password => 'shhhhh')
+	end
+
+	def create_invalid_user
+		User.new(:password => 'shhhhh')
+	end 
+end
+
+describe User do
+	include UserExampleHelpers
+
+	it "does something when it is valid" do
+		user = create_valid_user
+		# do stuff
+	end
+
+	it "does something when it is not valid" do
+		user = create_invalid_user
+		# do stuff
+	end
+
+If we have a module of helper methods that we’d like available in all of our  example  groups,  we  can  include  the  module  in  the  configuration (see Section 16.2, Configuration, on page 235 for more information):
+
+RSpec.configure do |config|
+	config.include(UserExampleHelpers)
+end
+
+So, now that we can share helper methods across example groups, how about sharing examples?

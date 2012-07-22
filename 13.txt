@@ -1,0 +1,26 @@
+Chapter 13
+
+ RSpec::Expectations  
+
+One of our goals in BDD is getting the words right. We want to derive language,  practices,  and  processes  that  support  communication  between all members of a team, regardless of each person’s understanding  of technical issues. This is why we like to use nontechnical words like Given, When, and Then.
+
+We  also  talk  about  expectations  instead  of  assertions.  The  dictionary defines the verb “to assert” as “to state a fact or belief confidently and forcefully.” This is something we do in a courtroom. We assert that it was  Miss  Peacock  in  the  kitchen  with  a  rope  because  that’s  what  we believe to be true.
+
+In  executable  code  examples,  we  are  setting  an  expectation  of  what should happen rather than what will happen. In fact, we’ve embedded the word should  right into RSpec’s expectation framework. For example, if we are expecting the result of a calculation to be the number 5, here’s how we express this in RSpec:
+
+result.should equal(5)
+
+This is an example of an RSpec expectation, a statement that expresses that at a specific point in the execution of a code example, something should be in some state. Here are some other expectations that come with RSpec:
+
+message.should match(/on Sunday/)
+team.should have(11).players
+lambda { do_something_risky }.should raise_error(
+RuntimeError, "sometimes risks pay off ... but not this time"
+)
+
+In  this  chapter,  you’ll  learn  about  all  of  RSpec’s  built-in  expectations and the simple framework that RSpec uses to express them. You’ll also learn how to extend RSpec with your own domain-specific expectations. With little effort, you’ll be able to express things like this:
+
+judge.should disqualify(participant)
+registration.should notify_applicant("person@domain.com", /Dear Person/)
+
+To better understand RSpec’s expectations, let’s get familiar with their different  parts.  We’ll  start  off  by  taking  a  closer  look  at  the  should( ) and should_not( ) methods, followed by a detailed discussion of various types of matchers. As you’ll see, RSpec supports matchers for common operations that you might expect, like equality, and some more unusual expressions as well.

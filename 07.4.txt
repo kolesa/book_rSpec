@@ -1,0 +1,9 @@
+7.4  What We’ve Learned
+
+In  this  chapter,  we  drove  out  the  implementation  of  an  algorithm  in small steps. We still have some refactoring to do to make it as simple and expressive as we’d like, but the current implementation does pass all of its scenarios and all of its specs.
+
+We started with an example that we believed would be the simplest to implement. We followed that with the next simplest example, and then the next, and so on.
+
+We  also  learned  that  we  benefit  from  working  in  small  steps  because we  know  exactly  what  we  just  did  when  we  introduce  a  failure.  If  we didn’t run the specs right after splitting up the iterator, we might not have learned about the problem we introduced until much later, when it would be more difficult to track it down.
+
+In  the  next  chapter,  we’ll  dig  a  bit  deeper  into  refactoring,  exploring techniques and tools we use to refactor with confidence!

@@ -1,0 +1,62 @@
+18.1  Step Definitions
+
+Step  definitions  are  Cucumber’s  equivalent  of  method  definitions  or function declarations in a conventional programming language. We define them in Ruby,1  and they are invoked when Cucumber parses steps in the plain-text features.
+
+We  wrote  a  scenario  with  a  single  step  earlier  in  Section  17.6,  Steps, on page 260. Open a command prompt to the hotel directory again, and type the cucumber command. Here’s the output:
+
+# language:en
+Feature: Traveler books room
+	In order to reduce staff
+	As a hotel owner
+	I want travelers to book rooms on the web
+
+	Scenario: Successful booking  # 	features/book_room.feature:7
+	Given a hotel with "5" rooms and "0" bookings # 	features/book_room.feature:8
+
+
+
+1.  The  Cuke4Duke  project  at  http://wiki.github.com/aslakhellesoy/cuke4duke  also  lets  you define step definitions in other programming languages such as Java, Groovy, and Scala.
+
+1 scenario (1 undefined)
+1 step (1 undefined)
+0m0.001s
+
+You can implement step definitions for undefined steps with these snippets: 
+Given /^a hotel with "([^"]*)" rooms and "([^"]*)" bookings$/ do |arg1,arg2|
+	pending # express the regexp above with the code you wish you had 
+end
+
+Cucumber-Provided Code Snippets
+
+The last part of the output is a snippet of code we can use to build a step definition. Create a step_definitions subdirectory in features, and add a file named hotel_steps.rb. Copy the snippet into that file, and modify it as follows:
+
+Download cucumber/02/features/step_definitions/room_steps.rb
+
+Given /^a hotel with "([^"]*)" rooms and "([^"]*)" bookings$/ do
+	|room_count, booking_count|
+end
+
+The code that hooks up to the application code goes in the block passed to  the  Given( )  method.  For  demo  purposes,  we’re  leaving  the  block empty. Run your feature again as before, and look at the output. Every- thing should be passing in nice green color:
+
+# language:en
+Feature: Book room
+	In order to attract more people
+	Travelers should be able to book on the web
+
+	Scenario: Successful booking
+	# features/book_room.feature:6
+	Given a hotel with "5" rooms and "0" bookings
+	# features/step_definitions/hotel_steps.rb:1
+
+1 scenario (1 passed)
+1 step (1 passed)
+0m0.002s
+
+Several  things  changed  when  we  added  the  step  definition.  First,  the scenario and step are no longer pending, but passing. This means that for each of our steps, Cucumber found a matching step definition. Each step  definition  consists  of  a  regular  expression  and  a  block.  Whenever  Cucumber  executes  a  step,  it  will  look  for  a  step  definition  with a  matching  regular  expression,  and  if  it  finds  one,  it  will  execute  the block.
+
+Arguments
+
+If  a  step  definition’s  regular  expression  contains  one  or  more  capture groups,  it  will  treat  them  as  arguments  to  the  step definition’s  block. The  step  definition  has  the  regular  expression  /^a  hotel  with  "([^\"]*)" rooms and "([^\"]*)" bookings$/, and when that is matched with the plain- text  step  a hotel with "5" rooms and "0" bookings,  it  extracts  the  strings  5 and 0 and passes them as arguments to the block.
+
+Note that arguments are always passed as Strings, so if we want to treat an  argument  as  a  different  type,  we  have  to  manage  that  explicitly. More about that in a little while.
+

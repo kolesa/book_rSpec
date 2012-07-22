@@ -1,0 +1,144 @@
+8.3  Updating Specs After Refactoring
+
+After refactorings that introduce new methods and classes like Extract Method  and  Extract  Class,  the  RSpec  code  examples  may  no  longer reflect  the responsibilities  of  the objects  they specify.  In our  case, we have no specs for the Marker, and we have a bunch of examples for the Game that are more closely aligned with the Marker than they are with the Game.
+
+We want the specs to serve as documentation of the responsibilities of the objects they exercise, so let’s move some things around. First, let’s add some examples for the Marker behavior. Add a marker_spec.rb file to spec/codebreaker/, and add the following code:
+
+Download cb/42/spec/codebreaker/marker_spec.rb
+
+require 'spec_helper'
+
+module Codebreaker 
+	describe Marker do
+ 
+		describe "#exact_match_count" do
+			context "with no matches" do
+				it "returns 0" do
+					marker = Marker.new('1234','5555')
+					marker.exact_match_count.should == 0
+				end 
+			end
+
+			context "with 1 exact match" do
+				it "returns 1" do
+					marker = Marker.new('1234','1555')
+					marker.exact_match_count.should == 1
+				end 
+			end
+
+			context "with 1 number match" do
+				it "returns 0" do
+					marker = Marker.new('1234','2555')
+					marker.exact_match_count.should == 0
+				end 
+			end
+			
+			context "with 1 exact match and 1 number match" do
+				it "returns 1" do
+					marker = Marker.new('1234','1525')
+					marker.exact_match_count.should == 1
+				end 
+			end
+		end
+
+		describe "#number_match_count" do
+			context "with no matches" do
+				it "returns 0" do
+					marker = Marker.new('1234','5555')
+					marker.number_match_count.should == 0
+				end 
+			end
+
+			context "with 1 number match" do
+				it "returns 1" do
+					marker = Marker.new('1234','2555')
+					marker.number_match_count.should == 1
+				end 
+			end
+
+			context "with 1 exact match" do
+				it "returns 0" do
+					marker = Marker.new('1234','1555')
+					marker.number_match_count.should == 0
+				end 
+			end
+		
+			context "with 1 exact match and 1 number match" do
+				it "returns 1" do
+					marker = Marker.new('1234','1525')
+					marker.number_match_count.should == 1
+				end 
+			end
+		end 
+	end
+end
+
+We’re really only interested in the exact_match_count and number_match_count() methods because those are the only methods being used by the Game. Run that new spec file with this command:
+
+rspec spec/codebreaker/marker_spec.rb --format nested
+
+The output should look like this:
+
+Codebreaker::Marker
+#exact_match_count 
+	with no matches
+		returns 0
+	with 1 exact match 
+		returns 1
+	with 1 number match 
+		returns 0
+	with 1 exact match and 1 number match 
+		returns 1
+#number_match_count 
+	with no matches
+		returns 0
+	with 1 number match 
+		returns 1
+	with 1 exact match 
+		returns 0
+	with 1 exact match and 1 number match 
+		returns 1
+
+See  how  nicely  that  documents  the  behavior  of  these  methods  of  the Marker in different contexts?
+
+Now comes the question of what to do with the examples we wrote for the guess() method on the Game. We used them to drive out the implementation of  the  marking  algorithm  in  small  steps,  and  they  served that purpose well. They also served us well during the refactoring we just did because we were able to get rapid feedback after each change, and when there were failures, we were able to isolate them quickly.
+
+That said, the responsibility of the Game  object has changed. It’s still responsible for sending a mark to the output, but it’s no longer responsible for calculating the mark. With that, let’s remove the existing examples  for  guess  and  add  one  that  documents  its  responsibility.  Modify game_spec.rb so it looks like this:
+
+Download cb/42/spec/codebreaker/game_spec.rb
+
+require 'spec_helper'
+
+module Codebreaker 
+	describe Game do
+		let(:output) { double('output').as_null_object }
+		let(:game) { Game.new(output) }
+
+		describe "#start" do
+			it "sends a welcome message" do 
+				output.should_receive(:puts).with('Welcome to Codebreaker!') 
+				game.start('1234')
+			end
+
+			it "prompts for the first guess" do 
+				output.should_receive(:puts).with('Enter guess:') 
+				game.start('1234')
+			end 
+		end
+
+		describe "#guess" do
+			it "sends the mark to output" do game.start('1234') 
+				output.should_receive(:puts).with('++++') 
+				game.guess('1234')
+			end 
+		end
+	end 
+end
+
+Run the specs, and they should all pass. If you run them with --format nested, you’ll see documentation of the responsibilities of both objects.
+
+Are We Done Yet?
+
+Refactoring  can  be  addictive.  Every  time  we  do  one  refactoring,  our attention is drawn to an area of the code we may not have focused on before. Or perhaps we were focused on it, but the new structure exposes new smells. We could certainly do more refactoring now if we wanted to, but eventually we have to stop and move on.
+At this point, we’ve made excellent progress, and the code is clear and well  factored.  Of  course,  we  could  do  more,  and  we  will  in  the  next chapter, but for now let’s move on to a new topic.
+

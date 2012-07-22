@@ -1,0 +1,13 @@
+9.3  What We’ve Learned
+
+In this chapter, we took lessons that we learned from exploratory testing and fed them back into the process. We documented the new requirements in Cucumber scenarios and used them as our starting point for continued development.
+
+In  the  process  of  analyzing  what  we  learned,  we  stepped  back  and thought  about  a  different  implementation  that  might  be  superior  to the one we had. We experimented with the new implementation, using our existing scenarios and code examples to ensure that we preserved behavior. When we ran the code examples, we learned about the error we made in our implementation right away and were able to quickly fix the error and continue progressing.
+ 
+This is a small demonstration of how code examples serve as regression tests over the life of an application. If we’ve written them well and kept them focused on small, isolated bits of behavior, they run very fast and provide us with practical feedback very quickly.
+
+Note that our experiment was on a very small bit of lower-level functionality. This would have been much more challenging if the marking algorithm were still expressed in a single method in the Game.
+
+This brings us to the end of this first part of the book. We hope that you now have a sense of what it’s like to use Cucumber and RSpec together to discover requirements, flesh them out at the high level, and design objects that provide solutions for them. These are the daily practices of a developer working on a Behaviour -Driven Development project, but developer practices are only one component of BDD as a whole.
+
+In the next part of the book, we’ll provide a bit of background on BDD, including what came before and where we are today. You’ll learn about the  motivations  for  BDD  and  the  basic  principles  behind  the  process that have led us to the practices we just covered.

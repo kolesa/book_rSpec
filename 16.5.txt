@@ -1,0 +1,15 @@
+16.5  Global Hooks
+
+The Configuration object also has hooks you can use to add blocks that are evaluated before, after, or around examples:
+
+before(scope = :each, options={}, &block)  Adds  the  submitted  block to  the  end  of  a  list  of  blocks  that  get  evaluated  before  examples that match the submitted scope and options. scope can be any of :each,:all, or :suite. If :each, the block is run before each matching example. If :all, the block is run once per group, before any matching examples have been run. If :suite, the block is run once before any example groups have run.
+
+after(scope = :each, options={}, &block)  Adds the submitted block to the beginning of the list of after blocks that get run by every example group. See before( ), earlier, for notes about scope and filtering.
+
+around(options={}, &block)  Allows  you  to  wrap  behavior  around  examples by passing the example to the supplied block. This is especially  useful  when  working  with  a  library  that  exposes  facilities through  methods  that  accept  a  block.  The  most  obvious  example is database transactions. Here’s an example using the Sequel library with Rails 3:
+
+RSpec.configure do |config|
+	config.around { |example| DB.transaction &example }
+end
+
+Every example is passed to this block, which executes the example in the context of a Sequel transaction. This leaves Sequel responsible  for  managing  the  details  of  the  transaction  and  keeps  the configuration nice and clean.

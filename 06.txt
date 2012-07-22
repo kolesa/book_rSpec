@@ -1,0 +1,7 @@
+Chapter 6
+
+Adding  New  Features  
+
+Welcome  back!  We  left  off  with  the  Codebreaker  game  inviting  us  to guess  the  secret  code  but  then  leaving  us  hanging  at  the  command line. The next feature we’re going to tackle is submitting a guess and getting feedback from the Codebreaker game as to how close the guess is to breaking the secret code.
+
+This  feature  is  going  to  introduce  an  algorithm  for  marking  a  guess. This is where things start to get really interesting because algorithms tend  to  cover a  lot of  possible  cases with  a  small amount  of code.  As you’ll see, we’re going to have a lot more scenarios and specs than we did  for  the  Code-breaker starts game  feature.  Luckily, we  have  tools  in both RSpec and Cucumber to keep things readable and DRY.

@@ -1,0 +1,133 @@
+16.8  Macros
+
+Custom matchers can help us build up domain-specific DSLs for specifying  our  code,  but  they  still  require  a  bit  of  repetitive  ceremony.  In rspec-rails, for example, it is quite common to see examples like this:
+
+describe Widget do
+	it "requires a name" do 
+		widget = Widget.new 
+		widget.valid?
+		widget.should have(1).error_on(:name)
+	end 
+end
+
+With a custom matcher, we can clean that up a bit:
+
+describe Widget do
+	it "requires a name" do
+		widget = Widget.new
+		widget.should require_attribute(:name)
+	end 
+end
+ 
+
+
+We can even get more terse by taking advantage of the implicit subject, which  you  read  about  in  Section  13.8,  Implicit Subject ,  on  page  189, like this:
+
+describe Widget do
+	it { should require_attribute(:name) }
+end
+
+Now that is terse, expressive, and complete all at the same time. But for the truly common cases like this, we can do even better. In 2006, the shoulda library emerged as an alternative to RSpec for writing more expressive tests.3  One of the innovations that came from shoulda was macros to express the common, redundant things we want to express in tests. Here’s the widget example with a shoulda macro instead of a custom matcher:
+
+class WidgetTest < Test::Unit::TestCase 
+	should_require_attributes :name
+end
+
+In  late  2007,  Rick  Olsen  introduced  his  own  rspec-rails  extension  library named rspec_on_rails_on_crack,4  which added macros to rspec-rails. In rspec_on_rails_on_crack, the widget example looks like this:
+
+describe Widget do
+	it_validates_presence_of Widget, :name
+end
+
+Macros  like  this  are  great  for  the  things  that  are  ubiquitous  in  our applications, like Rails’ model validations. They’re a little bit like shared example groups, which you read about in Section 12.5, Shared Examples,  on  page  164,  but  they  are  more  expressive  because  they  have unique  names,  and  unlike  shared  examples,  they  can  accept  arguments.
+
+Macros are also quite easy to add to RSpec. Let’s explore a simple example. Here is some code that you might find in a typical controller spec:
+
+3.  http://www.thoughtbot.com/projects/shoulda
+4.  http://github.com/technoweenie/rspec_on_rails_on_crack
+
+describe ProjectsController do 
+	context "handling GET index" do
+		it "should render the index template" do 
+			get :index
+			controller.should render_template("index")
+		end
+
+		it "should assign @projects => Project.all" do
+			Project.should_receive(:all).and_return(['this array'])
+			get :index
+			assigns[:projects].should == ['this array']
+		end 
+	end
+end
+
+This would produce output like this:
+
+ProjectsController handling GET index 
+	should render the index template
+	should assign @projects => Project.all
+
+Using macros inspired by rspec_on_rails_on_crack and shoulda, we can express the same thing at a higher level and get the same output like this:
+
+Download extending_rspec/macro_example/spec/controllers/projects_controller_spec.rb
+
+describe ProjectsController do
+	get :index do
+		should_render "index"
+		should_assign :projects => [Project, :all]
+	end 
+end
+
+The underlying code is quite simple for the experienced Rubyist:
+
+Download extending_rspec/macro_example/spec/spec_helper.rb
+
+module ControllerMacros
+	def should_render(template)
+		it "should render the #{template} template" do
+			do_request
+			response.should render_template(template)
+		end 
+	end
+
+	def should_assign(hash)
+		variable_name = hash.keys.first model, method = hash[variable_name]
+		model_access_method = [model, method].join('.')
+		it "should assign @#{variable_name} => #{model_access_method}" do 
+			expected 	= "the value returned by #{model_access_method}" 
+			model.should_receive(method).and_return(expected)
+			do_request
+			assigns[variable_name].should == expected
+		end 
+	end
+	 
+	def get(action)
+		define_method :do_request do
+			get action
+		end 
+		yield
+	end 
+
+end
+
+RSpec.configure do |config| 
+	config.use_transactional_fixtures = true 
+	config.use_instantiated_fixtures  = false 
+	config.fixture_path = RAILS_ROOT + '/spec/fixtures/' 
+	config.extend(ControllerMacros, :type => :controller)
+end
+
+The  get( )  method  defines  a  method  that  is  used  internally  within  the macros  named  do_request( )  and  yields  to  the  block  that  contains  the other macros, giving them access to the do_request( ) method.
+
+The should_assign( ) method seems a bit complex, but it goes out of its way to provide you with nice feedback so when you’re writing the examples first (as I trust you are), you’ll get a failure message like this:
+
+expected: "the value returned by Project.all", 
+	got: nil (using ==)
+
+We exposed these macros to controller specs by extending all controller example groups with the ControllerMacros module in the last line of the configuration. If we didn’t want them in all controller specs, we could also explicitly extend individual groups inline, like this:
+
+describe ProjectsController do 
+	extend ControllerMacros
+	...
+
+At  this  point,  we’ve  explored  a  number  of  ways  to  make  RSpec code examples  more  expressive,  but  all  these  techniques  apply  only  to  the input : the code we write and read in our examples. This is great if you’re a  developer,  but  part  of  RSpec’s  value-add  is  its  ability  to  customize output for different audiences. We’ll explore how RSpec does this and how we can customize it in the next section.

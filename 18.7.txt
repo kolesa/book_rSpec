@@ -1,0 +1,46 @@
+18.7  Tables in Steps
+
+Sentences that begin with Given, When, and Then are great for expressing activities and interactions that users have with a software system. They  are  not,  however, very  useful  for  tabular  data.  It  turns  out  that the best thing for tables is. . . tables! Cucumber supports tabular data in steps with a wiki-style table format that is well suited for both Given and Then steps.
+
+Imagine  we’re  writing  a  poker  hand  evaluator.  Here’s  how  we  might describe the cards in the hand using tables:
+
+Scenario: three of a kind beats two pair
+	Given a hand with the following cards:
+		| rank | suit |
+		| 2    | H    |
+		| 2    | S    |
+		| 2    | C    |
+		| 4    | D    |
+		| A    | H    |
+	And another hand with the following cards:
+		| rank | suit |
+		| 2    | H    |
+		| 2    | S    |
+		| 4    | C    |
+		| 4    | D    |
+		| A    | H    |
+	Then the first hand should beat the second hand
+
+When Cucumber sees a | at the beginning of a line following a line with a Step keyword, it parses that and all subsequent lines beginning with | and stores the cell values in a Cucumber::Ast::Table object, which exposes the data as an array of hashes via a hashes( ) method.
+
+Each  hash  in  the  array  uses  the  column  headers  in  the  first  row  as keys, like this:
+
+[
+	{ :rank => '2', :suit => 'H' },
+	{ :rank => '2', :suit => 'S' },
+	{ :rank => '4', :suit => 'C' },
+	{ :rank => '4', :suit => 'D' },
+	{ :rank => 'A', :suit => 'H' }
+]
+
+Cucumber delivers the Cucumber::Ast::Table to the block as the last (and only, in this case) block argument. The step definition for the first step might look like this:
+
+Given /^a hand with the following cards:$/ do |cards_table|
+	hands << Hand.new do |hand|
+		cards_table.hashes.each {|hash| hand << Card.new(hash)}
+	end 
+end
+
+The step definition guides us to write the initialize method on Card such that it can set its internal state from a hash with the keys :rank, and :suit.
+
+The Cucumber::Ast::Table  offers several other utilities. See the RDoc for more information. (2)

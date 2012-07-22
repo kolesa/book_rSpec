@@ -1,0 +1,99 @@
+6.1  Scenario Outlines in Cucumber
+
+Here’s the Cucumber feature we wrote back in Section 3.3, Planning the First Iteration, on page 44:
+
+Download cb/15/features/codebreaker_submits_guess.feature
+
+Feature: code-breaker submits guess
+
+	The code-breaker submits a guess of four numbers.  The game marks the guess with + and - signs.
+
+	For each number in the guess that matches the number and position of a number in the secret code, the mark includes one + sign. For each number in the guess that matches the number but not the position of a number in the secret code, the mark includes one - sign.
+
+	Scenario Outline: submit guess
+		Given the secret code is "<code>"
+		When I guess "<guess>"
+		Then the mark should be "<mark>"
+
+		Scenarios: no matches
+			| code | guess | mark |
+			| 1234 | 5555  |      |
+
+		Scenarios: 1 number correct
+			| code | guess | mark |
+			| 1234 | 1555  |   +  |
+			| 1234 | 2555  |   -  |
+
+		Scenarios: 2 numbers correct
+			| code | guess | mark |
+			| 1234 | 5254  |   ++ |
+			| 1234 | 5154  |   +- |
+			| 1234 | 2545  |   -- |
+
+		Scenarios: 3 numbers correct
+			| code | guess | mark |
+			| 1234 | 5234  | +++  |
+			| 1234 | 5134  | ++-  |
+			| 1234 | 5124  | +--  |
+			| 1234 | 5123  | ---  |
+
+		Scenarios: all numbers correct
+			| code | guess | mark |
+			| 1234 | 1234  | ++++ |
+			| 1234 | 1243  | ++-- |
+			| 1234 | 1423  | +--- |
+			| 1234 | 4321  | ---- |
+
+
+
+The  narrative  is  self-explanatory.  After  that,  we  use  a  scenario  out- line, which we introduced in Section 3.3, Scenario Outlines, on page 49. Briefly, the rows in the scenarios tables provide data for the <placehold- ers> in the scenario outline. To figure out what our next step is, run the Code-breaker submits guess feature with the following command:
+
+cucumber features/codebreaker_submits_guess.feature
+
+As  we  saw  earlier,  the  output  includes  the  contents  of  the  file  listed previously, plus a summary and code snippets for any undefined steps. Here is the summary and just a few of the code snippets:
+
+14 scenarios (14 undefined)
+42 steps (42 undefined)
+0m0.031s
+
+
+You can implement step definitions for undefined steps with these snippets: 
+
+Given /^the secret code is "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had 
+end
+
+When /^I guess "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had
+end
+
+Then /^the mark should be "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had
+end
+
+The summary says we have fourteen scenarios, one for each nonheader row in the tables in each group of scenarios. All fourteen scenarios are considered  undefined  because  we  don’t  have  step  definitions  defined for them. So now, with that help from Cucumber, let’s write some step definitions.
+
+Step Definitions
+
+Step definitions for scenario outlines and tables are just like the step definitions  we  learned  about  in  Chapter  4,  Automating  Features  with Cucumber , on page 53. We’ll still provide regular expressions that capture input data and a block of code that interacts with the application code.
+
+Copy  the  first  snippet  into  features/step_definitions/codebreaker_steps.rb, and modify it as follows:
+
+Download cb/16/features/step_definitions/codebreaker_steps.rb
+
+Given /^the secret code is "([^"]*)"$/ do |secret| game = 
+	Codebreaker::Game.new(output) 
+	game.start(secret)
+end
+
+The Regexp captures a group of characters in quotes. This will capture the code (1234, for example) and pass it to the body of the step definition. The first line of the body should look familiar, because it is just like the first step in I start a new game. Then the last line passes in the secret code from the match group.
+
+Now run cucumber again, and you’ll see output including this:
+
+Scenarios: no matches
+	| code | guess | mark |
+	| 1234 | 5555  |      |
+	wrong number of arguments (1 for 0) (ArgumentError)
+	./features/step_definitions/codebreaker_steps.rb:20:in `start'
+
+You should see the ArgumentError for every scenario. This is actually good news, because the error tells us that everything is wired up correctly, and we now know what we have to do next: get the start( ) method on Game to accept the secret code as an argument.

@@ -1,0 +1,65 @@
+17.11  Tags
+
+Once we get a scenario passing, any subsequent failure is considered a regression. We want to fix it quickly, ideally before committing code. The life cycle before a scenario passes the first time, however, is a different matter.
+
+The Life of a Scenario
+
+Before  work  commences  on  a  feature,  each  scenario  may  go  through an approval process in which developers and customers collaborate to write a scenario that expresses the right requirements at the right level of abstraction, and so on. During this time, a scenario might be considered to be pending approval, for example.
+
+Once all parties agree and we’re ready to commence work, the feature becomes a work in progress. Even after we have one scenario passing, we might have other scenarios in the same feature that are still works in progress or pending approval to start work.
+
+We therefore want to run controlled subsets of a full suite. When we’re working on a scenario, we might want to run only that scenario until we get it passing. Our continuous integration build might run only scenarios that should be passing and ignore all of the works in progress or scenarios pending approval.
+
+Cucumber supports running selected subsets of features and scenarios with tags.
+
+Tags to the Rescue
+
+A tag in Cucumber looks like an instance variable in Ruby. It starts with an @ symbol followed by an alpha character or an underscore, followed by an arbitrary number of alphanumeric characters and underscores. Examples include @wip (work in progress), @iteration_12, @approved, and so on.
+
+Any number of tags can be applied to any feature or scenario by typing them on the line before the Feature or Scenario keyword:
+
+@approved @iteration_12
+Feature: patient requests appointment
+
+	@wip
+	Scenario: patient selects available time
+
+A  Scenario  inherits  tags  specified  on  the  Feature,  so  in  the  previous example, the Scenario will have the tags @approved @iteration_12 @wip.
+
+With scenarios tagged, we can now run all of the scenarios tagged with a specific tag with the --tags command-line argument. For example, this command would run all of the scenarios tagged with @wip:
+
+cucumber --tags @wip
+
+The --tags option can accept a complex tag expression, including conditional AND, OR, and NOT expressions. Here are some examples:
+
+cucumber --tags @foo,@bar
+# @foo || @bar
+# runs all of the scenarios tagged with @foo OR @bar
+
+cucumber --tags @foo --tags @bar
+# @foo && @bar
+# runs all of the scenarios tagged with @foo AND @bar
+
+cucumber --tags ~@dev
+# !@dev
+# runs all of the scenarios NOT tagged with @dev
+
+cucumber --tags @foo,~@bar --tags @baz
+# (@foo || !@bar) && @baz
+# runs all of the scenarios (tagged with @foo OR NOT tagged with @bar) AND
+# tagged with @baz
+
+Type cucumber --help for more information about tags.
+
+Other Uses for Tags
+
+In addition to using tags to manage the life cycle of a scenario, we can also use tags to do the following:
+
+•  Identify scenarios only to be run in a certain environment
+
+•  Identify  scenarios  that  represent  different  sorts  of  testing,  like workflow vs. business rules
+
+•  Run only scenarios that run fast
+
+•  Run scenarios related to a feature set or theme
+

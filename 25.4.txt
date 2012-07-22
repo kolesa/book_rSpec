@@ -1,0 +1,100 @@
+25.4  Useful Tidbits
+
+In addition to what we’ve just gone through, here are a few more pieces of useful information you can employ when writing model specs.
+
+DB or Not DB
+
+The  model  specs  we’ve  written  have  all  relied  on  interaction  with  a database.  This  is  one  way  to  write  model  specs,  but  it’s  not  the  only way. We can also disconnect model specs from a database. You may be wondering why would you want to do that. Well, speed!
+
+Hitting a database for each example takes time. Connections need to be made, queries need to be sent/parsed/optimized/executed, and results need to be returned. Over time, a project accumulates more models and more behavior, and models specs can easily go from taking a few seconds to several minutes. And the longer they take, the less we tend to run them. This works against our effort to produce quality code quickly.
+
+There  are  many  cases  in  which  we  write  examples  for  business  logic that  happens  to  belong  in  a  model  but  doesn’t  require  a  database. Removing  the  database  bottleneck  when  we  don’t  need  it  can  speed things up considerably.
+ 
+The  rspec-rails  library  doesn’t  provide  a  way  to  do  this  natively,  but we  can  look  to  libraries  such  as  Dan  Manges’  UnitRecord3 and  Avdi Grimm’s NullDb4  for help. They both disconnect specs from the data- base by using the schema.rb to supply information about the tables and attributes that models rely on.
+
+There are times, however, when we want to interact with the database to expose behavior or to boost confidence that an example is actually exercising  something.  UnitRecord  and  NullDb  both  provide  ways  for examples to interact with a database for these cases. This gives us the best of both worlds. Speed takes priority by default, but we can access a database when we need it.
+
+Test Data Builders
+
+Test data builders give us a centralized mechanism we can use to construct  objects  in  code  examples.  They  allow  for  variability  in  the  test data being created, which in Rails typically means accepting overriding values via a hash.
+
+The Test Data Builder pattern separates the construction of an object from its representation so the construction process can be reused. This can turn an overly verbose and obfuscated example into a clear, easy-to-read example.
+
+Here’s an overly verbose example that obfuscates the important part of the example. It’s hard to tell that the :text attribute is important:
+
+it "is not valid ..." do message = 
+	Message.create!(
+		:title => "some title",
+		:text => "some text",
+		:recipient => User.create!(
+			:login => "bob",
+			:password => "password",
+			:password_confirmation => "password"
+		)
+	)
+	... 
+end
+
+Here’s what the construction of the message in this example would look like using test data builder libraries designed specifically to work with ActiveRecord.  They  all  remove  unnecessary  verbosity,  increase  read-ability,  and  make  it  immediately  apparent  that  the  :text  attribute  is important to the example:
+
+
+3.  http://github.com/dan- manges/unit- record/tree/master
+4.  http://nulldb.rubyforge.org
+
+
+# Fixjour and FixtureReplacement
+message = create_message(:text => "some text")
+
+# FactoryGirl
+message = Factory(:message, :text => "some text")
+
+# ObjectDaddy
+message = Message.generate(:text => "some text")
+
+# Machinist
+message = Message.make(:text => "some text")
+
+Fixjour, FixtureReplacement, FactoryGirl, Machinist, and ObjectDaddy are all battle-tested and offer mature APIs, relying on convention and offering namespaces, declarative methods, sequences, association support, and DSL-like definitions.
+
+Custom Macros
+
+We can write custom macros for model specs using the same techniques we employed in Chapter 24, Rails Controllers, on page 345.
+
+•  Identify an example or group of examples to pull into a macro
+
+•  Extract the example(s) into a method on a module
+
+•  Update spec/spec_helper.rb to include the module
+
+•  Update the spec to use the macro
+
+Matchers
+
+rspec-rails  provides  some  additional  matchers  that  can  be  useful  in model specs.
+
+be_valid
+
+The be_valid( ) matcher is used to set the expectation that your model is or is not valid:
+
+model.should be_valid model.should_not be_valid
+
+error_on and errors_on
+
+The  error_on( )  and  errors_on( )  methods  extend  RSpec’s  have( )  matcher for use with ActiveRecord  models in order to set an expectation that a particular attribute has an error or not. It will call valid?( ) on the model in order to prepare the errors.
+
+model.should have(:no).errors_on(:title) 
+model.should 
+have(1).error_on(:body) model.should 
+have(2).errors_on(:caption)
+
+record and records
+
+The record( ) and records( ) methods also extend the have( ) matcher for use  with  ActiveRecord  models.  These  let  us  set  an  expectation  of  the number of records. It calls find(:all) on the model in order to determine the count.
+
+ModelClass.should have(:no).records
+ModelClass.should have(1).record
+
+Writing Your Own
+
+You can always write your own matchers when you find yourself duplicating  the  same  expectation  in  multiple  examples  or  in  a  more  verbose way than you’d like. The techniques to write custom matchers for ActiveRecord  models  are  the  same  that  you  learned  in  Section  16.7, Custom Matchers, on page 240.
+

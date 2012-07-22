@@ -1,0 +1,11 @@
+16.6  Mock Framework
+
+RSpec uses its own mocking framework by default. You can, however, configure RSpec to use virtually any framework:
+
+RSpec.configure do |c|
+	c.mock_with(:rr)
+end
+
+The mock_with( ) method can accept a Symbol  or a module reference. If it’s a symbol, it can be any of :rspec (default), :mocha,:flexmock, and :rr. These are all reference adapters that ship with RSpec.
+
+If you use a different mock framework or perhaps you’ve written your own, you can write an adapter module for it and then pass that module to  mock_with( ).  See  Chapter  14,  RSpec::Mocks,  on  page  191  for  more information about writing your own adapter.

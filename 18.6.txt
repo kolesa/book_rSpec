@@ -1,0 +1,39 @@
+18.6  Multiline Text
+
+For  software  that  uses  text  files  as  either  input  or  output,  Cucum- ber lets us embed their content right into features with multiline text. RSpec, for example, reads text files. In RSpec’s own Cucumber scenar - ios, we see examples that look like this:
+
+Scenario: pending implementation
+	Given a file named "example_without_block_spec.rb" with:
+	"""
+	describe "an example" do
+	it "has not yet been implemented"
+	end
+	"""
+	When I run "spec example_without_block_spec.rb"
+	Then the exit code should be 0
+	And the stdout should include
+	""" Pending:
+
+		an example has not yet been implemented \(Not Yet Implemented\)
+		.\/example_without_block_spec.rb:2
+
+		Finished in ([\d\.]*) seconds
+
+		1 example, 0 failures, 1 pending
+		"""
+
+In this scenario, the Given and And (Then) steps take Python-style multiline strings as their arguments. This gives us a lot of flexibility because we  can  represent  input  and  output  data  (almost)  exactly  as  it  would appear in a file. The margin is determined by the position of the first double quote, so the words describe  and end  are left aligned, and the word it on the second line is indented only two spaces.
+
+The regular expression in the step definition does not need to capture this text. It should end on the last character of the step’s sentence. Here are the step definitions for the steps in the previous example:
+
+Given /^a file named "([^\"]*)" with:$/ do |filename, text|
+	# ... 
+end
+
+Then /^the stdout should include$/ do |text|
+	# ... 
+end
+
+Cucumber delivers the text to the step definition as the last block argument. In the previous Given step definition, the filename block argument contains the value of the regular expression capture, and the text variable holds the multiline text. The Then step definition has no capture groups defined, so the one and only block argument contains the mul- tiline text.
+
+The  step  definition  behind  the  And  step  compiles  a  regexp  and  com- pares  it  to  the  expected  output,  which  is  why  we  see  a  group  with  a character class and the parentheses around “Not Yet Implemented” are escaped.

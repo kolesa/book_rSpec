@@ -1,0 +1,15 @@
+23.5  What We’ve Learned
+
+The  user  interface  changes  more  often  than  just  about  anything  else in  an  application.  View  specs  help  us  specify  the  details  that  should remain stable through markup changes and help discover the requirements of other components further down the stack. In this chapter, we discussed these facts as well as the following:
+•  View  specs  use  a  custom  example  group  provided  by  the  rspec-rails library.
+
+•  View specs live in a directory tree parallel to the views themselves and follow a naming convention of spec/path/to/view.html.erb_ spec.rb for app/path/to/view.html.erb.
+
+•  Use  Webrat’s  have_xpath( )  and  have_selector( )  matchers  for  view specs.
+
+•  Use mock_model( ) and stub_model( ) to isolate view specs from the database and underlying business logic of your models.
+
+•  Helpers have their own specs that live in the spec/helpers directory.
+
+As we mentioned earlier, view specs help us identify the instance variables that our controllers will need to supply. In the next chapter, we’ll take a look at specifying controllers in isolation from views and take a look at models.
+ 

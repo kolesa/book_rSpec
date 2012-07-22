@@ -1,0 +1,27 @@
+18.2  World
+
+Every scenario runs in the context of a new instance of an object that we call World. By default, World  is just an instance of Object  that Cucumber  instantiates  before  each  scenario.  All  of  the  step  definitions  for  a scenario will execute their blocks in the context of this same instance.
+
+In  some  cases,  it  can  be  handy  to  invoke  helper  methods  from  step definitions. To make such methods available, we can customize World using  the  World()  method,  which  takes  one  or  more  Ruby  modules  as arguments:
+
+module MyHelper def some_helper
+... end
+end
+
+World(MyHelper)
+
+This makes the some_helper method available from our step definitions. We  can  configure  World  in  any  Ruby  file  in  features  or  its  subdirecto- ries, but we recommend doing it in a file called features/support/world.rb, because this makes it easier to remember where the code lives.
+
+In  addition  to  mixing  Ruby  modules  into  the  World  object  (which  by default  is  an  instance  of  Object),  we  can  also  change  the  default  be- havior so that the World is an instance of some other class. This is done with the same World() method, passing a block:
+
+class MyWorld
+	def some_helper
+		... 
+	end
+end
+World do
+	MyWorld.new
+end
+
+These  techniques  for  altering  World  can  also  be  used  by  Cucumber “plug-ins”  such  as  cucumber-rails,  which  configures  World  to  be  an instance of ActionController::IntegrationTest. It also mixes in various modules from RSpec and Webrat so that those libraries’ helper methods are available from within your step definitions.
+

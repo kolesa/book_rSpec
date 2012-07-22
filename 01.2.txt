@@ -1,0 +1,25 @@
+1.2 Управляемое поведением Развитие: Следующий Шаг
+
+Проблема с тестированием внутренней структуры объекта состоит в том, что мы проверяем то, что объект вместо того, что это делает. Какой объект делает значительно более важно.
+
+То же самое верно на прикладном уровне. Депозитарии спорного имущества обычно не заботятся, что данные сохраняются в ANSI-послушном, реляционной базе данных. Они заботятся, что это находится в “базе данных,” но даже тогда, они вообще подразумевают, то, что это сохранено где-нибудь, и они могут вернуть это.
+
+Это - Все Поведение
+
+BDD помещает центр в поведение вместо структуры, и это делает так на каждом уровне развития. Говорим ли мы об объекте, вычисляющем расстояние между двумя городами, другой объект, делегирующий поиск прочь к имеющему отношение к третьей стороне обслуживанию, или стоящему перед пользователем экрану, обеспечивающему обратную связь, когда мы обеспечиваем недействительный вход, это - все поведение!
+
+Как только мы признаем это, это изменяет способ, которым мы думаем о вытеснении кодекса. Мы начинаем думать больше о взаимодействиях между людьми и системами, или между объектами, чем мы делаем о структуре объектов.
+
+Getting the Words Right
+We believe that most of the problems that software development teams face  
+are  communication  problems.  BDD aims  to  help  communication by 
+simplifying the language we use to describe scenarios in which the software  will  be  used:  Given  some  context,  
+When  some  event  occurs,
+Then I expect some outcome.
+
+Given,  When,  Then,  the  BDD  triad,  are  simple  words  that  we  use 
+whether  we’re  talking  about  application  behavior  or  object  
+behavior. They are easily understood by business analysts, testers, and 
+develop- ers alike. As you’ll see in Section 17.8, Given/When/Then, on page 
+262 and throughout the book, these words are embedded right in the lan- 
+guage of Cucumber.

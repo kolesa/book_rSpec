@@ -1,0 +1,203 @@
+7.3  Refactor to Express Intent
+
+The changes we just made didn’t add any new duplication, but removing duplication is not the only way to improve a design. Take a look at the first and third lines of the guess()  method. Do they express intent well? Not really. The first line is asking whether the first number is an exact match, and the third line is asking whether it is a number match. We know that’s what it means now because we just implemented the code, but it might not be so clear to anyone else.
+ 
+Here  is  a  great  opportunity  to  use  the  Extract  Method  refactoring  to introduce abstractions that more clearly express the intent of the guess() method. You may think of classes and interfaces when we use the word abstraction,  but  here’s  another  way  to  look  at  it:  names  are  abstrac- tions. That applies to names of systems, components, packages, name- spaces, classes, methods, and even variable names.
+
+With that context, let’s extract an exact_match? method, like this:
+
+Download cb/32/lib/codebreaker/game.rb
+
+def guess(guess)
+	if exact_match?(guess, 0)
+		mark = '+'
+	elsif @secret.include?(guess[0])
+		mark = '-'
+	else
+		mark = ''
+	end
+	@output.puts mark
+end
+
+def exact_match?(guess, index)
+	guess[index] == @secret[index]
+end
+
+Run  the  specs,  and  they  should  still  pass.  Next,  we’ll  extract  a  number_match? method:
+
+Download cb/325/lib/codebreaker/game.rb
+
+def guess(guess)
+	if exact_match?(guess, 0)
+		mark = '+'
+	elsif number_match?(guess, 0)
+		mark = '-'
+	else
+		mark = ''
+	end
+	@output.puts mark
+end
+
+def exact_match?(guess, index)
+	guess[index] == @secret[index]
+end
+
+def number_match?(guess, index)
+	@secret.include?(guess[index])
+end
+
+Run the specs again. They should still pass. Now read the code in the guess  method out loud. Paraphrasing in English, it sounds something like this: “If we have an exact match in the first position, the mark is a single plus sign. Else, if we have a number match in the first position, the mark is a single minus sign. Else, the mark is empty.”
+
+That is what we mean when we talk about self-documenting code.
+
+Gradually Add Complexity
+
+Run the scenarios, and you’ll see that three are passing now. The eleven failing scenarios involve more than one match, so we’ll move on to multiple matches. Add the following context and example to game_spec.rb:
+
+Download cb/33/spec/codebreaker/game_spec.rb
+
+context "with 2 number matches" do 
+	it "sends a mark with '--'" do
+		game.start('1234') 
+		output.should_receive(:puts).with('--') 
+		game.guess('2355')
+	end 
+end
+
+Run the specs, and you should see this new example fail with the following message:
+
+1) Codebreaker::Game #guess with 2 number matches sends a mark with '--' 
+Failure/Error: output.should_receive(:puts).with('--')
+	Double "output" received :puts with unexpected arguments expected: ("--")
+	got: ("-")
+	# ./spec/codebreaker/game_spec.rb:49
+
+We’re getting one minus sign instead of the two that we were expecting because  the  implementation  only  deals  with  the  number  in  the  first position, indicated by the index 0 that we’re passing to number_match? and exact_match?. Modify the guess method as follows:
+
+Download cb/34/lib/codebreaker/game.rb
+
+def guess(guess)
+	mark = ''
+	(0..3).each do |index|
+		if exact_match?(guess, index)
+			mark << '+'
+		elsif number_match?(guess, index)
+			mark << '-'
+		end 
+	end
+	@output.puts mark
+end
+ 
+
+
+First, we declare a mark variable and assign it a value of empty string. We then iterate through the four indices representing the positions in the  guess.  Then,  instead  of  assigning  values  to  mark  in  the  loop,  we append to the same string. We’re also able to remove the else branch in the conditional because there’s no need to append an empty string.
+
+Run the specs, and they should all pass. Run the scenarios, and you should see that twelve are passing, leaving only three failing scenarios to go. The failure messages include the following:
+
+expected ["Welcome to Codebreaker!", "Enter guess:", "-+"] to include "+-"
+
+expected ["Welcome to Codebreaker!", "Enter guess:", "-++"] to include 
+"++-"
+
+expected ["Welcome to Codebreaker!", "Enter guess:", "--+"] to include 
+"+--"
+
+We want the plus signs to appear before the minus signs, but each of these  failures  are  because  of  the  minus  signs  showing  up  first.  Let’s add an RSpec example that exposes this:
+
+Download cb/35/spec/codebreaker/game_spec.rb
+
+context "with 1 number match and 1 exact match (in that order)" do 
+	it "sends a mark with '+-'" do
+		game.start('1234') 
+		output.should_receive(:puts).with('+-') 
+		game.guess('2535')
+	end 
+end
+
+The 2 in the first position of the guess is a number match, so it gets a minus sign. The 3  in the third position is an exact match, so it gets a plus sign. Run the specs, and this last example fails the same way as the scenario:
+
+1) Codebreaker::Game #guess with 1 number match and 1 exact match (in that order)
+	sends a mark with '+-'
+	Failure/Error: output.should_receive(:puts).with('+-') 
+	Double "output" 
+	received :puts with unexpected arguments
+		expected: ("+-")
+		     got: ("-+")
+	# ./spec/codebreaker/game_spec.rb:57
+
+To get this to pass, we have to make sure all the plus signs come before the minus signs. One approach to this would be to split the iteration into two, one that adds plus signs for the exact matches and one that adds minus signs for the number matches.
+
+Modify the guess() method as follows:
+
+Download cb/37/lib/codebreaker/game.rb
+
+def guess(guess)
+	mark = ''
+	(0..3).each do |index|
+		if exact_match?(guess, index)
+			mark << '+'
+		end 
+	end
+	(0..3).each do |index|
+		if number_match?(guess, index)
+			mark << '-'
+		end 
+	end
+	@output.puts mark
+end
+
+Run the specs, and you’ll see that in addition to our last example still failing, we’ve also introduced a second failure:
+
+Codebreaker::Game
+	#start
+		sends a welcome message 
+		prompts for the first guess
+	#guess
+		with no matches
+			sends a mark with ''
+		with 1 number match 
+			sends a mark with '-'
+		with 1 exact match
+			sends a mark with '+' (FAILED - 1)
+		with 2 number matches 
+			sends a mark with '--'
+		with 1 number match and 1 exact match (in that order)
+			sends a mark with '+-' (FAILED - 2)
+
+	1) Codebreaker::Game #guess with 1 exact match sends a mark with '+' 
+		Failure/Error: output.should_receive(:puts).with('+')
+		Double "output" received :puts with unexpected arguments 
+			expected: ("+")
+				 got: ("+-")
+		# ./spec/codebreaker/game_spec.rb:40
+
+	2) Codebreaker::Game #guess with 1 number match and 1 exact match (in that order)
+			sends a mark with '+-'
+		Failure/Error: output.should_receive(:puts).with('+-') 
+		Double "output" 
+		received :puts with unexpected arguments
+			expected: ("+-")
+				 got: ("+--")
+		# ./spec/codebreaker/game_spec.rb:56
+
+Finished in 0.00237 seconds
+7 examples, 2 failures
+
+
+Learning from Rapid Feedback
+
+One of the benefits of progressing in small steps is that when we introduce a new failure, we know exactly what we just did, so we have context in which we can analyze the failure. Both failures are because of one more minus sign than we were expecting in the mark. What about the change we just made would cause that to happen?
+
+If you go back and look at the guess() method before we broke the single  iterator  into  two,  the  block  had  an  if, elsif, else  structure.  The  elsif branch was the one that was adding minus signs to the mark, and it was executed only if the if branch hadn’t already been executed.
+
+Now  take  a  look  at  the  number_match?  method.  Can  you  see  what’s missing? It only looks to see whether the number is in the secret code, but it doesn’t ensure that it’s not an exact match! A number match is a number in the guess that appears in the secret code in any other posi- tion. We got the definition of number_match? wrong, so let’s fix it. Update the number_match? to reflect this learning:
+
+Download cb/38/lib/codebreaker/game.rb
+
+def number_match?(guess, index)
+	@secret.include?(guess[index]) && !exact_match?(guess, index)
+end
+
+Run the specs now, and they’ll all pass. Run the scenarios again, and you’ll see that they are all passing as well! This feature is done!
+
+Not so fast! We skipped over the refactoring step in the last red/green/ refactor cycle, so we should review the implementation of the marking algorithm to make sure it is clear and expresses intent well. As it turns out, there is quite a bit that we can do to improve its expressiveness, so we’ll save that for the next chapter. In the meantime, let’s review what we’ve learned so far.

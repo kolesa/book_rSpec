@@ -1,0 +1,43 @@
+2.1  Installation
+
+If you haven’t done so already, the first thing you’ll need to do is 
+install the  rspec  and  cucumber  gems.1  Open  a  shell,  and  type  the  
+following (you may need to prefix this with sudo on some systems):
+
+gem install rspec --version 2.0.0
+
+Now type rspec --help, and you should see output that starts like this:
+
+Usage: rspec [options] [files or directories]
+
+If you don’t see that, or something close, then the installation failed for 
+any number of reasons. If that happened, we recommend you email the 
+rspec-users mailing list. All the authors of this book and many other 
+knowledgeable  members  of  the  community  are  members  and  will  be 
+happy to help you sort it out.2
+
+
+1.  We assume that you already have a basic working knowledge of Ruby and 
+Rubygems.
+If you don’t, we can recommend Programming Ruby: The Pragmatic Programmers’ 
+Guide
+[TFH05] to learn about Ruby 1.8 and/or Programming Ruby 1.9: The Pragmatic 
+Program- mers’ Guide [TFH08] if you want to learn about Ruby 1.9.
+2.  http://rubyforge.org/mailman/listinfo/rspec- users
+
+
+Assuming all is well so far, the next thing to do is install Cucumber by 
+typing this:
+
+gem install cucumber --version 0.9.2
+
+Again,  you  may need to prefix  this  command with  sudo  on  some sys- 
+tems. Now type cucumber --help, and you should see output that starts 
+something like this:
+
+Usage: cucumber [options] [ [FILE|DIR|URL][:LINE[:LINE]*] ]+
+
+In the unlikely event of a Cucumber installation failure, please consult 
+the Cucumber Google group for assistance.3
+
+Now that the tools are installed, it’s time to say hello!

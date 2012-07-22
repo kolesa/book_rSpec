@@ -1,0 +1,5 @@
+Chapter 15
+
+  Tools  and  Integration  
+
+In  the  Codebreaker  tutorial  in  Part  I,  we  used  the  rspec  command  to run specs from a command-line shell. In this chapter, we’ll show you a number of command-line options that you may not have tried yet, as well  as  how  RSpec  integrates  with  other  command-line  tools  such  as Rake and Autotest  and GUI editors like TextMate.

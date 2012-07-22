@@ -1,0 +1,124 @@
+22.1  Getting Started
+
+To demonstrate just how easy it is to get started with Webrat’s Selenium support,  we’ll  walk  through  updating  one  of  our  Cucumber  features from the previous chapter to use it. Here’s what it says:
+
+Download simulated_browser/06/features/create_movie.feature
+
+Feature: Create movie
+
+	So that customers can browse movies by genre
+	As a site administrator
+	I want to create a movie in a specific genre
+
+	Scenario: Create movie in genre
+		Given a genre named Comedy
+		When I create a movie Caddyshack in the Comedy genre
+		Then Caddyshack should be in the Comedy genre
+
+	And here are the three step definitions that make it executable:
+
+Download simulated_browser/06/features/step_definitions/genre_steps.rb
+
+Given /^a genre named Comedy$/ do
+	@comedy = Genre.create!(:name => "Comedy")
+end
+
+Download simulated_browser/06/features/step_definitions/movie_steps.rb
+
+When /^I create a movie Caddyshack in the Comedy genre$/ do
+	visit movies_path click_link "Add Movie"
+	fill_in "Title", :with => "Caddyshack" 
+	select "1980", :from => "Release 
+	Year" check "Comedy"
+	click_button "Save"
+end
+
+Then /^Caddyshack should be in the Comedy genre$/ do
+	visit genres_path click_link "Comedy"
+	response.should contain("1 movie")
+	response.should contain("Caddyshack")
+end
+ 
+
+
+And here’s the env.rb file used by Cucumber to set up the environment (comments removed for brevity):
+
+Download simulated_browser/06/features/support/env.rb
+
+ENV["RAILS_ENV"] ||= "test"
+require File.expand_path(File.dirname( FILE ) + 
+'/../../config/environment')
+
+require 'cucumber/formatter/unicode'
+require 'cucumber/rails/world'
+require 'cucumber/rails/active_record'
+require 'cucumber/web/tableish'
+
+require 'webrat'
+require 'webrat/core/matchers'
+
+Webrat.configure do |config| 
+	config.mode = :rack 
+	config.open_error_files = false
+end
+
+World(Rack::Test::Methods) 
+World(Webrat::Methods)
+
+ActionController::Base.allow_rescue = false
+Cucumber::Rails::World.use_transactional_fixtures = true if 
+defined?(ActiveRecord::Base)
+	begin
+		require 'database_cleaner'
+		DatabaseCleaner.strategy = :truncation
+		rescue LoadError => ignore_if_database_cleaner_not_present
+	end 
+end
+
+To get this feature file to run through Selenium, we have to make three changes to env.rb. First, set use_transactional_fixtures to false:
+
+Download automated_browser/01/features/support/env.rb
+
+Cucumber::Rails::World.use_transactional_fixtures = false
+
+When using Selenium, Cucumber runs in a separate process than the Rails application. This means they’ll be using different database connections, and that  means we can’t wrap each of our scenarios with a transaction in our Cucumber process. If we did, the Rails process would never see the data we set up for it.
+
+The downside of turning off transactions is we’ll now be responsible for ensuring a “clean” database state is provided for each test on our own. We’ll look at strategies for doing that a bit later in this chapter.
+
+Next,  we’ll  configure  the  Rails  ActionController::Integration::Session#host( ) so that it generates URLs pointing to localhost:3001:
+
+Download automated_browser/01/features/support/env.rb
+
+class ActiveSupport::TestCase setup do |session|
+	session.host! 
+	"localhost:3001"
+	end 
+end
+
+By  default,  if  you  use  a  routing  helper  like  users_url( )  in  a  step  defini- tion, you’ll get a URL in the form of http://test.host/.... With these lines, generated URLs will point to http://localhost:3001 instead, which is where Webrat will automatically boot an instance of your application.
+
+Finally, we change Webrat’s configuration as follows:
+
+Download automated_browser/01/features/support/env.rb
+
+Webrat.configure do |config| 
+	config.mode = :selenium # was :rack 
+	config.application_framework = :rack 
+	config.open_error_files = false
+end
+
+Let’s give that a run and see what happens:
+
+$ rake cucumber
+..
+==> Waiting for Selenium RC server on port 4444... Ready!
+==> Waiting for rails application server on port 3001... Ready!
+..
+Finished in 11.679288 seconds.
+
+2 tests, 2 assertions, 0 failures, 0 errors
+
+While  the  previous  output  was  appearing  on  your  terminal,  Firefox opened, loaded up your app, and ran through our Cucumber scenario like an invisible user following a script. As you accumulate more sce- narios to run through Selenium, it can be pretty fun to watch.
+
+Now  that  we’ve  seen  how  to  configure  Webrat,  Cucumber,  and  Rails to  work  with  Selenium,  we’ll  explore  the  nitty-gritty  details  of  writing Selenium-driven scenarios to describe your application’s behavior.
+

@@ -1,0 +1,14 @@
+17.12  What We’ve Learned
+
+Cucumber provides a standard format for expressing requirements in the form of features and scenarios that we can use to automate the systems we write. The Gherkin language provides a common basic struc- ture and a variety of tools for describing features.
+
+A Cucumber feature is made up of a title, a narrative, and an arbitrary number of scenarios. Scenarios are composed of steps beginning with Given,  When,  or  Then.  We  use  Given  steps  to  create  context,  When steps  to  describe  an  event  that  occurs  within  that  context,  and  Then steps to describe the expected outcomes.
+
+We can also use And or But, each of which take on the quality of the previous step. An And step preceded by a When step is considered another When step. We use two common styles for composing steps into scenarios: declarative and imperative. Declarative scenarios tend to be shorter and more specific,  putting  the  maintenance  burden  in  the  step  definitions  that are written in Ruby. Imperative scenarios tend to be longer and more detailed,  but  with  more  generic  steps.  This  pushes  the  maintenance burden more toward the plain-text scenarios themselves.
+
+We  typically  group  features  in  subdirectories  of  the  features  directory named for the each feature.
+
+We can choose which features to run under given conditions using tags in the feature files themselves and referencing those tags from the command line.
+
+In the next chapter, we’ll look more closely at the Ruby code we use to connect the plain-text scenarios to the code we’re driving out.
+ 

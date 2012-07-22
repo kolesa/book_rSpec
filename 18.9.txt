@@ -1,0 +1,15 @@
+18.9  Configuration
+
+Cucumber offers a wide array of command-line switches and options, but nobody wants to type all those options every time we run cucumber. To that end, Cucumber offers us a simple configuration mechanism in the form of profiles defined in a cucumber.yml or config/cucumber.yml file.
+
+The most common use for profiles is selecting sets of scenarios to run based on associated tags. For example, it is conventional to tag the scenarios that we’re currently working with @wip for work in progress. We can add the following line to cucumber.yml in the project root directory:
+
+wip: --tags @wip features
+
+The wip: at the beginning of the line identifies the name of the profile. The  --tags  @wip  is  the  command-line  option  we  learned  about  in  the previous section and it tells Cucumber to run the scenarios tagged with @wip. With that profile defined, we can type the following command to  invoke it:
+
+cucumber -p wip
+
+We  can  set  up  as  many  profiles  as  we  want,  which  gives  us  tremen- dous flexibility in our ability to manage what to run when. We can have profiles  we  use  locally  in  our  minute-to-minute  development.  We  can set up profiles to run on our build servers. We can set up profiles we want to use temporarily because we’re working on a specific area of the application.
+
+We  can  also  use  this  to  create  custom  workflows  and  life  cycles  for scenarios.  Consider  a  scenario  that’s  been  passing,  but  we’re  about to make it obsolete with a new feature we’re working on now. We can identify  that  scenario  as  ready  to  be  phased  out  but  keep  running  it until we’re ready to actually remove it.

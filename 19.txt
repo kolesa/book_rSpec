@@ -1,0 +1,22 @@
+
+Part V
+
+Behaviour-Driven Rails
+
+Chapter 19
+
+  BDD  in  Rails  
+
+Ruby on Rails lit the web development world on fire by putting developer happiness  and  productivity  front  and  center.  Concepts  such  as  convention  over  configuration,  REST,  declarative  software,  and  the  Don’t Repeat Yourself principle are first-class citizens in Rails and have had a profound impact on the Ruby community and the wider web develop- ment community.
+
+In the context of this book, the single most important concept expressed directly in Rails is that automated testing is a crucial component in the development of web applications. Rails was the first web development framework to ship with an integrated full-stack testing framework. This lowered the barrier to entry for those new to testing and, in doing so, raised the bar for the rest of us.
+
+RSpec’s extension library for Rails, rspec-rails, extends the Rails testing framework by offering separate classes for spec’ing Rails models, views, controllers, and even helpers, in complete isolation from one another. (1) All of that isolation can be risky if not accompanied by automated end-to-end  functional  testing  to  make  sure  all  the  pieces  work  together. For that we use Cucumber and supporting tools such as Webrat and Selenium.
+
+Although these tools are great additions to any web developer’s arsenal of  testing  tools,  in  the  end,  tools  are  tools.  RSpec  and  Cucumber are optimized for BDD, but using them doesn’t automatically mean you’re doing BDD, nor does using other tools mean you are not!
+
+
+1.  Early  versions  of  the  rspec-rails  plug-in    were  built  on  ZenTest (http://www.zenspider.com/ZSS/Products/ZenTest/), which offered support for testing mod- els,  views,  controllers,  and  helpers  separately.  We  later  decided  that  we  wanted  more runtime component isolation than ZenTest provided, so we rolled our own, but we owe a debt of gratitude to ZenTest’s author, Ryan Davis, for paving the way.
+
+
+In  the  chapters  that  follow,  we’ll  show  you  how  to  use  rspec-rails  in conjunction  with  tools  such  as  Cucumber,  Webrat,  and  Selenium,  to drive application development from the outside in with a powerful tool set.

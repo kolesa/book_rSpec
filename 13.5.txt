@@ -1,0 +1,103 @@
+13.5  Have Whatever You Like
+
+A hockey team should have five skaters on the ice under normal conditions. The word character should have nine characters in it. Perhaps a Hash should have a specific key. We could say Hash.has_key?(:foo).should be_true, but what we really want to say is Hash.should have_key(:foo).
+
+RSpec  combines  expression  matchers  with  a  bit  more  method_missing goodness to solve these problems for us. Let’s first look at RSpec’s use of method_missing. Imagine that we have a simple RequestParameters class that converts request parameters to a hash. We might have an example like this:
+
+request_parameters.has_key?(:id).should == true
+
+This expression makes sense, but it just doesn’t read all that well. To solve this, RSpec uses method_missing  to convert anything that begins with  have_  to  a  predicate  on  the  target  object  beginning  with  has_.  In this case, we can say this:
+
+request_parameters.should have_key(:id)
+
+In addition to the resulting  code being more expressive, the feedback that we get when there is a failure is more expressive as well. The feed- back from the first example would look like this:
+
+expected true, got false
+
+whereas the have_key example reports this:
+
+expected #has_key?(:id) to return true, got false
+
+This  will  work  for  absolutely  any  predicate  method  that  begins  with “has_”. But what about collections? We’ll take a look at them next.
+
+Owned Collections
+
+Let’s  say  we’re  writing  a  fantasy  baseball  application.  When  our  app sends a message to the home team to take the field, we want to specify that  it  sends  nine  players  out  to  the  field.  How  can  we  specify  that? Here’s one option:
+
+field.players.select {|p| p.team == home_team }.length.should == 9
+
+If you’re an experienced Rubyist, this might make sense right away, but compare that to this expression:
+
+home_team.should have(9).players_on(field)
+ 
+Here,  the  object  returned  by  have( )  is  a  matcher,  which  does  not  re- spond to players_on( ). When it receives a message, it doesn’t understand (like  players_on( )),  it  delegates  it  to  the  target  object,  in  this  case  the home_team.
+
+This expression reads like a requirement and, like arbitrary predicates, encourages useful methods like players_on( ).
+
+At any step, if the target object or its collection doesn’t respond to the expected messages, a meaningful error gets raised. If there is no players_on method on home_team, you’ll get a NoMethodError. If the result of that method doesn’t respond to length or size, you’ll get an error saying so. If the collection’s size does not match the expected size, you’ll get a failed expectation rather than an error.
+
+Unowned Collections
+
+In addition to setting expectations about owned collections, there are going to be times when the object you’re describing is itself a collection. RSpec lets us use have to express this as well:
+
+collection.should have(37).items
+
+In this case, items is pure syntactic sugar. What’s happening to support this is safe but a bit sneaky, so it is helpful for you to understand what is happening under the hood, lest you be surprised by any unexpected behavior.  We’ll  discuss  the  inner  workings  of  have  a  bit  later  in  this section.
+
+Strings
+
+Strings  are  collections  too!  They’re  not  quite  like  arrays,  but  they  do respond to a lot of the same messages as collections do. Because strings respond to length and size, you can also use have to expect a string of a specific length.
+
+"this string".should have(11).characters
+
+As  in  unowned  collections,  characters  is  pure  syntactic  sugar  in  this example.
+
+Precision in Collection Expectations
+
+In  addition  to  being  able  to  express  an  expectation  that  a  collection should have some number of members, you can also say that it should have exactly that number, at least that number or at most that number.
+ 
+matcher result
+
+:Example             :Have      :Object
+
+have(3)
+
+          new(3)
+        <<create>>
+
+
+          things()              things()
+
+Figure 13.1: Have matcher sequence
+
+day.should have_exactly(24).hours
+dozen_bagels.should have_at_least(12).bagels
+internet.should have_at_most(2037).killer_social_networking_apps
+
+have_exactly is just an alias for have. The others should be self-explanatory. These three will work for all the applications of have described in the previous sections.
+
+How It Works
+
+The have  method can handle a few different scenarios. The object returned by have  is an instance of RSpec::Matchers::Have, which gets initialized with the expected number of elements in a collection. So, the following expression:
+
+result.should have(3).things
+
+is the equivalent of this expression:
+
+result.should(Have.new(3).things)
+
+In  Figure  13.1,  we  can  see  how  this  all  ties  together.  The  first  thing to get evaluated is Have.new(3), which creates a new instance of Have, initializing it with a value of 3. At this point, the Have object stores that number as the expected value.
+
+Next, the Ruby interpreter sends things to the Have object. Then method_missing is invoked because Have doesn’t respond to things. Have overrides method_missing  to store the message name (in this case things) for later use and then returns self. So, the result of have(3).things is an instance of Have  that knows the name of the collection you are looking for and how many elements should be in that collection.
+
+The  Ruby  interpreter  passes  the  result  of  have(3).things  to  should( ), which,  in  turn,  sends  matches?(self)  to  the  matcher.  It’s  the  matches? method in which all the magic happens.
+
+First, it asks the target object (result) if it responds to the message that it stored when method_missing  was invoked (things). If so, it sends that message and, assuming that the result is a collection, interrogates the result  for  its  length  or  its  size  (whichever  it  responds  to,  checking  for length first). If the object does not respond to either length or size, then you get an informative error message. Otherwise, the actual length  or size  is compared to the expected size, and the example passes or fails based on the outcome of that comparison.
+
+If the target object does not respond to the message stored in method_missing,  then  Have  tries  something  else.  It  asks  the  target  object  if  it, itself,  can  respond  to  length  or  size.  If  it  will,  it  assumes  that  you  are actually  interested  in  the  size  of  the  target  object  and  not  a  collec- tion  that  it  owns.  In  this  case,  the  message  stored  in  method_missing is  ignored,  the  size  of  the  target  object  is  compared  to  the  expected size, and, again, the example passes or fails based the outcome of that comparison.
+
+Note that the target object can be anything that responds to length  or size,  not  just  a  collection.  As  explained  in  our  discussion  of  strings, this  allows  you  to  express  expectations  like  “this string”.should have(11). characters.
+
+In  the  event  that  the  target  object  does  not  respond  to  the  message stored in method_missing, length, or size, then Have will send the message to the target object and let the resulting NoMethodError bubble up to the example.
+
+As  you  can  see,  there  is  a  lot  of  magic  involved.  RSpec  tries  to  cover all the things that can go wrong and give you useful messages in each case, but there are still some potential pitfalls. If you’re using a custom collection in which length  and size  have different meanings, you might get unexpected results. But these cases are rare, and as long as you are aware of the way this all works, you should certainly take advantage of its expressiveness.

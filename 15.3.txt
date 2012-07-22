@@ -1,0 +1,13 @@
+15.3  Autotest
+
+Autotest  monitors  changes  to  files  in  your  project.  Based  on  a  set  of internal mappings, each time you save a test file, Autotest will run that test  file.  And  every  time  you  save  a  library  file,  Autotest  will  run  the corresponding test file.
+
+RSpec provides an Autotest extension with mappings that make sense in an RSpec project. To tell Autotest to load this extension, create an autotest  directory  in  the  project  root  directory,  and  then  create  a  dis- cover.rb file in the autotest directory with the following content:
+
+Autotest.add_discovery { "rspec2" }
+
+To try this, add that file to the codebreaker  directory that you created in Chapter 4, Automating Features with Cucumber , on page 53. If you use command-line editors such as Vim or Emacs, open a second shell to the same directory; otherwise, open the project in your favorite text editor.
+
+In  the  first  shell,  type  the  autotest  command.  You  should  see  it  start up  and  execute  a  command  that  loads  up  some  number  of  spec  files and runs them. Now, go to one of the spec files and change one of the code examples so it will fail and save the file. When you do, Autotest will execute just that file and report the failure to you. Note that it only runs that file, not all of the code example files.
+
+Now reverse the change you just made so the example will pass, and save the file again. What Autotest does now is quite clever. First it runs the one file, which is the one with failures from the last run and sees that all the examples pass. Once it sees that the previous failures are now passing, it loads up the entire suite and runs all of the examples again.

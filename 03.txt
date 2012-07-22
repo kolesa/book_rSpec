@@ -1,0 +1,14 @@
+Chapter 3
+
+ Describing  Features  
+
+To  get  started  doing  BDD  with  RSpec  and  Cucumber,  we’re  going  to write a problem-solving game that we’ll call Codebreaker. Our version will be played in a shell, but it is based on a classic pencil and paper game named Bulls and Cows.1
+
+We  picked  a  game  because  we  thought  it  would  be  more  fun  than  a banking  or  social  networking  application.  We  also  wanted  something that was small enough to accomplish in a few short chapters but com- plex enough to provide some interesting edge cases. By the time we get through this tutorial, we’ll have planned a small release, planned and executed  an  iteration,  developed  some  code  from  the  outside  in,  and have a game we can play at the command line.
+
+We’ll develop the game using the process and practices of Behaviour - Driven Development that we introduced in Chapter 1, Introduction, on page 22, and that you’ll read more about throughout this book. We’re going to drive straight on through, stopping only occasionally to review things and answer questions at the end of each chapter. When you’re looking for more detail, we’ll tell you where you can find it, but we won’t get hung up in too much detail during this part of the book so that we can experience the feel of BDD in the trenches.
+
+But before we develop anything, let’s start with an overview of the game and its rules.
+
+
+1.  http://en.wikipedia.org/wiki/Bulls_and_cows

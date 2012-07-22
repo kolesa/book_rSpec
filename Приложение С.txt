@@ -1,0 +1,39 @@
+Appendix C
+
+  Bibliography  
+
+
+[Bec02] Kent Beck.  Test Driven Development: By Example.  Addison-
+Wesley, Reading, MA, 2002.
+
+[Coh04]  Mike Cohn.  User Stories Applied: For Agile Software Devel- 
+opment.  Boston, MA, Addison-Wesley Professional, 2004.
+
+[Eva03] Eric  Evans. Domain-Driven Design: Tackling Complexity in 
+the Heart of Software.  Addison-Wesley  Professional, Read- ing, MA, first 
+edition, 2003.
+
+[FBB+ 99] Martin Fowler, Kent Beck, John Brant, William Opdyke, and Don 
+Roberts.  Refactoring: Improving the Design of Existing Code.  Addison 
+Wesley Longman, Reading, MA, 1999.
+
+[HT00]  Andrew  Hunt and David Thomas.  The Pragmatic Program- mer: 
+From Journeyman to Master. Addison-Wesley, Reading, MA, 2000.
+
+[JAH02]  Ron Jeffries, Ann Anderson, and Chet Hendrickson.
+Extreme  Programming  Installed. Addison-Wesley,  Reading, MA, 2002.
+
+[Mes07]  Gerard Meszaros. xUnit Test Patterns: Refactoring Test Code.
+Addison-Wesley, Reading, MA, 2007.
+
+[MRB97] Robert C. Martin, Dirk Riehle, and Frank Buschmann.  Pattern Languages of Program Design 3. Addison-Wesley  Pro- fessional, Boston, 
+MA, 1997.
+
+[Rai04] J. B. Rainsberger.  JUnit Recipes : Practical Methods for Programmer Testing. Manning Publications Co., Greenwich, CT,
+2004.
+
+[TFH05]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmers’ Guide. The  Pragmatic 
+Programmers, LLC, Raleigh, NC, and Dallas, TX, sec- ond edition, 2005.
+
+[TFH08]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmers’ Guide. The  Pragmatic 
+Programmers, LLC, Raleigh, NC, and Dallas, TX, third edition, 2008.

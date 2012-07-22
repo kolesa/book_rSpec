@@ -1,0 +1,43 @@
+20.1  Step Definition Styles
+
+Step definitions connect the natural-language steps in a plain-text feature file to Ruby code that interacts directly with the application. Since Cucumber  helps  us  describe  behavior  in  business  terms,  the  steps shouldn’t express technical details. Given I’m logged in as an administrator could apply to a CLI, client-side GUI, or web-based application. It’s within the step definitions that the rubber meets the road and code is created to interact with the application.
+
+
+Slow                      Integrated
+
+       Automated Browser
+
+
+       Simulated Browser
+
+
+       Direct Model Access
+
+
+Fast                       Isolated
+
+Figure 20.1: Comparing step definition styles
+
+When building step definitions for a Rails application, we typically deal with three step definition styles for interacting with a web-based system in order to specify its behavior:
+
+•  Automated Browser :  Access  the  entire  Rails  MVC  stack  in  a  real web browser by driving interactions with the Webrat API and its support for piggybacking on Selenium. This style is fully integrated but is the slowest to run and can be challenging to maintain.
+
+•  Simulated  Browser :  Access  the  entire  MVC  stack  using  Webrat, a DSL for interacting with web applications. This style provides a reliable level of integration while remaining fast enough for general use, but it doesn’t exercise JavaScript.
+
+•  Direct Model Access: Access ActiveRecord models directly, bypassing  routing,  controllers,  and  views.  This  is  the  fastest  but  least integrated style.
+
+When writing Cucumber scenarios, integration and speed are opposing forces, as illustrated in Figure 20.1. Fast is better than slow, of course, but integrated is better than isolated when we’re looking for confidence that  an  app  will  work  in  the  hands  of  users  once  it  is  shipped.  So, what’s the best approach to take?
+
+Recommendations
+
+We recommend using Simulated Browser with Webrat for Whens and Thens. This helps drive out the pieces that a user will interact with, pro- viding confidence that the component parts are working well together but  still  produces  a  suite  that  can  be  executed  relatively quickly  and without depending on a real web browser.
+
+We generally recommend using direct model access in Givens, but there are a few exceptions. For anything that needs to set up browser session state, such as logging in, you should use Simulated Browser.
+
+If there is any JavaScript or Ajax, add scenarios that use the Automated Browser approach in their Whens  and Thens for the happy path  and critical less common paths. The added value we get from doing this is exercising client-side code, so when no client code is necessary, there is no reason to use the browser.
+
+Edge Cases
+
+For  features  that  produce  many  edge  cases,  it  can  be  useful  to  drive a  few  through  the  Rails  stack  and  the  rest  using  just  Direct  Model Access for everything. This may seem more like a unit test, but keep in mind that scenarios are about communication. We want to make sure that we’re writing the right code. If the customer asks for specific error messages depending on a variety of error conditions, then it’s OK to go right  to  the  model  if  that’s  the  source  of  the  message,  as  long  as  the relevant slice of the full stack is getting sufficient coverage from other scenarios.
+
+In this chapter, we’ll start with the simplest style, Direct Model Access, and  walk  through  implementing  a  feature.  Then  we’ll  explore  using Webrat for the Simulated Browser style in Chapter 21, Simulating the Browser with Webrat ,  on  page  298  and  Automated  Browser  in  Chapter 22, Automating the Browser with Webrat and Selenium , on page 320.

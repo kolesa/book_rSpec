@@ -1,0 +1,32 @@
+13.6  Operator Expressions
+
+Generally, we want to be very precise about our expectations. We would want  to  say  that  “2  +  2  should  equal  4,”  not  that  “2  +  2  should  be greater than 3.” There are exceptions to this, however. Writing a random generator for numbers between 1 and 10, we would want to make sure that  1  appears  roughly  1,000  in  10,000  tries.  So,  we  set  some  level of tolerance, say 2 percent, which results in something like “count for 1s  should  be  greater  than  or  equal  to  980  and  less  than  or  equal  to 1,f020.”
+
+An example like that might look like this:
+
+it "should generate a 1 10% of the time (plus/minus 2%)" do 
+	result.occurrences_of(1).should be_greater_than_or_equal_to(980) 
+	result.occurrences_of(1).should be_less_than_or_equal_to(1020)
+end
+
+Certainly it reads like English, but it’s just a bit verbose. Wouldn’t it be nice if, instead, we could use commonly understood operators like >= instead of be_greater_than_or_equal_to? As it turns out, we can!
+
+Thanks  to  some  magic  that  we  get  for  free  from  the  Ruby  language, RSpec  is  able  to  support  the  following  expectations  using  standard Ruby operators:
+
+result.should == 3 
+result.should =~ /some regexp/ 
+result.should be < 7 
+result.should be <= 7 
+result.should be >= 7 
+result.should be > 7
+
+RSpec can do this because Ruby interprets these expressions like this:
+
+result.should.==(3) 
+result.should.=~(/some regexp/) 
+result.should(be.<(7)) 
+result.should(be.<=(7)) 
+result.should(be.>=(7)) 
+result.should(be.>(7))
+
+RSpec exploits that interpretation by defining ==  and =~  on the object returned by should( ) and <, <=, >, and >= on the object returned by be.

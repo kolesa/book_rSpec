@@ -1,0 +1,77 @@
+11.4  The Cycle of Delivery
+
+The BDD delivery cycle starts with a stakeholder discussing a requirement  with  a  business  analyst.1  The  requirement  might  be  a  problem they want solved or an idea they’ve had. The analyst helps the stake- holder articulate the requirement in terms of features that make sense to the stakeholder—using their own domain terms—and maybe further into small, verifiable chunks known as stories, which represent no more than a few days work.
+
+Next the stakeholder and business analyst work with a tester to determine  the  stories’  scope.  What  does  done  look  like  for  each  story?  We don’t want to overdesign the solution because that’s a waste of effort, but likewise we don’t want to do too little; otherwise, we won’t be meet- ing the stakeholder’s original need.
+
+Where the business analyst thinks in abstract terms (it should be possible to withdraw money from a checking account ), the tester is typically thinking in terms of concrete scenarios. If I have $100 in an account and I withdraw $80, what happens? What about if I try to withdraw $120? What happens if I have an overdraft facility on the account? What if I try to go past my overdraft limit?
+
+By identifying which scenarios are important to the story before development starts, the stakeholder can specify exactly how much they want the  programmers  to  do  or  how  much  development  effort  they  want
+
+
+1.  The terms stakeholder, business analyst, and so on, describe roles rather than individuals. On a small team, the same person may take on more than one role at different times. You can think of them as different hats people can wear.
+ 
+
+ SMART  Outcomes 
+  
+
+The  acronym  SMART  is  used  to  describe  outcomes  or  objec- tives  that  have  certain  characteristics,  namely,  that  they  are Specific, Measurable, Achievable, Relevant, and Timeboxed:
+
+Specific  means there is enough detail to know that something is done. Snappier user experience is not specific, whereas Faster response time for the four most common user jour-neys is.
+
+Measurable  means  you  can  determine  whether  the  objec- tive  was  reached,  for  example  10  percent  reduction  in response times.
+
+Achievable  helps  reduce  unrealistic  expectations.  All  credit card  transactions  should  be  instantaneous  is  unlikely  to happen.
+
+Relevant  manages the issue of people trying to cram in every conceivable feature just in case. We want clear, concise reporting and a puppy.
+
+Timeboxed  simply  means  we  know  when  to  call  time  if  we haven’t  achieved  an  outcome;  otherwise,  it  could  just trundle on forever or for as long as someone is prepared to keep paying.
+
+The emphasis on the SMARTness of objectives or outcomes hap- pens a lot in command-and-control cultures where success is measured in terms of reaching individual targets. More enlight- ened companies focus on improving throughput and trusting people to act with integrity.
+
+Non-SMART,  vaguely  worded  outcomes  allow  the participants—both the stakeholders and the delivery team—to be  adaptable  in  what  they  deliver  so  they  can  all  focus  on doing the best they can with the resources and time they have. This allows the stakeholders to invest incrementally in a project: as  long  as  they  are  seeing  value  delivered  they  continue  to invest;  otherwise,  they  can  stop  the  project  and  assign  the team to solving another challenge.
+ 
+
+
+to invest in delivering the feature. The developers will only implement enough to satisfy the agreed scenarios, and no more.
+
+The  final  task  before  the  programmers  start  implementing  the  story is  to  automate  the  scenarios  where  it  makes  sense  to  do  so.  In  the same way, Test-Driven Development (2)  uses code examples to drive the design; these automated scenarios will drive the high-level direction of the development effort.
+
+One  of  the  most  important  characteristics  of  BDD  is  that  the  scenarios are easy to automate yet are still easily understandable to the stakeholder.  Defining  and  automating  these  scenarios  is  the  realm  of Cucumber.
+
+Now at last we can finally get down to the coding part of the delivery cycle. A developer—or ideally a pair of developers—uses RSpec to code by  example  to  get  the  scenario  working.  We  start  by  writing  a  code example3  to describe the behavior we want, then we implement the code to make that example work, and then we refactor. The RSpec portions of this book describe exactly how we do this, so we don’t need to say anything more here.
+
+Eventually we end up with just enough software to make the scenario work,  and  then  we  iterate  through  the  other  scenarios  until  we  are done. This then brings us full circle, such that we can demonstrate the working scenarios back to the stakeholder, and the story is done.
+
+Now imagine we could run a mini-project that just contained a single story—something  simple  enough  to  develop  in  a  couple  of  days—and do just enough analysis to understand that story and then design an application to only do that one thing! How hard could that be? We could easily  implement  it  and  test  that  it  works  and  then  deploy  it  into  an environment where we could showcase it to the stakeholder who asked us for it.
+
+It  would  mean  we  didn’t  spend  weeks  poring  over  database  schemas or  entity-relationship  diagrams,  we  didn’t  go  to  town  with  UML  code generation  tools,  and  we  certainly  didn’t  write  down  a  detailed  func- tional specification of every last aspect of the feature. We also haven’t delivered very much yet!
+
+
+2.  BDD calls Test-Driven Development coding by example, which places the emphasis on  using  examples  to  drive  out  the  behavior  of  the  code.  The  fact  that  these  examples become tests once the code is written is a secondary concern.
+
+3.  Agile testing expert Brian Marick refers to a code example as an exemplar, which is technically a more correct term. An exemplar is an example intended to demonstrate a specific point. We prefer calling them examples because it is a more familiar term.
+
+ Stor ies  In,  Fea tures  Out  
+
+Many people use the words feature and story interchangeably, but  there  is  a  subtle  difference.  A  feature  is  something  that delivers cohesive value to a stakeholder. A story is a piece of demonstrable functionality that shouldn’t take more than a few days to implement. So, the feature is more useful from the point of view of the stakeholder, and the story is more useful from the point of view of the team delivering the feature.
+
+Often a feature can be delivered as a single story, but some- times  the  feature  doesn’t  naturally  decompose  to  that  level. For example, if we are capturing an email address, there might be some validation around that address. This could get quite involved and would take more than a few days of effort. In this case, we could separate out the “happy path”—where all the data is valid—and the most important validation cases into one story and some of the less common but still useful validations into another story. Or we might separate out the security con- cerns into another story (whose stakeholder would be the secu- rity folks), so we would look at cross-site scripting or SQL injection attacks as different aspects of the same feature.
+
+As long as your stories are roughly the same size, this decom- position of features into stories provides the same kind of track- ing data as having artificial constructs like story points or ideal days, terms that can feel uncomfortable to your stakeholders. It is more natural to say, “We’ve broken that feature into these three stories that tackle different aspects,” rather than “This fea- ture is seven points, and this one is four points” or “This week we delivered nine ideal days” (to which the correct response is “Eh?”).
+
+It  is  important  to  remember  that  we  still  decompose  along boundaries that make sense to the stakeholder, so we wouldn’t break a feature into the database stuff, then the UI stuff, and then  the  wiring-up  stuff.  Instead,  we  would  deliver  different groups of scenarios.
+
+As  we  deliver  the  stories,  we  arrange  any  artifacts—such  as Cucumber  scenario  files  and  step  implementations—by  fea- ture, because over time it doesn’t really matter which story the behavior was implemented in so much as which feature ben- efited from that story. We call this arrangement “stories in, fea- tures out”: the input happens to be delivered in stories, but the result is cohesive features.
+
+
+
+OK,  so  now  we  are  going  to  get  a  little  ambitious.  Instead  of  a  single story, we are going to deliver a handful of stories together. In fact, we are going to try to deliver about as many as we think we could reasonably do in a week. In effect, we are going to run a tiny one-week project that we call an iteration.4
+
+As with any project, our estimates will most likely be wrong. Instead of delivering the seven stories we planned, we might make only five. Or we might have a great week and have capacity to spare for an extra bonus story! In any event, we will know at the end of the week how much we actually  did  deliver,  and we can use this to predict our throughput for next week! But that comes later.
+
+Right now we are more interested in what our stakeholders think about the work we’ve done, so we arrange a showcase. This feedback happens very close to when the work occurred—because we are only showcasing the work we completed in the last iteration—and usually involves the stakeholder saying, “That’s very nearly exactly what I wanted, but can I change some stuff?”
+
+And now we are ready to plan the next mini-project. We have feedback from our stakeholders, a backlog of stories, and a priority order.
+
+This then is how we work, from day to day and from week to week. We have frequent, regular contact with our stakeholders who get to provide fine-grained steering in the form of feedback and reprioritization. But what does a story look like close up?

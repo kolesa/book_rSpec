@@ -1,0 +1,22 @@
+17.10  Organizing Features
+
+When you run the cucumber command with no options, Cucumber will look for all of the .rb and .feature files below the ./features directory, load all of the .rb  files, and then run all of the .feature  files. For very small projects, the simplest way to organize the feature files is to keep them in the root of the ./features directory. If you want to run subsets of features, you can easily manage that with tags (see Section 17.11, Tags, on the next page) and profiles (see Section 18.9, Configuration, on page 280).
+
+For larger projects or for features with lots of scenarios, we can create subdirectories for each feature, with multiple files in each subdirectory and  with  cohesive  subsets  of  scenarios  in  each  file.  One  good  way  to determine that a group of scenarios is cohesive is if they share a background, as described in Section 18.5, Background, on page 275.
+
+We  can  also  go  to  a  higher  level  of  abstraction  with  feature  sets,  or themes, each in its own subdirectory of ./features. Consider an HR benefits  management  application  that  has  general  functional  areas  like insurance and personal time off (PTO). This might result in a directory structure like this:
+
+features 
+	insurance
+		medical 
+		dental 
+		life
+		disability 
+	pto
+		accrual 
+		usage
+
+With a structure like this, we can easily choose what to run when using the  directory/feature  argument  to  the  cucumber  command.  Given  a directory, Cucumber runs all the features in that directory and its subdirectories. In the HR example, we could run all features with cucumber features, all insurance-related features with cucumber features/insurance, or  only  medical  insurance  features  with  cucumber  features/insurance/ medical.
+
+Now we could get similar groupings using tags, but we suggest using tags  for  workflow  (@wip,@current,@passing,@iteration_12,@in_browser,  and so on) and use directories for organization.
+

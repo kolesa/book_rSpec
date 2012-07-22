@@ -1,0 +1,114 @@
+4.2  Step Definition Methods
+
+We can define steps by calling any of the following methods provided by Cucumber: Given( ), When( ), Then( ), And( ), or But( ). The last two, And() and But( ), take on the meaning of the previous Given( ), When( ), or Then(), so in this example, the And( ) on the last line of the scenario is treated as a Then( ).
+
+2.  We’ve suppressed some information from the output to make it easier 
+to read. We’ll do this throughout the chapter, so don’t be surprised if the output in the book doesn’t perfectly match the output you see in the shell.
+
+In this case, we called the Given( ) method and passed it a Regexp and a block. Cucumber then stores the block in a hash-like structure with the Regexp as its key.
+
+After  loading  the  Ruby  files,  Cucumber  loads  and  parses  the  .feature files,  matching  the  steps  in  scenarios  against  the  stored  step  defini- tions. It does this by searching for a Regexp that matches the step and then executes the block stored with that Regexp as its key.
+
+Given
+
+In our case, when Cucumber sees the Given I am not yet playing step in the scenario, it strips off the Given and looks for a Regexp that matches the string I am not yet playing. At this point, we have only one step definition, and its Regexp is /^I am not yet playing$/, so Cucumber executes the associated block from the step definition.
+
+Of course, since there is nothing in the block yet, there is nothing that can go wrong, so the step is considered passing. As it turns out, that’s exactly  what  we  want  in  this  case.  We  don’t  actually  want  Given I am not yet playing to do anything. We just want it in the scenario to provide context for the subsequent steps, but we’re going to leave the associated block empty.
+
+When
+The  When  is  where  the  action  is.  We  need  to  create  a  new  game  and then start it. Here’s what that might look like:
+
+Download cb/03/features/step_definitions/codebreaker_steps.rb
+
+Given /^I am not yet playing$/ do 
+end
+
+When /^I start a new game$/ do
+	Codebreaker::Game.new.start
+end
+
+At this point, we don’t have any application code, so we’re just writing the code we wish we had. We want to keep it simple, and this is about as simple as it can get.
+ 
+ The  Code  You  Wi sh  You  Had  
+ 
+In my early days at Object Mentor I (David) attended a TDD class taught by James Grenning. He was refactoring an existing method, and he wrote a statement that called a method that didn’t exist yet, saying “start by writing the code you wish you had.”
+
+This was a galvanizing moment for me.
+
+It is common to write the code we wish we had doing TDD. We send a message from the code example to an object that does not have a corresponding method. We let the Ruby interpreter tell us that the method does not exist (red) and then implement that method (green).
+
+Doing the same thing within application code, calling the code we wish we had in one module from another module, was a dif- ferent matter. It was as though an arbitrary boundary had been lifted and suddenly all of the code was my personal servant, ready and willing to bend to my will. It didn’t matter whether we were in a test or in the code being tested. What mattered was that we started from the view of the code that was going to use the new code we were about to write.
+
+Over the years this has permeated my daily practice. It is very liberating, and it results in more usable APIs than I would have come up with starting with the object receiving the message.
+
+In retrospect, this also aligns closely with the outside-in philoso- phy of BDD. If the goal is to provide great APIs, then the best place to design them is from their consumers.
+
+Now  run  cucumber  features/codebreaker_starts_game.feature  again,  and you should see the following within the output:
+
+Scenario: start game
+	Given I am not yet playing
+	When I start a new game
+		uninitialized constant Codebreaker (NameError)
+		./features/step_definitions/codebreaker_steps.rb:5:in `/^I start a new game$/'
+		features/codebreaker_starts_game.feature:9:in `When I start a new game' 
+	Then I should see "Welcome to Codebreaker!"
+	And I should see "Enter guess:"
+
+Failing Scenarios:
+cucumber features/codebreaker_starts_game.feature:7 # Scenario: start game
+
+1 scenario (1 failed)
+4 steps (1 failed, 2 undefined, 1 passed)
+0m0.003s
+
+Cucumber shows us the error message, uninitialized constant Codebreaker (NameError), immediately following the step that caused the error. The summary tells us that there is one failing scenario and one failing step. 
+
+The scenario is considered failing because it has a failing step. The error message tells us that we need to create a Codebreaker  constant. It’s coming from the reference to Codebreaker::Game  in the step definition  we  just  wrote,  which  also  calls  the  start( ),  so  let’s  go  ahead and create that. Create a lib directory with a codebreaker subdirectory, and add a game.rb file in lib/codebreaker with the following:
+
+Download cb/04/lib/codebreaker/game.rb
+
+module Codebreaker
+	class Game 
+		def start 
+		end
+	end 
+end
+
+If you run cucumber now, you’ll see the same error because Cucumber isn’t  loading game.rb yet. The conventional approach to this is to have a file in the lib directory named for the top-level module of the app. In our case, that’s codebreaker.rb. Create that file now, with the following:
+
+Download cb/04/lib/codebreaker.rb
+
+require 'codebreaker/game'
+
+Now add the following to features/support/env.rb:
+
+Download cb/04/features/support/env.rb
+
+$LOAD_PATH << File.expand_path('../../../lib',  FILE )
+require 'codebreaker'
+
+Cucumber will load features/support/env.rb, which now requires lib/codebreaker.rb,  which,  in  turn,  requires  lib/codebreaker/game.rb,  which  is where we defined the Codebreaker module with the Game with an empty start( )  method.  If  you  now  run  cucumber  features/codebreaker_starts_ game.feature, you should see some different results:
+
+Scenario: start game
+	Given I am not yet playing
+	When I start a new game
+	Then I should see "Welcome to Codebreaker!"
+	And I should see "Enter guess:"
+
+1 scenario (1 undefined)
+4 steps (2 undefined, 2 passed)
+0m0.002s
+
+You can implement step definitions for undefined steps with these snippets: 
+
+Then /^I should see "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had 
+end
+
+Then
+
+With the second step passing, we can move on to the Then  steps. The last snippet is a single step definition that will handle both the Then and And  steps in the scenario, passing whatever is captured by the ([^\"]*) part of the regular expression to the block as the message parameter.
+
+As for what to write in the block, when we say I should see "Welcome to Codebreaker!", we’re really saying I should see "Welcome to Codebreaker!" in the console, and that means we need a means of capturing messages that the Game sends to STDOUT.
+
+The  trick,  of  course,  is  that  we’re  running  Cucumber  in  the console, and  it  is  already  using  STDOUT.  We  need  a  fake  object  that  the  Game thinks is STDOUT, but it really just captures messages for us so we can set expectations about those messages.

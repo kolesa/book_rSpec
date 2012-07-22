@@ -1,0 +1,262 @@
+25.1  Writing Model Specs
+
+Rails models are a lot closer to POROs (1)  than Rails controllers and views. We  can  create  them  using  new( ),  and  we  can  call  methods  on  them directly. This makes specs for Rails models a lot more straightforward. As  you’ll  see,  we  approach  them  just  like  we  did  in  the  Codebreaker example in Part I of this book.
+
+
+1.  Plain old Ruby objects
+
+There are some differences between Rails models and POROs, however, so RSpec offers a specialized ExampleGroup for specifying models. Similar to the ExampleGroups for controllers and views, the ModelExample- Group  wraps  the  behavior  defined  in  ActiveRecord::TestCase.  This  gives us access to facilities like fixtures and, by default, wraps each example in a transaction so that our database is always in a known state at the beginning of each example.
+
+We won’t be able to answer every question about specifying Rails models in a single chapter, because there is certainly enough material here for an entire book. Our goal is to demonstrate some basic principles and guidelines that you can use as you work on your own applications. And with that, let’s write some code.
+
+Making It Real
+
+In Chapter 23, Rails Views, on page 331, we used mock_model( ) to provide views with the code we wish we had. Now it’s time to take what we learned about the requirements of the model and make it real. We know from the view specs that we need text and title attributes for instances of Message. Let’s imagine they also lead us to want a recipient_id to represent the user who receives the message and that all of these fields are required for a Message to be considered valid.
+
+We left off with a Message class that does not have any attributes, so we need a new migration. Rather than building up a migration by hand, let’s roll back the database:
+
+$ rake db:rollback
+
+Now delete the create_messages migration (db/migrate/XXXXXXXXXXXXXX_create_messages.rb) and regenerate the model, like this:
+
+$ script/rails generate model message title:string text:text recipient_id:integer
+   invoke  active_record 
+   create  db/migrate/20100725145316_create_messages.rb
+identical app/models/message.rb
+   invoke  rspec
+identical  spec/models/message_spec.rb
+$ rake db:migrate
+$ rake db:test:prepare
+
+
+Specifying Validations
+
+Since we know what fields are required, we’ll create pending examples for each of them to start.
+ 
+Go ahead and replace the generated code in message_spec.rb  with the following:
+
+Download rails_models/messages/01/spec/models/message_spec.rb
+
+require 'spec_helper'
+
+describe Message do
+	it "is valid with valid attributes"
+
+	it "is not valid without a title"
+
+	it "is not valid without text"
+
+	it "is not valid without a recipient"
+end
+
+The first example will make clear what it takes to produce a valid message  and  provide  context  for  the  other  examples.  Run  that  spec  with rake spec:models or rspec spec/models, and you should see 4 examples, 0 failures, 4 pending. All four examples are pending, so let’s implement the first example as follows:
+
+Download rails_models/messages/01/spec/models/message_example1_spec.rb
+
+it "is valid with valid attributes" do
+	Message.new.should be_valid
+end
+
+Run the spec again, and you should see 4 examples, 0 failures, 3 pending this  time.  The  first  example  is  passing  without  making  any  changes, because  the  model,  by  default,  does  not  validate  the  presence  of  any attributes. Now implement the second example as follows:
+
+Download rails_models/messages/01/spec/models/message_example2_spec.rb
+
+it "is not valid without a title" do 
+	message = Message.new :title => nil 
+	message.should_not be_valid
+end
+
+Now  we  have  4 examples, 1 failure, 2 pending,  with  the  example  we  just implemented failing. Modify the model as follows to get it to pass:
+
+Download rails_models/messages/02/app/models/message.rb
+
+class Message < ActiveRecord::Base 
+	validates_presence_of :title
+end
+
+The new example passes with that change, but we still have 4 examples, 1 failure, 2 pending. The is valid with valid attributes example is failing because
+ 
+
+
+we changed what it means for a Message to be valid. We’ll need to update the example so that it constructs the Message with a title:
+
+Download rails_models/messages/02/spec/models/message_example1_spec.rb
+
+it "is valid with valid attributes" do
+	Message.new(:title => "foo").should be_valid
+end
+
+Now we have 4 examples, 0 failures, 2 pending. The first two examples are both  passing,  so  we’ve  made  some  progress.  Of  course,  we  still  have two pending examples, so implement the next example as follows:
+
+Download rails_models/messages/02/spec/models/message_example2_spec.rb
+
+it "is not valid without text" do 
+	message = Message.new :text => nil 
+	message.should_not be_valid
+end
+
+Run the spec, and we get 4 examples, 0 failures, 1 pending. Only one example pending means that we now have three examples passing. But wait a minute. Weren’t we expecting this new example to fail? We were, but we’re getting a false positive. The example passes because the model is invalid, but the model is invalid because it’s missing the title attribute, not the text attribute that is the subject of the example. To expose this, update the example to supply a title:
+
+Download rails_models/messages/02/spec/models/message_example3_spec.rb
+
+it "is not valid without text" do
+	message = Message.new :text => nil, :title => "foo"
+	message.should_not be_valid
+end
+
+With that change, the third example now fails as expected, so make it pass by validating the presence of text in the model. Of course, once you do that, the is valid with valid attributes example will fail again because we only set it up with a title and it’s validating the presence of text now as well. Update that example to provide both the title and text as follows:
+
+Download rails_models/messages/02/spec/models/message_example4_spec.rb
+
+it "is valid with valid attributes" do
+	Message.new(:title => "foo", :text => "bar").should be_valid
+end
+
+Now we have 4 examples, 0 failures, 1 pending.
+
+Looking back at the is not valid without text example, it seems odd that we have to specify a title attribute in an example for the text attribute. If we don’t add a text  attribute to the example for the title, we can never be certain that it’s passing for the right reason. The examples are leaking! Let’s refactor a bit before we move on to the last pending example.
+
+Refactoring Leaky Examples
+
+Each example is setting up the model in the appropriate state by supplying  the  proper  attributes.  This  worked  fine  when  we  had  only  one attribute to worry about, but as soon as we added the second attribute, we ran into issues. If we keep heading down this path, we’ll end up with verbose examples that are brittle and time-consuming to maintain.
+
+Let’s  take  the  approach  of  setting  up  a  valid  message once,  in  a before(:each) block. This allows each example to configure the message with  the  appropriate  state  without  having  to  worry  about  additional criteria used to set up a valid message.
+
+The first example, is valid with valid attributes, is already building a valid message, so we can borrow its implementation. Create a before(:each) block, which assigns a valid Message to an @message instance variable:
+
+Download rails_models/messages/03/spec/models/message_example1_spec.rb
+
+describe Message do
+	before(:each) do
+		@message = Message.new(:title => "foo", :text => "bar")
+	end
+
+	it "is valid with valid attributes" do
+		Message.new(:title => "foo", :text => "bar").should be_valid
+	end
+
+Run the spec, and you should see 4 examples, 0 failures, 1 pending. Now update  the  first  example  to  rely  on  the  @message  instance  variable instead of constructing its own message:
+
+Download rails_models/messages/03/spec/models/message_example2_spec.rb
+
+describe Message do
+	before(:each) do
+		@message = Message.new(:title => "foo", :text => "bar")
+	end
+
+	it "is valid with valid attributes" do
+		@message.should be_valid
+	end
+ 
+
+
+The spec should still be passing, with one pending example. Update the second example also to rely on the @message instance variable:
+
+Download rails_models/messages/03/spec/models/message_example3_spec.rb
+
+it "is not valid without a title" do
+	@message.title = nil
+	@message.should_not be_valid
+end
+
+The spec should still have 4 examples, 0 failures, 1 pending. As we’ve refac- tored,  we’ve  made  several  changes  that  have  not  changed  the  result. Let’s do a sanity check to make sure that everything is still wired up correctly. Comment out @message.title = nil in the second example, rerun the spec, and watch it fail with expected valid? to return false, got true.
+With the second example failing for the right reason, uncomment that line, update the third example to rely on the @message  instance vari- able, and then run the spec. With a green bar and three clean examples, we can implement the pending example, is not valid without a recipient:
+
+Download rails_models/messages/03/spec/models/message_example4_spec.rb
+
+it "is not valid without a recipient" do
+	@message.recipient = nil
+	@message.should_not be_valid
+end
+
+The example fails with undefined method ’recipient=’. Although we have a  recipient_id  attribute  on  the  Message  model,  we  want  recipient  to  be an association pointing to the user who’s receiving the message. Let’s define the association in the Message model:
+
+Download rails_models/messages/04/app/models/message.rb
+
+class Message < ActiveRecord::Base
+	belongs_to :recipient, :class_name => "User"
+
+	validates_presence_of :title, :text
+end
+
+Run  the  spec  again,  and  now  it’s  failing  with  the  expected  message: expected valid? to return false, got true. Update the Message  model to re- quire a recipient:
+
+Download rails_models/messages/05/app/models/message.rb
+
+class Message < ActiveRecord::Base
+	belongs_to :recipient, :class_name => "User"
+
+	validates_presence_of :title, :text, :recipient
+end
+ 
+
+
+The example we just wrote is passing now, but the first example is valid with  valid  attributes  is  failing  again  because  it  doesn’t  account  for  the recipient.  We  can  fix  this  by  giving  the  @message  instance  variable  a recipient:
+
+Download rails_models/messages/05/spec/models/message_example1_spec.rb
+
+before(:each) do
+	@message = Message.new(
+		:title => "foo",
+		:text => "bar",
+		:recipient => mock_model("User")
+	)
+end
+
+We  use  mock_model( )  so  we  don’t  have  to  worry  about  generating  the User  yet. Now all examples are passing: 4 examples, 0 failures. Here’s the full message_spec.rb:
+
+Download rails_models/messages/05/spec/models/message_example2_spec.rb
+
+require 'spec_helper'
+
+describe Message do
+	before(:each) do
+		@message = Message.new(
+			:title => "foo",
+			:text => "bar",
+			:recipient => mock_model("User")
+		)
+	end
+
+	it "is valid with valid attributes" do
+		@message.should be_valid
+	end
+
+	it "is not valid without a title" do
+		@message.title = nil
+		@message.should_not be_valid
+	end
+
+	it "is not valid without text" do
+		@message.text = nil
+		@message.should_not be_valid
+	end
+
+	it "is not valid without a recipient" do
+		@message.recipient = nil
+		@message.should_not be_valid
+	end
+
+end
+
+Joe Asks. . .
+
+ Should  I  Spec  Associ a ti ons?  
+ 
+Generally speaking, no. Well, not directly, anyhow. Associations should not be added unless they are serving the needs of some behavior. Consider an Order that calculates its total value from the sum of the cost of its Items. We might introduce a has_many :items  association  to  satisfy  the  relevant  examples.  Since  the association  is  being  added  to  support  the  calculation  that  is being specified, there is no need to spec it directly.
+
+The  same  applies  to  association  options.  The  :foreign_key  or the  :class_name  options  are  structural,  not  behavioral.  They’re just part of wiring up the association, and an association that requires them won’t work correctly without them, so there is no need to spec them directly either.
+
+What We Just Did
+
+We started with a migration for the messages table that included attributes we learned about while specifying other parts of the application. Then  we  drove  the  validation  requirements  of  the  Message  model  one example  at  a  time.  When  the  examples  started  to  leak,  we  stopped adding  functionality  and  refactored  them  so  we  could  easily  add  the next example. This not only kept the examples DRY, but more importantly it kept them clear and focused.
+
+In addition to the examples we wrote, we can use the spec to illustrate some basic conventions about model specs:
+
+Directory organization  The directory structure for model specs mimics  the  directory  structure  found  in  app/models/.  For  example, specs in spec/models/ will be for models in app/models/.
+
+File naming  Model specs are named after the model they provide examples for, with an _spec.rb appended to the filename. Thus, mes- sage.rb would have a corresponding spec named message_spec.rb. 
+
+require ’spec_helper’  Every model spec will need to require the spec_helper.rb  file.  Otherwise,  you  will  get  errors  about  core  rspec  or rspec-rails methods not existing.
+
+Now  that  we  have  the  basic  behavior  of  the  Message  model  specified, let’s introduce some business rules into the application.

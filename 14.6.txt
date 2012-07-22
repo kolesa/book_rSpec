@@ -1,0 +1,370 @@
+14.6  More on Message Expectations
+
+Message expectations tend to be more tightly bound to implementation details of the method in development than method stubs. In the logger example, if the customer fails to log a message, the example fails. Had we only stubbed the log( ) method, we would not get a failure.
+
+RSpec offers a number of utilities we can use to specify more focused aspects of implementation. Keep in mind that all of these utilities we’re about to discuss increase the coupling between the spec and the object in development, which increases the likelihood that subsequent changes to the object in development will force changes in the specs. We recommend, therefore, that these only be used to express specific requirements.
+
+Counts
+
+Test doubles often stand in for objects with expensive operations like database  and  network  calls.  When  we’re  optimizing,  we  may  want  to specify that a given message is not sent to the double any more times than is necessary for the operation. By default, should_receive( ) sets an expectation that a message should be received once, and only once. We can set this expectation explicitly like this:
+
+mock_account.should_receive(:withdraw).exactly(1).times
+
+Using the same syntax, we can specify any number:
+
+mock_account.should_receive(:withdraw).exactly(5).times
+
+Sometimes we may want to make sure that an operation is repeated no more than some number of times. Consider a double that is standing  in for a collaborator that establishes network connections. If it can’t get a connection, we want it to retry it five times, but no more. In this case, we can set an upper bound:
+
+network_double.should_receive(:open_connection).at_most(5).times
+
+Similarly, we can set a lower bound for a situation in which we want to specify that a call is made at least some number of times:
+
+network_double.should_receive(:open_connection).at_least(2).times
+
+RSpec includes a couple of convenience methods to handle the cases where the count is one or two. These are recommended, because they read a bit better than exactly(1).times:
+
+account_double.should_receive(:withdraw).once 
+account_double.should_receive(:deposit).twice
+
+Negative Expectation
+
+Sometimes we want to specify that a specific message is never received during  an  example.  Imagine  a  requirement  that  we  only  try  to make connections after pinging a server. Here’s one way we can express that requirement:
+
+network_double.stub(:ping).and_return(false)
+network_double.should_not_receive(:open_connection)
+
+If  the  network_double  receives  open_connection( ),  the  example  will  fail. Here  are  two  more  ways  to  express  that  a  message  should  not  be received:
+
+network_double.should_receive(:open_connection).never 
+network_double.should_receive(:open_connection).exactly(0).times
+
+These  both  work  fine,  but  should_not_receive( )  is  the  most  commonly used.
+
+Specifying Expected Arguments
+
+In  cases  in  which  we  expect  specific  arguments,  we  can  use  the  with method  to  constrain  the  expectation.  For  literal  values,  we  can  just pass them directly to the with( ) method:
+
+account_double.should_receive(:withdraw).with(50)
+
+If  the  account_double  receives  the  withdraw( )  method  with  any  value besides 50, it will raise an error saying it was expecting 50  but got the other value instead. We can pass any number of arguments to with( 
+), and it will fail if any of the received arguments fail to match the expectation arguments:
+
+checking_account.should_receive(:transfer).with(50, savings_account)
+
+This  example  will  pass  only  if  the  checking_account  receives  transfer( ) with arguments matching 50  and savings_account  in the correct order. The arguments are evaluated using ==( ), so in this example they have to ==(50) and ==(savings_account).
+
+Argument Matchers
+
+Sometimes we don’t care about the specific values of all the arguments. When  specifying  a  transfer  operation  as  in  the  previous  example,  we might have separate examples for the two different arguments. In the example focused on the account, we need the second argument in the example, or the double would raise an error saying it got only one argu- ment. But we don’t care what that argument is, since this example is focused on the first argument.
+
+instance_of()
+
+We can address this using an argument matcher : a method that returns an  object  that  can  match  against  the  real  arguments  received  during  the  example.  In  this  case,  we  want  the  second  argument  to  be an  instance  of  Fixnum,  but  we  don’t  care  what  it  is.  We  can  use  the instance_of( ) argument matcher to address this:
+
+Line 1  describe Transfer do
+-  it "passes the target account to the source account" do
+-  		source_account = double()
+-  		target_account = double()
+5 		 transfer = Transfer.new(
+- 		:source_account => source_account,
+- 		:target_account => target_account,
+- 		:amount => 50
+-  		)
+10  	source_account.should_receive(:transfer).
+- 			with(target_account, instance_of(Fixnum))
+-  		transfer.execute()
+-  		end
+-  end
+
+On line 11, we specify that the first argument should ==(target_account) and that the second argument can be any Fixnum. Of course, we know it’s going to be 50, because that is what is supplied on line 8, but we don’t care about that in this example.
+ 
+When we do this, we’re coupling the example to a specific type, which is usually not  recommended. Remember, these facilities are available, but we want to use them only when they help express the intent of the example.
+
+anything()
+
+When  we  want  to  specify  that  an  argument  is  received  but  we  really don’t care what it is, we can use the anything( ) matcher, like this:
+
+Line 1  describe Transfer do
+-  			it "passes the submitted amount to the source account" do
+-  				source_account = stub()
+- 				 target_account = stub()
+5				 transfer = Transfer.new(
+- 					:source_account => source_account,
+- 					:target_account => target_account,
+-					:amount => 50
+-  				)
+10 			source_account.should_receive(:transfer).
+- 			with(anything(), 50)
+- 			 transfer.execute()
+- 		end
+-  end
+
+any_args()
+
+As mentioned earlier, a message expectation without the with( ) method will  accept  any  arguments.  If  you  want,  you  can  use  the  any_args( ) method to explicitly specify that any arguments are acceptable:
+
+source_account.should_receive(:transfer). with(any_args())
+
+no_args()
+
+Now imagine we have an API that can accept zero or more arguments, and we want to specify that under certain conditions it should receive a message with no arguments. We can do that too, using the no_args( ) argument matcher:
+
+collaborator.should_receive(:message). with(no_args())
+
+hash_including()
+
+If  the  expected  argument  is  a  Hash,  we  can  specify  the  expected  key/value pairs like this:
+
+mock_account.should_receive(:add_payment_accounts). 
+with(hash_including('Electric' => '123', 'Gas' => '234'))
+ 
+
+
+The hash argument in this example is expected to include keys for ’Electric’ and ’Gas’ with the corresponding values 123 and 234, respectively.
+
+hash_not_including()
+
+We  can  also  specify  that  those  values  should  not  be  in  the  hash like this:
+
+mock_account.should_receive(:add_payment_accounts). 
+with(hash_not_including('Electric' => '123', 'Gas' => '234'))
+
+In this case, an acceptable argument value would be a hash that does not have the specified key-value pairs.
+
+Regular Expressions
+
+For  String  arguments,  we  can  expect  just  a  part  of  the  string  using  a Regexp that will be matched against it, like this:
+
+mock_atm.should_receive(:login).with(/.* User/)
+
+As you can see, RSpec comes with a range of useful argument matchers built in, but sometimes we need to express more specific constraints. In these cases, it’s easy to extend RSpec with our own.
+
+Custom Argument Matchers
+
+Let’s say we want to be able to expect a Fixnum argument that is greater than  three.  With  a  custom  argument  matcher,  we  can  express  this expectation like this:
+
+calculator.should_receive(:add).with(greater_than_3)
+
+An argument matcher is simply an object supporting a specific inter - face.  The  only  method  that  is  required  is  ==(actual),  which  acts  as  a match operation (not equality). It should return true if the actual argument matches (or conforms to) the matcher.
+
+class GreaterThanThreeMatcher
+	def ==(actual)
+		actual > 3
+	end 
+end
+
+We  can  return  an  instance  of  GreaterThanThreeMatcher  from  a  greater_than_3( ) method, like this:
+
+def greater_than_3
+	GreaterThanThreeMatcher.new
+end
+ 
+
+
+Using an argument matcher like this, the should_receive( ) method will give you failure messages like this:
+
+Mock 'calculator' expected :add with (#<RSpec::Mocks::ArgumentMatchers:: GreaterThanThreeMatcher:0x5e7af4>) but received it with (3)
+
+We can improve on that message by adding a description method to the matcher:
+
+def description
+	"a number greater than 3"
+end
+
+Now, the message will be as follows:
+
+Mock 'calculator' expected :add with (a number greater than 3)
+	but received it with (3)
+
+We  can  generalize  this  a  bit  by  parameterizing  the  method  and  the matcher object like this:
+
+class GreaterThanMatcher
+
+	def initialize(expected)
+		@expected = expected
+	end
+
+	def description
+		"a number greater than #{@expected}"
+	end
+
+	def ==(actual)
+		actual > @expected
+	end 
+end
+
+def greater_than(floor) 
+	GreaterThanMatcher.new(floor)
+end
+
+Now  we  can  use  this  matcher  for  any  situation  in  which  we  expect  a number greater than some other number:
+
+calculator.should_receive(:add).with(greater_than(37))
+
+
+Returning Consecutive Values
+
+Sometimes we want the subject to send the same message to the collaborator more than once, and we want to set up different return values each time in order to trigger a particular behavior in the subject.
+
+Consider a gateway_client, which depends on a network object to connect to the real gateway. We want to specify that the gateway client will ask the network to try to open a connection up to three times before it gives up. Here are a few examples we might write to specify this:
+
+Line 1  describe GatewayClient, "#connect" do
+-  before(:each) do
+-  		@network = stub()
+- 		 @gateway_client = GatewayClient.new(@network)
+5  end
+-
+-  it "returns true if network returns connection on first attempt" do
+-  		@network.should_receive(:open_connection).
+- 			and_return(Connection.new)
+10  	@gateway_client.connect.should be_true
+-  end
+-
+-  it "returns true if network returns connection on third attempt" do
+- 		 @network.should_receive(:open_connection).
+15		 and_return(nil, nil, Connection.new)
+-  		@gateway_client.connect.should be_true
+-  end
+-
+-  it "returns false if network fails to return connection in 3 attempts" do
+20 		 @network.should_receive(:open_connection).
+-        and_return(nil, nil, nil)
+- 		 @gateway_client.connect.should be_false
+-  end
+-
+25  end
+
+On  line  9  in  the  first  example,  we  program  the  @network  to  return  a Connection  the  first  time  open_connection( )  is  called.  This  is  how  we normally set return values for a method stub or message expectation.
+
+The second example is a bit different. On line 15, we program the @network to expect open_connection( ), returning nil the first two times and a Connection the third. We do so by passing nil, nil, and Connection.new to the and_return( ) method. With three arguments passed to and_return( ), we’re  implicitly  telling  the  @network  to  expect  open_connection( )  three times.
+
+The third example programs open_connection( ) to return nil three times in  a  row.  We’re  implicitly  telling  @network  to  expect  open_connection( ) three  times.  We  could  get  the  same  behavior  by  explictly  telling  the @network to expect open_connection( ) three times and return nil:
+
+Line 1  it "returns false if network fails to return connection in 3 
+attempts" do
+2  @network.should_receive(:open_connection).
+3  exactly(3).times.
+4  and_return(nil)
+5  @gateway_client.connect.should be_false
+6  end
+
+
+ 
+
+
+In  that  variation,  we  only  pass  nil  (once)  to  and_return( )  because  we’re already telling the @network to expect open_connection( ) three times on line 3. The @network in each of these variations behaves in exactly the same way.
+
+Throwing or Raising
+
+To specify an object’s behavior in response to errors, we want to have our collaborator throw a symbol or raise an error in response to a spe- cific message. RSpec::Mocks provides several ways to do this. The most common approach is to simply raise an exception:
+
+account_double.should_receive(:withdraw).and_raise
+
+With no arguments, the and_raise( ) method tells the account_double  to raise an instance of Exception when it receives the withdraw( ) message. To raise a specific type of exception, we can pass and_raise an exception class, like this:
+
+account_double.should_receive(:withdraw).and_raise(InsufficientFunds)
+
+RSpec  will  create  an  instance  of  InsufficientFunds  by  calling  Insufficient- Funds.new. If the exception class we need requires any arguments to its constructor,  we  can  create  an  instance  in  the  example  and  pass  that instead:
+
+the_exception = InsufficientFunds.new(:reason => :on_hold)
+account_double.should_receive(:withdraw).and_raise(the_exception)
+
+We  can  also  throw  symbols  instead  of  raising  errors.  As  you  might expect, this is done with the and_throw( ) method instead of and_raise:
+
+account_double.should_receive(:withdraw).and_throw(:insufficient_funds)
+
+Ordering
+
+When specifying interactions with a test double, the order of the calls is rarely important. In fact, the ideal situation is to specify only a single call.  But  sometimes,  we  need  to  specify  that  messages  are  sent  in  a specific order.
+
+Consider an implementation of a database-backed class roster in which we want the roster to ask the database for the count of students regis- tered for a given class before adding any new students for that class. We can specify this using the ordered( ) method and specifying the message expectations in the order in which we expect them:
+
+describe Roster do
+	it "asks database for count before adding" do
+		database = double()
+		student  = double()
+		database.should_receive(:count).with('Roster', :course_id => 37).ordered 
+		database.should_receive(:add).with(student).ordered
+
+		roster = Roster.new(37, database)
+		roster.register(student)
+	end 
+end
+
+This example will pass only if the count( ) and add( ) messages are sent with  the  correct  arguments  and  in the same order.  Here  is  a  possible implementation:
+
+Download mocking/ordering.rb
+
+class Roster
+	def initialize(id, database)
+		@id = id
+		@database = database
+	end
+
+	def register(student)
+		@database.count('Roster', :course_id => @id)
+		@database.add(student)
+	end
+
+end
+
+Note  that  ordering  has  an  effect  only  within  the  context  of  a  single object. You can specify ordering of expectations for multiple objects in an example, but the order is not enforced across objects.
+
+Also note that ordering ignores any messages besides the ones assigned as ordered. For example, the following implementation would still pass the previous example, provided that we told the database double to act as_null_object( ).
+
+Download mocking/ordering.rb
+
+def register(student)
+	@database.count('Roster', :course_id => @id)
+	@database.begin
+	@database.add(student)
+	@database.commit
+end
+
+The fact that the database  receives begin( ) and commit( ) is ignored by the ordering mechanism. As long as the ordered messages are received in the correct order, the example will pass.
+
+Overriding Method Stubs
+
+In the statement examples earlier this chapter, we looked at examples specifying that the statement uses the customer’s name in the header and that it logs a message on generate( ). We never really looked at those together at the point that the statement supports both. Here’s what that looks like without any refactoring:
+describe Statement do 
+	it "uses the customer's name in the header" do 
+		customer = double('customer') 
+		customer.stub(:name).and_return('Aslak') logger = double('logger')
+		logger.stub(:log)
+		statement = Statement.new(customer, logger)
+		statement.generate.should =~ /^Statement for Aslak/
+	end
+
+	it "logs a message on generate()" do 
+		customer = stub('customer') 
+		customer.stub(:name).and_return('Aslak') 
+		logger = mock('logger')
+		statement = Statement.new(customer, logger)
+		logger.should_receive(:log).with(/Statement 
+		generated for Aslak/)
+		statement.generate
+	end 
+end
+As you can see, there is a lot of noise and a lot of duplication. We can reduce  this  significantly  by  exploiting  the  fact  that  message  expectations can override stubs:
+
+describe Statement do
+	before(:each) do
+		@customer = double('customer')
+		@logger = double('log', :log => nil)
+		@statement = Statement.new(@customer, @logger)
+	end
+
+	it "uses the customer's name in the header" do
+		@customer.should_receive(:name).and_return('Aslak')
+		@statement.generate.should =~ /^Statement for Aslak/
+	end
+
+	it "logs a message on generate()" do
+		@customer.stub(:name).and_return('Aslak')
+		@logger.should_receive(:log).with(/Statement generated for Aslak/)
+		@statement.generate
+	end 
+end
+
+Now the code in each example is very well aligned with their docstrings, with  no  unnecessary  noise.  By  setting  the  log( )  stub  on  the  @logger double in the before( ) block, we don’t need to set that stub in the first example. In the second example, we override that stub with the expec- tation. Once the expectation is met, any subsequent calls to log( ) are caught by the stub and essentially ignored.

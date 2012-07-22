@@ -1,0 +1,130 @@
+16.3  Filtering
+
+Sometimes  we  want  to  run  just  one  or  two  examples,  or  perhaps  a group, that relate to the work in process. We can accomplish this using methods provided to us by the Configuration class, combined with metadata we add to the examples or groups we’re interested in.
+
+Inclusion
+
+To see this in action, type the following into a file, focused_example.rb:
+
+Download extending_rspec/focused_example.rb
+
+RSpec.configure do |c|
+	c.filter = { :focus => true }
+end
+
+describe "group" do
+	it "example 1", :focus => true do 
+	end
+
+	it "example 2" do 
+	end
+end
+ 
+Now run that with rspec focused_example.rb, and you should see output like this:
+
+Run filtered using {:focus=>true}
+
+group
+	example 1
+
+Finished in 0.00066 seconds
+1 example, 0 failures
+
+As you can see, the example with :focus => true in the metadata passed to it( ) gets run, but the other example does not. Now try it with a group. Type the following into focused_group.rb:
+
+Download extending_rspec/focused_group.rb
+
+RSpec.configure do |c|
+c.filter = { :focus => true }
+end
+
+describe "group 1", :focus => true do 
+	it "example 1" do
+	end
+
+	it "example 2" do end
+	end
+
+describe "group 2" do 
+	it "example 3" do 
+	end
+
+	it "example 4" do end
+	end
+
+Run that with rspec group_example.rb, and you should see this:
+
+Run filtered using {:focus=>true}
+
+group 1 
+	example 1 
+	example 2
+
+group 2
+
+Finished in 0.00092 seconds
+2 examples, 0 failures
+
+Both  group  names  are  reported,  but  only  the  examples  in  the  group with :focus => true are run (2 examples, 0 failures). We see the name of the second group because RSpec reports the group name before it looks to see whether it has any examples to run. In this case, it does not find any in the second group, so it continues and finishes up the run.
+
+Exclusion
+
+When there are one or two examples that run very slowly, we tend to try  to  disable  them  so  we  can  run  rest  of  the  suite  faster  while we’re working in other areas. We can use an exclusion filter combined with metadata to accomplish this:
+
+Download extending_rspec/exclusion_filter.rb
+
+RSpec.configure do |c|
+	c.exclusion_filter = { :slow => true }
+end
+
+describe "group" do
+	it "example 1", :slow => true do 
+	end
+
+	it "example 2" do 
+	end
+end
+
+Run that with rspec exclusion_filter.rb, and you should see this:
+
+Download extending_rspec/exclusion_filter.out
+
+group 
+	example 2
+
+Finished in 0.00067 seconds
+1 example, 0 failures
+
+This  time,  the  example  we  added  metadata  to  was  excluded  from  the run, while the other example was run as expected.
+
+Lambdas
+
+Inclusion and exclusion filters can accept lambdas with arbitrarily complex  code  for  more  sophisticated  filtering.  This  gives  us  much  more power than primitive values give us.
+
+Imagine an app that connects to an external service. Most of the examples stub out the service, but there is one example that really talks to the service as a sanity check. The problem is that this example can run only when the computer is connected to a network, and we don’t want to have to worry about disabling it when there is no network available.
+
+We can use an exclusion filter with a lambda for this, like so:
+
+Download extending_rspec/network.rb
+
+require 'ping'
+
+RSpec.configure do |c|
+	c.exclusion_filter = {
+		:if => lambda {|what|
+			case what
+				when :network_available
+					!Ping.pingecho "example.com", 10, 80
+				end
+		}
+	}
+end
+
+describe "network group" do
+	it "example 1", :if => :network_available do 
+	end
+	it "example 2" do 
+	end
+end
+
+Try running this example with your computer connected to a network and then again while not connected. You should see that the first example runs only when you’re connected.

@@ -1,0 +1,47 @@
+4.1  Steps and Step Definitions
+
+When you ran the cucumber command, you should have seen a bunch of code snippets at the end of the output that look something like this:1
+
+Given /^I am not yet playing$/ do
+	pending # express the regexp above with the code you wish you had
+end
+
+This is a Cucumber step definition. If you think of the steps in scenarios as method calls, then step definitions are like method definitions. Go ahead  and  create  a  codebreaker_steps.rb  file  in  features/step_definitions/, and add that snippet to it, removing the pending call from the block, like this:
+
+Download cb/02/features/step_definitions/codebreaker_steps.rb
+
+Given /^I am not yet playing$/ do end
+
+
+1.  If  you  don’t  see  the  step  definition  snippets,  it’s  likely  because  Cucumber  doesn’t know what programming language you’re using. It determines the language based on the types of files in features/step_definitions  or features/support. That’s why we added the env.rb file to features/support. If you haven’t added it already, do it now so you can see the step definition snippets.
+
+Now  run  cucumber  features/codebreaker_starts_game.feature from  the project root, and you’ll see the following in the output:2
+
+Feature: code-breaker starts game
+
+	As a code-breaker
+	I want to start a game
+	So that I can break the code
+
+	Scenario: start game
+		Given I am not yet playing
+		When I start a new game
+		Then I should see "Welcome to Codebreaker!"
+		And I should see "Enter guess:"
+
+1 scenario (1 undefined)
+4 steps (3 undefined, 1 passed)
+0m0.002s
+
+You can implement step definitions for undefined steps with these snippets: 
+When /^I start a new game$/ do
+	pending # express the regexp above with the code you wish you had 
+end
+
+Then /^I should see "([^"]*)"$/ do |arg1|
+	pending # express the regexp above with the code you wish you had 
+end
+
+The output starts with the content of the file, followed by a summary that tells us that we have one scenario with four steps, including one passing step and three undefined steps and then code snippets for the remaining undefined steps. So, what just happened?
+
+The argument to the cucumber command was the features/codebreaker_ starts_game.feature  file.  When  Cucumber  starts  up,  it  loads  up  all  the Ruby  files  in  the  same  directory  as  the  file  and  any  of  its  subdirectories. This includes features/step_definitions/codebreaker_steps.rb, where we copied the step definition earlier.

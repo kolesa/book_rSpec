@@ -1,0 +1,13 @@
+23.4  When Should I Write View Specs?
+
+While we’ve been working on this book, the BDD tool set has been evolving  at  lightning  speed.  With  the  increasing  capability  of  Cucumber  + Webrat, the overlap between Cucumber step definitions and view specs increases  as  well,  as  the  boundaries  of  what  belongs  where  become more and more gray.
+
+So,  how  can  you  know  whether  view  specs  make  sense  for  you  and your  project?  Here  are  a  few  questions  you  can  ask  yourself  to  help make that decision:
+
+Am I using Cucumber and Webrat?  If you’re not using Cucumber and  Webrat,  then  view  specs  are  going  to  provide  a  lot  of  value you’re probably not getting otherwise.
+
+Will a Cucumber failure give me the right message?  Sometimes the failure message we get from Cucumber points us directly to a clean point of failure. A missing template error, for example, is very specific. When the message doesn’t tell us exactly what we need to do next, however, that’s a good case for a view spec.
+
+Is there any functionality beyond basic CRUD actions/views? View specs provide us with an opportunity to discover APIs that we need from the controllers and models. This is not that valuable when the APIs are following the most standard conventions. The value increases, however, as we stray from them.
+
+In general, our recommendation is to err on the side of too many view specs rather than too few. The only way to really get a feel for the ben- efits  of  them  is  to  learn  to  write  them  well.  And  only  once  you  really understand how they fit in the flow are you going to be able to make well-grounded decisions about if and when to use them.

@@ -1,0 +1,58 @@
+18.8  Scenario Outlines
+
+For  cases  that  involve  several  similar  cases,  Cucumber  gives  us  scenario  outlines.  We  saw  this  in  the  Codebreaker  tutorial  in  Part  I  of the book, where we had several scenarios that involved the same three steps with different values each time.
+
+Given the secret code is 1234
+When I guess 1234
+Then the mark should be bbbb
+
+Given the secret code is 1234
+When I guess 1235
+Then the mark should be bbb
+
+# etc, etc
+
+After about three or four scenarios like that, they become very hard to scan through and get a sense of the relationship between them and the rules that they are trying to express.
+
+
+2.  http://wiki.github.com/aslakhellesoy/cucumber/rdoc
+
+Scenario outlines solve this problem by letting us define an outline for a  scenario  once,  with  placeholders  for  the  values  that  might  change from scenario to scenario. Then we can express the values in a tabular format that is very easy to scan and get the whole picture:
+
+Scenario Outline: submit guess
+	Given the secret code is "<code>" 
+	When I guess "<guess>"
+	Then the mark should be "<mark>"
+
+Scenarios: all numbers correct
+	| code | guess | mark |
+	| 1234 | 1234  | ++++ |
+	| 1234 | 1243  | ++-- |
+	| 1234 | 1423  | +--- |
+	| 1234 | 4321  | ---- |
+
+The Scenarios  keyword identifies a table of input data for the outline. (3)
+See how the column headers in the table match up to the placeholders in the outline? Cucumber processes the outlined scenario once for each row in the table after the first row with the column headers. In this case, we get four scenarios.
+
+The substitutions in scenario outlines also work with multiline text and tabular input. Here’s an example:
+
+Scenario Outline:
+	Given a discount of <discount> 
+	When I order the following book:
+		| title  | price |
+		| Healthy eating for programmers | <price> |
+	Then the statement should 	read:
+		"""
+		Statement for David 
+		Total due:  <total>
+		"""
+
+	Scenarios:
+		| discount | price  | total  |
+		| 10%      | $29.99 | $26.99 |
+		| 15%      | $29.99 | $25.49 |
+
+
+3.  Cucumber  supports  Scenarios  and  Examples  keywords  to  identify  tabular  data  for  a scenario outline. Some users prefer to use Scenarios to avoid using words we use in RSpec, but  many  people  like  to  use  Examples  in  order  to  better  differentiate  from  the  Scenario keyword. Both do exactly the same thing, so the choice is a subjective one and yours to make.
+
+In the first scenario, <discount> is replaced with 10%, <price> in the table in the When step becomes $29.99, and <total> in the multiline text in the Then step becomes $26.99.

@@ -1,0 +1,74 @@
+7.2  Refactor to Remove Duplication
+
+As we discussed earlier, refactoring is a technique for improving a design without changing behavior. There are many ways in which we can improve a design. The most common is to remove duplication, so let’s start with that. There are two lines in the guess method that are sending messages to output. Let’s start by extracting that to a single statement. Modify the guess() method as follows:
+
+Download cb/28/lib/codebreaker/game.rb
+
+def guess(guess)
+	if @secret.include?(guess[0])
+		mark = '-'
+	else
+		mark = ''
+	end
+	@output.puts mark
+end
+
+Now run the specs, and make sure they all still pass. Then, run the scenarios, and you should see that we have two of them passing. Progress!
+
+Looking back at the spec, we have an example for no matches and one number match, so let’s add an example for an exact match:
+
+Download cb/30/spec/codebreaker/game_spec.rb
+
+describe "#guess" do
+	context "with no matches" do
+		it "sends a mark with ''" do 
+			game.start('1234') 
+			output.should_receive(:puts).with('') 
+			game.guess('5555')
+		end 
+	end
+
+	context "with 1 number match" do 
+		it "sends a mark with '-'" do
+			game.start('1234') 
+			output.should_receive(:puts).with('-') 
+			game.guess('2555')
+		end
+	end
+	 
+	context "with 1 exact match" do 
+		it "sends a mark with '+'" do
+			game.start('1234') 
+			output.should_receive(:puts).with('+') 
+			game.guess('1555')
+		end 
+	end
+end
+
+Run the specs, and you should see the new example fail with the following message:
+
+Failure/Error: output.should_receive(:puts).with('+') 
+Double "output" received :puts with unexpected arguments
+	expected: ("+")
+         got: ("-")
+# ./spec/codebreaker/game_spec.rb:42
+
+We got a - instead of a + because the current implementation gives us
+a -  if the first number in the guess is anywhere in the code. We need to treat an  exact match  differently from  a  number match.  Modify  the guess() method as follows:
+
+Download cb/31/lib/codebreaker/game.rb
+
+def guess(guess)
+	if guess[0] == @secret[0]
+		mark = '+'
+	elsif @secret.include?(guess[0])
+		mark = '-'
+	else
+		mark = ''
+	end
+	@output.puts mark
+end
+
+Run the specs, and they should all pass, so let’s look for more refactoring opportunities.
+
+

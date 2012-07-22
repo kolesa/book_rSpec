@@ -1,0 +1,4 @@
+19.4  What We’ve Learned
+
+So  far,  we  explored  the  concepts  of  BDD  in  Rails  at  a  high  level  and set up a project with the recommended tools. In the next chapter, we’ll take a look at how Cucumber and Rails work together to help us drive application development from the outside in. Turn the page, and let’s begin.
+ 

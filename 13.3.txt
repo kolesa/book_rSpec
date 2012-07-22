@@ -1,0 +1,29 @@
+13.3  Predicate Matchers
+
+A Ruby predicate method is one whose name ends with “?” and returns a Boolean response. One example that is built right into the language is array.empty?. This is a simple, elegant construct that allows us to write code like this:
+
+do_something_with(array) unless array.empty?
+
+When we want to set an expectation that a predicate should return a specific result, however, the code isn’t quite as pretty.
+
+array.empty?.should == true
+
+Although  that  does  express  our  intention,  it  doesn’t  read  that  well. What we really want to say is that the “array should be empty,” right? Well, say it then!
+
+array.should be_empty
+
+Believe  it  or  not,  that  will  work  as  you  expect.  The  expectation  will be  met,  and  the  example  will  pass  if  the  array  has  an  empty? method that  returns  true.  If  array  does  not  respond  to  empty?,  then  we  get  a NoMethodError.  If  it  does  respond  to  empty?  but  returns  false,  then  we get an ExpectationNotMetError.
+
+This  feature  will  work  for  any  Ruby  predicate.  It  will  even  work  for predicates that accept arguments, such as the following:
+
+user.should be_in_role("admin")
+
+This will pass as long as user.in_role?("admin") returns true.
+
+How They Work
+
+RSpec overrides method_missing to provide this nice little bit of syntactic sugar.  If  the  missing  method  begins  with  “be_,”  RSpec  strips  off  the “be_” and appends “?”; then it sends the resulting message to the given object.
+
+Taking this a step further, there are some predicates that don’t read as fluidly as we might like when prefixed with “be_”. instance_of?(type), for example, becomes be_instance_of. To make these a bit more readable, RSpec also looks for things prefixed with “be_a_” and “be_an_”. So, we also get to write be_a_kind_of(Player) or be_an_instance_of(Pitcher).
+
+Even  with  all  of  this  support  for  prefixing  arbitrary  predicates,  there will  still  be  cases  in  which  the  predicate  just  doesn’t  fit  quite  right. For example, you wouldn’t want to say parser.should be_can_parse("some text"), would you? Well, we wouldn’t want to have to say anything quite so ridiculous, so RSpec supports writing custom matchers with a sim- ple  DSL  that  you’ll  read  about  in  Section  16.7,  Custom  Matchers,  on page 240.

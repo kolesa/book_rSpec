@@ -1,0 +1,11 @@
+3.4  What We’ve Learned
+
+In this chapter, we introduced the project that we’ll spend the remaining chapters in Part I working on. We planned a release and the first iteration. In the process, we learned about the following:
+
+Selecting stories for a release  We did this by narrowing down the stories to those that really matter in the context of the release goals.
+
+Selecting stories for an iteration  We picked out two stories that will result in working software sufficient to interact with it in a meaningful way.
+
+Acceptance criteria  We  wrote  Cucumber  features  and  scenarios  for each  story.  We  do  this  during  the  iteration  planning  meeting  so that we can use what we learn from writing the scenarios to affirm or modify existing estimates. This is known as Acceptance Test– Driven Planning.
+
+Scenario outlines  This is one of many tools that Cucumber offers to keep features and scenarios DRY and expressive.

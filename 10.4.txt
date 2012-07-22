@@ -1,0 +1,48 @@
+10.4  The Cost of Going Agile
+
+So,  this  is  great  news!  By  rethinking  the  way  we  approach  project delivery, we’ve managed to comprehensively address all our traditional project risks. Instead of seeing a project as a linear sequence of activ- ities that ends up with a big delivery, we find things work better if we deliver frequently in short iterations. So, why isn’t everyone doing this?
+
+The obvious but unpopular answer is because it’s really hard! Or rather, it’s really hard to do well. Delivering production-quality software week after week takes a lot of discipline and practice. For all their systemic faults,  traditional  software  processes  cause  you  to  focus  on  certain aspects of a system at certain times. In an Agile process, the training wheels come off, and the responsibility now lies with you. That auton- omy comes at a cost!
+
+If  we  want  to  deliver  working  software  frequently—as  often  as  every week on many projects—there are a number of new problems we need to solve. Luckily, Agile has been around for long enough that we have an answer to many of these problems, or at least we understand them well enough to have an opinion about them. Let’s look at some of the challenges of Agile, and then we will see how BDD addresses them.
+
+Outcome-Based Planning
+
+The only thing we really know at the beginning of a project is that we don’t know very much and that what we do know is subject to change. Much  like  steering  a  car,  we  know  the  rough  direction,  but  we  don’t know  every  detailed  nuance  of  the  journey,  such  as  exactly  when  we will turn the steering wheel or by how many degrees. We need to find a way to estimate the cost of delivering a project among all this uncertainty and accept that the fine details of the requirements are bound to change, and that’s OK.
+
+Streaming Requirements
+
+If we want to deliver a few features every week or two, we must start describing  requirements  in  a  way  that  supports  this.  The  traditional requirements  process  tends  to  be  document-based,  where  the  busi- ness  analyst  takes  on  the  role  of  author  and  produces  a  few  kilos  of requirements.
+
+Instead of this batch delivery of requirements, we need to come up with a  way  to  describe  features  that  we  can  feed  into  a  more  streamlined delivery process.
+
+Evolving Design
+
+In  a  traditional  process,  the  senior  techies  would  come  up  with  The Design  (with  audible  capitals,  most  likely  based  on  The  Standards). Before we were allowed to start coding, they would have produced high- level designs, detailed designs, and probably class diagrams describing every  interaction.  Each  stage  of  this  would  be  signed  off.  In  an  Agile world,  the design needs to flex and grow as we  learn more about the problem and as the solution takes shape. This requires rethinking the process of software design.
+
+Changing Existing Code
+
+Traditional programming is like building little blocks for later assembly. We write a module and then put it to one side while we write the next one, and so on, until all the modules are written. Then we bring all the modules  together  in  a  (usually  painful)  process  called  integration.  An Agile process requires us to keep revisiting the same code as we evolve it to do new things.
+
+Because  we  take  a  feature-wise  approach  to  delivery  rather  than  a module-wise  one,  we  will  often  need  to  add  new  behavior  to  existing code. This isn’t because we got it “wrong” the first time but because the code  is  currently  exactly  fit  for  purpose,  and  we  need the  application to do more now. Refactoring, the technique of restructuring code with- out changing its observable behavior, is probably the place where most advances  have  been  made  in  terms  of  tool  support  and  automation, especially with statically typed languages like Java and C#.
+
+Frequent Code Integration
+
+Integrating  code  ahead  of  a  testing  cycle  is  a  thankless  and  fraught task.  All  the  individual  modules  “work”—just  not  together!  Imagine doing this every single month. Or every week. What about potentially several times every day? This is the frequency of integration an iterative process demands: it’s frequent enough that it is known as continuous integration.
+
+Continual Regression Testing
+
+Whenever we add a new feature, it might affect many parts of the code base. We are doing feature-wise development, so different parts of the code base are evolving at different rates, depending on the kind of feature we are implementing. When we have a single feature, the system is easy to test. When we add the hundredth feature, we suddenly have to regression test the previous ninety-nine. Imagine when we add the two hundredth feature—or the one thousandth! We need to get really good at regression testing; otherwise, we will become ever slower at adding features to our application.
+
+Frequent Production Releases
+
+This is one of the hardest challenges of Agile software delivery, because it involves coordination with the downstream operations team. Things are  suddenly  outside  of  the  team’s  control.  All  the  other  aspects -streaming  requirements,  changing  design  and  code,  frequent  integration, and regression testing—are behaviors we can adopt ourselves.
+
+Getting software into formally controlled environments puts us at odds with the corporate governance structures. But if we can’t get into pro- duction frequently, there is arguably little value in all the other stuff. It may still be useful for the team’s benefit, but software doesn’t start making money until it’s in production. Remember, we want to be writing software that matters!
+
+Co-located Team
+
+To  make  this  all  work,  you  can’t  afford  for  a  developer  to  be  waiting around for her manager to talk to someone else’s manager to get per- mission for her to talk to them. The turnaround is just too slow. There are organizational and cultural changes that need to happen in order to shorten the feedback cycles to minutes rather than days or weeks.
+
+The kind of interactions we require involve the whole team sitting to gether, or at least as near one another as possible. It simply isn’t effective  to  have  the  programmers  in  one  office,  the  project  managers  in another, and the testers elsewhere, whether along the corridor or in a different continent.
+

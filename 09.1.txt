@@ -1,0 +1,152 @@
+9.1  Use Cucumber for Collaboration
+
+As  we  just  saw,  with  a  secret  code  of  1234  and  a  guess  of  1155,  we’re getting  a  mark  of  +-.  Without  even  looking  at  the  code,  we  can  guess that this is happening because the Marker  evaluates the 1 in the first position of the guess as an exact match with the 1 in the first position in the secret code, and then it evaluates the 1 in the second position of  the  guess  as  a  number  match  with  the  same  number  in  the  first position of the code.
+
+Does that seem right?
+
+Document New Requirements with Cucumber
+
+It’s tempting, when this sort of question comes up, to make assumptions  about  how  things  should  work.  Fight  that  temptation!  This  is exactly what Cucumber is for. We can sit down with the customer and sketch out  some  scenarios  and  talk  about  them.  Cucumber’s  simple use of Given, When, Then is a great facilitator for this sort of conversation. And in our case, our use of Cucumber’s scenario outlines makes it even easier.
+
+That  said,  we  will  now  fast-forward  past  that  conversation,  having decided on the following rules, as expressed in the narrative and some new scenarios in codebreaker_submits_guess.feature:
+
+Download cb/43/features/codebreaker_submits_guess.feature
+
+Feature: code-breaker submits guess
+
+	The code-breaker submits a guess of four numbers.  The game marks the guess with + and - signs.
+
+	For each number in the guess that matches the number and position of a number in the secret code, the mark includes one + sign. For each number in the guess that matches the number but not the position of a number in the secret code, the mark includes one - sign.
+
+	Each position in the secret code can only be matched once.  For example, a guess of 1134 against a secret code of 1234 would get three plus signs: one for each of the exact matches in the first, third and fourth positions.  The number match in the second position would be ignored.
+
+Scenario Outline: submit guess
+	Given the secret code is "<code>"
+	When I guess "<guess>"
+	Then the mark should be "<mark>"
+
+	Scenarios: no matches
+		| code | guess | mark |
+		| 1234 | 5555  |      |
+
+	Scenarios: 1 number correct
+		| code | guess | mark |
+		| 1234 | 1555  |   +  |
+		| 1234 | 2555  |   -  |
+
+	Scenarios: 2 numbers correct
+		| code | guess | mark |
+		| 1234 | 5254  |   ++ |
+		| 1234 | 5154  |   +- |
+		| 1234 | 2545  |   -- |
+	 
+
+
+	Scenarios: 3 numbers correct
+		| code | guess | mark |
+		| 1234 | 5234  | +++  |
+		| 1234 | 5134  | ++-  |
+		| 1234 | 5124  | +--  |
+		| 1234 | 5123  | ---  |
+
+	Scenarios: all numbers correct
+		| code | guess | mark |
+		| 1234 | 1234  | ++++ |
+		| 1234 | 1243  | ++-- |
+		| 1234 | 1423  | +--- |
+		| 1234 | 4321  | ---- |
+
+	Scenarios: matches with duplicates
+		| code | guess | mark |
+		| 1234 | 1155  |   +  |
+		| 1234 | 5115  |   -  |
+		| 1134 | 1155  |   ++ |
+		| 1134 | 5115  |   +- |
+		| 1134 | 5511  |   -- |
+		| 1134 | 1115  |   ++ |
+		| 1134 | 5111  |   +- |
+
+Now  run  the  scenarios  with  the  cucumber  command, and  you  should see the following failures (output abbreviated for clarity):
+
+Scenarios: matches with duplicates
+	| code | guess | mark |
+	| 1234 | 1155  | +    |
+	expected ["Welcome to Codebreaker!", "Enter guess:", "+-"] to include "+"
+	| 1234 | 5115  | -  |
+	expected ["Welcome to Codebreaker!", "Enter guess:", "--"] to include "-"
+	| 1134 | 1155  | ++ |
+	| 1134 | 5115  | +- |
+	| 1134 | 5511  | -- |
+	| 1134 | 1115  | ++ |
+	expected ["Welcome to Codebreaker!", "Enter guess:", "++-"] to include "++"
+	| 1134 | 5111  | +- |
+	expected ["Welcome to Codebreaker!", "Enter guess:", "+--"] to include "+-"
+
+21 scenarios (4 failed, 17 passed)
+63 steps (4 failed, 59 passed)
+0m0.039s
+
+The  failing  scenarios  all  fail  in  similar  ways.  They  each  get  a  symbol in the mark for every 1 that appears in the guess even when there are fewer 1s in the secret code. We need to modify the marking algorithm so that each position in the code can be matched only once. It also seems that the extra mark is always an extra minus sign, so let’s focus on the number_match_count method first.
+
+Write a Code Example That Exposes the Problem
+
+Add  the  following  context  and  example  to  the  examples  for  number_match_count in marker_spec.rb:
+
+Download cb/43/spec/codebreaker/marker_spec.rb
+
+module Codebreaker
+describe Marker do
+	describe "#number_match_count" do
+		context "with 1 exact match duplicated in guess" do 
+			it "returns 0" 
+				do
+					marker = Marker.new('1234','1155')
+					marker.number_match_count.should == 0
+				end 
+			end
+		end 
+	end
+end
+
+The first argument to Marker.new is the secret code, and then second is the guess. We expect the 1 in the first position of the secret code to be accounted for in the exact_match_count, so the 1 in the second position of the guess should not be matched against it. Run this new example with the rspec command, and you should see the following failure:
+
+1) Codebreaker::Marker #number_match_count with 1 exact match 
+		duplicated in guess returns 0
+	Failure/Error: marker.number_match_count.should == 0
+	expected: 0,
+		got: 1 (using ==)
+
+Let’s review the implementation of the Marker:
+
+Download cb/43/lib/codebreaker/marker.rb
+
+module Codebreaker
+	class Marker
+		def initialize(secret, guess)
+			@secret, @guess = secret, guess
+		end
+
+		def exact_match_count
+			(0..3).inject(0) do |count, index|
+				count + (exact_match?(index) ? 1 : 0)
+			end 
+		end
+
+		def number_match_count
+			(0..3).inject(0) do |count, index|
+				count + (number_match?(index) ? 1 : 0)
+			end 
+		end
+
+		def exact_match?(index)
+			@guess[index] == @secret[index]
+		end
+
+		def number_match?(index)
+			@secret.include?(@guess[index]) && !exact_match?(index)
+		end 
+	end
+end
+
+Our  implementation  of  number_match?  is  not  robust  enough  to  handle this new requirement. It looks for any number that’s in the secret and not in the same position, but it doesn’t account for whether that number has been matched already. This is why we occasionally get two matches for one number in the secret code.
+

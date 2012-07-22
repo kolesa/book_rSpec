@@ -1,0 +1,93 @@
+21.5  Building on the Basics
+
+Now that we’ve seen how to manipulate forms and specify page content with Webrat, we’ll take a look at some of Webrat’s more advanced, less commonly used features. You probably won’t need them day to day, but it’s helpful to have a rough idea of what’s available so you can recognize cases when they might come in handy.
+
+Working Within a Scope
+
+Sometimes targeting fields by a label isn’t accurate enough. Going back to  our  box-office  example  application,  we  might want  a  form  where  a user can add multiple genres at once. Each row of the form would have its own <label> for the genre name, but using Webrat’s fill_in( ) method would always manipulate the input field in the first row.
+
+For  these  cases,  Webrat  provides  the  within( )  method.  By  providing  a CSS  selector,  you  can  scope  all  of  the  contained  form  manipulations to a subset of the page. Here’s how you could fill out the second genre name field:
+
+When /^I fill in Horror for the second genre name$/ do
+	within "#genres li:nth-child(2)" do
+		fill_in "Name", :with => "Horror"
+	end 
+end
+
+If no elements matching the CSS selector are found on the page, Webrat will  immediately  raise  a  Webrat::NotFoundError.  Like  most  other  Webrat methods,  if  multiple  elements  match,  it  will  use  the  first  one  in  the HTML source.
+ 
+Locating Form Fields
+
+When a form is rendered with prefilled values, you may want to check that the proper values are present when the page loads. To help with this, Webrat  exposes  methods  that  return  objects  representing  fields on the page, which include accessors for their values. Here’s a simple example based on field_labeled( ), which looks up input fields based on their associated <label>s:
+
+Then /^the email address should be pre-filled$/ do
+	field_labeled("Email").value.should == "robert@example.com"
+end
+
+Checkboxes also provide a checked?( ) method for convenience:
+
+Then /^the Terms of Service checkbox should not be checked$/ do
+	field_labeled("I agree to the Terms of Service").should_not be_checked
+end
+
+When  <label>-based  lookups  won’t  work,  you  can  use  field_named( ), which matches against the field’s name  value, or field_with_id( ), which matches against the field’s id:
+
+Then /^the email address should be pre-filled$/ do
+	field_named("user[email]").value.should == "robert@example.com"
+end
+
+Then /^the email address should be pre-filled$/ do
+	field_with_id("user_email").value.should == "robert@example.com"
+end
+
+
+Dropping Down to HTTP
+
+To keep our scenarios as expressive and maintainable as possible, we generally try to avoid tying them to implementation details. For example, our users aren’t concerned with the URL of the page they end up on, just that it’s showing them the right information. Building our spec- ifications of the app’s behavior on page content rather than URLs aligns our executable specifications with our users’ interactions.
+
+For the rare cases where the lower-level operation of the application is important  to  the  customers  or  it’s  the  only  available  option  for  spec- ifying  a  behavior,  Webrat  provides  a  few  methods  that  expose  these details. To check the current URL of the session after the last request (and following redirects), you can use the current_url( ) method:
+
+Then /^the page URL should contain the album SEO keywords$/ do
+	current_url.should =~ /vacation-photos/
+end
+
+If your application does some form of browser sniffing or you’re building a  REST  API,  you  might  be  interested  in  specifying  the  behavior  of  an app in the presence of a specific HTTP header. You can set any request header for the duration of the test with Webrat’s header( ) method:
+
+Given /^I'm browsing the site using Safari$/ do
+	header "User-Agent", "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10_5_6; en-us)"
+end
+
+When /^I request the users list using API version 2.0$/ do
+	header "X-API-Version", "2.0"
+	visit users_path
+end
+
+When the MIME type should affect the behavior of the application, you can use the http_accept( ) method as a shortcut to set the Accept header. It can be called with a small set of symbols that map to MIME types or a MIME type string:
+
+Given /^my web browser accepts iCal content$/ do
+	http_accept :ics
+end
+
+Given /^my user agent accepts MP3 content$/ do
+	http_accept "audio/mpeg"
+end
+
+Finally, if you’re going to use the HTTP protocol’s built-in Basic authentication mechanism, Webrat includes a basic_auth( ) method for setting the  HTTP_AUTHORIZATION  header  to  the  encoded  combination of  a  user-name and password:
+
+Given /^I am logged in as "robert" with the password "secret"$/ do
+	basic_auth "robert", "secret"
+end
+
+When Things Go Wrong
+
+Every once in awhile, you’ll hit a point where you think a step should be passing, but it’s failing. It might raise a Webrat::NotFoundError about a field that’s not present or complain that an expected element is missing. Before diving into your test.log  or the Ruby debugger, it’s good to take a look at the page as Webrat is seeing it, to check whether it matches your understanding of what should be rendered.
+
+You  can  use  the  save_and_open_page( )  method  to  capture  the  most recent response at any point in your scenario and open it up in a web browser as a static HTML file on your development machine.
+
+Just drop it in before any line that seems to be misbehaving:
+
+When /^I uncheck Save as draft$/ do
+	save_and_open_page uncheck "Save as draft"
+end
+
+Now  when  you  rerun  the  scenario,  you’ll  be  able  to  see  the  page  re- sponse as Webrat captured it. If you’re on Mac OS X, the file is opened automatically in your default browser. Otherwise, you can find it in the tmp directory below the project root.

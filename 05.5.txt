@@ -1,0 +1,10 @@
+5.5  What We’ve Learned
+
+We started this chapter with a logical failure in a Cucumber scenario. This was our cue to jump from the outer circle (Cucumber) to the inner circle (RSpec) of the BDD cycle.
+
+We  then  followed  the  familiar  TDD  red/green/refactor  cycle  using RSpec.  Once  we  had  a  passing  code  example,  we  reran  the  Cucumber  scenario.  We  saw  that  we  had  gotten  our  first  Then  step  to  pass, but there was one more that was failing, so we jumped back down to RSpec,  went  through  another  red/green/refactor  cycle,  and  now  the whole scenario was passing.
+
+This is the BDD cycle. Driving development from the outside in, starting with business-facing scenarios in Cucumber and working our way inward to the underlying objects with RSpec.
+
+The material in the next chapter, submitting guesses, is going to present some interesting challenges. It will expose you to some really cool features  in  Cucumber, as  well  as  some  thought-provoking  discussion about  the  relationship  between  Cucumber  scenarios  and  RSpec  code examples.  So,  take  a  few  minutes  break,  drink  up  some  brain  juice, and meet us at the top of the next chapter.
+ 

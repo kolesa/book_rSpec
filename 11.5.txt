@@ -1,0 +1,36 @@
+11.5  What’s in a Story?
+
+Up to now we haven’t said anything about the anatomy of a story—just about how they fit into the delivery process. Now it’s time to take a look inside and see how the structure of the story enables us to concentrate on writing software that matters.
+
+
+4.  You don’t have to work in iterations, and if you do, they don’t have to be one-week long.  We  have  seen  teams  using  iterations  lasting  from  half  a  day  (no,  really!)  to  four weeks.  Some  teams  don’t  use  iterations  at  all  but  have  a  constant  flow  of  stories  that they  track  using  techniques  borrowed  from  Lean  manufacturing, such  as  kanban  flow control  and  finger charts.  The  important  thing  is  to  ensure  you  have  regular  feedback from your stakeholders and a way of measuring throughput.
+ 
+A story consists of a number of components:
+
+A title  so we know which story we are talking about.
+
+A narrative  that tells us what this story is about. There are a couple of common formats for this, but you can use anything that captures the essentials. At the very least, it should identify the stakeholder for this story, a description of the feature they want, and the reason they want it—the benefit  they expect to gain by us delivering this behavior.
+
+The most common format for this is known as the Connextra for- mat, after the company where it was first used: as a [stakeholder], I want [feature] so that [benefit].
+
+A recent variant that is becoming popular looks like this: in order to [benefit], a [stakeholder] wants to [feature]. The content is exactly the same, but there is a subtle shift in emphasis by putting the benefit first. It helps keep the focus on the outcome rather than the detail of the feature.
+
+Acceptance criteria  so we know when we are done. In BDD, the acceptance criteria take the form of a number of scenarios made up of individual steps.
+
+Before  we  can  begin  implementing  a  story,  we  need  to  drive  out  this level  of  detail.  As  we  mentioned  earlier,  this  doesn’t  need  to  happen during the inception (and probably shouldn’t!), but it does need to happen  before  we  do  anything  that  requires  an  understanding  of  “done,” such as scheduling work during iteration/sprint planning. Some teams ensure  they  have  one  or  two  iterations  worth  of  stories  prepared  as they go; others drive out the detail of scenarios during a weekly plan- ning session. Our recommendation is to try different approaches and go with what works for you and your team.
+
+The business analyst (again remembering this is a role, not necessarily  a  specific  person)  should  ensure  the  story  uses  the  language  of the  stakeholders  so  everyone  is  using  a  consistent  vocabulary.  In  his book Domain-Driven Design  [Eva03], Eric Evans uses the phrase ubiquitous language to describe this shared vocabulary. The idea is that the domain words find their way right into the code base, as the names of objects, methods, variables, and even modules and namespaces. This allows  the  code  to  more  accurately  model  the  domain,  which  in  turn enables us to solve problems in that domain more effectively.
+
+Now  we  get  into  the  acceptance  criteria—the  scenarios—that  define “done”  for  this  story.  Which  ones  do  we  care  about  (and  by  omission which  ones  don’t  we  care  about)?  This  discussion  should  be  a  team effort, but the acceptance criteria are “owned” by the tester, or rather by someone in the tester role.
+
+Each  scenario  has  a  title.  You  can  think  of  scenario  names  like  the titles of Friends episodes, so they are all “The one where...” for example [The one where] the account is locked or [the one where] the password is invalid. (5)
+
+We use the slightly artificial structure of givens, events, and outcomes to describe these scenarios. This doesn’t mean that every scenario has exactly one Given, When, and Then in that order. Rather, it means that each step is either  setting something up in a known state (a given) or exercising  some  behavior  (an  event)  or  verifying  something  happened (an  outcome).  Trying  to  do  more  than  one  of  these  in  a  single  step usually ends up in confusion.
+
+This  separation  is  useful  because  it  is  only  the  event  we  care  about.
+For the setup, the givens, it doesn’t matter how we get the world into a known state. We could poke values into a database, drive a UI, read values  in  from  a  flat  file—it  doesn’t  matter.  What  matters  is  that  the event  steps  have  no  idea  how  this  happened  and  interact  with  the application in exactly the same way the stakeholder would. 
+
+Similarly, it doesn’t matter how you verify the outcomes, just that you do. This might involve poking around in a DOM, checking database values, or doing  any  manner  of  other  checks.  It  is  possible  to  get  hung  up  on thinking of scenarios as full-blown integration tests so that all the setup steps need to use the same UI as the user might. Now there is definitely a benefit in having these integration tests, and tools like Cucumber and constructs like scenarios are a pretty good way to do this, but this is not the (primary) purpose of a BDD scenario.
+
+
+5.  You don’t need to use the actual words “The one where...” in the  scenario title; it just helps with the names.

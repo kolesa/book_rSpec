@@ -1,0 +1,48 @@
+18.4  Hooks
+
+For most nontrivial applications, it becomes necessary to perform common  operations  before  and  after  each  scenario.  For  example,  cucumber-rails starts a database transaction before each scenario and rolls it back when it has finished, ensuring that the database is in a pristine state for each scenario.
+
+In  Cucumber,  we  do  this  with  hooks.  Here  is  a  simple  example  of  a Before hook:
+
+Before do
+	puts "This will run before each scenario"
+end
+
+Cucumber supports three different kinds of hooks:
+
+•  Before: Executed before every scenario
+
+•  After: Executed after every scenario
+
+•  AfterStep: Executed after every step
+
+We  can  configure  hooks  in  any  of  the  Ruby  files  below  features/,  but we recommend doing it in a file called features/support/hooks.rb, because this makes it easier to remember where the code lives.
+
+Hooks  can  be  defined  any  number  of  times.  If  there  are  ten  different things  we  need  to  do  before  each  scenario,  we  can  define  ten  Before hooks. They’ll be run in the order in which they are defined.
+
+When we do have multiple hooks, we sometimes find that we don’t need to run all of them for every single  scenario. When we do, we can use tagged hooks.
+
+Tagged Hooks
+
+A  tagged  hook  behaves  just  like  a  regular  hook,  but  it  runs  only  for certain  scenarios.  When  we  declare  a  hook,  we  can  also  pass  one  or more tag expressions. Consider this example:
+
+Before("@foo") do
+	puts "This will run before each scenario tagged with @foo"
+end
+
+For  more  fine-grained  control,  we  can  use  more  complex  tag  expres- sions, just like we can do on the command line with --tags, as described in Section 17.11, Tags, on page 265.
+
+Before("@foo,~@bar", "@zap") do
+	puts "This will run before each scenario tagged with @foo or not @bar AND @zap"
+end
+
+
+Visibility
+
+Although  hooks can be  practical  for  common  operations  that  need  to happen before and after a scenario, they do have one drawback. They cannot be read by nontechnical people on your team. Hooks are defined
+
+in  Ruby  code,  and  you  will  never  see  any  evidence  of  their  existence (unless you have a failure, in which case the backtrace will show it).
+
+Sometimes it’s OK that nontechnical people can’t see it. Take the case with  Ruby on Rails, where  Cucumber starts a  transaction in a Before hook and rolls it back in an After hook. This is low-level technical stuff that nontechnical people don’t care about (and shouldn’t have to care about).
+
+In other situations, there might be some common setup that also provides  important context  in  order  for  a  scenario  to  make  logical  sense. For those situations, we can use a Background.

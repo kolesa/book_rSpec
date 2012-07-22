@@ -1,0 +1,58 @@
+14.9  Choosing Other Test Double Frameworks
+
+In RSpec’s early  days, we  felt that including a test double framework was crucial. There were other frameworks we could have used, but they were all still young, and we wanted to experiment with our own ideas.
+
+Fast-forward  four  years,  and  the  landscape  has  changed.  As  RSpec’s user base grew, so did the range of preferences. The existing test double frameworks  matured,  and  new  ones  appeared,  and  their  maintainers were all willing to support RSpec’s runner as well as that of Test::Unit.
+
+Built-in Support
+
+RSpec uses its own test double framework unless we tell it otherwise. We  can,  however,  choose  any  other  framework  provided  that  it  has an adapter for RSpec’s runner. RSpec ships with adapters for Mocha, Flexmock, and RR, three of the most popular Ruby test double frame- works.  To  select  one  of  those  frameworks,  we  just  add  a  little  bit  of configuration.
+
+RSpec::configure do |config|
+	config.mock_with <framework id>
+end
+
+The framework id  is one of :rspec, :mocha, :flexmock, or :rr. RSpec’s own framework is used unless you specify something else, but you can set it explicitly if you choose.
+
+Custom Adapters
+
+To use a mock framework that doesn’t have built-in support, we need to write a custom adapter. Assuming that the framework has the nec- essary extension points, this is a trivial exercise. As an example, here is the built-in adapter we use for Flexmock:
+
+Line 1  require 'flexmock/rspec'
+-
+-  module RSpec
+-  module Core
+5  module MockFrameworkAdapter
+-  		include FlexMock::MockContainer
+- 		def setup_mocks_for_rspec
+- 			# No setup required
+- 		end
+10		def verify_mocks_for_rspec
+- 			flexmock_verify
+- 		end
+-  		def teardown_mocks_for_rspec
+- 			flexmock_close
+15  	end
+-  	end
+-  end
+-  end
+
+The setup_mocks_for_rspec( ) method on line 7 is called before each example is run. Flexmock doesn’t have anything to set up, so in this case it’s a no-op. Other frameworks do things like attach behavior to Object  to support transparent access to test-specific extensions or simply create a global storage area to record test double activity.
+
+At the end of each example, RSpec calls verify_mocks_for_rspec( ) on line 10.  In  the  Flexmock  adapter,  this  delegates  to  flexmock_verify( ),  which verifies any message expectations.
+
+The  teardown_mocks_for_rspec( )  on  line  13  is  guaranteed  to  be  called, even in the event of a failure or error. In this example, it delegates to Flexmock’s flexmock_close( ) method, which removes test double exten- sions from any classes or other global objects, restoring them to their state before the example.
+
+That’s all there is to writing an adapter. Once we have one to use, we can pass its module name directly to the mock_with( ) method, like this:
+
+RSpec::Runner.configure do |config|
+	config.mock_with MyMockFrameworkAdapter 
+end
+
+We encourage you to explore the other frameworks. The concepts that we’ve discussed  in  this  chapter  can  generally  be  applied  to  any  test double framework, each of which has its own personality and, in some cases,  offers  additional  behavior  that  RSpec::Mocks  does  not  support, like test spies in RR.
+
+One at a Time
+
+The  one  caveat  for  using  the  other  frameworks  is  that  you  can  use only  one  framework  in  a  suite  of  examples.  We  enforce  this  to  avoid collisions. RSpec and Mocha both expose the mock( ) and stub( ) methods  to  each  example.  Also,  both  frameworks  add  behavior  to  Object, and  even  with  RSpec  enforcing  one  test-double  framework  per  suite, we have seen cases in which RSpec::Mocks  was being used, but failure messages  were  coming  from  Mocha  because  another  library  involved was implicitly using Mocha if it happened to be loaded.
+
+This is something we plan to improve in the future. For the time being, however, you can still get a lot of flexibility by using different test double frameworks in different suites.

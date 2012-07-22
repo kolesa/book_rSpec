@@ -1,0 +1,26 @@
+18.5  Background
+
+Backgrounds let us write steps once that will be invoked before every scenario in a given feature. We use them instead of Before hooks when we want the steps to be visible in the feature file because they create logical context for each scenario.
+
+Consider the act of logging in to a website. Many websites offer a limited set of functionality to users who are not logged in and more functionality for those who are.
+
+When writing features for such a system, we often find it necessary to start every scenario with either Given I am logged in or Given I am logged out (or some variants of this). For cases like this, Cucumber allows us to define common steps in a Background:
+
+Feature: invite friends
+
+Background: Logged in
+	Given I am logged in as "Aslak"
+	And the following people exist:
+		| name   | friend? |
+		| David  | yes     |
+		| Vidkun | no      |
+
+Scenario: Invite someone who is already a friend
+
+Scenario: Invite someone who is not a friend
+
+Scenario: Invite someone who doesn't have an account
+
+A  Background  will  run  before  each  of  our  scenarios,  just  like  a  Before hook  in  code.  If  there  are  any  Before  hooks,  they  will  run  before  the Background.
+ 
+When we have a common setup, we usually have a choice whether to use Before or Background. Which one to use boils down to whether it is valuable to be explicit about it in the feature.

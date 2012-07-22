@@ -1,0 +1,86 @@
+2.2  Hello RSpec
+
+Create a file named greeter_spec.rb anywhere on your system, open it in 
+your favorite text editor, and type the following code:
+
+Download hello/1/greeter_spec.rb
+
+Line 1  describe "RSpec Greeter" do
+2  it "should say 'Hello RSpec!' when it receives the greet() 
+message" do
+3  greeter = RSpecGreeter.new
+4  greeting = greeter.greet
+5  greeting.should == "Hello RSpec!"
+6  end
+7  end
+
+We’ll get into all the details of this later in the book, but briefly 
+here’s an explanation.
+
+We start by declaring an example group using the describe( ) method on line 
+1. On line 2, we declare an example using the it( ) method.
+
+Within  the  example,  we  initialize  a  new  RSpecGreeter  on  line  3.  
+This
+is the Given  in this example:  the context that we set up and take for 
+granted as a starting point.
+On  line  4,  we  assign  the  value  returned  by  the  greet( )  method  
+to  a greeting variable. This is the When in this example: the action that 
+we’re focused on.
+
+
+3.  http://groups.google.com/group/cukes
+ 
+
+Lastly, on line 5, we set an expectation that the value of greeting should 
+equal  “Hello  RSpec!”  This  is  the  Then  of  this  example:  the  
+expected outcome.
+
+As you’ll see throughout this book, we use these three simple words— Given, 
+When, and Then—because they are easily understood by both technical and 
+nontechnical contributors to a project.
+
+Now save the file, open a command shell, cd into the directory in which
+it is saved, and type this command:
+
+rspec greeter_spec.rb
+
+You should see output including this in the shell:
+
+uninitialized constant RSpecGreeter
+
+This  is  RSpec  telling  you  that  the  example  failed  because  there  
+is  no
+RSpecGreeter  class defined yet. To keep things simple, let’s just define
+it in the same file. Adding this definition, the entire file should look 
+like this:
+
+Download hello/2/greeter_spec.rb
+
+class RSpecGreeter
+def greet
+"Hello RSpec!"
+end end
+
+describe "RSpec Greeter" do
+it "should say 'Hello RSpec!' when it receives the greet() message" do
+greeter = RSpecGreeter.new greeting = greeter.greet greeting.should == 
+"Hello RSpec!"
+end end
+
+Run the file again by typing rspec greeter_spec.rb, and the output should 
+be something like this:
+
+.
+
+Finished in 0.00075 seconds
+1 example, 0 failures
+
+Success! The dot on the first line represents the one example that was run, 
+and the summary on the last line reports that there was one exam- ple and 
+zero failures.
+
+This is a bit different from the Hello World examples we’re used to seeing
+in programming language books because it doesn’t actually print Hello RSpec 
+ to the command line. In this case, the feedback we get tells us the 
+example ran and the code works as expected.

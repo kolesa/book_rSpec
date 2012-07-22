@@ -1,0 +1,42 @@
+8.1  Sniffing Out Code Smells
+
+A code smell, according to the c2 wiki,(1)  is “a hint that something has gone  wrong  somewhere  in  your  code.”  The  Refactoring  book  catalogs and  categorizes  several  of  them.  We’re  not  going  to  go  through  every code smell, but we’ll examine the guess method and see what smells we might discover. Here is how we left it:
+
+Download cb/38/lib/codebreaker/game.rb
+
+def guess(guess)
+	mark = ''
+	(0..3).each do |index|
+		if exact_match?(guess, index)
+			mark << '+'
+		end 
+	end
+	(0..3).each do |index|
+		if number_match?(guess, index)
+			mark << '-'
+		end 
+	end
+	@output.puts mark
+end
+
+
+1.  http://c2.com/xp/CodeSmell.html
+
+
+If  you  just  finished  reading  the  previous  chapter,  this  should  make pretty  good  sense  to  you  without  much  study.  Start  with  an  empty string for the mark. For each number in the guess, add a plus sign to the mark if it is an exact match. Then, for each number in the guess, add a minus sign  if it is a number match. Then output the result.
+
+Of course, when we explain it like that, it is clear that this method is procedural code embedded in an object structure. Generally speaking, we want to avoid procedural code because it has a tendency to grow in complexity and become progressively difficult to understand and maintain.
+
+If  you’re  familiar  with  code  smells,  you  may  recognize  two  of  them in  this  method:  Temporary  Variable  and  Long  Method.  Both  of  these smells are related to procedural methods like this.
+
+Temporary Variable
+
+The mark  variable in the guess  method is the temporary variable we’re talking  about.  The  problem  with  temp  variables  is  that  they  tend  to change state within a method. As a method grows longer, this makes it easier to introduce bugs based on poor understanding of the state of that variable at any given moment in the method.
+
+Right now, the mark variable has eight opportunities to change state before we send it to the output. If anything goes wrong in either of the iterators, it will be difficult to track down which iteration of which iterator.
+
+We’ll clean this up during our refactoring this chapter.
+
+Long Method
+
+A long method is a method that does more than one thing. Think of it as the Single Responsibility Principle applied to a method. The motivation is the same as SRP: we want methods to have only one reason to change as requirements of a system change so that we can make changes in small steps and with confidence.

@@ -1,0 +1,6 @@
+ 
+Chapter 11
+
+ Writing  Sof twar e  That  Matters  
+
+Although  BDD  started  as  a  simple  reframing  of  Test-Driven  Development, it has grown into a fully fledged software methodology in its own right. In this chapter, we look at the mechanics of BDD and see how RSpec and Cucumber fit into the picture.

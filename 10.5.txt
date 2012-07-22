@@ -1,0 +1,12 @@
+10.5  What We’ve Learned
+
+There  are  a  number  of  different  ways  in  which  traditional  
+software projects  fail,  and  these  failures  are  intrinsic  to  the  way  the  projects are run. The result of “process improvement” on traditional projects is simply to reinforce these failure modes and ironically make them even more likely.
+
+An  analysis  of  this  ap proach  to  running  software  projects  leads  backto the exponential cost curve that originated in the world of civil engineering, where things are made of steel and concrete. Being aware of this, a number of experienced IT practitioners had been spending some time wondering what software delivery might look like if they ignored the constraints of thinking like civil engineers.
+
+They  realized  that  taking  an  iterative,  collaborative  approach  to  soft- ware  delivery  could  systemically  eliminate  the  traditional  risks  that project managers worry about. They called this approach Agile.
+
+It isn’t all plain sailing, however, and adopting an Agile approach introduces its own challenges. There is no free lunch!
+
+In the next chapter, we will see how BDD addresses these challenges and where RSpec and Cucumber fit into the picture.

@@ -1,0 +1,123 @@
+7.1  Begin with the Simplest Example
+
+From the perspective of business value, the order in which we get the scenarios within a feature to pass doesn’t really matter. This suggests that we should pick examples that will make it easy for us to progress in small steps.
+
+At any point in this part of the process, we want to find the example that we think would be the simplest to implement. With no examples written yet, the simplest example is probably one in which there are no matches in the guess, so the mark is empty. As it happens, that’s the first scenario in the feature as well, but even if it weren’t, this would be a good place to start.
+
+Make the following changes to game_spec.rb:
+
+Download cb/24/spec/codebreaker/game_spec.rb
+
+require 'spec_helper'
+
+module Codebreaker
+	describe Game do
+		let(:output) { double('output').as_null_object }
+		let(:game) { Game.new(output) }
+
+		describe "#start" do
+			it "sends a welcome message" do
+				output.should_receive(:puts).with('Welcome 
+				to Codebreaker!') game.start('1234')
+			end
+
+			it "prompts for the first guess" do 
+				output.should_receive(:puts).with('Enter guess:') game.start('1234')
+			end 
+		end
+
+		describe "#guess" do
+			context "with no matches" do
+				it "sends a mark with ''" do game.start('1234') 
+					output.should_receive(:puts).with('') 
+					game.guess('5555')
+				end 
+			end
+		end 
+	end
+end
+
+We moved the let( ) statements up a block so they are in scope in the new example. See Section 12.6, Nested Example Groups, on page 166 for more about nested example groups  and scopes.
+
+The output allows the messages it receives when we call start( ) because it uses as_null_object. The only message it cares about is the one we specify in the example—that it should receive puts( ) with an empty string. 
+
+Run the rspec command, and you should see this:
+
+1) Codebreaker::Game #guess with no matches sends a mark with '' 
+	Failure/Error: output.should_receive(:puts).with('')
+	(Double "output").puts("") 
+		expected: 1 time 
+		received: 0 times
+	# ./spec/codebreaker/game_spec.rb:27
+
+The  failure  message  tells  us  that  output  received  the  messages  sent when we called start, but not the empty string we’re expecting now. To get this to pass, modify the guess( ) method as follows:
+
+Download cb/25/lib/codebreaker/game.rb
+
+def guess(guess)
+	@output.puts ''
+end
+
+Run the specs again, and they should pass. Now go back and run the features, and you should see that the first scenario is passing, but the rest are failing. One down, thirteen to go.
+
+With  the  simplest  example  passing,  what  example  should  we  write next?
+
+Follow Up with the Next Simplest Example
+
+Again,  we  want  to  find  an  example  that  would  fail  given  the  current implementation and be simple to implement. Given that we started with no matches, the next simplest example would probably be one match, but which kind? We can have an exact match, which is when a number in  the  guess  is  in  the  secret  code  in  the  same  position,  or  a  number match, which is when a number in the guess is in the secret code but not in the same position.
+
+Thinking  briefly  about  the  implementation  of  each,  one  might  argue that  the  exact  match  would  be  easier  to  implement  because  we  have to examine only one position in the secret code. Of course, one might also  argue  that,  given  the  fact  that  we  don’t  have  any  examples  with exact matches right now, we can determine a number match by simply asking whether the secret contains a specific number. We’re going to go with the latter, but please feel free to experiment with this after you’ve gone through the chapter.
+
+Add the following example:
+
+Download cb/26/spec/codebreaker/game_spec.rb
+
+describe "#guess" do
+	context "with no matches" do
+		it "sends a mark with ''" do game.start('1234') 
+			output.should_receive(:puts).with('') game.guess('5555')
+		end
+	end
+	context "with 1 number match" do 
+		it "sends a mark with '-'" do
+			game.start('1234') output.should_receive(:puts).with('-') 
+			game.guess('2555')
+		end 
+	end
+end
+
+Run the specs, and the new example fails with this:
+
+1) Codebreaker::Game #guess with 1 number match sends a mark with '-' 
+	Failure/Error: output.should_receive(:puts).with('-')
+	Double "output" received :puts with unexpected arguments 
+		expected: ("-")
+		got: ("")
+	# ./spec/codebreaker/game_spec.rb:34
+
+The current implementation of guess  always sends an empty string to the output. We still want it to do that for the first example, but this new example is expecting a minus sign. Here’s a simple solution:
+
+Download cb/27/lib/codebreaker/game.rb
+
+	def start(secret)
+		@secret = secret
+		@output.puts 'Welcome to Codebreaker!'
+		@output.puts 'Enter guess:'
+	end
+
+	def guess(guess)
+		if @secret.include?(guess[0])
+			@output.puts '-'
+		else
+			@output.puts ''
+		end 
+	end
+end
+
+The code should be self-explanatory. Run the examples, and you should see them pass. Admittedly, this works only because the matching number in the example is in the first position (index 0) in the guess. If it were anywhere else, our implementation would have to use a different index.
+
+This is one of those moments that makes people who are new to TDD uncomfortable. We know with some certainty that this is not the implementation  we  want  when  we’re  finished,  and  we  might  even  have  a good idea of what that implementation should be. The problem is that we don’t have enough examples to really specify what this code should do, so any code that we write right now would be speculative.
+ 
+This should all make sense by the time we get to the end of the chapter, but  for  now,  let’s  move  on  to  the  next  step.  We  just  made  a  failing example pass, so it’s time to refactor.
+
+

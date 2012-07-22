@@ -1,0 +1,19 @@
+15.5  RCov
+
+RCov is a code coverage tool. The idea is that you run your specs, and RCov observes what code in your application is executed and what is not. It then provides a report listing all the lines of code that were never executed when you ran your specs and a summary identifying the per- centage of your code base that is covered by specs.
+
+There  is  no  command-line  option  to  invoke  RCov  with  RSpec,  so  you have to set up a rake task to do it. Here’s an example (this would go in Rakefile):
+
+require 'rake'
+require 'rspec/core/rake_task'
+
+namespace :spec do
+	desc "Run specs with RCov"
+	RSpec::Core::RakeTask.new('rcov') do |t| 
+		t.spec_files = FileList['spec/**/*_spec.rb'] 
+		t.rcov = true
+		t.rcov_opts = ['--exclude', '\/Library\/Ruby']
+	end 
+end
+
+This  is  then  invoked  with  rake  spec:rcov  and  produces  a  report  that excludes any file with /Library/Ruby as part of its path. This is useful if your library depends on other gems, because you don’t want to include the code in those gems in the coverage report. See RCov’s documenta- tion for more information on the options it supports.

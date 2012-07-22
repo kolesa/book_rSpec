@@ -1,0 +1,7 @@
+Chapter 20
+
+ Cucumber  with  Rails  
+
+Cucumber  supports  collaboration  between  project  stakeholders  and application  developers,  with  the  goal  of  developing  a  common  under - standing of requirements and providing a backdrop for discussion. The result of that collaboration is a set of plain-text descriptions of features and  automated  scenarios  that  application  code  must  pass  to  be  con- sidered done. Once passing, the scenarios serve as regression tests as development continues.
+
+As  with  any  BDD  project,  we  use  Cucumber  in  a  Rails  project  to  describe application-level behavior. In this chapter, we’ll look at how Cu- cumber integrates with Rails, exploring a variety of approaches to setting up context, triggering events, and specifying expected outcomes as we describe the features of our web application.

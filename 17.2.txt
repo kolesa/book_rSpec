@@ -1,0 +1,76 @@
+17.2  Features
+
+In Cucumber, a feature is a high-level requirement expressed from the perspective of a person or another computer using the system. Features play a role similar to that of user stories in XP, but we take things a step further.
+
+Like user stories, Cucumber features have a title and a brief narrative.In addition, Cucumber features include automated scenarios that serve as acceptance criteria.
+
+
+1.  See the Cucumber wiki at http://wiki.github.com/aslakhellesoy/cucumber/ for more about support for Cucumber in different programming languages.
+ 
+Feature Title
+
+The title of a Cucumber feature is typically just a few words that represent an activity for which a user might engage the system. Here are a few examples:
+
+•  Stock clerk adds inventory item
+
+•  Anonymous visitor adds blog comment
+
+•  Code-breaker submits guess
+
+When  putting  together  an  initial  list  of  features,  keeping  them  terse like this makes it easy to assemble a big picture quickly without getting mired down with too much detail. Sooner or later, we’ll need more detail if we’re going to understand what we’re developing. But even after we’ve written the detail, the title provides us a clear and simple way to refer to the stories in written and verbal communication.
+
+We  will  be  adding  two  levels  of  detail:  a  brief  narrative  and  detailed scenarios. Let’s start with the narrative.
+
+Narrative
+
+We use a short narrative to provide context for the executable scenarios we’ll be writing. These narratives are just like the narratives we write in user stories. In Extreme Programming Installed  [JAH02], which was published  in  2001,  Ron  Jeffries  provides  some  example  user  stories that vary slightly in size and detail but are generally small and simple, like “When the code-breaker submits a guess, the game displays a mark that indicates how close the guess is to the secret code.”
+
+From that single sentence, we can glean the role of the user (the code-breaker), the action the user takes (submit a guess), and the expected response to the action (display a mark).
+
+It also exposes a wealth of questions. How does one submit a guess? How does the system present the mark? What are the rules about marking  a  guess?  This  is  a  good  thing,  since  a  user  story  is  a  token for a conversation.
+
+It also leaves out one important question: what is the goal? Why is the code-breaker submitting a guess? What value does the system provide by marking the guess?
+
+In  recent  years,  there  has  been  a  lot  of  exploration  into  standardized formats or templates that focus on three properties of every story: the
+ 
+ The  Connextra  Format 
+
+In  2000,  Peter  Marks  and  John  Nolan  at  Connextra  hired  Tim Mackinnon to help them with Agile. They hit upon the story card format for user stories shown in Figure 17.1, on the next page.
+
+It didn’t use the terms role, feature, and business value, but the intent was very much the same. They noticed that matching the “requirement” with the “reason” fostered more discussion with the users and a deeper understanding of the requirement.
+
+When Tim joined ThoughtWorks, this format caught on with Dan North,  Chris  Matts,  and  Liz  Keogh.  From  there  it  became  the “official” narrative format in BDD stories and was the most com- monly used format for Cucumber features.
+
+More recently, Liz Keogh has been exploring similar templates that reorder the points of focus and solve problems related to expressing business value. For example, when a narrative sug- gests “As a visitor to the site, I want to log in,” it’s unlikely that
+a real visitor actually wants to log in. It’s the security manager who wants the visitor to log in, so that’s the role that provides context for business value, even though the visitor is the active role in the narrative. See Liz’s blog for more on this.*
+
+*.  http://lizkeogh.com
+
+
+
+
+role of the user, the action that user takes, and, most importantly, the value provided to the business in return for investing in writing code to support this action.
+
+The Connextra Format
+
+The format that is probably the most well known one originated in an Agile project at Connextra and is featured in Mike Cohn’s User Stories Applied [Coh04]:
+
+As a <role>
+I want <feature>
+So that <business value>
+
+This template helps us focus on the answers to those three very impor tantquestions: Who is using the system? What is he/she doing? Why does  he/she  care?  Almost  all  expressions  of  user  stories  express  the
+ 
+Figure 17.1: Connextra card
+
+what, but adding the who and the why can provide context for a lot of very important discussion.
+
+Let’s take an example from a photo-editing system. A professional pho  to  want  much  more  detail  and  complexity  from  a photo-editing system than the casual red-eye remover/cropper sort of user. Being clear about the target user for a feature is going to impact the decisions you make about user interaction with the system.
+
+The  why  is  about  business  value  and  really  gets  to  the  heart  of  any Agile development process. We want to minimize waste by keeping focus on  features  that  will  provide  some  meaningful  benefit  and  will  therefore actually be used. We say that BDD is about writing software that matters—this focus on features that will be used is directly related to that.
+
+Although  this  template  is  recommended,  it  is  certainly  not  a  require- ment  of  BDD  or  of  Cucumber.  The  narrative  of  a  feature  can  be  expressed  in  completely  free  form  with  virtually  no  restrictions.2 The important  thing  is  that  we  have  a  conversation  that  covers  the  role and business value and not just the functionality itself. This template can be helpful in that regard but is not a necessity.
+
+2.  The  only  restriction  is  that  a  narrative  cannot  include  a  line  that  begins  with  a Gherkin keyword.
+ 
+With a title and a narrative, we have a lot to go on to make decisions about when to tackle which features, but before we move on to develop code for them, we’re going to need even more detail. This detail will be in the form of scenarios that represent executable customer acceptance tests.

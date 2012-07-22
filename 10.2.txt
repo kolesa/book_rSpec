@@ -1,0 +1,53 @@
+10.2  Why Traditional Projects Fail
+
+Most  of  these  failure  modes  happen  with  smart  people  trying  to  do good  work.  For  the  most  part,  software  people  are  diligent  and  well- intentioned, as are the stakeholders they are delivering to, which makes
+ 
+
+
+it especially sad when we see the inevitable “blame-storming” that follows in the wake of another failed delivery. It also makes it unlikely that project failures are the results of incompetence or inability—there must be another reason.
+
+How Traditional Projects Work
+
+Most  software  projects  go  through  the  familiar  sequence  of Planning, Analysis, Design, Code, Test, Deploy. Your process may have different names, but the basic activities in each phase will be fairly consistent. (We are assuming some sort of business justification has already hap- pened, although even that isn’t always the case.)
+
+We start with the Planning phase. How many people do we need? For how long? What resources will they need? Basically, how much will it cost to deliver this project, and how soon will we see anything?
+
+Then we move into an Analysis phase. This is where we articulate in detail  the  problem  we  are  trying  to  solve,  ideally  without  prescribing how it should be solved, although this is almost never the case.
+
+Then we have a Design phase. This is where we think about how we can use a computer system to solve the problem we articulated in Analysis. During this phase we think about design and architecture, large- and small-scale technical decisions, and the various standards around the organization,  and  we  gradually  decompose  the  problem  into  manage- able chunks for which we can produce functional specifications.
+
+Now we move onto the Coding phase, where we write the software that is going to solve the problem, according to the specifications that came out of the Design phase. A common assumption by the program board at this stage is that all the “hard thinking” has been done by this stage. This is why so many organizations think it’s OK to have their programming and testing carried out by offshore, third-party vendors.
+
+Now, because we are responsible adults, we have a Testing phase where we test the software to make sure it does what it was supposed to do. This phase contains activities with names like user acceptance testing or  performance testing  to  emphasize  that  we  are  getting  closer  to  the users now and the final delivery.
+
+Eventually, we reach the Deployment phase where we deploy the application into production. With a suitable level of fanfare, the new software glides into production and starts making us money!
+ 
+All these phases are necessary. You can’t start solving a problem you haven’t articulated, you can’t start implementing a solution you haven’t described, you can’t test software that doesn’t exist, and you can’t (or at least shouldn’t) deploy software that hasn’t been tested. Of course, in reality, you can do any of these things, but it usually ends in tears.
+
+How Traditional Projects Really Work
+
+We have delivered projects in pretty much this way since we first started writing computer systems. There have been various attempts at improving the process and making it more efficient and less error-prone, using documents  for  formalized  hand-offs,  creating  templates  for  the  docu- ments  that  make  up  those  hand-offs,  assembling  review  committees for  the  templates  for  the  documents,  establishing  standards  and  for - malized  accreditation  for  the  review  committees,  and  so  on.  You  can certainly see where the effort has gone.
+
+The reason for all this ceremony around hand-offs, reviews, and such is that the later in the software delivery life cycle we detect a defect—or introduce a change—the more expensive it is to put right. And it’s not just a little more; in fact, empirical evidence over the years has shown that it is exponentially more expensive the later you find out. With this in  mind,  it  makes  sense  to  front-load  the  process.  We  want  to  make sure we have thought through all the possible outcomes and covered all the angles early on so we aren’t surprised by “unknown unknowns” late in the day.
+
+But  this  isn’t  the  whole  story.  However  diligent  we  are  at  each  of  the development phases, anyone who has delivered software in a traditional way will attest to the amount of work that happens “under the radar.”
+
+The program team signs off the project plan, resplendent in its detail, dependencies,  resource  models,  and  Gantt  charts.  Then  the  analysts start getting to grips with the detail of the problem and say things like, “Hmm,  this  seems  to  be  more  involved  than  we  thought.  We’d  better replan; this is going to be a biggie.”
+
+Then  the  architects  start  working  on  their  functional  specifications, which  uncover  a  number  of  questions  and  ambiguities  about  the  re- quirements. What happens if this message isn’t received by that other system? Sometimes the analysts can immediately answer the question, but more often it means we need more analysis and hence more time from the analysts. Better update that plan. And get it signed off. And get the new version of the requirements document.
+
+You  can  see  how  this  coordination  cost  can  rapidly  mount  up.  Of course,  it  really  kicks  off  during  the  testing  phase.  When  the  tester raises a defect, the programmer throws his hands in the air and says he did what was in the functional spec, the architect blames the business analyst, and so on, right back up the chain. It’s easy to see where this exponential cost comes from.
+
+As  this  back-and-forth  becomes  more  of  a  burden,  we  become  more afraid of making changes, which means people do work outside of the process and documents get out of sync with one another and with the software itself. Testing gets squeezed, people work late into the night, and the release itself is usually characterized by wailing and gnashing of teeth, bloodshot eyes, and multiple failed attempts at deciphering the instructions in the release notes.
+
+If  you  ask  experienced  software  delivery  folks  why  they  run  a  project like that, front-loading it with all the planning and analysis, then get- ting into the detailed design and programming, and only really integrat- ing and testing it at the end, they will gaze into the distance, looking older  than  their  years,  and  patiently  explain  that  this  is  to  mitigate against the exponential cost of change—the principle that introducing a change or discovering a defect becomes exponentially more expensive the later you discover it. The top-down approach seems the only sensi- ble way to hedge against the possibility of discovering a defect late in the day.
+
+A Self-fulfilling Prophecy
+
+To recap, projects become exponentially more expensive to change the further we get into them, because of the cumulative effect of keeping all the project artifacts in sync, so we front-load the process with lots of risk-mitigating planning, analysis, and design activities to reduce the likelihood of rework.
+
+Now, how many of these artifacts—the project plan, the requirements specification,  the  high-  and  low-level  design  documents,  the  software itself—existed before the project began? That’s right, exactly none! So, all that effort—that exponentially increasing effort—occurs because we run projects the way we do!  So, now we have a chicken-and-egg situ- ation, or a reinforcing loop in systems thinking terminology. The irony of the traditional project approach is that the process itself causes the exponential cost of change!
+
+Digging a little deeper, it turns out the curve originates in civil engineer - ing. It makes sense that you might want to spend a lot of time in the design phases of a bridge or a ship. You wouldn’t want to get two-thirds of the way through building a hospital only to have someone point out it is in the wrong place. Once the reinforced concrete pillars are sunk, things become very expensive to put right!
+
+However,  these  rules  apply  to  software  development  only  because we let  them!  Software  is,  well,  soft.  It  is  supposed  to  be  the  part  that’s easy to change, and with the right approach and some decent tooling, it can be very malleable. So, by using the metaphor of civil engineering and equating software with steel and concrete, we’ve done ourselves a disservice.

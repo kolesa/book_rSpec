@@ -1,0 +1,9 @@
+17.3  Customer Acceptance Tests
+
+A customer acceptance test represents an agreement between the stakeholder  and  delivery  team.  It  specifies  how  a  feature  should  behave. When the developers deliver code that passes the test, the stakeholder accepts that feature as done.
+
+We consider acceptance in the context of the current iteration. If a new idea emerges mid-iteration, we can talk about it without changing the acceptance criteria for features for the current iteration and add new stories to the backlog for future consideration. The work that was done in the iteration is still valued and accepted as meeting the agreed-upon criteria. This is good for morale, as well as tracking.
+
+The  new  stories  can  be  prioritized  intelligently,  without  the  gravity  of unfinished  work  getting  more  weight  than  it  may  deserve.  Maybe  it makes sense to add a story for the next iteration, but maybe it makes more sense to add the story to the backlog and not introduce it right away.
+
+Considering acceptance to be contextual is not without its costs. Sometimes  an  idea  is  sufficiently  game-changing  as  to  render  any  further work on a related story a complete waste of time. Just beware that the disruption  of  changing  a  story  mid-stream  is  often  a  bigger  waste  of time than simply finishing the story and keeping things moving.
