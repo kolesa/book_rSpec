@@ -1,12 +1,12 @@
-25.3  Exercise
+ï»¿25.3  Exercise
 
-As you can see from the work we’ve done so far, model specs are not all that different from the kind of specs we would write for any PORO. We  have  a  little  bit  of  work  left  to  satisfy  the  requirement  of  limiting the number of messages sent in a month, and we’re going to leave this work as an exercise for you.
+As you can see from the work weâ€™ve done so far, model specs are not all that different from the kind of specs we would write for any PORO. We  have  a  little  bit  of  work  left  to  satisfy  the  requirement  of  limiting the number of messages sent in a month, and weâ€™re going to leave this work as an exercise for you.
 
 All  that  remains  to  satisfy  the  requirement  is  to  implement  the  can_ send_message?( ) method on Subscription. To control how many messages can be sent in a month, the subscription will need to know how many messages  have  already  been  sent.  We  can  build  two  different  sets  of examples from this information:
 
-•  When a user has not exceeded the limit for the month
+â€¢  When a user has not exceeded the limit for the month
 
-•  When a user has exceeded the limit for the month
+â€¢  When a user has exceeded the limit for the month
  
 Assume,  for  now,  that  Subscription.has_one(:user).  Create  a  Subscription spec with these contexts for the can_send_message?( ) method.
 
@@ -22,4 +22,4 @@ describe "#can_send_message?" do
 	end 
 end
 
-Now go forth and write failing examples, get them to pass, and refactor your code! Be sure to keep the cycles small and keep the example and  implementation  code  clean  and  readable.  Don’t  worry  too  much about  whether  you  get  the  perfect  examples  or  code.  The  important thing is that you use the opportunity to get more comfortable with the red/green/refactor cycle of TDD.
+Now go forth and write failing examples, get them to pass, and refactor your code! Be sure to keep the cycles small and keep the example and  implementation  code  clean  and  readable.  Donâ€™t  worry  too  much about  whether  you  get  the  perfect  examples  or  code.  The  important thing is that you use the opportunity to get more comfortable with the red/green/refactor cycle of TDD.

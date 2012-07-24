@@ -1,12 +1,12 @@
-9.1  Use Cucumber for Collaboration
+ï»¿9.1  Use Cucumber for Collaboration
 
-As  we  just  saw,  with  a  secret  code  of  1234  and  a  guess  of  1155,  we’re getting  a  mark  of  +-.  Without  even  looking  at  the  code,  we  can  guess that this is happening because the Marker  evaluates the 1 in the first position of the guess as an exact match with the 1 in the first position in the secret code, and then it evaluates the 1 in the second position of  the  guess  as  a  number  match  with  the  same  number  in  the  first position of the code.
+As  we  just  saw,  with  a  secret  code  of  1234  and  a  guess  of  1155,  weâ€™re getting  a  mark  of  +-.  Without  even  looking  at  the  code,  we  can  guess that this is happening because the Marker  evaluates the 1 in the first position of the guess as an exact match with the 1 in the first position in the secret code, and then it evaluates the 1 in the second position of  the  guess  as  a  number  match  with  the  same  number  in  the  first position of the code.
 
 Does that seem right?
 
 Document New Requirements with Cucumber
 
-It’s tempting, when this sort of question comes up, to make assumptions  about  how  things  should  work.  Fight  that  temptation!  This  is exactly what Cucumber is for. We can sit down with the customer and sketch out  some  scenarios  and  talk  about  them.  Cucumber’s  simple use of Given, When, Then is a great facilitator for this sort of conversation. And in our case, our use of Cucumber’s scenario outlines makes it even easier.
+Itâ€™s tempting, when this sort of question comes up, to make assumptions  about  how  things  should  work.  Fight  that  temptation!  This  is exactly what Cucumber is for. We can sit down with the customer and sketch out  some  scenarios  and  talk  about  them.  Cucumberâ€™s  simple use of Given, When, Then is a great facilitator for this sort of conversation. And in our case, our use of Cucumberâ€™s scenario outlines makes it even easier.
 
 That  said,  we  will  now  fast-forward  past  that  conversation,  having decided on the following rules, as expressed in the narrative and some new scenarios in codebreaker_submits_guess.feature:
 
@@ -86,7 +86,7 @@ Scenarios: matches with duplicates
 63 steps (4 failed, 59 passed)
 0m0.039s
 
-The  failing  scenarios  all  fail  in  similar  ways.  They  each  get  a  symbol in the mark for every 1 that appears in the guess even when there are fewer 1s in the secret code. We need to modify the marking algorithm so that each position in the code can be matched only once. It also seems that the extra mark is always an extra minus sign, so let’s focus on the number_match_count method first.
+The  failing  scenarios  all  fail  in  similar  ways.  They  each  get  a  symbol in the mark for every 1 that appears in the guess even when there are fewer 1s in the secret code. We need to modify the marking algorithm so that each position in the code can be matched only once. It also seems that the extra mark is always an extra minus sign, so letâ€™s focus on the number_match_count method first.
 
 Write a Code Example That Exposes the Problem
 
@@ -116,7 +116,7 @@ The first argument to Marker.new is the secret code, and then second is the gues
 	expected: 0,
 		got: 1 (using ==)
 
-Let’s review the implementation of the Marker:
+Letâ€™s review the implementation of the Marker:
 
 Download cb/43/lib/codebreaker/marker.rb
 
@@ -148,5 +148,5 @@ module Codebreaker
 	end
 end
 
-Our  implementation  of  number_match?  is  not  robust  enough  to  handle this new requirement. It looks for any number that’s in the secret and not in the same position, but it doesn’t account for whether that number has been matched already. This is why we occasionally get two matches for one number in the secret code.
+Our  implementation  of  number_match?  is  not  robust  enough  to  handle this new requirement. It looks for any number thatâ€™s in the secret and not in the same position, but it doesnâ€™t account for whether that number has been matched already. This is why we occasionally get two matches for one number in the secret code.
 

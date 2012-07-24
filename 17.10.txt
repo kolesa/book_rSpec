@@ -1,4 +1,4 @@
-17.10  Organizing Features
+﻿17.10  Organizing Features
 
 When you run the cucumber command with no options, Cucumber will look for all of the .rb and .feature files below the ./features directory, load all of the .rb  files, and then run all of the .feature  files. For very small projects, the simplest way to organize the feature files is to keep them in the root of the ./features directory. If you want to run subsets of features, you can easily manage that with tags (see Section 17.11, Tags, on the next page) and profiles (see Section 18.9, Configuration, on page 280).
 

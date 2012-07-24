@@ -1,4 +1,4 @@
-2.2  Hello RSpec
+Ôªø2.2  Hello RSpec
 
 Create a file named greeter_spec.rb anywhere on your system, open it in 
 your favorite text editor, and type the following code:
@@ -14,8 +14,8 @@ message" do
 6  end
 7  end
 
-Weíll get into all the details of this later in the book, but briefly 
-hereís an explanation.
+We‚Äôll get into all the details of this later in the book, but briefly 
+here‚Äôs an explanation.
 
 We start by declaring an example group using the describe( ) method on line 
 1. On line 2, we declare an example using the it( ) method.
@@ -26,18 +26,18 @@ is the Given  in this example:  the context that we set up and take for
 granted as a starting point.
 On  line  4,  we  assign  the  value  returned  by  the  greet( )  method  
 to  a greeting variable. This is the When in this example: the action that 
-weíre focused on.
+we‚Äôre focused on.
 
 
 3.  http://groups.google.com/group/cukes
  
 
 Lastly, on line 5, we set an expectation that the value of greeting should 
-equal  ìHello  RSpec!î  This  is  the  Then  of  this  example:  the  
+equal  ‚ÄúHello  RSpec!‚Äù  This  is  the  Then  of  this  example:  the  
 expected outcome.
 
-As youíll see throughout this book, we use these three simple wordsó Given, 
-When, and Thenóbecause they are easily understood by both technical and 
+As you‚Äôll see throughout this book, we use these three simple words‚Äî Given, 
+When, and Then‚Äîbecause they are easily understood by both technical and 
 nontechnical contributors to a project.
 
 Now save the file, open a command shell, cd into the directory in which
@@ -51,7 +51,7 @@ uninitialized constant RSpecGreeter
 
 This  is  RSpec  telling  you  that  the  example  failed  because  there  
 is  no
-RSpecGreeter  class defined yet. To keep things simple, letís just define
+RSpecGreeter  class defined yet. To keep things simple, let‚Äôs just define
 it in the same file. Adding this definition, the entire file should look 
 like this:
 
@@ -80,7 +80,7 @@ Success! The dot on the first line represents the one example that was run,
 and the summary on the last line reports that there was one exam- ple and 
 zero failures.
 
-This is a bit different from the Hello World examples weíre used to seeing
-in programming language books because it doesnít actually print Hello RSpec 
+This is a bit different from the Hello World examples we‚Äôre used to seeing
+in programming language books because it doesn‚Äôt actually print Hello RSpec 
  to the command line. In this case, the feedback we get tells us the 
 example ran and the code works as expected.

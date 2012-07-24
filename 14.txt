@@ -1,4 +1,4 @@
-Chapter 14
+ï»¿Chapter 14
 
  RSpec::Mocks  
 
@@ -6,7 +6,7 @@ BDD developers specify what code does, not what it is. We do this from the outsi
 
 In all but the most trivial applications, these surface-level objects delegate work to other objects below the surface. Those subsurface objects then delegate some or all of the work to other objects, and they to more objects, and so on, and so on.
 
-From a design standpoint, this all makes perfect sense. We all understand the value of separation of concerns and its impact on the maintainability of an application. But this does present a bit of a chickenand-egg problem from a development standpoint. We want to progress in small, verifiable steps, but how can we know that an individual object is  properly  executing  its  role  if  an  object  it  delegates  work  to  doesn’t exist yet?
+From a design standpoint, this all makes perfect sense. We all understand the value of separation of concerns and its impact on the maintainability of an application. But this does present a bit of a chickenand-egg problem from a development standpoint. We want to progress in small, verifiable steps, but how can we know that an individual object is  properly  executing  its  role  if  an  object  it  delegates  work  to  doesnâ€™t exist yet?
 
 Enter test doubles.
 
@@ -17,12 +17,12 @@ A test double stands in for a collaborator in an example. If we want the Checkin
 
 We hear doubles referred to as mocks, stubs, fakes, imposters, or any number of other names depending on how they are used, and there is quite a lot of literature describing different names and patterns and the differences between them. When we boil it all down, however, we end up with just a few underlying concepts:
 
-•  Test doubles
+â€¢  Test doubles
 
-•  Test-specific extensions
+â€¢  Test-specific extensions
 
-•  Method stubs
+â€¢  Method stubs
 
-•  Message expectations
+â€¢  Message expectations
 
-Method stubs and message expectations are method-level concepts that we  can  apply  to  either  test  doubles  or  test-specific  extensions,  which are both object-level concepts. We’ll explore each of these in depth and talk about how and when we use them.
+Method stubs and message expectations are method-level concepts that we  can  apply  to  either  test  doubles  or  test-specific  extensions,  which are both object-level concepts. Weâ€™ll explore each of these in depth and talk about how and when we use them.

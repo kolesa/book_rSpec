@@ -1,8 +1,8 @@
-11.1  A Description of BDD
+﻿11.1  A Description of BDD
 
 Behaviour-Driven Development is about implementing an application by describing its behavior from the perspective of its stakeholders.
 
 This description of BDD implies a number of things. First, it suggests we need to understand the world from the point of view of our stake- holders if we are to deliver anything useful. We need to understand their domain, the challenges and opportunities they face, and the words they use  to  describe  the  behavior  they  want  from  an  application.  We  use techniques from Domain-Driven Design to help with this.
 
-Second,  it  implies  there  is  more  than  one  stakeholder.  We  don�t  just look at the world from the point of view of an end user or the person paying the bills but anyone with an interest in the project.
+Second,  it  implies  there  is  more  than  one  stakeholder.  We  don’t  just look at the world from the point of view of an end user or the person paying the bills but anyone with an interest in the project.
 

@@ -1,13 +1,13 @@
-25.2  Specifying Business Rules
+Ôªø25.2  Specifying Business Rules
 
-In his article ìSkinny Controller, Fat Model,î2  Jamis Buck recommends pushing business logic down to the model, keeping views and controller actions lean. This guideline helps us to follow the Single Responsibility Principle by keeping controllers and views focused on application logic and keeping the models focused on business logic.
+In his article ‚ÄúSkinny Controller, Fat Model,‚Äù2  Jamis Buck recommends pushing business logic down to the model, keeping views and controller actions lean. This guideline helps us to follow the Single Responsibility Principle by keeping controllers and views focused on application logic and keeping the models focused on business logic.
 
 
 Express Business Rules in Models
 
-Our message app works well for sending unlimited messages, but our customer wants users to sign up for subscriptions that limit the number  of  messages  they  can  send  in  a  month.  Weíll  imagine  that  weíve already expressed these new requirements in Cucumber scenarios, and weíre ready to start driving out code that will satisfy them.
+Our message app works well for sending unlimited messages, but our customer wants users to sign up for subscriptions that limit the number  of  messages  they  can  send  in  a  month.  We‚Äôll  imagine  that  we‚Äôve already expressed these new requirements in Cucumber scenarios, and we‚Äôre ready to start driving out code that will satisfy them.
 
-If  youíve  been  following  along  since  Chapter  24,  Rails  Controllers,  on page 345, the app has a MessagesController  with a create( ) action that looks like this:
+If  you‚Äôve  been  following  along  since  Chapter  24,  Rails  Controllers,  on page 345, the app has a MessagesController  with a create( ) action that looks like this:
 
 def create
 	@message = Message.new(params[:message])
@@ -26,7 +26,7 @@ In  this  design,  the  MessagesController  is  responsible  for  building  and 
  
 
 
-Weíre not going to make that change now, because weíd need to divert our focus to the controller and its specs, but hereís an example of how it might look if we did make the change now:
+We‚Äôre not going to make that change now, because we‚Äôd need to divert our focus to the controller and its specs, but here‚Äôs an example of how it might look if we did make the change now:
 
 # For discussion purposes only
 def create
@@ -39,21 +39,21 @@ def create
 	end 
 end
 
-The  line  that  sends  the  message  not  only  helps push  the  logic  to  the model but is also a much better expression of whatís really going on in the action. Weíre not just creating a message; weíre sending one from the current user. This clarity is a small win, but as the code base grows, these little wins make an application much easier to understand and evolve.
+The  line  that  sends  the  message  not  only  helps push  the  logic  to  the model but is also a much better expression of what‚Äôs really going on in the action. We‚Äôre not just creating a message; we‚Äôre sending one from the current user. This clarity is a small win, but as the code base grows, these little wins make an application much easier to understand and evolve.
 
-Before  we  press  forward,  create  a  User  model  using  the  Railsí  model generator:
+Before  we  press  forward,  create  a  User  model  using  the  Rails‚Äô  model generator:
 
 script/rails generate model User login:string 
 rake db:migrate
 rake db:test:prepare
 
-User  models  usually  need  more  than  just  a  login  attribute,  like  pass- words, but weíre not concerned with those aspects of a user right now. Now weíre ready to drive out these new business rules.
+User  models  usually  need  more  than  just  a  login  attribute,  like  pass- words, but we‚Äôre not concerned with those aspects of a user right now. Now we‚Äôre ready to drive out these new business rules.
 
 Focus on Behavior
 
-When thinking about models, itís tempting to jump ahead and think of all of the relationships and functionality we just know theyíre going to need. Developing models this way can lead to inconsistent APIs with far too many public methods and relationships, which then become hard to maintain.
+When thinking about models, it‚Äôs tempting to jump ahead and think of all of the relationships and functionality we just know they‚Äôre going to need. Developing models this way can lead to inconsistent APIs with far too many public methods and relationships, which then become hard to maintain.
 
-Focusing on the behavior first leads to clean, cohesive models, so thatís what weíre going to do. Create a spec for the User model, which describes the behavior of send_message.
+Focusing on the behavior first leads to clean, cohesive models, so that‚Äôs what we‚Äôre going to do. Create a spec for the User model, which describes the behavior of send_message.
  
 
 
@@ -69,7 +69,7 @@ describe User do
 
 end
 
-The happy path for send_message is that the user has not gone over the monthly limit and will be able to send a message to another user. Letís move this pending example into a new context( ) to better express this:
+The happy path for send_message is that the user has not gone over the monthly limit and will be able to send a message to another user. Let‚Äôs move this pending example into a new context( ) to better express this:
 
 Download rails_models/rules/01/spec/models/user_example2_spec.rb
 
@@ -102,7 +102,7 @@ end
  
 
 
-Now  that  weíve  defined  a  clean  interface  for  sending  messages,  weíve run the spec, and it fails with undefined local variable or method ízachí. With  the  expectation  clear,  letís  supply  the  necessary  setup  for  the example to run, starting with zach and david as local variables:
+Now  that  we‚Äôve  defined  a  clean  interface  for  sending  messages,  we‚Äôve run the spec, and it fails with undefined local variable or method ‚Äôzach‚Äô. With  the  expectation  clear,  let‚Äôs  supply  the  necessary  setup  for  the example to run, starting with zach and david as local variables:
 
 Download rails_models/rules/01/spec/models/user_example4_spec.rb
 
@@ -119,7 +119,7 @@ describe "#send_message" do
 	end
 end
 
-Run the spec again, and the example fails with undefined method ísend_messageí. Add an emptysend_message( ) method to the User model:
+Run the spec again, and the example fails with undefined method ‚Äôsend_message‚Äô. Add an emptysend_message( ) method to the User model:
 
 Download rails_models/rules/02/app/models/user.rb
 
@@ -130,7 +130,7 @@ class User < ActiveRecord::Base
 
 end
 
-The  example  still  fails,  but  now  itís  because  of  undefined  method íreceived_messagesí  on  User.  We  need  a  received_messages  association, so add that and run the spec:
+The  example  still  fails,  but  now  it‚Äôs  because  of  undefined  method ‚Äôreceived_messages‚Äô  on  User.  We  need  a  received_messages  association, so add that and run the spec:
 
 Download rails_models/rules/03/app/models/user.rb
 
@@ -157,7 +157,7 @@ class User < ActiveRecord::Base
 
 end
 
-Run  the  spec,  and  it  fails  with  Validation failed: Text canít be blank, Title canít  be  blank.  This  is  happening  because  the  Message  validates  the presence of the title and text attributes. Because send_message( ) is just passing the attributes hash to the Message constructor, we can include those attributes directly in the example:
+Run  the  spec,  and  it  fails  with  Validation failed: Text can‚Äôt be blank, Title can‚Äôt  be  blank.  This  is  happening  because  the  Message  validates  the presence of the title and text attributes. Because send_message( ) is just passing the attributes hash to the Message constructor, we can include those attributes directly in the example:
 
 Download rails_models/rules/04/spec/models/user_example1_spec.rb
 
@@ -172,7 +172,7 @@ it "sends a message to another user" do
 	david.received_messages.should == [msg]
 end
 
-Voila! The spec is now passing with 1 example, 0 failures. Weíve added the title  and text  attributes to get the sends a message to another user  example to pass, but what should happen to those attributes? Letís add an example that specifies that those values make their way to the Message:
+Voila! The spec is now passing with 1 example, 0 failures. We‚Äôve added the title  and text  attributes to get the sends a message to another user  example to pass, but what should happen to those attributes? Let‚Äôs add an example that specifies that those values make their way to the Message:
 
 Download rails_models/rules/04/spec/models/user_example2_spec.rb
 
@@ -188,7 +188,7 @@ it "creates a new message with the submitted attributes" do
 	msg.text.should == "Beta 11 includes great stuff!"
 end
 
-This passes right away, but thatís OK in this case, because the example communicates a requirement of this method.
+This passes right away, but that‚Äôs OK in this case, because the example communicates a requirement of this method.
 
 Additional Outcomes
 
@@ -200,7 +200,7 @@ context "when the user is under their subscription limit" do
 it "adds the message to the sender's sent messages"
 end
 
-This example is similar to the example we just got passing, so letís copy its example body into the new example and change the expectation to look at the senderís sent_messages:
+This example is similar to the example we just got passing, so let‚Äôs copy its example body into the new example and change the expectation to look at the sender‚Äôs sent_messages:
 
 Download rails_models/rules/04/spec/models/user_example4_spec.rb
 
@@ -215,7 +215,7 @@ it "adds the message to the sender's sent messages" do
 	zach.sent_messages.should == [msg]
 end
 
-Running the spec results in the example failing with an undefined method ísent_messagesí. Weíll need to add an association to make this pass. Also,  the  messages  table  doesnít  have  a  sender_id  field,  so  be  sure  to make a migration that adds it. Hereís what the model should end up looking like:
+Running the spec results in the example failing with an undefined method ‚Äôsent_messages‚Äô. We‚Äôll need to add an association to make this pass. Also,  the  messages  table  doesn‚Äôt  have  a  sender_id  field,  so  be  sure  to make a migration that adds it. Here‚Äôs what the model should end up looking like:
 
 Download rails_models/rules/05/app/models/user.rb
 
@@ -233,7 +233,7 @@ end
  
 
 
-Execute the spec, and the example is still failing because it expects an array with one message but found an empty array. Now letís update the send_message( ) method implementation to use the sent_messages  association to create the message:
+Execute the spec, and the example is still failing because it expects an array with one message but found an empty array. Now let‚Äôs update the send_message( ) method implementation to use the sent_messages  association to create the message:
 
 Download rails_models/rules/06/app/models/user.rb
 
@@ -249,11 +249,11 @@ class User < ActiveRecord::Base
 
 end
 
-And weíre back to green with 3 examples, 0 failures.
+And we‚Äôre back to green with 3 examples, 0 failures.
 
 Tidy Up
 
-Now we can safely clean up the duplication between the examples. To start, letís consolidate the creation of zach and david in one spot. Pull up the assignments of zach and david into a before(:each) block as instance variables:
+Now we can safely clean up the duplication between the examples. To start, let‚Äôs consolidate the creation of zach and david in one spot. Pull up the assignments of zach and david into a before(:each) block as instance variables:
 
 Download rails_models/rules/06/spec/models/user_example1_spec.rb
 
@@ -265,7 +265,7 @@ describe "#send_message" do
 
 	it "creates a new message with the submitted attributes" do
 
-The  spec  should  still  be  green,  although  weíre  not  using  the  new instance  variables. Update  the  first  example,  creates a new message with the submitted attributes, to rely on the instance variables:
+The  spec  should  still  be  green,  although  we‚Äôre  not  using  the  new instance  variables. Update  the  first  example,  creates a new message with the submitted attributes, to rely on the instance variables:
 
 Download rails_models/rules/06/spec/models/user_example2_spec.rb
 
@@ -281,13 +281,13 @@ end
  
 
 
-Run the spec, make sure itís still green, and then update the other two examples  to  use  the  instance  variables.  When  youíre  done,  the  spec should still be at a green bar, 3 examples, 0 failures.
+Run the spec, make sure it‚Äôs still green, and then update the other two examples  to  use  the  instance  variables.  When  you‚Äôre  done,  the  spec should still be at a green bar, 3 examples, 0 failures.
 
-With specs for the happy path passing with the supporting code implemented,  now  itís  time  to  start  exploring  the  edge  cases.  Weíll begin with what happens when the user exceeds their subscriptionís monthly limit.
+With specs for the happy path passing with the supporting code implemented,  now  it‚Äôs  time  to  start  exploring  the  edge  cases.  We‚Äôll begin with what happens when the user exceeds their subscription‚Äôs monthly limit.
 
 Edge Cases
 
-When we tell a User to send a message, a record is created in the messages table. We can use that knowledge to specify what happens when a message is not sent: it should not create a record in the messages table. Letís express that in a new example in user_spec.rb:
+When we tell a User to send a message, a record is created in the messages table. We can use that knowledge to specify what happens when a message is not sent: it should not create a record in the messages table. Let‚Äôs express that in a new example in user_spec.rb:
 
 Download rails_models/rules/06/spec/models/user_example3_spec.rb
 
@@ -311,9 +311,9 @@ def send_message(message_attrs)
 	end 
 end
 
-This lets the subscription dictate whether a message can be sent on a user-by-user basis. Run that, and youíll see four failures with undefined local variable or method ësubscriptioní. We have a few different things to do to get this to pass, so letís back that change out and run the examples again to make sure theyíre all passing.
+This lets the subscription dictate whether a message can be sent on a user-by-user basis. Run that, and you‚Äôll see four failures with undefined local variable or method ‚Äòsubscription‚Äô. We have a few different things to do to get this to pass, so let‚Äôs back that change out and run the examples again to make sure they‚Äôre all passing.
 
-Introduce a before(:each) block inside the context that utilizes a stub to ensure a user canít send a message:
+Introduce a before(:each) block inside the context that utilizes a stub to ensure a user can‚Äôt send a message:
 
 Download rails_models/rules/06/spec/models/user_example4_spec.rb
 
@@ -334,7 +334,7 @@ context "when the user is over their subscription limit" do
 	end 
 end
 
-Now  the  latest  example  fails  with  uninitialized  constant  Subscription.  We need a Subscription model and a migration that generates the subscriptions table and a subscription_id on the users table. Go ahead and add all that, run rake db:migrate && rake db:test:prepare, and then the example should fail with an undefined method ísubscription=í . Now letís add a Subscription association to the User model:
+Now  the  latest  example  fails  with  uninitialized  constant  Subscription.  We need a Subscription model and a migration that generates the subscriptions table and a subscription_id on the users table. Go ahead and add all that, run rake db:migrate && rake db:test:prepare, and then the example should fail with an undefined method ‚Äôsubscription=‚Äô . Now let‚Äôs add a Subscription association to the User model:
 
 Download rails_models/rules/08/app/models/user.rb
 
@@ -350,7 +350,7 @@ def send_message(message_attrs)
 	end 
 end
 
-The does not create a message example should now be passing, but the other three  are  failing.  Weíre  relying  on  the  subscription  to  determine when messages can be sent, so weíll need to update @zach to be able to send messages for the failing examples.
+The does not create a message example should now be passing, but the other three  are  failing.  We‚Äôre  relying  on  the  subscription  to  determine when messages can be sent, so we‚Äôll need to update @zach to be able to send messages for the failing examples.
 
 Add the following before block to the context for the failing examples:
 
@@ -362,7 +362,7 @@ context "when the user is under their subscription limit" do
 	@zach.subscription.stub(:can_send_message?).and_return true 
 end
 
-Run the spec; you should have 4 examples, 0 failures. Right now the two inner  before  blocks  give  @zach  a  Subscription.  Letís  remove  the  duplication  by  pulling  up  the  subscription  assignment  to  the  outer  before block:
+Run the spec; you should have 4 examples, 0 failures. Right now the two inner  before  blocks  give  @zach  a  Subscription.  Let‚Äôs  remove  the  duplication  by  pulling  up  the  subscription  assignment  to  the  outer  before block:
 
 Download rails_models/rules/10/spec/models/user_example1_spec.rb
 

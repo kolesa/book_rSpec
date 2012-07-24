@@ -1,4 +1,4 @@
-Rails’ controllers are like waiters in a restaurant. A customer orders a steak dinner from a waiter. The waiter takes the request and tells the kitchen that he needs a steak dinner. When the steak dinner is ready, the waiter delivers it to the customer for her enjoyment.
+ï»¿Railsâ€™ controllers are like waiters in a restaurant. A customer orders a steak dinner from a waiter. The waiter takes the request and tells the kitchen that he needs a steak dinner. When the steak dinner is ready, the waiter delivers it to the customer for her enjoyment.
 
 Craig Demyanovich
 
@@ -6,6 +6,6 @@ Chapter 24
 
   Rails  Controllers  
 
-The  restaurant  metaphor  does  a  great  job  describing  the  role  of  controllers in a Rails application. Just as a waiter doesn’t need to know how to prepare a steak dinner, a controller doesn’t need to know the details of building a model. Keeping these details out of the controller provides a natural separation of concerns between the controller and the model, which makes the models easier to change, extend, and reuse.
+The  restaurant  metaphor  does  a  great  job  describing  the  role  of  controllers in a Rails application. Just as a waiter doesnâ€™t need to know how to prepare a steak dinner, a controller doesnâ€™t need to know the details of building a model. Keeping these details out of the controller provides a natural separation of concerns between the controller and the model, which makes the models easier to change, extend, and reuse.
 
 This chapter will show you how to develop controllers outside in using controller specs as the driving force.

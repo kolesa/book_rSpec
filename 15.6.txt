@@ -1,18 +1,18 @@
-15.6  What We’ve Learned
+ï»¿15.6  What Weâ€™ve Learned
 
 In this chapter, we learned how to use the rspec command to run specs in a single file or a directory. We also discussed many of the command- line options we can use to further tailor a spec run.
 
 We  also  talked  about  a  few  of  the  many  tools  that  are  supported  by RSpec or that support RSpec:
 
-•  Autotest monitors changes we make in spec and implementation files and runs the appropriate specs when we make them.
+â€¢  Autotest monitors changes we make in spec and implementation files and runs the appropriate specs when we make them.
 
-•  RCov  observes  implementation  code  that  gets  executed  during  a spec  run  and  reports  on  any  lines  that  were  not  executed  and therefore may need our attention.
+â€¢  RCov  observes  implementation  code  that  gets  executed  during  a spec  run  and  reports  on  any  lines  that  were  not  executed  and therefore may need our attention.
 
-•  RSpec’s RakeTask allows us to configure any number of Rake tasks targeted at different subsets of a suite.
+â€¢  RSpecâ€™s RakeTask allows us to configure any number of Rake tasks targeted at different subsets of a suite.
 
-•  RSpec’s TextMate bundle lets TextMate users run their specs right from their favorite editor.
+â€¢  RSpecâ€™s TextMate bundle lets TextMate users run their specs right from their favorite editor.
 
-As we’ve been writing this, support for RSpec has also emerged in other editors such as Vim and Emacs, as well as IDEs such as Aptana and RubyMine.
+As weâ€™ve been writing this, support for RSpec has also emerged in other editors such as Vim and Emacs, as well as IDEs such as Aptana and RubyMine.
 
-Now that we’ve seen some of the tools that are available out of the box, in  the  next  chapter  we’ll  look  at  tools  and  techniques  we  can  use  to extend the behavior of RSpec.
+Now that weâ€™ve seen some of the tools that are available out of the box, in  the  next  chapter  weâ€™ll  look  at  tools  and  techniques  we  can  use  to extend the behavior of RSpec.
  

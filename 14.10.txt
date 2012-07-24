@@ -1,19 +1,19 @@
-14.10  What We’ve Learned
+ï»¿14.10  What Weâ€™ve Learned
 
 In  this  chapter,  we  explored  method  stubs  and  message  expectations on test doubles and test-specific extensions of real objects. We learned that  there  are  a  lot  of  different  names  for  test  doubles,  but  we  can usually use the same kind of object to enact several different patterns.
 
 We  took  a  look  at  some  of  the  risks  involved  with  method  stubs  and message expectations and some pitfalls that we can keep our eyes out for. We also looked at some of the underlying motivations for method stubs and message expectations, including the following:
 
-•  Focusing on roles
+â€¢  Focusing on roles
 
-•  Focusing on interaction
+â€¢  Focusing on interaction
 
-•  Interface discovery
+â€¢  Interface discovery
 
-•  Making progress without implemented dependencies
+â€¢  Making progress without implemented dependencies
 
-•  Isolation from dependencies
+â€¢  Isolation from dependencies
 
-•  Isolation from nondeterminism
+â€¢  Isolation from nondeterminism
 
-We’ve now covered the different libraries that are part of RSpec. In the remaining chapters in this section, we’ll explore the RSpec ecosystem including peripheral tooling and techniques for extending RSpec.
+Weâ€™ve now covered the different libraries that are part of RSpec. In the remaining chapters in this section, weâ€™ll explore the RSpec ecosystem including peripheral tooling and techniques for extending RSpec.

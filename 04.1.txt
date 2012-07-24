@@ -1,4 +1,4 @@
-4.1  Steps and Step Definitions
+ï»¿4.1  Steps and Step Definitions
 
 When you ran the cucumber command, you should have seen a bunch of code snippets at the end of the output that look something like this:1
 
@@ -13,9 +13,9 @@ Download cb/02/features/step_definitions/codebreaker_steps.rb
 Given /^I am not yet playing$/ do end
 
 
-1.  If  you  don’t  see  the  step  definition  snippets,  it’s  likely  because  Cucumber  doesn’t know what programming language you’re using. It determines the language based on the types of files in features/step_definitions  or features/support. That’s why we added the env.rb file to features/support. If you haven’t added it already, do it now so you can see the step definition snippets.
+1.  If  you  donâ€™t  see  the  step  definition  snippets,  itâ€™s  likely  because  Cucumber  doesnâ€™t know what programming language youâ€™re using. It determines the language based on the types of files in features/step_definitions  or features/support. Thatâ€™s why we added the env.rb file to features/support. If you havenâ€™t added it already, do it now so you can see the step definition snippets.
 
-Now  run  cucumber  features/codebreaker_starts_game.feature from  the project root, and you’ll see the following in the output:2
+Now  run  cucumber  features/codebreaker_starts_game.feature from  the project root, and youâ€™ll see the following in the output:2
 
 Feature: code-breaker starts game
 

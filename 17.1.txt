@@ -1,13 +1,13 @@
-17.1  From 20,000 Feet
+ï»¿17.1  From 20,000 Feet
 
 At a high level, there are three parts to Cucumber: features, the cucumber command, and step definitions.
 
 We write features in a simple language called Gherkin. A feature has a title, a free-form narrative, and an arbitrary number of scenarios, each of which contains an arbitrary number of steps.
 
-We write step definitions in the language of the system that we’re developing. In our case that’s Ruby, but there are helper libraries that support step definitions in other languages as well.1
+We write step definitions in the language of the system that weâ€™re developing. In our case thatâ€™s Ruby, but there are helper libraries that support step definitions in other languages as well.1
 
-When we run the cucumber  command, Cucumber parses the steps in each scenario and tries to map them to one of the step definitions we’ve written in Ruby. If it finds one, it executes it, at which point our step definition takes over in automating our application through its APIs.
+When we run the cucumber  command, Cucumber parses the steps in each scenario and tries to map them to one of the step definitions weâ€™ve written in Ruby. If it finds one, it executes it, at which point our step definition takes over in automating our application through its APIs.
 
-In  this  chapter,  we’ll  look  at  the  role  that  Cucumber  plays  in  a  BDD project. We’ll examine the Gherkin  syntax we use in Cucumber’s feature  files  and  explore  some  higher-level  concepts  such  as  style  and organization.
+In  this  chapter,  weâ€™ll  look  at  the  role  that  Cucumber  plays  in  a  BDD project. Weâ€™ll examine the Gherkin  syntax we use in Cucumberâ€™s feature  files  and  explore  some  higher-level  concepts  such  as  style  and organization.
 
-In the next chapter, we’ll learn how to hook them up to the code we’re writing and explore some of the options we have to configure and execute features.
+In the next chapter, weâ€™ll learn how to hook them up to the code weâ€™re writing and explore some of the options we have to configure and execute features.

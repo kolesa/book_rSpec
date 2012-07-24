@@ -1,10 +1,10 @@
-23.1  Writing View Specs
+Ôªø23.1  Writing View Specs
 
 A view spec is a collection of code examples for a particular view template. Unlike examples for plain old Ruby objects (POROs), view examples are inherently state-based. We provide data to the view and then set expectations about the rendered content.
 
-In most cases, weíre interested in the semantic content as it pertains to requirements of the application, as opposed to the syntactical correctness of the markup. The main exception to this is forms, in which case we do want to specify that form elements are rendered correctly within a form tag.
+In most cases, we‚Äôre interested in the semantic content as it pertains to requirements of the application, as opposed to the syntactical correctness of the markup. The main exception to this is forms, in which case we do want to specify that form elements are rendered correctly within a form tag.
 
-Now you may be thinking that weíve already covered these same details with  Cucumber  and  Webrat  in  the  past  couple  of  chapters,  so  why should we also have isolated view specs? This question is being asked quite a lot as we prepare to print this book, so youíre not alone if youíre asking it. Weíll address this question at the end of the chapter, in Section 23.4, When Should I Write View Specs?, on page 343, but that will make more sense after you get a feel for how view specs work and the benefits they provide.
+Now you may be thinking that we‚Äôve already covered these same details with  Cucumber  and  Webrat  in  the  past  couple  of  chapters,  so  why should we also have isolated view specs? This question is being asked quite a lot as we prepare to print this book, so you‚Äôre not alone if you‚Äôre asking it. We‚Äôll address this question at the end of the chapter, in Section 23.4, When Should I Write View Specs?, on page 343, but that will make more sense after you get a feel for how view specs work and the benefits they provide.
 
 Getting Started
 
@@ -27,9 +27,9 @@ bundle install
 script/rails generate rspec:install 
 rake db:migrate
 
-Thatís it! RSpec is ready to go.
+That‚Äôs it! RSpec is ready to go.
 
-Weíre going to build a view that displays a message, and weíll drive it out  with  a  spec.  Create  a  ./spec/views/messages/  directory,  and  add  a show.html.erb_spec.rb file with the following content:
+We‚Äôre going to build a view that displays a message, and we‚Äôll drive it out  with  a  spec.  Create  a  ./spec/views/messages/  directory,  and  add  a show.html.erb_spec.rb file with the following content:
 
 Download rails_views/messages/01/spec/views/messages/show.html.erb_spec.rb
 
@@ -43,7 +43,7 @@ describe "messages/show.html.erb" do
 end
 
 render(), rendered(), and contain()
-Given no arguments, the render( ) method on the first line in the example  renders  the  file  passed  to  the  outermost  describe( )  block,  ìmessages/show.html.erbî in this case. The rendered( ) method returns the rendered content, which is passed to the contain( ) matcher on the second  line.  If  the  rendered  content  contains  the  text  ìHello  world!î the example will pass. Note that this looks only at rendered text. If ìHello world!î  is  embedded  in  a  comment  or  in  a  JavaScript  document.write statement, for example, it would not be recognized by contain( ).
+Given no arguments, the render( ) method on the first line in the example  renders  the  file  passed  to  the  outermost  describe( )  block,  ‚Äúmessages/show.html.erb‚Äù in this case. The rendered( ) method returns the rendered content, which is passed to the contain( ) matcher on the second  line.  If  the  rendered  content  contains  the  text  ‚ÄúHello  world!‚Äù the example will pass. Note that this looks only at rendered text. If ‚ÄúHello world!‚Äù  is  embedded  in  a  comment  or  in  a  JavaScript  document.write statement, for example, it would not be recognized by contain( ).
 
 The rspec:install generator we ran earlier added some rake tasks we can use to run specs. Go ahead and run this:
 
@@ -53,19 +53,19 @@ You should see the following failure:
 
 Missing template messages/show.html.erb
 
-The  template  doesnít  exist  yet,  so  add  show.html.erb  to  the  app/views/ messages/  directory  (which  youíll  need  to  create),  and  run  the  spec again. Now we get this output:
+The  template  doesn‚Äôt  exist  yet,  so  add  show.html.erb  to  the  app/views/ messages/  directory  (which  you‚Äôll  need  to  create),  and  run  the  spec again. Now we get this output:
 
 expected the following element's content to include "Hello world!"
 
-This time it failed because thereís nothing in the show.html.erb template. Observing  the  practice  of  temporary  sins  to  get  to  the  green  bar,  add ìHello world!î to the show.html.erb file, run the spec again, and watch it pass. Now we know that the example is correctly wired up to the view implementation.
+This time it failed because there‚Äôs nothing in the show.html.erb template. Observing  the  practice  of  temporary  sins  to  get  to  the  green  bar,  add ‚ÄúHello world!‚Äù to the show.html.erb file, run the spec again, and watch it pass. Now we know that the example is correctly wired up to the view implementation.
 
-The sin was creating duplication between the spec and the implementation. Letís see what we can do about washing that away. The example says that messages/show.html.erb displays the text of the supplied message, but the implementation is simply hard-coded. Based on the example, hereís the code we wish we had in show.html.erb:
+The sin was creating duplication between the spec and the implementation. Let‚Äôs see what we can do about washing that away. The example says that messages/show.html.erb displays the text of the supplied message, but the implementation is simply hard-coded. Based on the example, here‚Äôs the code we wish we had in show.html.erb:
 
 Download rails_views/messages/03/app/views/messages/show.html.erb
 
 <%= @message.text %>
 
-Add that to the file and run the example again, and now you should see undefined method ëtextí for nil:NilClass, referencing the line we just added. The view expects an @message variable to be set up for it. This will be the controllerís responsibility once we get there, but in this case there is no controller yet. This puts the responsibility on the view spec itself.
+Add that to the file and run the example again, and now you should see undefined method ‚Äòtext‚Äô for nil:NilClass, referencing the line we just added. The view expects an @message variable to be set up for it. This will be the controller‚Äôs responsibility once we get there, but in this case there is no controller yet. This puts the responsibility on the view spec itself.
 
 assign()
 View specs expose an assign  method, which we use to provide data to the view. Modify the spec as follows:
@@ -80,9 +80,9 @@ describe "messages/show.html.erb" do
 	end 
 end
 
-The new first line of the example creates a test double, which stubs the text( ) method with a return value of ìHello world!î and assigns it to an @message instance variable on the view.
+The new first line of the example creates a test double, which stubs the text( ) method with a return value of ‚ÄúHello world!‚Äù and assigns it to an @message instance variable on the view.
 
-Run rake spec again, and it should pass. And thatís it for the first example. Pretty simple, right? Although this example didnít do justice to the intricacies  views  are  often  composed  of,  it  did  give  us  just  enough  to start us with a foundation on which to build.
+Run rake spec again, and it should pass. And that‚Äôs it for the first example. Pretty simple, right? Although this example didn‚Äôt do justice to the intricacies  views  are  often  composed  of,  it  did  give  us  just  enough  to start us with a foundation on which to build.
 
 In addition to understanding the basics of a view spec, here are a few more things we can glean from what we just did:
 
@@ -90,9 +90,9 @@ Directory organization  The directory structure for view specs mimics the  direc
 
 File naming  View  specs  are  named  after  the  template  they  provide examples for, with an _spec.rb appended to the filename. For exam- ple, index.html.erb  would have a corresponding spec named index. html.erb_spec.rb.
 
-Always require spec_helper.rb  Every view spec will need to require the spec_helper.rb file. Otherwise, youíll get errors about core rspec or rspec-rails methods not existing.
+Always require spec_helper.rb  Every view spec will need to require the spec_helper.rb file. Otherwise, you‚Äôll get errors about core rspec or rspec-rails methods not existing.
 
 Describing view specs  The outer describe( ) block in a view spec uses the path to the view minus the app/views/ portion. This is used by the render( ) method when it is called with no arguments, keeping things clean and DRY.
 
-Now that you have the basics down, letís explore a little deeper.
+Now that you have the basics down, let‚Äôs explore a little deeper.
 

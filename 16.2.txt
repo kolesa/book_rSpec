@@ -1,4 +1,4 @@
-16.2  Configuration
+﻿16.2  Configuration
 
 RSpec  exposes  a  configuration  object  that  supports  the  definition  of global before, after, and around hooks, as well as hooks to include modules in examples or extend example group classes. We can access it like this:
 
@@ -8,4 +8,4 @@ RSpec.configure {|config| ... }
 # rspec-1
 Spec::Runner.configure {|config| ... }
 
-The  config  block  argument  is  the  configuration  object,  and  it  exposes several  methods  we  use  to  filter  which  examples  are  run  and  extend their behavior in a variety of ways. Let�s start by talking about filtering.
+The  config  block  argument  is  the  configuration  object,  and  it  exposes several  methods  we  use  to  filter  which  examples  are  run  and  extend their behavior in a variety of ways. Let’s start by talking about filtering.

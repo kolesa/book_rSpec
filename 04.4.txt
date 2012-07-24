@@ -1,7 +1,7 @@
-4.4  What We’ve Learned
+ï»¿4.4  What Weâ€™ve Learned
 
-At this point, we’ve made our way through the second step in the concentric cycles described in Section 1.5, The BDD Cycle, on page 28: we now have a Cucumber step, which is failing with a logical failure. And we’ve also laid quite a bit of foundation.
+At this point, weâ€™ve made our way through the second step in the concentric cycles described in Section 1.5, The BDD Cycle, on page 28: we now have a Cucumber step, which is failing with a logical failure. And weâ€™ve also laid quite a bit of foundation.
 
-We’ve set up the development environment for the Codebreaker game, with  a  conventional  directory  layout  for  Ruby  libraries.  We  expressed the  first  feature  from  the  outside  using  Cucumber,  with  automatable acceptance criteria using the simple language of Given, When, Then.
+Weâ€™ve set up the development environment for the Codebreaker game, with  a  conventional  directory  layout  for  Ruby  libraries.  We  expressed the  first  feature  from  the  outside  using  Cucumber,  with  automatable acceptance criteria using the simple language of Given, When, Then.
 
-So far, we’ve been describing things from the outside with Cucumber. In  the  next  chapter,  we’ll  begin  to  work  our  way  from  the  outside  in, using RSpec to drive out behavior of individual objects.
+So far, weâ€™ve been describing things from the outside with Cucumber. In  the  next  chapter,  weâ€™ll  begin  to  work  our  way  from  the  outside  in, using RSpec to drive out behavior of individual objects.

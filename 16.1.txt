@@ -1,4 +1,4 @@
-16.1  Metadata
+ï»¿16.1  Metadata
 
 Every example group and each example within has rich metadata associated with it. To see what this metadata looks like, type the following into a file named metadata.rb:
 
@@ -21,4 +21,4 @@ describe "something", :a => "A" do
 	end 
 end
 
-Run that with rspec, and you’ll see A and B printed in the output. OK, great! But now you must be wondering what we can actually do  with this ability. We’ll get to that soon, but first we need to introduce another concept: configuration.
+Run that with rspec, and youâ€™ll see A and B printed in the output. OK, great! But now you must be wondering what we can actually do  with this ability. Weâ€™ll get to that soon, but first we need to introduce another concept: configuration.

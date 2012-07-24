@@ -1,4 +1,4 @@
-Appendix C
+ï»¿Appendix C
 
   Bibliography  
 
@@ -32,8 +32,8 @@ MA, 1997.
 [Rai04] J. B. Rainsberger.  JUnit Recipes : Practical Methods for Programmer Testing. Manning Publications Co., Greenwich, CT,
 2004.
 
-[TFH05]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmers’ Guide. The  Pragmatic 
+[TFH05]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmersâ€™ Guide. The  Pragmatic 
 Programmers, LLC, Raleigh, NC, and Dallas, TX, sec- ond edition, 2005.
 
-[TFH08]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmers’ Guide. The  Pragmatic 
+[TFH08]  David  Thomas,  Chad  Fowler,  and  Andrew  Hunt. Programming Ruby: The Pragmatic Programmersâ€™ Guide. The  Pragmatic 
 Programmers, LLC, Raleigh, NC, and Dallas, TX, third edition, 2008.

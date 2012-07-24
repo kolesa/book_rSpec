@@ -1,12 +1,12 @@
-14.6  More on Message Expectations
+ï»¿14.6  More on Message Expectations
 
 Message expectations tend to be more tightly bound to implementation details of the method in development than method stubs. In the logger example, if the customer fails to log a message, the example fails. Had we only stubbed the log( ) method, we would not get a failure.
 
-RSpec offers a number of utilities we can use to specify more focused aspects of implementation. Keep in mind that all of these utilities we’re about to discuss increase the coupling between the spec and the object in development, which increases the likelihood that subsequent changes to the object in development will force changes in the specs. We recommend, therefore, that these only be used to express specific requirements.
+RSpec offers a number of utilities we can use to specify more focused aspects of implementation. Keep in mind that all of these utilities weâ€™re about to discuss increase the coupling between the spec and the object in development, which increases the likelihood that subsequent changes to the object in development will force changes in the specs. We recommend, therefore, that these only be used to express specific requirements.
 
 Counts
 
-Test doubles often stand in for objects with expensive operations like database  and  network  calls.  When  we’re  optimizing,  we  may  want  to specify that a given message is not sent to the double any more times than is necessary for the operation. By default, should_receive( ) sets an expectation that a message should be received once, and only once. We can set this expectation explicitly like this:
+Test doubles often stand in for objects with expensive operations like database  and  network  calls.  When  weâ€™re  optimizing,  we  may  want  to specify that a given message is not sent to the double any more times than is necessary for the operation. By default, should_receive( ) sets an expectation that a message should be received once, and only once. We can set this expectation explicitly like this:
 
 mock_account.should_receive(:withdraw).exactly(1).times
 
@@ -14,7 +14,7 @@ Using the same syntax, we can specify any number:
 
 mock_account.should_receive(:withdraw).exactly(5).times
 
-Sometimes we may want to make sure that an operation is repeated no more than some number of times. Consider a double that is standing  in for a collaborator that establishes network connections. If it can’t get a connection, we want it to retry it five times, but no more. In this case, we can set an upper bound:
+Sometimes we may want to make sure that an operation is repeated no more than some number of times. Consider a double that is standing  in for a collaborator that establishes network connections. If it canâ€™t get a connection, we want it to retry it five times, but no more. In this case, we can set an upper bound:
 
 network_double.should_receive(:open_connection).at_most(5).times
 
@@ -29,7 +29,7 @@ account_double.should_receive(:deposit).twice
 
 Negative Expectation
 
-Sometimes we want to specify that a specific message is never received during  an  example.  Imagine  a  requirement  that  we  only  try  to make connections after pinging a server. Here’s one way we can express that requirement:
+Sometimes we want to specify that a specific message is never received during  an  example.  Imagine  a  requirement  that  we  only  try  to make connections after pinging a server. Hereâ€™s one way we can express that requirement:
 
 network_double.stub(:ping).and_return(false)
 network_double.should_not_receive(:open_connection)
@@ -56,11 +56,11 @@ This  example  will  pass  only  if  the  checking_account  receives  transfer( 
 
 Argument Matchers
 
-Sometimes we don’t care about the specific values of all the arguments. When  specifying  a  transfer  operation  as  in  the  previous  example,  we might have separate examples for the two different arguments. In the example focused on the account, we need the second argument in the example, or the double would raise an error saying it got only one argu- ment. But we don’t care what that argument is, since this example is focused on the first argument.
+Sometimes we donâ€™t care about the specific values of all the arguments. When  specifying  a  transfer  operation  as  in  the  previous  example,  we might have separate examples for the two different arguments. In the example focused on the account, we need the second argument in the example, or the double would raise an error saying it got only one argu- ment. But we donâ€™t care what that argument is, since this example is focused on the first argument.
 
 instance_of()
 
-We can address this using an argument matcher : a method that returns an  object  that  can  match  against  the  real  arguments  received  during  the  example.  In  this  case,  we  want  the  second  argument  to  be an  instance  of  Fixnum,  but  we  don’t  care  what  it  is.  We  can  use  the instance_of( ) argument matcher to address this:
+We can address this using an argument matcher : a method that returns an  object  that  can  match  against  the  real  arguments  received  during  the  example.  In  this  case,  we  want  the  second  argument  to  be an  instance  of  Fixnum,  but  we  donâ€™t  care  what  it  is.  We  can  use  the instance_of( ) argument matcher to address this:
 
 Line 1  describe Transfer do
 -  it "passes the target account to the source account" do
@@ -77,13 +77,13 @@ Line 1  describe Transfer do
 -  		end
 -  end
 
-On line 11, we specify that the first argument should ==(target_account) and that the second argument can be any Fixnum. Of course, we know it’s going to be 50, because that is what is supplied on line 8, but we don’t care about that in this example.
+On line 11, we specify that the first argument should ==(target_account) and that the second argument can be any Fixnum. Of course, we know itâ€™s going to be 50, because that is what is supplied on line 8, but we donâ€™t care about that in this example.
  
-When we do this, we’re coupling the example to a specific type, which is usually not  recommended. Remember, these facilities are available, but we want to use them only when they help express the intent of the example.
+When we do this, weâ€™re coupling the example to a specific type, which is usually not  recommended. Remember, these facilities are available, but we want to use them only when they help express the intent of the example.
 
 anything()
 
-When  we  want  to  specify  that  an  argument  is  received  but  we  really don’t care what it is, we can use the anything( ) matcher, like this:
+When  we  want  to  specify  that  an  argument  is  received  but  we  really donâ€™t care what it is, we can use the anything( ) matcher, like this:
 
 Line 1  describe Transfer do
 -  			it "passes the submitted amount to the source account" do
@@ -121,7 +121,7 @@ with(hash_including('Electric' => '123', 'Gas' => '234'))
  
 
 
-The hash argument in this example is expected to include keys for ’Electric’ and ’Gas’ with the corresponding values 123 and 234, respectively.
+The hash argument in this example is expected to include keys for â€™Electricâ€™ and â€™Gasâ€™ with the corresponding values 123 and 234, respectively.
 
 hash_not_including()
 
@@ -138,11 +138,11 @@ For  String  arguments,  we  can  expect  just  a  part  of  the  string  using 
 
 mock_atm.should_receive(:login).with(/.* User/)
 
-As you can see, RSpec comes with a range of useful argument matchers built in, but sometimes we need to express more specific constraints. In these cases, it’s easy to extend RSpec with our own.
+As you can see, RSpec comes with a range of useful argument matchers built in, but sometimes we need to express more specific constraints. In these cases, itâ€™s easy to extend RSpec with our own.
 
 Custom Argument Matchers
 
-Let’s say we want to be able to expect a Fixnum argument that is greater than  three.  With  a  custom  argument  matcher,  we  can  express  this expectation like this:
+Letâ€™s say we want to be able to expect a Fixnum argument that is greater than  three.  With  a  custom  argument  matcher,  we  can  express  this expectation like this:
 
 calculator.should_receive(:add).with(greater_than_3)
 
@@ -237,9 +237,9 @@ Line 1  describe GatewayClient, "#connect" do
 
 On  line  9  in  the  first  example,  we  program  the  @network  to  return  a Connection  the  first  time  open_connection( )  is  called.  This  is  how  we normally set return values for a method stub or message expectation.
 
-The second example is a bit different. On line 15, we program the @network to expect open_connection( ), returning nil the first two times and a Connection the third. We do so by passing nil, nil, and Connection.new to the and_return( ) method. With three arguments passed to and_return( ), we’re  implicitly  telling  the  @network  to  expect  open_connection( )  three times.
+The second example is a bit different. On line 15, we program the @network to expect open_connection( ), returning nil the first two times and a Connection the third. We do so by passing nil, nil, and Connection.new to the and_return( ) method. With three arguments passed to and_return( ), weâ€™re  implicitly  telling  the  @network  to  expect  open_connection( )  three times.
 
-The third example programs open_connection( ) to return nil three times in  a  row.  We’re  implicitly  telling  @network  to  expect  open_connection( ) three  times.  We  could  get  the  same  behavior  by  explictly  telling  the @network to expect open_connection( ) three times and return nil:
+The third example programs open_connection( ) to return nil three times in  a  row.  Weâ€™re  implicitly  telling  @network  to  expect  open_connection( ) three  times.  We  could  get  the  same  behavior  by  explictly  telling  the @network to expect open_connection( ) three times and return nil:
 
 Line 1  it "returns false if network fails to return connection in 3 
 attempts" do
@@ -253,11 +253,11 @@ attempts" do
  
 
 
-In  that  variation,  we  only  pass  nil  (once)  to  and_return( )  because  we’re already telling the @network to expect open_connection( ) three times on line 3. The @network in each of these variations behaves in exactly the same way.
+In  that  variation,  we  only  pass  nil  (once)  to  and_return( )  because  weâ€™re already telling the @network to expect open_connection( ) three times on line 3. The @network in each of these variations behaves in exactly the same way.
 
 Throwing or Raising
 
-To specify an object’s behavior in response to errors, we want to have our collaborator throw a symbol or raise an error in response to a spe- cific message. RSpec::Mocks provides several ways to do this. The most common approach is to simply raise an exception:
+To specify an objectâ€™s behavior in response to errors, we want to have our collaborator throw a symbol or raise an error in response to a spe- cific message. RSpec::Mocks provides several ways to do this. The most common approach is to simply raise an exception:
 
 account_double.should_receive(:withdraw).and_raise
 
@@ -326,7 +326,7 @@ The fact that the database  receives begin( ) and commit( ) is ignored by the or
 
 Overriding Method Stubs
 
-In the statement examples earlier this chapter, we looked at examples specifying that the statement uses the customer’s name in the header and that it logs a message on generate( ). We never really looked at those together at the point that the statement supports both. Here’s what that looks like without any refactoring:
+In the statement examples earlier this chapter, we looked at examples specifying that the statement uses the customerâ€™s name in the header and that it logs a message on generate( ). We never really looked at those together at the point that the statement supports both. Hereâ€™s what that looks like without any refactoring:
 describe Statement do 
 	it "uses the customer's name in the header" do 
 		customer = double('customer') 
@@ -367,4 +367,4 @@ describe Statement do
 	end 
 end
 
-Now the code in each example is very well aligned with their docstrings, with  no  unnecessary  noise.  By  setting  the  log( )  stub  on  the  @logger double in the before( ) block, we don’t need to set that stub in the first example. In the second example, we override that stub with the expec- tation. Once the expectation is met, any subsequent calls to log( ) are caught by the stub and essentially ignored.
+Now the code in each example is very well aligned with their docstrings, with  no  unnecessary  noise.  By  setting  the  log( )  stub  on  the  @logger double in the before( ) block, we donâ€™t need to set that stub in the first example. In the second example, we override that stub with the expec- tation. Once the expectation is met, any subsequent calls to log( ) are caught by the stub and essentially ignored.

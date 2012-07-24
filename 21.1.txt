@@ -1,10 +1,10 @@
-21.1  Writing Simulated Browser Step Definitions
+ï»¿21.1  Writing Simulated Browser Step Definitions
 
-We’re going to focus on Cucumber with Webrat and Selenium, so we’re going to skip over some of the low-level details that we use RSpec for in practice. We’ll cover all of that in Chapter 23, Rails Views, on page 331; Chapter 24, Rails Controllers, on page 345; and Chapter 25, Rails Mod- els, on page 365. If you plan to follow along and run the examples, we recommend you download the code examples from http://pragprog.com/ titles/achbd/source_code,  cd  into  the  simulated_browser  directory,  and work in the numbered directories within. That way, you can type the parts we focus on here, but you don’t have to worry about the parts we don’t.
+Weâ€™re going to focus on Cucumber with Webrat and Selenium, so weâ€™re going to skip over some of the low-level details that we use RSpec for in practice. Weâ€™ll cover all of that in Chapter 23, Rails Views, on page 331; Chapter 24, Rails Controllers, on page 345; and Chapter 25, Rails Mod- els, on page 365. If you plan to follow along and run the examples, we recommend you download the code examples from http://pragprog.com/ titles/achbd/source_code,  cd  into  the  simulated_browser  directory,  and work in the numbered directories within. That way, you can type the parts we focus on here, but you donâ€™t have to worry about the parts we donâ€™t.
 
-We’ll  be  building  on  the  web-based  movie  box-office  system  from  the previous chapter, so you can, alternatively, continue to use the same code base. If you do, however, you’ll be on your own a couple of times during this chapter. We’ll let you know when we get there, and you can always choose to download the code later.
+Weâ€™ll  be  building  on  the  web-based  movie  box-office  system  from  the previous chapter, so you can, alternatively, continue to use the same code base. If you do, however, youâ€™ll be on your own a couple of times during this chapter. Weâ€™ll let you know when we get there, and you can always choose to download the code later.
 
-Now let’s walk through implementing a few step definitions for a simple scenario using the Simulated Browser technique. The next requirement is that administrators should be able to assign a movie to a genre so that  customers  can  later  browse  by  genre.  We  start  by  creating  a  file named  create_movie.feature  in  the  features  directory  with  the  following content:
+Now letâ€™s walk through implementing a few step definitions for a simple scenario using the Simulated Browser technique. The next requirement is that administrators should be able to assign a movie to a genre so that  customers  can  later  browse  by  genre.  We  start  by  creating  a  file named  create_movie.feature  in  the  features  directory  with  the  following content:
 
 Download simulated_browser/01/features/create_movie.feature
 
@@ -19,7 +19,7 @@ Feature: Create movie
 		When I create a movie Caddyshack in the Comedy genre
 		Then Caddyshack should be in the Comedy genre
 
-If  you’re  following  with  the  downloaded  code,  this  is  already  created for  you  in  simulated_browser/01/.  As  usual,  we’ll  begin  by  running  the feature with rake cucumber  to show us the step definitions we need to implement:
+If  youâ€™re  following  with  the  downloaded  code,  this  is  already  created for  you  in  simulated_browser/01/.  As  usual,  weâ€™ll  begin  by  running  the feature with rake cucumber  to show us the step definitions we need to implement:
 
 You can implement step definitions for undefined steps with these snippets:
 
@@ -35,7 +35,7 @@ Then /^Caddyshack should be in the Comedy genre$/ do
 	pending # express the regexp above with the code you wish you had 
 end
 
-The  Given  a  genre  named  Comedy  step  could  be  implemented  using either DMA or the Simulated Browser style. Using a Simulated Browser would ensure that the views and controllers used to create genres are working with the models properly. DMA won’t go through those layers of  the  stack,  but  it  provides  a  bit  more  convenience,  simplicity,  and speed. So, which style should we use?
+The  Given  a  genre  named  Comedy  step  could  be  implemented  using either DMA or the Simulated Browser style. Using a Simulated Browser would ensure that the views and controllers used to create genres are working with the models properly. DMA wonâ€™t go through those layers of  the  stack,  but  it  provides  a  bit  more  convenience,  simplicity,  and speed. So, which style should we use?
 
 Choosing Between DMA and Simulated Browser
 
@@ -47,7 +47,7 @@ Figure 21.1: Creating a movie with a form
 
 As we add features throughout the evolution of an application, we see a pattern emerge in which we implement DMA Givens for a model that has its own Simulated Browser scenarios elsewhere in the Cucumber suite.
 
-We’ll imagine that those genre scenarios are already in place, but we’re still going to have to create a Genre model and migration. Use the Rails model generator to do that, like this:
+Weâ€™ll imagine that those genre scenarios are already in place, but weâ€™re still going to have to create a Genre model and migration. Use the Rails model generator to do that, like this:
 
 script/rails generate model genre name:string rake db:migrate && rake db:test:prepare
 
@@ -59,11 +59,11 @@ Given /^a genre named Comedy$/ do
 	@comedy = Genre.create!(:name => "Comedy")
 end
 
-Run the scenario, and you’ll see this first step pass. All it needed was the Genre  model and table that we just created. Now let’s move on to the When step.
+Run the scenario, and youâ€™ll see this first step pass. All it needed was the Genre  model and table that we just created. Now letâ€™s move on to the When step.
 
-The wireframe for the Add Movie screen, shown in Figure 21.1, shows that a user will need to provide a movie’s title, release year, and genres to add it to the system. Since our When step specifies the main action of the scenario, we’ll use the Simulated Browser to drive this interaction through the full Rails stack.
+The wireframe for the Add Movie screen, shown in Figure 21.1, shows that a user will need to provide a movieâ€™s title, release year, and genres to add it to the system. Since our When step specifies the main action of the scenario, weâ€™ll use the Simulated Browser to drive this interaction through the full Rails stack.
 
-Before we look at how Webrat can help us with this, let’s see what Rails provides out of the box.
+Before we look at how Webrat can help us with this, letâ€™s see what Rails provides out of the box.
 
 Rails Integration Testing
 
@@ -107,7 +107,7 @@ end
 
 This is obviously more readable than the first version. Webrat lets us focus on exactly the details an end user would experience without concern for how it will be built. The only implementation detail remaining is using the movies_path( ) route as an entry point.
 
-In addition to being more expressive, Webrat also catches regressions without  the  false  positives  described  earlier.  Don’t  worry  about  the details of how this works  just yet. That will become clear throughout the rest of this chapter.
+In addition to being more expressive, Webrat also catches regressions without  the  false  positives  described  earlier.  Donâ€™t  worry  about  the details of how this works  just yet. That will become clear throughout the rest of this chapter.
 
 Run  the  scenario  with  Cucumber  again  (from  simulated_browser/04/  in the code download), and it will show us what to implement first:
 
@@ -136,12 +136,12 @@ Then /^Caddyshack should be in the Comedy genre$/ do
 	response.should contain("Caddyshack")
 end
 
-Once again, we’ll learn later how to use RSpec to drive out the routes, controllers,  views,  models,  and  migrations  that  this  Cucumber  step needs to pass. You can either try this on your own, starting with the simulated_browser/05/  directory  in  the  code  download,  or  cd  into  simu- lated_browser/06/  and  it’s  already  done  for  you.  In  either  case,  when you’re finished, run rake features, and everything should pass:
+Once again, weâ€™ll learn later how to use RSpec to drive out the routes, controllers,  views,  models,  and  migrations  that  this  Cucumber  step needs to pass. You can either try this on your own, starting with the simulated_browser/05/  directory  in  the  code  download,  or  cd  into  simu- lated_browser/06/  and  itâ€™s  already  done  for  you.  In  either  case,  when youâ€™re finished, run rake features, and everything should pass:
 
 3 scenarios (3 passed)
 9 steps (9 passed)
 0m0.439s
 
-Great. The passing scenario tells us that we’re done. By leveraging the DMA style for Givens and combining it with the Simulated Browser style with  Webrat  for  Whens  and  Thens,  we’ve  reached  a  good  balance  of expressive specification, speed, and coverage. We can read the scenario to  understand  what  we  should  expect  from  the  application  at  a  high level, and we can be confident that it will work for our users when we ship it.
+Great. The passing scenario tells us that weâ€™re done. By leveraging the DMA style for Givens and combining it with the Simulated Browser style with  Webrat  for  Whens  and  Thens,  weâ€™ve  reached  a  good  balance  of expressive specification, speed, and coverage. We can read the scenario to  understand  what  we  should  expect  from  the  application  at  a  high level, and we can be confident that it will work for our users when we ship it.
 
-Throughout the rest of the chapter, we’ll dive into the details of Webrat’s features and how they work. Let’s start by looking at how Webrat lets you navigate from page to page in your application.
+Throughout the rest of the chapter, weâ€™ll dive into the details of Webratâ€™s features and how they work. Letâ€™s start by looking at how Webrat lets you navigate from page to page in your application.

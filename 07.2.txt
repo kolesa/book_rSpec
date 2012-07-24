@@ -1,6 +1,6 @@
-7.2  Refactor to Remove Duplication
+ï»¿7.2  Refactor to Remove Duplication
 
-As we discussed earlier, refactoring is a technique for improving a design without changing behavior. There are many ways in which we can improve a design. The most common is to remove duplication, so let’s start with that. There are two lines in the guess method that are sending messages to output. Let’s start by extracting that to a single statement. Modify the guess() method as follows:
+As we discussed earlier, refactoring is a technique for improving a design without changing behavior. There are many ways in which we can improve a design. The most common is to remove duplication, so letâ€™s start with that. There are two lines in the guess method that are sending messages to output. Letâ€™s start by extracting that to a single statement. Modify the guess() method as follows:
 
 Download cb/28/lib/codebreaker/game.rb
 
@@ -15,7 +15,7 @@ end
 
 Now run the specs, and make sure they all still pass. Then, run the scenarios, and you should see that we have two of them passing. Progress!
 
-Looking back at the spec, we have an example for no matches and one number match, so let’s add an example for an exact match:
+Looking back at the spec, we have an example for no matches and one number match, so letâ€™s add an example for an exact match:
 
 Download cb/30/spec/codebreaker/game_spec.rb
 
@@ -69,6 +69,6 @@ def guess(guess)
 	@output.puts mark
 end
 
-Run the specs, and they should all pass, so let’s look for more refactoring opportunities.
+Run the specs, and they should all pass, so letâ€™s look for more refactoring opportunities.
 
 

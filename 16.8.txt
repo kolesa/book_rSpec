@@ -1,4 +1,4 @@
-16.8  Macros
+ï»¿16.8  Macros
 
 Custom matchers can help us build up domain-specific DSLs for specifying  our  code,  but  they  still  require  a  bit  of  repetitive  ceremony.  In rspec-rails, for example, it is quite common to see examples like this:
 
@@ -27,7 +27,7 @@ describe Widget do
 	it { should require_attribute(:name) }
 end
 
-Now that is terse, expressive, and complete all at the same time. But for the truly common cases like this, we can do even better. In 2006, the shoulda library emerged as an alternative to RSpec for writing more expressive tests.3  One of the innovations that came from shoulda was macros to express the common, redundant things we want to express in tests. Here’s the widget example with a shoulda macro instead of a custom matcher:
+Now that is terse, expressive, and complete all at the same time. But for the truly common cases like this, we can do even better. In 2006, the shoulda library emerged as an alternative to RSpec for writing more expressive tests.3  One of the innovations that came from shoulda was macros to express the common, redundant things we want to express in tests. Hereâ€™s the widget example with a shoulda macro instead of a custom matcher:
 
 class WidgetTest < Test::Unit::TestCase 
 	should_require_attributes :name
@@ -39,9 +39,9 @@ describe Widget do
 	it_validates_presence_of Widget, :name
 end
 
-Macros  like  this  are  great  for  the  things  that  are  ubiquitous  in  our applications, like Rails’ model validations. They’re a little bit like shared example groups, which you read about in Section 12.5, Shared Examples,  on  page  164,  but  they  are  more  expressive  because  they  have unique  names,  and  unlike  shared  examples,  they  can  accept  arguments.
+Macros  like  this  are  great  for  the  things  that  are  ubiquitous  in  our applications, like Railsâ€™ model validations. Theyâ€™re a little bit like shared example groups, which you read about in Section 12.5, Shared Examples,  on  page  164,  but  they  are  more  expressive  because  they  have unique  names,  and  unlike  shared  examples,  they  can  accept  arguments.
 
-Macros are also quite easy to add to RSpec. Let’s explore a simple example. Here is some code that you might find in a typical controller spec:
+Macros are also quite easy to add to RSpec. Letâ€™s explore a simple example. Here is some code that you might find in a typical controller spec:
 
 3.  http://www.thoughtbot.com/projects/shoulda
 4.  http://github.com/technoweenie/rspec_on_rails_on_crack
@@ -119,15 +119,15 @@ end
 
 The  get( )  method  defines  a  method  that  is  used  internally  within  the macros  named  do_request( )  and  yields  to  the  block  that  contains  the other macros, giving them access to the do_request( ) method.
 
-The should_assign( ) method seems a bit complex, but it goes out of its way to provide you with nice feedback so when you’re writing the examples first (as I trust you are), you’ll get a failure message like this:
+The should_assign( ) method seems a bit complex, but it goes out of its way to provide you with nice feedback so when youâ€™re writing the examples first (as I trust you are), youâ€™ll get a failure message like this:
 
 expected: "the value returned by Project.all", 
 	got: nil (using ==)
 
-We exposed these macros to controller specs by extending all controller example groups with the ControllerMacros module in the last line of the configuration. If we didn’t want them in all controller specs, we could also explicitly extend individual groups inline, like this:
+We exposed these macros to controller specs by extending all controller example groups with the ControllerMacros module in the last line of the configuration. If we didnâ€™t want them in all controller specs, we could also explicitly extend individual groups inline, like this:
 
 describe ProjectsController do 
 	extend ControllerMacros
 	...
 
-At  this  point,  we’ve  explored  a  number  of  ways  to  make  RSpec code examples  more  expressive,  but  all  these  techniques  apply  only  to  the input : the code we write and read in our examples. This is great if you’re a  developer,  but  part  of  RSpec’s  value-add  is  its  ability  to  customize output for different audiences. We’ll explore how RSpec does this and how we can customize it in the next section.
+At  this  point,  weâ€™ve  explored  a  number  of  ways  to  make  RSpec code examples  more  expressive,  but  all  these  techniques  apply  only  to  the input : the code we write and read in our examples. This is great if youâ€™re a  developer,  but  part  of  RSpecâ€™s  value-add  is  its  ability  to  customize output for different audiences. Weâ€™ll explore how RSpec does this and how we can customize it in the next section.

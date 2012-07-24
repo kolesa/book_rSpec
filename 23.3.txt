@@ -1,4 +1,4 @@
-23.3  Specifying Helpers
+ï»¿23.3  Specifying Helpers
 
 Rails  helpers  keep  model  transformations,  markup  generation,  and other  sorts  of  view  logic  cleanly  separated  from  erb  templates. This makes templates clean and maintainable and makes it easier to reuse little display nuggets that have a habit of reappearing throughout our applications.
 
@@ -8,7 +8,7 @@ Consider  the  common  problem  of  displaying  parts  of  a  view  only  to adm
 	Only admins should see this
 <%- end -%>
 
-The  rspec-rails  plug-in  provides  a  specialized  ExampleGroup  for  speci- fying  helpers  in  isolation.  To  see  this  in  action,  create  a  spec/helpers/ application_helper_spec.rb  file.  Assuming  that  views  have  access  to  a current_user( ) method, here’s an example for the case in which the cur- rent_user is in the given role:
+The  rspec-rails  plug-in  provides  a  specialized  ExampleGroup  for  speci- fying  helpers  in  isolation.  To  see  this  in  action,  create  a  spec/helpers/ application_helper_spec.rb  file.  Assuming  that  views  have  access  to  a current_user( ) method, hereâ€™s an example for the case in which the cur- rent_user is in the given role:
 
 Download rails_views/roles/01/spec/helpers/application_helper_spec.rb
 
@@ -27,11 +27,11 @@ describe ApplicationHelper do
 	end
 end
 
-The helper( ) method returns an object that includes the helper module passed to describe( ). In this case, that’s the ApplicationHelper. If you run that spec now, you should see it fail with this:
+The helper( ) method returns an object that includes the helper module passed to describe( ). In this case, thatâ€™s the ApplicationHelper. If you run that spec now, you should see it fail with this:
 
 undefined method `display_for' for #<ActionView::Base:0x103367190>
 
-Here’s the implementation that gets this to pass:
+Hereâ€™s the implementation that gets this to pass:
 
 Download rails_views/roles/02/app/helpers/application_helper.rb
 
@@ -60,7 +60,7 @@ That example fails with this:
 expected: nil,
 	got: "content" (using ==)
 
-And here’s the modified display_for( ) method that passes both examples:
+And hereâ€™s the modified display_for( ) method that passes both examples:
 
 Download rails_views/roles/04/app/helpers/application_helper.rb
 
@@ -70,4 +70,4 @@ module ApplicationHelper
 	end 
 end
 
-As  you  can  see,  helper  specs  make  it  easy  to  drive  out  presentation logic in granular, reusable chunks. So now that we know how to write view and helper specs, let’s explore the question we posed at the beginning of the chapter.
+As  you  can  see,  helper  specs  make  it  easy  to  drive  out  presentation logic in granular, reusable chunks. So now that we know how to write view and helper specs, letâ€™s explore the question we posed at the beginning of the chapter.

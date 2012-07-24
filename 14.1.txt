@@ -1,6 +1,6 @@
-14.1  Test Doubles
+ï»¿14.1  Test Doubles
 
-A test double is an object that stands in for another object in an example.  We  often  refer  to  them  by  names  like  mock  objects,  test  stubs, fakes,  and  so  on.  In  fact,  this  chapter  is  called  RSpec::Mocks  because that’s the name of the RSpec library that we use to generate test dou- bles. In spite of the fact that all these names have different implications, they tend to get used somewhat interchangeably because the behavior that makes an object a mock as opposed to a stub is expressed at the method level. See the sidebar on the next page for more on this.
+A test double is an object that stands in for another object in an example.  We  often  refer  to  them  by  names  like  mock  objects,  test  stubs, fakes,  and  so  on.  In  fact,  this  chapter  is  called  RSpec::Mocks  because thatâ€™s the name of the RSpec library that we use to generate test dou- bles. In spite of the fact that all these names have different implications, they tend to get used somewhat interchangeably because the behavior that makes an object a mock as opposed to a stub is expressed at the method level. See the sidebar on the next page for more on this.
 
 To create a double, just use the double( ) method, like this:
 
@@ -11,18 +11,18 @@ The string argument is optional but highly recommended because it is used  in  f
 stub_thingamajig = stub('thing-a-ma-jig')
 mock_thingamajig = mock('thing-a-ma-jig')
 
-We  can  use  those  to  make  the  spec  clearer  when  appropriate.  We’ll discuss what that means a bit later. For now, just know that all three methods provide an instance of the RSpec::Mocks::Mock class, which pro- vides facilities for generating method stubs and message expectations.
+We  can  use  those  to  make  the  spec  clearer  when  appropriate.  Weâ€™ll discuss what that means a bit later. For now, just know that all three methods provide an instance of the RSpec::Mocks::Mock class, which pro- vides facilities for generating method stubs and message expectations.
 
  Test  Double  Nomenclature 
  
 
-The  terminology  around  test  doubles  has  evolved  over  the years, and there is quite a lot of overlap, which can be confus- ing. Some folks in the London XP community had experimented with the idea of self-verifying expectations back in 1999. They needed a name for it and coined the term mock object. Over time we’ve tended to use mock to mean any sort of test double regardless of whether we’re using it to verify expectations.
+The  terminology  around  test  doubles  has  evolved  over  the years, and there is quite a lot of overlap, which can be confus- ing. Some folks in the London XP community had experimented with the idea of self-verifying expectations back in 1999. They needed a name for it and coined the term mock object. Over time weâ€™ve tended to use mock to mean any sort of test double regardless of whether weâ€™re using it to verify expectations.
 
-Gerard Meszaros introduced the term test double in his book XUnit Test Patterns [Mes07], in which he also identified a num- ber of test double patterns, including mock objects, test stubs, fakes, spies, and so on. All of the patterns supported by RSpec can be found in Meszaros’ writing.
+Gerard Meszaros introduced the term test double in his book XUnit Test Patterns [Mes07], in which he also identified a num- ber of test double patterns, including mock objects, test stubs, fakes, spies, and so on. All of the patterns supported by RSpec can be found in Meszarosâ€™ writing.
 
-As you learn about test doubles, mocks, stubs, fakes, spies, and so on, keep in mind that we’re usually talking about methods rather than objects, and there are generally only two kinds of objects we use: test doubles and test-specific extensions.
+As you learn about test doubles, mocks, stubs, fakes, spies, and so on, keep in mind that weâ€™re usually talking about methods rather than objects, and there are generally only two kinds of objects we use: test doubles and test-specific extensions.
 
-All of the other patterns we’ll talk about and you’ll read about elsewhere are usually  variations of method stubs and method expectations and can be applied to either test doubles or test- specific extensions.
+All of the other patterns weâ€™ll talk about and youâ€™ll read about elsewhere are usually  variations of method stubs and method expectations and can be applied to either test doubles or test- specific extensions.
 
 *.  See Section 14.4, Test-Specific Extensions, on page 197.
 

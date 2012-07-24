@@ -1,11 +1,11 @@
-11.2  The Principles of BDD
+Ôªø11.2  The Principles of BDD
 
-When  we  describe  BDD  as  writing  ìsoftware  that  matters,î  we  mean software  that  has  value  to  a  stakeholder,  that  is  neither  too  little  to solve  the  problem  nor  over -engineered,  and  that  we  can  demonstrate works.
+When  we  describe  BDD  as  writing  ‚Äúsoftware  that  matters,‚Äù  we  mean software  that  has  value  to  a  stakeholder,  that  is  neither  too  little  to solve  the  problem  nor  over -engineered,  and  that  we  can  demonstrate works.
 
 We sum this up using the following three principles of BDD:
 
-Enough is enough  Up-front  planning,  analysis,  and  design  all  have a  diminishing  return.  We  shouldnít  do  less  than  we  need  to  get started, but any more than that is wasted effort. This also applies to process automation. Have an automated build and deployment, but avoid trying to automate everything.
+Enough is enough  Up-front  planning,  analysis,  and  design  all  have a  diminishing  return.  We  shouldn‚Äôt  do  less  than  we  need  to  get started, but any more than that is wasted effort. This also applies to process automation. Have an automated build and deployment, but avoid trying to automate everything.
 
-Deliver stakeholder value  If you are doing something that isnít either delivering  value  or  increasing  your  ability  to  deliver  value,  stop doing it, and do something else instead.
+Deliver stakeholder value  If you are doing something that isn‚Äôt either delivering  value  or  increasing  your  ability  to  deliver  value,  stop doing it, and do something else instead.
 
-Itís all behavior  Whether  at  the  code  level,  the  application  level,  or beyond,  we  can  use  the  same  thinking  and  the  same  linguistic constructs to describe behavior at any level of granularity.
+It‚Äôs all behavior  Whether  at  the  code  level,  the  application  level,  or beyond,  we  can  use  the  same  thinking  and  the  same  linguistic constructs to describe behavior at any level of granularity.

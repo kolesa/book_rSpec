@@ -1,12 +1,12 @@
-Chapter 13
+ÔªøChapter 13
 
  RSpec::Expectations  
 
-One of our goals in BDD is getting the words right. We want to derive language,  practices,  and  processes  that  support  communication  between all members of a team, regardless of each personís understanding  of technical issues. This is why we like to use nontechnical words like Given, When, and Then.
+One of our goals in BDD is getting the words right. We want to derive language,  practices,  and  processes  that  support  communication  between all members of a team, regardless of each person‚Äôs understanding  of technical issues. This is why we like to use nontechnical words like Given, When, and Then.
 
-We  also  talk  about  expectations  instead  of  assertions.  The  dictionary defines the verb ìto assertî as ìto state a fact or belief confidently and forcefully.î This is something we do in a courtroom. We assert that it was  Miss  Peacock  in  the  kitchen  with  a  rope  because  thatís  what  we believe to be true.
+We  also  talk  about  expectations  instead  of  assertions.  The  dictionary defines the verb ‚Äúto assert‚Äù as ‚Äúto state a fact or belief confidently and forcefully.‚Äù This is something we do in a courtroom. We assert that it was  Miss  Peacock  in  the  kitchen  with  a  rope  because  that‚Äôs  what  we believe to be true.
 
-In  executable  code  examples,  we  are  setting  an  expectation  of  what should happen rather than what will happen. In fact, weíve embedded the word should  right into RSpecís expectation framework. For example, if we are expecting the result of a calculation to be the number 5, hereís how we express this in RSpec:
+In  executable  code  examples,  we  are  setting  an  expectation  of  what should happen rather than what will happen. In fact, we‚Äôve embedded the word should  right into RSpec‚Äôs expectation framework. For example, if we are expecting the result of a calculation to be the number 5, here‚Äôs how we express this in RSpec:
 
 result.should equal(5)
 
@@ -18,9 +18,9 @@ lambda { do_something_risky }.should raise_error(
 RuntimeError, "sometimes risks pay off ... but not this time"
 )
 
-In  this  chapter,  youíll  learn  about  all  of  RSpecís  built-in  expectations and the simple framework that RSpec uses to express them. Youíll also learn how to extend RSpec with your own domain-specific expectations. With little effort, youíll be able to express things like this:
+In  this  chapter,  you‚Äôll  learn  about  all  of  RSpec‚Äôs  built-in  expectations and the simple framework that RSpec uses to express them. You‚Äôll also learn how to extend RSpec with your own domain-specific expectations. With little effort, you‚Äôll be able to express things like this:
 
 judge.should disqualify(participant)
 registration.should notify_applicant("person@domain.com", /Dear Person/)
 
-To better understand RSpecís expectations, letís get familiar with their different  parts.  Weíll  start  off  by  taking  a  closer  look  at  the  should( ) and should_not( ) methods, followed by a detailed discussion of various types of matchers. As youíll see, RSpec supports matchers for common operations that you might expect, like equality, and some more unusual expressions as well.
+To better understand RSpec‚Äôs expectations, let‚Äôs get familiar with their different  parts.  We‚Äôll  start  off  by  taking  a  closer  look  at  the  should( ) and should_not( ) methods, followed by a detailed discussion of various types of matchers. As you‚Äôll see, RSpec supports matchers for common operations that you might expect, like equality, and some more unusual expressions as well.

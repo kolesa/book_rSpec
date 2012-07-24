@@ -1,4 +1,4 @@
-5.5  What We�ve Learned
+﻿5.5  What We’ve Learned
 
 We started this chapter with a logical failure in a Cucumber scenario. This was our cue to jump from the outer circle (Cucumber) to the inner circle (RSpec) of the BDD cycle.
 

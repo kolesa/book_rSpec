@@ -1,4 +1,4 @@
-14.2  Method Stubs
+Ôªø14.2  Method Stubs
 
 A method stub  is a method that we can program to return predefined responses during the execution of a code example. Consider the following:
 
@@ -11,9 +11,9 @@ Line 1  describe Statement do
 7 	 end
 8  end
 
-This  example  specifies  that  a  statement  uses  its  customerís  name  to generate  part  of  the  statement.  The  customer  double  stands  in  for  a real Customer. Thanks to Rubyís dynamic typing, the customer can be of any class, as long as it responds to the right methods.
+This  example  specifies  that  a  statement  uses  its  customer‚Äôs  name  to generate  part  of  the  statement.  The  customer  double  stands  in  for  a real Customer. Thanks to Ruby‚Äôs dynamic typing, the customer can be of any class, as long as it responds to the right methods.
 
-We  create  a  test  double  using  the  double( )  method  on  line  3.  On  line 4, we create a method stub using the stub( ) method. It takes a single argument: a symbol representing the name of the method that we want to stub. We follow that with a call to and_return( ), which tells the double to return íAslakí in response to the name( ) message.(2)
+We  create  a  test  double  using  the  double( )  method  on  line  3.  On  line 4, we create a method stub using the stub( ) method. It takes a single argument: a symbol representing the name of the method that we want to stub. We follow that with a call to and_return( ), which tells the double to return ‚ÄôAslak‚Äô in response to the name( ) message.(2)
 
 Here is a simple implementation that will pass this example:
 
@@ -29,7 +29,7 @@ Line 1  class Statement
 
 When the example is executed, the code on line 6 in the example sends the  generate( )  message  to  the  Statement  object.  This  is  the  object  in development and is a real Statement.
 
-When the Statement  executes the generate( ) method, it asks the @customer  for its name( ). The customer is not the focus of this example. It is  an  immediate  collaborator  of  the  Statement,  and  weíre  using  a  test double to stand in for a real Customer in order to control the data in the example. We programmed it to return íAslakí, so the result is ìStatement for Aslak,î and the example passes.
+When the Statement  executes the generate( ) method, it asks the @customer  for its name( ). The customer is not the focus of this example. It is  an  immediate  collaborator  of  the  Statement,  and  we‚Äôre  using  a  test double to stand in for a real Customer in order to control the data in the example. We programmed it to return ‚ÄôAslak‚Äô, so the result is ‚ÄúStatement for Aslak,‚Äù and the example passes.
 
 Of course, we could also implement the generate( ) method like this:
 
@@ -40,8 +40,8 @@ Line 1  def generate
 That  is,  after  all,  the  simplest  thing  we  could  do  to  get  the  example to  pass.  This  is  what  traditional  TDD  instructs  us  to  do  first.  What  it instructs us to do next varies from practitioner to practitioner. One approach is to triangulate, in other words, add another example that uses  a  different  value,  forcing  the  implementation  to  generalize  the value in order to pass both examples.
 
 
-2.  This sort of method chaining is called a fluent interface  and is quite common in all of Rubyís most common test double frameworks. In fact, earlier versions of RSpec used fluent interfaces to set expectations like result.should.equal(4).
+2.  This sort of method chaining is called a fluent interface  and is quite common in all of Ruby‚Äôs most common test double frameworks. In fact, earlier versions of RSpec used fluent interfaces to set expectations like result.should.equal(4).
 
-Another approach is to view the íAslakí in the implementation as duplication with the íAslakí in the example. Following the DRY principle, we remove that duplication by generalizing the implementation.
+Another approach is to view the ‚ÄôAslak‚Äô in the implementation as duplication with the ‚ÄôAslak‚Äô in the example. Following the DRY principle, we remove that duplication by generalizing the implementation.
 
 Neither  of  these  approaches  is  ideal.  Triangulation  requires  an  extra example that specifies the same essential behavior. DRY is certainly a worthy justification, but it requires that we take that extra step. Experience shows that this approach will periodically result in hard-coded values  remaining  in  implementation  code.  There  is,  however,  a  third option!

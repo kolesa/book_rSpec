@@ -1,28 +1,28 @@
-14.8  Risks and Trade-Offs
+ï»¿14.8  Risks and Trade-Offs
 
-In this section, we’ll look at some of the common pitfalls related to test doubles, things that we should avoid, and things that can alert us to design problems.
+In this section, weâ€™ll look at some of the common pitfalls related to test doubles, things that we should avoid, and things that can alert us to design problems.
 
 Over-specification
 
 Mock objects should make it easy to set up the context for our exam- ples. If we need a bunch of mocks in one example, we end up with a long and confusing setup.
 
-Specify  only  what  is  absolutely  necessary  for  the  current  example.  If that turns out to be a lot, it’s time to reevaluate the design; it may be more coupled than previously thought.
+Specify  only  what  is  absolutely  necessary  for  the  current  example.  If that turns out to be a lot, itâ€™s time to reevaluate the design; it may be more coupled than previously thought.
 
 Nested Doubles
 
-Doubles should not only be simple  to set up;  they should be shallow as well. Although not all methods that we specify on doubles need to return values, many do. When they do, it’s generally best if the return value is a simple value, such as a language primitive or a value object.
+Doubles should not only be simple  to set up;  they should be shallow as well. Although not all methods that we specify on doubles need to return values, many do. When they do, itâ€™s generally best if the return value is a simple value, such as a language primitive or a value object.
 
 One  exception  to  this  guideline  is  when  we  want  to  introduce  a  double through a query, as we demonstrated in Section 14.4, Test-Specific Extensions, on page 197. In this case, we can stub the query method to return the double.
 
-When we do find it necessary to nest doubles, it’s quite often a sign that we’re working with a preexisting design that may have some coupling problems. A general rule of thumb is that if the code is hard to use in examples, it’s going to be hard to use everywhere else.
+When we do find it necessary to nest doubles, itâ€™s quite often a sign that weâ€™re working with a preexisting design that may have some coupling problems. A general rule of thumb is that if the code is hard to use in examples, itâ€™s going to be hard to use everywhere else.
 
 Absence of Coverage
 
-One goal of BDD (and TDD) is to develop confidence in the system by taking small, verifiable steps and building up a suite of regression tests as  we  go.  When  we’re  using  mock  objects  in  dynamic  languages  like Ruby, it is possible to change an object’s API and forget to change the examples that mock that same API.
+One goal of BDD (and TDD) is to develop confidence in the system by taking small, verifiable steps and building up a suite of regression tests as  we  go.  When  weâ€™re  using  mock  objects  in  dynamic  languages  like Ruby, it is possible to change an objectâ€™s API and forget to change the examples that mock that same API.
 
 The result can be that all of our examples pass, yet when we start up the  application,  the  wheels  fall  off  right  away  because  one  object  is sending  the wrong  message to  another. There  is  little  that can  knock our confidence in our system more than finding such a gaping hole in our regression test suite.
 
-One remedy for this situation is to have some higher level of automated testing in place. In BDD, we start with automated acceptance criteria before we even start developing objects, so this should not be an issue. Even if we forget to change the API on a mock, the automated scenar - ios should catch any problems we’ve introduced very shortly after we introduce them.
+One remedy for this situation is to have some higher level of automated testing in place. In BDD, we start with automated acceptance criteria before we even start developing objects, so this should not be an issue. Even if we forget to change the API on a mock, the automated scenar - ios should catch any problems weâ€™ve introduced very shortly after we introduce them.
 
 But, to the extent that we do not  follow this practice, we also increase the risk of getting false-positive feedback from our specs.
 
@@ -30,7 +30,7 @@ Brittle Examples
 
 The  biggest  pitfall  of  over -use  of  mocks  is  that  examples  can  become brittle.  The  more  we  specify  about  interactions  with  dependencies  in an example, the more likely that example will be impacted by changes to  other  code  in  the  system.  This  is  the  same  impact  that  any  highly coupled code has on a system.
 
-This  brittleness  is  more  likely  to  emerge  when  back-filling  examples onto existing code that is already highly coupled. Mocks can be helpful in this situation if we listen to them. If mocks are painful to set up, it’s a red flag that the design might be too highly coupled.
+This  brittleness  is  more  likely  to  emerge  when  back-filling  examples onto existing code that is already highly coupled. Mocks can be helpful in this situation if we listen to them. If mocks are painful to set up, itâ€™s a red flag that the design might be too highly coupled.
 
-When we’re using mocks as intended, to discover new roles and APIs, there is a natural tendency for them to be simple and usable because we’re working from the client perspective. This becomes somewhat of a self-fulfilling prophecy. We want our mocks to be simple to set up, and so they are. And when they are simple to set up, the resulting code is generally more highly decoupled.
+When weâ€™re using mocks as intended, to discover new roles and APIs, there is a natural tendency for them to be simple and usable because weâ€™re working from the client perspective. This becomes somewhat of a self-fulfilling prophecy. We want our mocks to be simple to set up, and so they are. And when they are simple to set up, the resulting code is generally more highly decoupled.
 

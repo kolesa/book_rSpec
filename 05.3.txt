@@ -1,6 +1,6 @@
-5.3  Green: Get the Example to Pass
+Ôªø5.3  Green: Get the Example to Pass
 
-The failure message tells us that output never received puts. Hereís what we need to do to get this example to pass:
+The failure message tells us that output never received puts. Here‚Äôs what we need to do to get this example to pass:
 
 Download cb/10/lib/codebreaker/game.rb
 
@@ -31,7 +31,7 @@ Pending:
 Finished in 0.00144 seconds
 2 examples, 0 failures, 1 pending
 
-We have our first passing example! Weíve gone from red to green. The next step in the cycle is to refactor. We donít really have any duplication yet, so letís see whether weíve had any impact on the features:
+We have our first passing example! We‚Äôve gone from red to green. The next step in the cycle is to refactor. We don‚Äôt really have any duplication yet, so let‚Äôs see whether we‚Äôve had any impact on the features:
 
 Scenario: start game
 	Given I am not yet playing
@@ -40,13 +40,13 @@ Scenario: start game
 	And I should see "Enter guess:"
 		expected ["Welcome to Codebreaker!"] to include "Enter guess:"
 
-Progress!  Now  one  of  the  two  Thens  is  passing,  so  it  looks  like  weíre about halfway done with this feature. Actually, weíre quite a bit more than  halfway  done,  because,  as  youíll  soon  see,  all  the  pieces  are  al- ready in place for the rest.
+Progress!  Now  one  of  the  two  Thens  is  passing,  so  it  looks  like  we‚Äôre about halfway done with this feature. Actually, we‚Äôre quite a bit more than  halfway  done,  because,  as  you‚Äôll  soon  see,  all  the  pieces  are  al- ready in place for the rest.
  
 
 
 Next Step
 
-The  following  failing  step  is  the  next  thing  to  work  on:  And  I  should see ìEnter guess:î.  Go  ahead  and  add  an  example  for  this  behavior  to game_spec.rb:
+The  following  failing  step  is  the  next  thing  to  work  on:  And  I  should see ‚ÄúEnter guess:‚Äù.  Go  ahead  and  add  an  example  for  this  behavior  to game_spec.rb:
 
 Download cb/11/spec/codebreaker/game_spec.rb
 
@@ -76,7 +76,7 @@ module Codebreaker
 	end 
 end
 
-This is very similar to the first example, but weíre expecting a different message. Weíll come back and DRY that up in a bit, but first letís get it passing. Run the spec, and watch it fail:
+This is very similar to the first example, but we‚Äôre expecting a different message. We‚Äôll come back and DRY that up in a bit, but first let‚Äôs get it passing. Run the spec, and watch it fail:
 
 Codebreaker::Game
 	#start
@@ -97,7 +97,7 @@ Finished in 0.00199 seconds
  
 
 
-This  time,  the  output  didnít  receive  puts('Enter guess:').  Resolve  that  as follows:
+This  time,  the  output  didn‚Äôt  receive  puts('Enter guess:').  Resolve  that  as follows:
 
 Download cb/12/lib/codebreaker/game.rb
 
@@ -141,20 +141,20 @@ Failures:
 Finished in 0.00219 seconds
 2 examples, 2 failures
 
-And ta-da! Now not only is the second example still failing, but the first example is failing as well! Whoída thunk? This may seem a bit confusing if youíve never worked with test doubles and message expectations before,  but  test  doubles  are  like  computers.  They  are  extraordinarily obedient,  but  they  are  not  all  that  clever.  By  default,  they will  expect exactly what you tell them to expect, nothing more and nothing less.
+And ta-da! Now not only is the second example still failing, but the first example is failing as well! Who‚Äôda thunk? This may seem a bit confusing if you‚Äôve never worked with test doubles and message expectations before,  but  test  doubles  are  like  computers.  They  are  extraordinarily obedient,  but  they  are  not  all  that  clever.  By  default,  they will  expect exactly what you tell them to expect, nothing more and nothing less.
 
-Weíve told the double in the first example to expect puts( ) with ìWelcome to Codebreaker!î and weíve satisfied that requirement, but weíve only told  it  to  expect  ìWelcome  to  Codebreaker!î  It  doesnít  know  anything about ìEnter guess:î
+We‚Äôve told the double in the first example to expect puts( ) with ‚ÄúWelcome to Codebreaker!‚Äù and we‚Äôve satisfied that requirement, but we‚Äôve only told  it  to  expect  ‚ÄúWelcome  to  Codebreaker!‚Äù  It  doesn‚Äôt  know  anything about ‚ÄúEnter guess:‚Äù
 
-Similarly, the double in the second example expects ìEnter guess:î but the first message it gets is ìWelcome to Codebreaker!î
+Similarly, the double in the second example expects ‚ÄúEnter guess:‚Äù but the first message it gets is ‚ÄúWelcome to Codebreaker!‚Äù
 
-We could combine these two into a single example, but we like to follow the guideline of ìone expectation per example.î The rationale here is  that  if  there  are  two  expectations  in  an  example  that  should both fail  given  the  implementation  at  that  moment,  weíll  only  see  the  first failure. No sooner do we meet that expectation than we discover that we havenít met the second expectation. If they live in separate examples, then theyíll both fail, and that will provide us with more accurate 
+We could combine these two into a single example, but we like to follow the guideline of ‚Äúone expectation per example.‚Äù The rationale here is  that  if  there  are  two  expectations  in  an  example  that  should both fail  given  the  implementation  at  that  moment,  we‚Äôll  only  see  the  first failure. No sooner do we meet that expectation than we discover that we haven‚Äôt met the second expectation. If they live in separate examples, then they‚Äôll both fail, and that will provide us with more accurate 
 information than if only one of them is failing.
 
-We  could  also  try  to  break  the  messages  up  into  different  steps,  but weíve already defined how we want to talk to the game object. So, how can we resolve this?
+We  could  also  try  to  break  the  messages  up  into  different  steps,  but we‚Äôve already defined how we want to talk to the game object. So, how can we resolve this?
 
 as_null_object
 
-There are a couple of ways we can go about it, but the simplest way is to tell the double output to only listen for the messages we tell it to expect and ignore any other messages.3  This is based on the Null Object design pattern described in Pattern Languages of Program Design 3 [MRB97] and is supported by RSpecís double framework with the as_null_object( ) method:
+There are a couple of ways we can go about it, but the simplest way is to tell the double output to only listen for the messages we tell it to expect and ignore any other messages.3  This is based on the Null Object design pattern described in Pattern Languages of Program Design 3 [MRB97] and is supported by RSpec‚Äôs double framework with the as_null_object( ) method:
 
 Download cb/13/spec/codebreaker/game_spec.rb
 
@@ -182,7 +182,7 @@ module Codebreaker describe
 	end
 end
 
-3.  Actually,  thatís  not  completely  true.  Unexpected  messages  are  actually  recorded because it is sometimes helpful to include them in failure messages.
+3.  Actually,  that‚Äôs  not  completely  true.  Unexpected  messages  are  actually  recorded because it is sometimes helpful to include them in failure messages.
 
 Run the rspec command again, and you should see this:
 
@@ -194,6 +194,6 @@ Codebreaker::Game
 Finished in 0.00174 seconds
 2 examples, 0 failures
 
-Good news. Both examples are now passing. Now that we have green, itís time to refactor!
+Good news. Both examples are now passing. Now that we have green, it‚Äôs time to refactor!
 
 

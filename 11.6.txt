@@ -1,14 +1,14 @@
-11.6  What We’ve Learned
+ï»¿11.6  What Weâ€™ve Learned
 
 Behaviour -driven  development  has  grown  from  an  experiment  in  reframing TDD to make it easier to understand into a fully fledged Agile methodology.
 
 BDD is based on three core principles, namely:
 
-•  Enough is enough. We should work to achieve the stakeholder’s expectations but avoid doing more than we need to do.
+â€¢  Enough is enough. We should work to achieve the stakeholderâ€™s expectations but avoid doing more than we need to do.
 
-•  Deliver  stakeholder  value.  There  are  multiple  stakeholders— both core and incidental—and everything we do should be about delivering demonstrable value to them.
+â€¢  Deliver  stakeholder  value.  There  are  multiple  stakeholdersâ€” both core and incidentalâ€”and everything we do should be about delivering demonstrable value to them.
 
-•  It’s  all  behavior.  Just  as  we  can  describe  the  application’s  be- havior from the perspective of the stakeholders, we can describe low-level  code  behavior  from  the  perspective  of  other  code  that uses it.
+â€¢  Itâ€™s  all  behavior.  Just  as  we  can  describe  the  applicationâ€™s  be- havior from the perspective of the stakeholders, we can describe low-level  code  behavior  from  the  perspective  of  other  code  that uses it.
 
 At the start of a project or a release, we carry out some sort of inception activities to understand the purpose of the work we are doing and to create  a  shared  vision.  This  is  about  the  deliberate  discovery  of  risks and potential pitfalls along the way.
 

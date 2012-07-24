@@ -1,8 +1,8 @@
-18.1  Step Definitions
+ï»¿18.1  Step Definitions
 
-Step  definitions  are  Cucumber’s  equivalent  of  method  definitions  or function declarations in a conventional programming language. We define them in Ruby,1  and they are invoked when Cucumber parses steps in the plain-text features.
+Step  definitions  are  Cucumberâ€™s  equivalent  of  method  definitions  or function declarations in a conventional programming language. We define them in Ruby,1  and they are invoked when Cucumber parses steps in the plain-text features.
 
-We  wrote  a  scenario  with  a  single  step  earlier  in  Section  17.6,  Steps, on page 260. Open a command prompt to the hotel directory again, and type the cucumber command. Here’s the output:
+We  wrote  a  scenario  with  a  single  step  earlier  in  Section  17.6,  Steps, on page 260. Open a command prompt to the hotel directory again, and type the cucumber command. Hereâ€™s the output:
 
 # language:en
 Feature: Traveler books room
@@ -36,7 +36,7 @@ Given /^a hotel with "([^"]*)" rooms and "([^"]*)" bookings$/ do
 	|room_count, booking_count|
 end
 
-The code that hooks up to the application code goes in the block passed to  the  Given( )  method.  For  demo  purposes,  we’re  leaving  the  block empty. Run your feature again as before, and look at the output. Every- thing should be passing in nice green color:
+The code that hooks up to the application code goes in the block passed to  the  Given( )  method.  For  demo  purposes,  weâ€™re  leaving  the  block empty. Run your feature again as before, and look at the output. Every- thing should be passing in nice green color:
 
 # language:en
 Feature: Book room
@@ -56,7 +56,7 @@ Several  things  changed  when  we  added  the  step  definition.  First,  the s
 
 Arguments
 
-If  a  step  definition’s  regular  expression  contains  one  or  more  capture groups,  it  will  treat  them  as  arguments  to  the  step definition’s  block. The  step  definition  has  the  regular  expression  /^a  hotel  with  "([^\"]*)" rooms and "([^\"]*)" bookings$/, and when that is matched with the plain- text  step  a hotel with "5" rooms and "0" bookings,  it  extracts  the  strings  5 and 0 and passes them as arguments to the block.
+If  a  step  definitionâ€™s  regular  expression  contains  one  or  more  capture groups,  it  will  treat  them  as  arguments  to  the  step definitionâ€™s  block. The  step  definition  has  the  regular  expression  /^a  hotel  with  "([^\"]*)" rooms and "([^\"]*)" bookings$/, and when that is matched with the plain- text  step  a hotel with "5" rooms and "0" bookings,  it  extracts  the  strings  5 and 0 and passes them as arguments to the block.
 
 Note that arguments are always passed as Strings, so if we want to treat an  argument  as  a  different  type,  we  have  to  manage  that  explicitly. More about that in a little while.
 

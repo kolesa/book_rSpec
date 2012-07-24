@@ -1,11 +1,11 @@
-21.6  What We’ve Learned
+ï»¿21.6  What Weâ€™ve Learned
 
-Before we move on to looking at how the Automated Browser style of step definitions can be used to exercise interactions that are dependent on JavaScript, let’s take a moment to consider what we’ve learned.
+Before we move on to looking at how the Automated Browser style of step definitions can be used to exercise interactions that are dependent on JavaScript, letâ€™s take a moment to consider what weâ€™ve learned.
 
-•  Webrat simulates a browser by building on the functionality of the Rails integration testing API, providing an expressive language to describe manipulating a web application.
+â€¢  Webrat simulates a browser by building on the functionality of the Rails integration testing API, providing an expressive language to describe manipulating a web application.
 
-•  By specifying behavior at a high level and avoiding coupling our tests to implementation details, we  can build expressive and ro- bust  step  definitions  that  give  us  confidence  that  the  full  Rails stack stays working while avoiding brittle scenarios.
+â€¢  By specifying behavior at a high level and avoiding coupling our tests to implementation details, we  can build expressive and ro- bust  step  definitions  that  give  us  confidence  that  the  full  Rails stack stays working while avoiding brittle scenarios.
 
-•  Leveraging  the  DMA  style  for  Givens  can  provide  convenience, simplicity,  and  speed  without  reducing  confidence.  We  use  this approach when the actions required to get to a specific database state have already been exercised through the full Rails stack in their own Simulated Browser scenarios.
-•  Through the course of describing the actions in our scenarios in our When steps, Webrat implicitly ensures that requests are successful  and  the  right  links  and  form  elements  are  on  the  page. In  our  Then  steps,  we  specify  the  outcomes  from  our  scenarios  in  terms  of  expected  text  and  elements  using  Webrat’s  view matchers.
+â€¢  Leveraging  the  DMA  style  for  Givens  can  provide  convenience, simplicity,  and  speed  without  reducing  confidence.  We  use  this approach when the actions required to get to a specific database state have already been exercised through the full Rails stack in their own Simulated Browser scenarios.
+â€¢  Through the course of describing the actions in our scenarios in our When steps, Webrat implicitly ensures that requests are successful  and  the  right  links  and  form  elements  are  on  the  page. In  our  Then  steps,  we  specify  the  outcomes  from  our  scenarios  in  terms  of  expected  text  and  elements  using  Webratâ€™s  view matchers.
  

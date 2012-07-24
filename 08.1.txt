@@ -1,6 +1,6 @@
-8.1  Sniffing Out Code Smells
+Ôªø8.1  Sniffing Out Code Smells
 
-A code smell, according to the c2 wiki,(1)  is ìa hint that something has gone  wrong  somewhere  in  your  code.î  The  Refactoring  book  catalogs and  categorizes  several  of  them.  Weíre  not  going  to  go  through  every code smell, but weíll examine the guess method and see what smells we might discover. Here is how we left it:
+A code smell, according to the c2 wiki,(1)  is ‚Äúa hint that something has gone  wrong  somewhere  in  your  code.‚Äù  The  Refactoring  book  catalogs and  categorizes  several  of  them.  We‚Äôre  not  going  to  go  through  every code smell, but we‚Äôll examine the guess method and see what smells we might discover. Here is how we left it:
 
 Download cb/38/lib/codebreaker/game.rb
 
@@ -27,15 +27,15 @@ If  you  just  finished  reading  the  previous  chapter,  this  should  make pr
 
 Of course, when we explain it like that, it is clear that this method is procedural code embedded in an object structure. Generally speaking, we want to avoid procedural code because it has a tendency to grow in complexity and become progressively difficult to understand and maintain.
 
-If  youíre  familiar  with  code  smells,  you  may  recognize  two  of  them in  this  method:  Temporary  Variable  and  Long  Method.  Both  of  these smells are related to procedural methods like this.
+If  you‚Äôre  familiar  with  code  smells,  you  may  recognize  two  of  them in  this  method:  Temporary  Variable  and  Long  Method.  Both  of  these smells are related to procedural methods like this.
 
 Temporary Variable
 
-The mark  variable in the guess  method is the temporary variable weíre talking  about.  The  problem  with  temp  variables  is  that  they  tend  to change state within a method. As a method grows longer, this makes it easier to introduce bugs based on poor understanding of the state of that variable at any given moment in the method.
+The mark  variable in the guess  method is the temporary variable we‚Äôre talking  about.  The  problem  with  temp  variables  is  that  they  tend  to change state within a method. As a method grows longer, this makes it easier to introduce bugs based on poor understanding of the state of that variable at any given moment in the method.
 
 Right now, the mark variable has eight opportunities to change state before we send it to the output. If anything goes wrong in either of the iterators, it will be difficult to track down which iteration of which iterator.
 
-Weíll clean this up during our refactoring this chapter.
+We‚Äôll clean this up during our refactoring this chapter.
 
 Long Method
 

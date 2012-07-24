@@ -1,8 +1,8 @@
-14.4  Test-Specific Extensions
+ï»¿14.4  Test-Specific Extensions
 
 As the name suggests, a test-specific extension is an extension of an object that is specific to a particular test, or example  in our case. We call them test-specific extensions because it is very similar to the test-specific subclass  pattern  described  by  Meszaros,  in  which  a  subclass of a real class is used to extend instances to support test-double-like behavior.
 
-Thanks to Ruby’s metaprogramming model, we can get the same result by extending existing objects. And because the resulting object is partially the original object and partially a test double, we commonly refer to this technique as partial mocking and stubbing.
+Thanks to Rubyâ€™s metaprogramming model, we can get the same result by extending existing objects. And because the resulting object is partially the original object and partially a test double, we commonly refer to this technique as partial mocking and stubbing.
 
 Partial Stubbing
 
@@ -10,10 +10,10 @@ Consider  a  case  in  Ruby  on  Rails  where  we  want  to  disconnect  the sys
  
  Given,  When,  Then  with  Test  Spies 
  
-Libraries like RR and the ironically named not-a-mock use the Test  Spy  pattern  to  provide  a  means  of  expressing  message expectations  in  the  past  tense,  thereby  maintaining  the  flow of expectations at the end of an example.?  As of this writing, RSpec::Mocks does not support test spies, but, luckily, both not-a-mock and RR plug right into RSpec and can be used instead of RSpec::Mocks if spies are what you’re after.
+Libraries like RR and the ironically named not-a-mock use the Test  Spy  pattern  to  provide  a  means  of  expressing  message expectations  in  the  past  tense,  thereby  maintaining  the  flow of expectations at the end of an example.?  As of this writing, RSpec::Mocks does not support test spies, but, luckily, both not-a-mock and RR plug right into RSpec and can be used instead of RSpec::Mocks if spies are what youâ€™re after.
 
-Here’s  what  our  statement,  customer,  logger  example  might look like 
-using not-a-mock: †
+Hereâ€™s  what  our  statement,  customer,  logger  example  might look like 
+using not-a-mock: â€ 
 
 describe Statement do
 	it "logs a message when on generate()" do 
@@ -29,7 +29,7 @@ describe Statement do
 	end 
 end
 
-And here it is with RR:‡
+And here it is with RR:â€¡
 
 describe Statement do
 	it "logs a message when on generate()" do 
@@ -44,10 +44,10 @@ describe Statement do
 	end
 
 *.  http://xunitpatterns.com/Test%20Spy.html
-†. http://github.com/notahat/not_a_mock
-‡. http://github.com/btakita/rr
+â€ . http://github.com/notahat/not_a_mock
+â€¡. http://github.com/btakita/rr
  
-Here’s an example:
+Hereâ€™s an example:
 
 describe WidgetsController do
 	describe "PUT update with valid attributes"
@@ -63,24 +63,24 @@ end
 
 There are a few things going on in this example:
 
-•  We stub the class-level find()  method to return a known value, in this case, the Widget object created on the previous line.
+â€¢  We stub the class-level find()  method to return a known value, in this case, the Widget object created on the previous line.
 
-•  We  stub  the  update_attributes()  method  of  the  widget  object,  programming it to return true.
+â€¢  We  stub  the  update_attributes()  method  of  the  widget  object,  programming it to return true.
 
-•  We invoke the put( ) method from the Rails functional testing API.3
+â€¢  We invoke the put( ) method from the Rails functional testing API.3
 
-•  We set an expectation that the response  object should redirect to the list of widgets.
+â€¢  We set an expectation that the response  object should redirect to the list of widgets.
 
-This example specifies exactly what the description suggests: Widgets-Controller PUT update with valid attributes redirects to the list of widgets. That the attributes are valid is a given in this example, and we don’t really need to know what constitutes valid attributes  in order to specify the controller’s behavior in response to them. We just program the Widget to pretend it has valid attributes.
+This example specifies exactly what the description suggests: Widgets-Controller PUT update with valid attributes redirects to the list of widgets. That the attributes are valid is a given in this example, and we donâ€™t really need to know what constitutes valid attributes  in order to specify the controllerâ€™s behavior in response to them. We just program the Widget to pretend it has valid attributes.
 
-This means that changes to the Widget’s validation rules will not have any impact on this example. As long as the controller’s responsibility does not change, this example won’t need to change, nor will the con- troller itself.
-There is also no dependency on the database in this example—well, no explicit dependency. Rails will try to load up the schema for the widgets table the first time it loads widget.rb, but that is the only database interaction. There are no additional database interactions as a result of this example. If we use a Rails plug-in like NullDB,4  we can completely disconnect from the database, and this example will still run.
+This means that changes to the Widgetâ€™s validation rules will not have any impact on this example. As long as the controllerâ€™s responsibility does not change, this example wonâ€™t need to change, nor will the con- troller itself.
+There is also no dependency on the database in this exampleâ€”well, no explicit dependency. Rails will try to load up the schema for the widgets table the first time it loads widget.rb, but that is the only database interaction. There are no additional database interactions as a result of this example. If we use a Rails plug-in like NullDB,4  we can completely disconnect from the database, and this example will still run.
 
-3.  As  you’ll  learn  about  in  Chapter  24,  Rails Controllers,  on  page  345,  the  rspec-rails library provides rspec-flavored wrappers around Rails’ built-in testing facilities.
+3.  As  youâ€™ll  learn  about  in  Chapter  24,  Rails Controllers,  on  page  345,  the  rspec-rails library provides rspec-flavored wrappers around Railsâ€™ built-in testing facilities.
 
 Partial Mocking
 
-In the WidgetsController example, it is possible to get it to pass without ever actually finding a widget or updating its attributes. As long as the controller  method  redirects  to  the  widgets_path,  that  example  passes. For this reason and for the purposes of documentation, we may want separate  examples  that  specify  these  details.  For  these  examples,  we can set message expectations on the Widget class and instance instead of method stubs. This is called partial mocking. Here’s what this might look like:
+In the WidgetsController example, it is possible to get it to pass without ever actually finding a widget or updating its attributes. As long as the controller  method  redirects  to  the  widgets_path,  that  example  passes. For this reason and for the purposes of documentation, we may want separate  examples  that  specify  these  details.  For  these  examples,  we can set message expectations on the Widget class and instance instead of method stubs. This is called partial mocking. Hereâ€™s what this might look like:
 describe WidgetsController do
 	describe "PUT update with valid attributes"
 		it "finds the widget"
@@ -100,7 +100,7 @@ describe WidgetsController do
 	end
 end
 
-Note  how  we  mix  method  stubs  and  message  expectations  in  these examples. The first example specifies that the WidgetsController finds the widget,  so  we  set  an  expectation  that  the  Widget  class  should receive the  find( )  method.  We  need  to  program  the  widget  to  return  true  for update_attributes( ), but we’re not specifying that it is called in this exam- ple, so we just use a method stub.
+Note  how  we  mix  method  stubs  and  message  expectations  in  these examples. The first example specifies that the WidgetsController finds the widget,  so  we  set  an  expectation  that  the  Widget  class  should receive the  find( )  method.  We  need  to  program  the  widget  to  return  true  for update_attributes( ), but weâ€™re not specifying that it is called in this exam- ple, so we just use a method stub.
 
 Message  expectations  on  the  real  model  objects  allow  us  to  specify how the controller interacts with them, rather than a specific outcome.
 
@@ -116,4 +116,4 @@ WidgetsController
 
 As  you  can  see  just  from  the  output,  these  techniques  help  us  spec- ify what the WidgetsController does. And by using different techniques in different examples, we are able to keep each example focused on a specific granular facet of the behavior.
 
-Partial  stubbing/mocking  isn’t  risk  free.  We  must  take  care  not  to replace  too  much  of  the  real  objects  with  stub/mock  methods.  This is especially important for the subject of the example, because we end up  not  working  with  the  object  we  thought  we  were.  So,  keep  partial mocking to an absolute minimum.
+Partial  stubbing/mocking  isnâ€™t  risk  free.  We  must  take  care  not  to replace  too  much  of  the  real  objects  with  stub/mock  methods.  This is especially important for the subject of the example, because we end up  not  working  with  the  object  we  thought  we  were.  So,  keep  partial mocking to an absolute minimum.

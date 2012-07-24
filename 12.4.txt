@@ -1,4 +1,4 @@
-12.4  Helper Methods
+ï»¿12.4  Helper Methods
 
 Another approach to cleaning up our examples is to use helper methods that we define right in the example group, which are then accessible from all the examples in that group. Imagine that we have several examples in one example group, and at one point in each example we need to perform some action that is somewhat verbose.
 
@@ -38,7 +38,7 @@ describe Thing do
 	end 
 end
 
-One idiom you can apply to clean this up even more is to yield self from initializers in your objects. Assuming that Thing’s initialize( ) method does this and set_status( ) does as well, you can write the previous like this:
+One idiom you can apply to clean this up even more is to yield self from initializers in your objects. Assuming that Thingâ€™s initialize( ) method does this and set_status( ) does as well, you can write the previous like this:
 
 describe Thing do
 	def given_thing_with(options)
@@ -92,7 +92,7 @@ describe User do
 		# do stuff
 	end
 
-If we have a module of helper methods that we’d like available in all of our  example  groups,  we  can  include  the  module  in  the  configuration (see Section 16.2, Configuration, on page 235 for more information):
+If we have a module of helper methods that weâ€™d like available in all of our  example  groups,  we  can  include  the  module  in  the  configuration (see Section 16.2, Configuration, on page 235 for more information):
 
 RSpec.configure do |config|
 	config.include(UserExampleHelpers)

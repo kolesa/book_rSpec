@@ -1,4 +1,4 @@
-15.1  The rspec Command
+Ôªø15.1  The rspec Command
 
 The rspec command is installed when you install the rspec-core gem; it provides a number of options that let you customize how RSpec works. You can print a list of these options by asking for help:
 
@@ -27,27 +27,27 @@ You should see output like this:
 Finished in 0.00064 seconds
 1 example, 0 failures
 
-This is RSpecís default output format, the progress bar format. It prints out a dot for every example that is executed and passes (only one in this case). If an example fails, it prints an F. If an example is pending, it prints an *. These dots, Fís, and *ís are printed after each example is run, so when you have many examples, you can actually see the progress of the run, which is why itís called a ìprogressî bar.
+This is RSpec‚Äôs default output format, the progress bar format. It prints out a dot for every example that is executed and passes (only one in this case). If an example fails, it prints an F. If an example is pending, it prints an *. These dots, F‚Äôs, and *‚Äôs are printed after each example is run, so when you have many examples, you can actually see the progress of the run, which is why it‚Äôs called a ‚Äúprogress‚Äù bar.
 
 After the progress bar, it prints out the time it took to run and then a summary  of  what  was  run.  In  this  case,  we  ran  one  example,  and  it passed, so there are no failures.
 
 Run Several Specs at Once
 
-Running individual files directly is handy for some cases, but in most cases you really want to run many of them in one go. To do this, just pass the directory containing your spec files to the rspec command. So, if your spec files are in the spec directory (they are, arenít they?), you can just do this:
+Running individual files directly is handy for some cases, but in most cases you really want to run many of them in one go. To do this, just pass the directory containing your spec files to the rspec command. So, if your spec files are in the spec directory (they are, aren‚Äôt they?), you can just do this:
 
 rspec spec
 
-...or if youíre in a Rails project, you can do this:
+...or if you‚Äôre in a Rails project, you can do this:
 
 bundle exec rspec spec
 
-In either case, the rspec command will load all the spec files in the spec directory  and  its  subdirectories.  By  default,  the  rspec  command  only loads files ending with _spec.rb. Although this is the convention, you can configure RSpec to load files based on any pattern you choose. Weíll ex- plore that later in this chapter.
+In either case, the rspec command will load all the spec files in the spec directory  and  its  subdirectories.  By  default,  the  rspec  command  only loads files ending with _spec.rb. Although this is the convention, you can configure RSpec to load files based on any pattern you choose. We‚Äôll ex- plore that later in this chapter.
 
-Executing files is only the tip of the iceberg. The rspec command offers several options, so letís take a closer look at them.
+Executing files is only the tip of the iceberg. The rspec command offers several options, so let‚Äôs take a closer look at them.
 
 Modify the Output with --format
 
-By default, RSpec reports the results to the consoleís standard output by  printing  something  like  ...F......F....  followed  by  a  backtrace  for  each failure.  This  is  fine  most  of  the  time,  but  sometimes  we  want  a  more expressive  form  of  output.  RSpec  has  several  built-in  formatters  that provide different output formats.
+By default, RSpec reports the results to the console‚Äôs standard output by  printing  something  like  ...F......F....  followed  by  a  backtrace  for  each failure.  This  is  fine  most  of  the  time,  but  sometimes  we  want  a  more expressive  form  of  output.  RSpec  has  several  built-in  formatters  that provide different output formats.
  
  TestDox  
  
@@ -90,9 +90,9 @@ Stack (with one item)
  
  Several  For ma tter s?  
   
-RSpec  lets  you  specify  several  formatters  simultaneously  by using several --format options on the command line. Now why would anyone want to do that? Maybe youíre using a contin- uous integration (CI) environment to build your code on every check-in. If both you and the CI use the same rake tasks to run RSpec, it  can  be convenient  to  have one  progress formatter that goes to standard output and one HTML formatter that goes to a file.
+RSpec  lets  you  specify  several  formatters  simultaneously  by using several --format options on the command line. Now why would anyone want to do that? Maybe you‚Äôre using a contin- uous integration (CI) environment to build your code on every check-in. If both you and the CI use the same rake tasks to run RSpec, it  can  be convenient  to  have one  progress formatter that goes to standard output and one HTML formatter that goes to a file.
 
-This way, you can see the CI RSpec result in HTML and your own in your consoleóand share the rake task to run your specs.
+This way, you can see the CI RSpec result in HTML and your own in your console‚Äîand share the rake task to run your specs.
 
 If you use nested example groups, like this:
 
@@ -118,7 +118,7 @@ with one item
 	should not be full 
 	should add to the top when sent #push
 
-RSpec also bundles a formatter that can output the results as HTML. You probably donít want to look at the HTML in a console, so you should tell RSpec to output the HTML to a file:
+RSpec also bundles a formatter that can output the results as HTML. You probably don‚Äôt want to look at the HTML in a console, so you should tell RSpec to output the HTML to a file:
 
 rspec path/to/my/specs --format html:path/to/my/report.html
 
@@ -133,15 +133,15 @@ rspec path/to/my/specs 	--format progress \
 						--format nested:path/to/my/report.txt \
 						--format html:path/to/my/report.html
 
-After youíve done this and opened the resulting HTML file in a browser, you should see something like Figure 15.1.
+After you‚Äôve done this and opened the resulting HTML file in a browser, you should see something like Figure 15.1.
 
-You can see a full list of all the built-in formatters with RSpecís --help option.
+You can see a full list of all the built-in formatters with RSpec‚Äôs --help option.
 
 Load Extensions with --require
 
-If youíre developing your own extensions to RSpec, such as a custom --formatter, you must use the --require option to load the code containing your extension.
+If you‚Äôre developing your own extensions to RSpec, such as a custom --formatter, you must use the --require option to load the code containing your extension.
 
-The reason you canít do this in the spec files themselves is that when they get loaded, itís already too late to hook in an RSpec plug-in, be- cause RSpec is already running.
+The reason you can‚Äôt do this in the spec files themselves is that when they get loaded, it‚Äôs already too late to hook in an RSpec plug-in, be- cause RSpec is already running.
 
 Get the Noise Back with --backtrace
 
@@ -151,17 +151,17 @@ rspec spec --backtrace
 
 Colorize Output with --color
 
-If youíre running the specs all the time (you are, arenít you?), it requires some focus to notice the difference between the command-line output from one run and the next. One thing that can make it easier on the eyes is to colorize the output, like this:
+If you‚Äôre running the specs all the time (you are, aren‚Äôt you?), it requires some focus to notice the difference between the command-line output from one run and the next. One thing that can make it easier on the eyes is to colorize the output, like this:
 
 rspec spec --color
 
 With  this  option,  passing  examples  are  indicated  by  a  green  dot  (.), failing examples by a red F, and pending examples by a yellow asterisk (*). Error reports for any failing examples are red.
 
-The  summary  line  is  green  if  there  are  no  pending  examples  and  all examples pass. If there are any failures, it is red. If there are no failures, but there are pending examples, it is yellow. This makes it much easier to see whatís going on by just looking at the summary.
+The  summary  line  is  green  if  there  are  no  pending  examples  and  all examples pass. If there are any failures, it is red. If there are no failures, but there are pending examples, it is yellow. This makes it much easier to see what‚Äôs going on by just looking at the summary.
 
 Store Options in .rspec
 
-Commonly  used  options  can  be  stored  in  either  of  two  files:  ~/.rspec (in  the  current  userís  home  directory)  and  ./.rspec  (in  the  project  root directory). You can list as many options as you want, with one or more words per line. As long as there is a space, tab, or newline between each word, they will all be parsed and invoked. Hereís an example:
+Commonly  used  options  can  be  stored  in  either  of  two  files:  ~/.rspec (in  the  current  user‚Äôs  home  directory)  and  ./.rspec  (in  the  project  root directory). You can list as many options as you want, with one or more words per line. As long as there is a space, tab, or newline between each word, they will all be parsed and invoked. Here‚Äôs an example:
 
 --color
 --format documentation

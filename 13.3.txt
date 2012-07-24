@@ -1,14 +1,14 @@
-13.3  Predicate Matchers
+Ôªø13.3  Predicate Matchers
 
-A Ruby predicate method is one whose name ends with ì?î and returns a Boolean response. One example that is built right into the language is array.empty?. This is a simple, elegant construct that allows us to write code like this:
+A Ruby predicate method is one whose name ends with ‚Äú?‚Äù and returns a Boolean response. One example that is built right into the language is array.empty?. This is a simple, elegant construct that allows us to write code like this:
 
 do_something_with(array) unless array.empty?
 
-When we want to set an expectation that a predicate should return a specific result, however, the code isnít quite as pretty.
+When we want to set an expectation that a predicate should return a specific result, however, the code isn‚Äôt quite as pretty.
 
 array.empty?.should == true
 
-Although  that  does  express  our  intention,  it  doesnít  read  that  well. What we really want to say is that the ìarray should be empty,î right? Well, say it then!
+Although  that  does  express  our  intention,  it  doesn‚Äôt  read  that  well. What we really want to say is that the ‚Äúarray should be empty,‚Äù right? Well, say it then!
 
 array.should be_empty
 
@@ -22,8 +22,8 @@ This will pass as long as user.in_role?("admin") returns true.
 
 How They Work
 
-RSpec overrides method_missing to provide this nice little bit of syntactic sugar.  If  the  missing  method  begins  with  ìbe_,î  RSpec  strips  off  the ìbe_î and appends ì?î; then it sends the resulting message to the given object.
+RSpec overrides method_missing to provide this nice little bit of syntactic sugar.  If  the  missing  method  begins  with  ‚Äúbe_,‚Äù  RSpec  strips  off  the ‚Äúbe_‚Äù and appends ‚Äú?‚Äù; then it sends the resulting message to the given object.
 
-Taking this a step further, there are some predicates that donít read as fluidly as we might like when prefixed with ìbe_î. instance_of?(type), for example, becomes be_instance_of. To make these a bit more readable, RSpec also looks for things prefixed with ìbe_a_î and ìbe_an_î. So, we also get to write be_a_kind_of(Player) or be_an_instance_of(Pitcher).
+Taking this a step further, there are some predicates that don‚Äôt read as fluidly as we might like when prefixed with ‚Äúbe_‚Äù. instance_of?(type), for example, becomes be_instance_of. To make these a bit more readable, RSpec also looks for things prefixed with ‚Äúbe_a_‚Äù and ‚Äúbe_an_‚Äù. So, we also get to write be_a_kind_of(Player) or be_an_instance_of(Pitcher).
 
-Even  with  all  of  this  support  for  prefixing  arbitrary  predicates,  there will  still  be  cases  in  which  the  predicate  just  doesnít  fit  quite  right. For example, you wouldnít want to say parser.should be_can_parse("some text"), would you? Well, we wouldnít want to have to say anything quite so ridiculous, so RSpec supports writing custom matchers with a sim- ple  DSL  that  youíll  read  about  in  Section  16.7,  Custom  Matchers,  on page 240.
+Even  with  all  of  this  support  for  prefixing  arbitrary  predicates,  there will  still  be  cases  in  which  the  predicate  just  doesn‚Äôt  fit  quite  right. For example, you wouldn‚Äôt want to say parser.should be_can_parse("some text"), would you? Well, we wouldn‚Äôt want to have to say anything quite so ridiculous, so RSpec supports writing custom matchers with a sim- ple  DSL  that  you‚Äôll  read  about  in  Section  16.7,  Custom  Matchers,  on page 240.

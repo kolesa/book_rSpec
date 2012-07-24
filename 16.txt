@@ -1,5 +1,5 @@
-Chapter 16
+﻿Chapter 16
 
   Extending  RSpec  
 
-RSpec  provides  a  wealth  of  generic  functionality  out  of  the  box,  but sometimes we want to express things in more domain-specific ways or modify the output format to better serve as documentation for a specific audience. In this chapter, we�ll explore the extension points and utilities that RSpec provides to satisfy these needs.
+RSpec  provides  a  wealth  of  generic  functionality  out  of  the  box,  but sometimes we want to express things in more domain-specific ways or modify the output format to better serve as documentation for a specific audience. In this chapter, we’ll explore the extension points and utilities that RSpec provides to satisfy these needs.

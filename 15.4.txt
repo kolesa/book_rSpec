@@ -1,4 +1,4 @@
-15.4  Rake
+ï»¿15.4  Rake
 
 Rake is a great automation tool for Ruby, and RSpec ships with custom tasks  that  let  you  use  RSpec  from  Rake.  You  can  use  this  to  define one or several ways of running your examples. For example, rspec-rails ships with several different tasks:
 
@@ -18,11 +18,11 @@ require 'rspec/core/rake_task'
 
 RSpec::Core::RakeTask.new
 
-This creates a task named spec that runs all the specs in the spec directory (relative to the directory Rake is run from—typically the directory where  Rakefile  lives).  To  run  the  task  from  a  command  window, just type this:
+This creates a task named spec that runs all the specs in the spec directory (relative to the directory Rake is run fromâ€”typically the directory where  Rakefile  lives).  To  run  the  task  from  a  command  window, just type this:
 
 rake spec
 
-Simple, no? And that’s only the beginning. The RakeTask exposes a collection of useful configuration options that let you customize the way the command runs.
+Simple, no? And thatâ€™s only the beginning. The RakeTask exposes a collection of useful configuration options that let you customize the way the command runs.
 
 To begin with, you can declare any of the command-line options. If you want to have the SpecTask  colorize the output, for example, you would do this:
 
@@ -35,7 +35,7 @@ end
 
  About  Code  Coverage 
 
-Code coverage is a very useful metric, but be careful, because it can be misleading. It is possible to have a suite of specs that execute  100  percent  of  your  code  base  without  ever  setting any expectations. Without expectations, you’ll know that the code will probably run, but you won’t have any way of knowing whether it behaves the way you expect it to behave.
+Code coverage is a very useful metric, but be careful, because it can be misleading. It is possible to have a suite of specs that execute  100  percent  of  your  code  base  without  ever  setting any expectations. Without expectations, youâ€™ll know that the code will probably run, but you wonâ€™t have any way of knowing whether it behaves the way you expect it to behave.
 
 So, although low code coverage is a clear indicator that your specs  need  some  work,  high  coverage  does  not  necessarily indicate that everything is hunky-dory.
 

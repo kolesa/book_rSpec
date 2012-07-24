@@ -1,6 +1,6 @@
-19.2  Setting Up a Rails 3 Project
+ï»¿19.2  Setting Up a Rails 3 Project
 
-Rails 3 makes configuring an application for use with RSpec and Cucumber a trivial operation. In the next few chapters, we’ll be working with  an  application  for  publishing  movie  schedules,  which  we’ll  call Showtime. Let’s set up the skeleton for this app now. Start by generating a new Rails app:
+Rails 3 makes configuring an application for use with RSpec and Cucumber a trivial operation. In the next few chapters, weâ€™ll be working with  an  application  for  publishing  movie  schedules,  which  weâ€™ll  call Showtime. Letâ€™s set up the skeleton for this app now. Start by generating a new Rails app:
 
 $ rails new showtime
 
@@ -26,11 +26,11 @@ end
 
 We  add  these  to  the  :development  group  so  that  their  generators  and rake tasks are available without having to type RAILS_ENV=test. We add them to the :test  group to make sure that their code is available when running in the test environment.
 
-Now we’ll use Bundler to install those gems and all of their dependencies:
+Now weâ€™ll use Bundler to install those gems and all of their dependencies:
 
 $ bundle install
 
-Now we’ll use the rspec:install generator to install a few files we’ll need in the app:
+Now weâ€™ll use the rspec:install generator to install a few files weâ€™ll need in the app:
 
 $ script/rails generate rspec:install 
 	create  .rspec
@@ -38,17 +38,17 @@ $ script/rails generate rspec:install
 	create  spec/spec_helper.rb create  autotest
 	create  autotest/discover.rb
 
-Here’s a description of each file and directory that was generated:
+Hereâ€™s a description of each file and directory that was generated:
 
-•  spec: The directory where you place specs for your Rails app.
+â€¢  spec: The directory where you place specs for your Rails app.
 
-•  .rspec: Add options to this file that you want rspec to utilize when running any of the rake spec tasks.
+â€¢  .rspec: Add options to this file that you want rspec to utilize when running any of the rake spec tasks.
 
-•  spec/spec_helper.rb:  This  file  is  used  to  load  and  configure  rspec. It  is  also  where  you  would  require  and  configure  any  additional helpers or tools that your project utilizes when running specs.
+â€¢  spec/spec_helper.rb:  This  file  is  used  to  load  and  configure  rspec. It  is  also  where  you  would  require  and  configure  any  additional helpers or tools that your project utilizes when running specs.
 
-•  autotest/discover.rb: Used by Autotest to discover what type of Autotest class to load.
+â€¢  autotest/discover.rb: Used by Autotest to discover what type of Autotest class to load.
 
-Now  we’ll  use  the  cucumber:install  generator  to  install  files  Cucumber needs:
+Now  weâ€™ll  use  the  cucumber:install  generator  to  install  files  Cucumber needs:
 
 $ script/rails generate cucumber:install 
 create  config/cucumber.yml
@@ -63,25 +63,25 @@ create  lib/tasks/cucumber.rake
   gsub  config/database.yml
  force  config/database.yml
 
-Cucumber adds a few more files than RSpec does. Let’s take a look at each one:
+Cucumber adds a few more files than RSpec does. Letâ€™s take a look at each one:
 
-•  config/cucumber.yml:  Used  to  store  profiles  that  provide  control over  what  features and  scenarios  to run.  See Section 18.9,  Configuration, on page 280.
+â€¢  config/cucumber.yml:  Used  to  store  profiles  that  provide  control over  what  features and  scenarios  to run.  See Section 18.9,  Configuration, on page 280.
 
-•  script/cucumber: The command-line feature runner.
+â€¢  script/cucumber: The command-line feature runner.
 
-•  features/step_definitions:  All  of  your  step  definitions  will  go  in  this directory.
+â€¢  features/step_definitions:  All  of  your  step  definitions  will  go  in  this directory.
 
-•  features/step_definitions/web_steps.rb: Contains step definitions that are commonly used with web apps. We’ll learn more about this file in Chapter 21, Simulating the Browser with Webrat , on page 298.
+â€¢  features/step_definitions/web_steps.rb: Contains step definitions that are commonly used with web apps. Weâ€™ll learn more about this file in Chapter 21, Simulating the Browser with Webrat , on page 298.
 
-•  features/support: This directory holds any Ruby code that needs to be loaded to run your scenarios that are not  step definitions, like helper methods shared between step definitions.
+â€¢  features/support: This directory holds any Ruby code that needs to be loaded to run your scenarios that are not  step definitions, like helper methods shared between step definitions.
 
-•  features/support/env.rb:  Bootstraps  and  configures  the  Cucumber runner environment.
+â€¢  features/support/env.rb:  Bootstraps  and  configures  the  Cucumber runner environment.
 
-•  features/support/paths.rb: Support for mapping descriptive page names used in scenario steps to their URLs.
+â€¢  features/support/paths.rb: Support for mapping descriptive page names used in scenario steps to their URLs.
 
-•  lib/tasks/cucumber.rake:  Adds  the  rake  cucumber  task,  which  prepares the test database and runs all of your application’s features.
+â€¢  lib/tasks/cucumber.rake:  Adds  the  rake  cucumber  task,  which  prepares the test database and runs all of your applicationâ€™s features.
 
-And that’s it! To make sure everything is wired up correctly, run these commands:
+And thatâ€™s it! To make sure everything is wired up correctly, run these commands:
 
 $ rake db:migrate
 $ rake db:test:prepare

@@ -1,20 +1,20 @@
-12.7  What We’ve Learned
+ï»¿12.7  What Weâ€™ve Learned
 
 In this chapter, we covered quite a bit about the approach RSpec takes to  structuring  and  organizing  executable  code  examples.  We  learned that we can do the following:
 
-•  Declare an example group using the describe( ) method
+â€¢  Declare an example group using the describe( ) method
 
-•  Declare an example using the it( ) method
+â€¢  Declare an example using the it( ) method
 
-•  Declare an example to be pending by either omitting the block or using the pending( ) method inside the block
+â€¢  Declare an example to be pending by either omitting the block or using the pending( ) method inside the block
 
-•  Nest example groups for cohesive organization
+â€¢  Nest example groups for cohesive organization
 
-•  Declare  code  to  be  run  before,  after,  and  around  examples  with hooks
+â€¢  Declare  code  to  be  run  before,  after,  and  around  examples  with hooks
 
-•  Define helper methods within an example group that are available to each example in that group
+â€¢  Define helper methods within an example group that are available to each example in that group
 
-•  Share examples across multiple groups
+â€¢  Share examples across multiple groups
 
-But what about the stuff that goes inside the examples? We’ve used a couple of expectations in this chapter, but we haven’t really discussed them. The next chapters will address these lower-level details, as well as introduce some of the peripheral tooling that is available to help you nurture your inner BDD child and evolve into a BDD ninja.
+But what about the stuff that goes inside the examples? Weâ€™ve used a couple of expectations in this chapter, but we havenâ€™t really discussed them. The next chapters will address these lower-level details, as well as introduce some of the peripheral tooling that is available to help you nurture your inner BDD child and evolve into a BDD ninja.
  

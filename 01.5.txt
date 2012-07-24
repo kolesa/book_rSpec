@@ -1,14 +1,14 @@
-1.5  The BDD Cycle
+ï»¿1.5  The BDD Cycle
 
-At each green point in the RSpec cycle, we’ll check the Cucumber cycle.
+At each green point in the RSpec cycle, weâ€™ll check the Cucumber cycle.
 If  it  is  still  red,  the  resulting  feedback  should  guide  us  to  
 the  next action in the RSpec cycle. If it is green, we can jump out to 
 Cucumber, refactor if appropriate, and then repeat the cycle by writing a 
 new failing Cucumber step.
-In  the  next  chapter,  we’ll  get  you  set  up  with  Cucumber  and  
+In  the  next  chapter,  weâ€™ll  get  you  set  up  with  Cucumber  and  
 RSpec and  walk  you  through  a  simple  example  of  each  tool.  In  the 
- tutorial that begins in Chapter 3, Describing Features, on page 37, we’ll 
-use a number of features in Cucumber and RSpec. In most cases, we’ll only 
+ tutorial that begins in Chapter 3, Describing Features, on page 37, weâ€™ll 
+use a number of features in Cucumber and RSpec. In most cases, weâ€™ll only 
 touch the surface of a feature, covering just enough to be able to use it 
 as needed for this project, with references to other places in the book 
 where  you  can  go  to  learn  more  of  the  detail  and  philosophy  
@@ -52,7 +52,7 @@ Cucumber
 (drop down to RSpec)
 
 
-Repeat #1–#7
+Repeat #1â€“#7
 when scenario is passing
 
 
@@ -64,10 +64,10 @@ when scenario is passing
 
 
 
-Repeat #3–#5 until step is passing
+Repeat #3â€“#5 until step is passing
 
 
-Repeat #2–#7 until scenario is passing
+Repeat #2â€“#7 until scenario is passing
 (when step is passing)
 
 6

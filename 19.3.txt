@@ -1,4 +1,4 @@
-19.3  Setting Up a Rails 2 Project
+﻿19.3  Setting Up a Rails 2 Project
 
 To set up a Rails 2 project, we need to first install all of the gems we need:
 

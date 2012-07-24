@@ -1,10 +1,10 @@
-16.7  Custom Matchers
+Ôªø16.7  Custom Matchers
 
-RSpecís built-in matchers support most of the expectations weíd like to write in our examples out of the box. There are cases, however, in which a subtle change would allow us to express exactly what we want to say rather than almost  exactly what we want to say. For those situations, we can easily write our own custom matchers.
+RSpec‚Äôs built-in matchers support most of the expectations we‚Äôd like to write in our examples out of the box. There are cases, however, in which a subtle change would allow us to express exactly what we want to say rather than almost  exactly what we want to say. For those situations, we can easily write our own custom matchers.
 
-Youíre  already  using  some  of  these  if  youíre  using  the  
+You‚Äôre  already  using  some  of  these  if  you‚Äôre  using  the  
 rspec-rails  gem. render_template( ),  for  example,  is  a  
-Rails-domain-specific  matcher  for expecting that a specific template gets rendered by a controller action. Without that matcher, weíd write expectations such as this:
+Rails-domain-specific  matcher  for expecting that a specific template gets rendered by a controller action. Without that matcher, we‚Äôd write expectations such as this:
 
 response.rendered_template.should == "accounts/index"
 
@@ -12,22 +12,22 @@ With  this  custom  matcher,  we  are  able  to  write  examples  using  languag
 
 response.should render_template("accounts/index")
 
-All of RSpecís built-in matchers follow a simple protocol, which we use to write our own custom matchers from scratch. Weíll go over the protocol in a bit, but first letís take a look at RSpecís Matcher DSL for defining custom matchers in just a few lines of code.
+All of RSpec‚Äôs built-in matchers follow a simple protocol, which we use to write our own custom matchers from scratch. We‚Äôll go over the protocol in a bit, but first let‚Äôs take a look at RSpec‚Äôs Matcher DSL for defining custom matchers in just a few lines of code.
 
 Matcher DSL
 
-RSpecís Matcher DSL  makes defining custom matchers a snap.1  Letís say weíre working on a personnel application, and we want to specify that joe.should report_to(beatrice).
+RSpec‚Äôs Matcher DSL  makes defining custom matchers a snap.1  Let‚Äôs say we‚Äôre working on a personnel application, and we want to specify that joe.should report_to(beatrice).
 
 To get there, we would probably start off with something  
- like joe.reports_to?(beatrice).should be_true. Thatís a good start, but it presents a couple of problems. If it fails, the failure message says expected true, got false. Thatís accurate but not very helpful.
+ like joe.reports_to?(beatrice).should be_true. That‚Äôs a good start, but it presents a couple of problems. If it fails, the failure message says expected true, got false. That‚Äôs accurate but not very helpful.
  
-Another  problem  is  that  it  just  doesnít  read  as  well  as  it  could.  We really want to say joe.should report_to(beatrice). And if it fails, we want the message to tell us we were expecting an employee who reports to Beatrice.
+Another  problem  is  that  it  just  doesn‚Äôt  read  as  well  as  it  could.  We really want to say joe.should report_to(beatrice). And if it fails, we want the message to tell us we were expecting an employee who reports to Beatrice.
 
 
 
 1.  The Matcher DSL is based on suggestions from Yehuda Katz.
  
-We  can  solve  the  readability  and  feedback  problems  using  RSpecís Matcher DSL to generate a report_to( ) method, like this:
+We  can  solve  the  readability  and  feedback  problems  using  RSpec‚Äôs Matcher DSL to generate a report_to( ) method, like this:
 
 RSpec::Matchers.define :report_to do |boss|
 	match do |employee|
@@ -45,13 +45,13 @@ In the event of a failure, the matcher generates a message from its name and the
 
 expected <Employee: Joe> to report to <Employee: Beatrice>
 
-The  representation  of  the  employee  objects  depends  on  how  to_s( )  is implemented on the Employee class, but the matcher gleans ìreport toî from the Symbol passed to define( ).
+The  representation  of  the  employee  objects  depends  on  how  to_s( )  is implemented on the Employee class, but the matcher gleans ‚Äúreport to‚Äù from the Symbol passed to define( ).
 
 In the event of a failure using should_not( ), the generated message would read like this: 
 
 expected <Employee: Joe> not to report to <Employee: Beatrice>
 
-These default messages generally work well, but sometimes weíll want a bit of control over the failure messages. We can get that by overriding   them,  and  the  description,  with  blocks  that  return  the  messages  we want.
+These default messages generally work well, but sometimes we‚Äôll want a bit of control over the failure messages. We can get that by overriding   them,  and  the  description,  with  blocks  that  return  the  messages  we want.
 
 
 2.  Spec::Matchers in RSpec-1
@@ -78,14 +78,14 @@ end
 
 The  block  passed  to  failure_message_for_should( )  will  be  called,  and  the result  will  be  displayed  in  the  event  of  a  should( )  failure.  The  block passed  to  failure_message_for_should_not( )  will  be  called,  and  the  result will be displayed in the event of a should_not( ) failure. The description( ) will  be  displayed  when  this  matcher  is  used  to  generate  its  own description.
 
-As with the stock matchers, RSpecís Matcher DSL will probably cover 80  percent  of  the  remaining  20  percent.  Still,  there  are  cases  where youíll  want  even  more  control  over  certain  types  of  things.  As  of  this writing,  for  example,  there  is  no  support  for  passing  a  block  to  the matcher itself. RSpecís built-in change( ) matcher needs that ability to express expectations like this:
+As with the stock matchers, RSpec‚Äôs Matcher DSL will probably cover 80  percent  of  the  remaining  20  percent.  Still,  there  are  cases  where you‚Äôll  want  even  more  control  over  certain  types  of  things.  As  of  this writing,  for  example,  there  is  no  support  for  passing  a  block  to  the matcher itself. RSpec‚Äôs built-in change( ) matcher needs that ability to express expectations like this:
 
 account = Account.new 
 lambda do
 	account.deposit(Money.new(50, :USD))
 end.should change{ account.balance }.by(Money.new(50, :USD))
 
-We  canít  easily  define  a  matcher  that  accepts  a  block  with  the  DSL because Ruby wonít let us pass one block to another without first packaging it as a Proc object. We probably could do it with some gymnastics, but in cases like this, it is often simpler to just write some clear code using RSpecís Matcher protocol.
+We  can‚Äôt  easily  define  a  matcher  that  accepts  a  block  with  the  DSL because Ruby won‚Äôt let us pass one block to another without first packaging it as a Proc object. We probably could do it with some gymnastics, but in cases like this, it is often simpler to just write some clear code using RSpec‚Äôs Matcher protocol.
 
 Matcher Protocol
 
@@ -95,7 +95,7 @@ matches?  The  should( )  and  should_not( )  methods  use  this  to  decide whe
 
 failure_message_for_should  The failure message to be used when you use should( ) and the matches?( ) method returns false.
 
-Hereís the report_to( ) matcher we used in Section 16.7, Matcher DSL , on page 240, written using these two methods:
+Here‚Äôs the report_to( ) matcher we used in Section 16.7, Matcher DSL , on page 240, written using these two methods:
 
 class ReportTo
 	def initialize(manager)
@@ -117,13 +117,13 @@ end
 
 This  is  clearly  more  verbose  than  the  Matcher  DSL,  because  we  have to define a class and a method. We also have to store state in order to generate the failure message, which is not necessary in the DSL because it delivers the actual and expected objects to the match and message declaration blocks. Still, if writing a matcher this way is more expressive than using the DSL in a given circumstance, then a custom matcher from scratch is the way to go.
 
-The following methods are also part of the protocol, supported by the should( ) and should_not( ) methods, but theyíre completely optional:
+The following methods are also part of the protocol, supported by the should( ) and should_not( ) methods, but they‚Äôre completely optional:
 
 failure_message_for_should_not  Optional. The failure message to be used when you use should_not( ) and the matches?( ) method returns true.
  
-description  Optional. The description to be displayed when you donít provide  one  for  the  example  (in  other  words,  it { ... }  instead  of  it "should ... " do ... end).
+description  Optional. The description to be displayed when you don‚Äôt provide  one  for  the  example  (in  other  words,  it { ... }  instead  of  it "should ... " do ... end).
 
-does_not_match?  Optional. On rare occasions it can be useful for the matcher to know if itís being called by should( ) or should_not( ). In these cases, we can implement a does_not_match?( ) method on the matcher.
+does_not_match?  Optional. On rare occasions it can be useful for the matcher to know if it‚Äôs being called by should( ) or should_not( ). In these cases, we can implement a does_not_match?( ) method on the matcher.
 
 The  should_not( )  method  will  call  does_not_match?( )  if  it  is  implemented. When it does, it considers a response of true to be a success and false to be a failure.
 

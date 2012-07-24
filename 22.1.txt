@@ -1,6 +1,6 @@
-22.1  Getting Started
+Ôªø22.1  Getting Started
 
-To demonstrate just how easy it is to get started with Webratís Selenium support,  weíll  walk  through  updating  one  of  our  Cucumber  features from the previous chapter to use it. Hereís what it says:
+To demonstrate just how easy it is to get started with Webrat‚Äôs Selenium support,  we‚Äôll  walk  through  updating  one  of  our  Cucumber  features from the previous chapter to use it. Here‚Äôs what it says:
 
 Download simulated_browser/06/features/create_movie.feature
 
@@ -41,7 +41,7 @@ end
  
 
 
-And hereís the env.rb file used by Cucumber to set up the environment (comments removed for brevity):
+And here‚Äôs the env.rb file used by Cucumber to set up the environment (comments removed for brevity):
 
 Download simulated_browser/06/features/support/env.rb
 
@@ -81,11 +81,11 @@ Download automated_browser/01/features/support/env.rb
 
 Cucumber::Rails::World.use_transactional_fixtures = false
 
-When using Selenium, Cucumber runs in a separate process than the Rails application. This means theyíll be using different database connections, and that  means we canít wrap each of our scenarios with a transaction in our Cucumber process. If we did, the Rails process would never see the data we set up for it.
+When using Selenium, Cucumber runs in a separate process than the Rails application. This means they‚Äôll be using different database connections, and that  means we can‚Äôt wrap each of our scenarios with a transaction in our Cucumber process. If we did, the Rails process would never see the data we set up for it.
 
-The downside of turning off transactions is weíll now be responsible for ensuring a ìcleanî database state is provided for each test on our own. Weíll look at strategies for doing that a bit later in this chapter.
+The downside of turning off transactions is we‚Äôll now be responsible for ensuring a ‚Äúclean‚Äù database state is provided for each test on our own. We‚Äôll look at strategies for doing that a bit later in this chapter.
 
-Next,  weíll  configure  the  Rails  ActionController::Integration::Session#host( ) so that it generates URLs pointing to localhost:3001:
+Next,  we‚Äôll  configure  the  Rails  ActionController::Integration::Session#host( ) so that it generates URLs pointing to localhost:3001:
 
 Download automated_browser/01/features/support/env.rb
 
@@ -95,9 +95,9 @@ class ActiveSupport::TestCase setup do |session|
 	end 
 end
 
-By  default,  if  you  use  a  routing  helper  like  users_url( )  in  a  step  defini- tion, youíll get a URL in the form of http://test.host/.... With these lines, generated URLs will point to http://localhost:3001 instead, which is where Webrat will automatically boot an instance of your application.
+By  default,  if  you  use  a  routing  helper  like  users_url( )  in  a  step  defini- tion, you‚Äôll get a URL in the form of http://test.host/.... With these lines, generated URLs will point to http://localhost:3001 instead, which is where Webrat will automatically boot an instance of your application.
 
-Finally, we change Webratís configuration as follows:
+Finally, we change Webrat‚Äôs configuration as follows:
 
 Download automated_browser/01/features/support/env.rb
 
@@ -107,7 +107,7 @@ Webrat.configure do |config|
 	config.open_error_files = false
 end
 
-Letís give that a run and see what happens:
+Let‚Äôs give that a run and see what happens:
 
 $ rake cucumber
 ..
@@ -120,5 +120,5 @@ Finished in 11.679288 seconds.
 
 While  the  previous  output  was  appearing  on  your  terminal,  Firefox opened, loaded up your app, and ran through our Cucumber scenario like an invisible user following a script. As you accumulate more sce- narios to run through Selenium, it can be pretty fun to watch.
 
-Now  that  weíve  seen  how  to  configure  Webrat,  Cucumber,  and  Rails to  work  with  Selenium,  weíll  explore  the  nitty-gritty  details  of  writing Selenium-driven scenarios to describe your applicationís behavior.
+Now  that  we‚Äôve  seen  how  to  configure  Webrat,  Cucumber,  and  Rails to  work  with  Selenium,  we‚Äôll  explore  the  nitty-gritty  details  of  writing Selenium-driven scenarios to describe your application‚Äôs behavior.
 

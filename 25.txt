@@ -1,4 +1,4 @@
-If Rails controllers are like waiters in a restaurant, Rails models are the kitchen staff. They know how to cook a steak to order.
+ï»¿If Rails controllers are like waiters in a restaurant, Rails models are the kitchen staff. They know how to cook a steak to order.
 
 Zach Dennis
 
@@ -6,9 +6,9 @@ Chapter 25
 
   Rails  Models  
 
-Rails  models  reflect  the  problem  domain  for  which  we’re  providing  a software solution, and they vary significantly from app to app and from model to model. Some models will be rich objects with complex behavior, while others may be simple data containers.
+Rails  models  reflect  the  problem  domain  for  which  weâ€™re  providing  a software solution, and they vary significantly from app to app and from model to model. Some models will be rich objects with complex behavior, while others may be simple data containers.
 
 When we work outside in, we discover  model interfaces in Cucumber step  definitions,  view  specs  and  views,  and  controller  specs  and  controllers. These are the places we write the code we wish we had, and letting  them  guide  us  results  in  model  interfaces  that  best  suit  the needs of the application.
 
-Once we’ve learned what models we need, we can drive them out just as we would any type of object. In this chapter, we’re going to do just that, building on the messaging application we’ve been working on in Chapter 24, Rails Controllers, on page 345 and Chapter 23, Rails Views, on page 331, using RSpec model specs to drive out the behavior of our models.
+Once weâ€™ve learned what models we need, we can drive them out just as we would any type of object. In this chapter, weâ€™re going to do just that, building on the messaging application weâ€™ve been working on in Chapter 24, Rails Controllers, on page 345 and Chapter 23, Rails Views, on page 331, using RSpec model specs to drive out the behavior of our models.
 

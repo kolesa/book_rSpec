@@ -1,4 +1,4 @@
-16.4  Extension Modules
+﻿16.4  Extension Modules
 
 In  addition  to  the  filter  methods,  the  Configuration  object  exposes  two methods  we  can  use  to  extend  the  behavior  of  individual  example groups. Both of these accept options, which are matched against meta- data in each group in order to filter the groups to which the extension applies.
 

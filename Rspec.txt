@@ -1,4 +1,4 @@
-22
+﻿22
  T he  P r agm at ic  Booksh e l f  
 
 Available in paperback and DRM-free eBooks, our titles are here to help you 
@@ -29,7 +29,7 @@ Cocoa Programming: A Quick-Start Guide for
 Developers
 Core Animation for Mac OS X and the iPhone: Creating Compelling Dynamic 
 User Interfaces
-Core Data: Apple’s API for Persisting Data on
+Core Data: AppleвЂ™s API for Persisting Data on
 Mac OS X
 Data Crunching: Solve Everyday Problems using Java, Python, and More
 Debug It! Find, Repair, and Prevent Bugs in Your
@@ -85,7 +85,7 @@ Grails: A Quick-Start Guide  2009
   9781934356463 200
 Groovy Recipes: Greasing the Wheels of Java 2008 
 9780978739294 264
-Hello, Android: Introducing Google’s Mobile
+Hello, Android: Introducing GoogleвЂ™s Mobile
 Development Platform
 2010 9781934356562 320
 Interface Oriented Design 2006  
@@ -161,9 +161,9 @@ Programming Erlang: Software for a Concurrent
 World
 Programming Groovy: Dynamic Productivity for the Java Developer
 Programming Ruby: The Pragmatic
-Programmers’ Guide
+ProgrammersвЂ™ Guide
 Programming Ruby 1.9: The Pragmatic
-Programmers’ Guide
+ProgrammersвЂ™ Guide
 Programming Scala: Tackle Multi-Core
 Complexity on the Java Virtual Machine
 Prototype and script.aculo.us: You Never Knew
@@ -230,7 +230,7 @@ ThoughtWorks Anthology 2008
 9781934356142 240
 Ubuntu Kung Fu: T ips, Tricks, Hints, and Hacks 2008 9781934356227  
  400
-Web Design for Developers: A Programmer’s
+Web Design for Developers: A ProgrammerвЂ™s
 Guide to Design Tools and Techniques
 2009 9781934356135 300
  T he  P r agm at ic  Booksh e l f 
@@ -245,7 +245,7 @@ titles and products to help you stay on top of your game.
 
 
  Visit  Us  Online  
-The RSpec Book’s Home Page
+The RSpec BookвЂ™s Home Page
 http://pragprog.com/titles/achbd
 Source code from this book, errata, and other resources. Come give us 
 feedback, too!
@@ -270,8 +270,8 @@ offerings.
 
  Buy  th e  Book 
 
-If you liked this eBook, perhaps you’d like to have a paper copy of the 
-book. It’s available for purchase at our store: pragprog.com/titles/achbd.
+If you liked this eBook, perhaps youвЂ™d like to have a paper copy of the 
+book. ItвЂ™s available for purchase at our store: pragprog.com/titles/achbd.
 
 
 

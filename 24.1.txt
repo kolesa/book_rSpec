@@ -1,8 +1,8 @@
-24.1  Controller Specs
+ï»¿24.1  Controller Specs
 
 A  controller  spec  is  a  collection  of  examples  of  the  expected  behavior of  actions  on  a  single  controller.  Whereas  views  are  inherently  state- based,  controllers  are  naturally  interaction-based.  They  wait  at  the edges of a Rails app to mediate interaction between models and views, given an incoming request. We therefore set expectations about interac- tions, process the action, and look at assigned instance variables and flash messages made available for the view.
 
-By default, controller specs don’t render views.1  Combine that fact with judicious use of mocks and stubs for interaction with the model, and now  we  can  specify  controller  interactions  in  complete  isolation  from the other components. This pushes us to build skinny controllers and helps us discover objects with well-named methods to encapsulate the real work.
+By default, controller specs donâ€™t render views.1  Combine that fact with judicious use of mocks and stubs for interaction with the model, and now  we  can  specify  controller  interactions  in  complete  isolation  from the other components. This pushes us to build skinny controllers and helps us discover objects with well-named methods to encapsulate the real work.
 
 1.  See the sidebar on page 360 for more about isolation from views.
 
@@ -10,9 +10,9 @@ A simple guideline for a controller is that it should know what to do but not ho
 
 MessagesController
 
-In the previous chapter, we built up the view that contained the form to create a message. Now we’re going to develop a controller action responsible for processing that form submission and creating the message.
+In the previous chapter, we built up the view that contained the form to create a message. Now weâ€™re going to develop a controller action responsible for processing that form submission and creating the message.
 
-If you haven’t been through Chapter 23, Rails Views, on page 331 yet, that’s OK. Just bootstrap a new Rails app as described in Section 23.1, Getting Started,  on  page  332.  Once  you’ve  done  that,  generate  a  Mes- sagesController and its spec:
+If you havenâ€™t been through Chapter 23, Rails Views, on page 331 yet, thatâ€™s OK. Just bootstrap a new Rails app as described in Section 23.1, Getting Started,  on  page  332.  Once  youâ€™ve  done  that,  generate  a  Mes- sagesController and its spec:
 
 script/rails generate controller Messages --no-helper 
 	create  app/controllers/messages_controller.rb
@@ -34,11 +34,11 @@ describe MessagesController do
 	end 
 end
 
-Run rake spec:controllers, and you’ll see that we have two pending examples:
+Run rake spec:controllers, and youâ€™ll see that we have two pending examples:
 
 2 examples, 0 failures, 2 pending
 
-You  read  about  several  approaches  to  generating  pending  examples in Section 12.2, Pending Examples, on page 155. These examples are pending because they have no blocks. The first example specifies that the create( ) action builds a new message, so let’s add a block that sets that expectation.
+You  read  about  several  approaches  to  generating  pending  examples in Section 12.2, Pending Examples, on page 155. These examples are pending because they have no blocks. The first example specifies that the create( ) action builds a new message, so letâ€™s add a block that sets that expectation.
 
 Download 
 rails_controllers/messages/02/spec/controllers/messages_controller_spec.rb
@@ -48,7 +48,7 @@ it "creates a new message" do
 	post :create, :message => { "text" => "a quick brown fox" }
 end
 
-This  fails  with  uninitialized constant Message.  Remember  that  we  didn’t have to create the Message  when we were writing view specs, so there has been no need until now.
+This  fails  with  uninitialized constant Message.  Remember  that  we  didnâ€™t have to create the Message  when we were writing view specs, so there has been no need until now.
 
 Time to Introduce the Model
 
@@ -62,12 +62,12 @@ script/rails generate model Message
 	create  spec/models/message_spec.rb 
 rake db:migrate
 
-Run rake spec:controllers again, and you’ll see one of two failures. If you created a new Messages app at the beginning of this chapter, you’ll see this:
+Run rake spec:controllers again, and youâ€™ll see one of two failures. If you created a new Messages app at the beginning of this chapter, youâ€™ll see this:
 
 No route matches {:message=>{"text"=>"a quick brown fox"},
 	:controller=>"messages", :action=>"create"}
 
-In  this  case,  we’re  missing  the  route,  so  add  it  to  config/routes.rb  to resolve this error:
+In  this  case,  weâ€™re  missing  the  route,  so  add  it  to  config/routes.rb  to resolve this error:
 
 Download rails_controllers/messages/04/config/routes.rb
 
@@ -75,20 +75,20 @@ Messages::Application.routes.draw do
 	resources :messages
 end
 
-If you’re using the same Messages app we created in Chapter 23, Rails Views,  on  page  331,  then  you  probably  already  added  these  routes. Whether you added them in the previous chapter or just added them now, run rake spec:controllers  again, and now you’ll see that the exam- ple  fails  with  No  action  responded  to  create,  so  add  the  create  action
+If youâ€™re using the same Messages app we created in Chapter 23, Rails Views,  on  page  331,  then  you  probably  already  added  these  routes. Whether you added them in the previous chapter or just added them now, run rake spec:controllers  again, and now youâ€™ll see that the exam- ple  fails  with  No  action  responded  to  create,  so  add  the  create  action
  
 Joe Asks. . .
 
- Doesn’ t  Messa g e.shoul d _recei ve( :new )  Specify  Implementation?
+ Doesnâ€™ t  Messa g e.shoul d _recei ve( :new )  Specify  Implementation?
 
-At  some  level,  yes  it  does,  but  it’s  not  the  same  as  specifying  internal  implementation  details  that  occur  only  within the object being spec’d. We’re specifying the interaction with other  objects  in  order  to  isolate  this  example  from  anything that  might  go  wrong  or  that  does  not  yet  exist  in  the  other objects. That way, when a controller spec fails, you know that it’s because the controller is not behaving correctly and can quickly diagnose the problem.
+At  some  level,  yes  it  does,  but  itâ€™s  not  the  same  as  specifying  internal  implementation  details  that  occur  only  within the object being specâ€™d. Weâ€™re specifying the interaction with other  objects  in  order  to  isolate  this  example  from  anything that  might  go  wrong  or  that  does  not  yet  exist  in  the  other objects. That way, when a controller spec fails, you know that itâ€™s because the controller is not behaving correctly and can quickly diagnose the problem.
 
-One of the motivations for this approach in Rails controller specs is that we don’t have to worry about changes to model validation  rules  causing  failures  in  controller  specs.  Rails  fixtures can  also  help  solve  that  problem  if  you  use  them  judiciously. Test data builders like Fixjour, Factory Girl, Object Daddy, and Machinist can also help. But fixtures and test data builders all use  a  database,  which  slows  down  the  specs,  even  if  they maintain rapid fault isolation.
-
-
+One of the motivations for this approach in Rails controller specs is that we donâ€™t have to worry about changes to model validation  rules  causing  failures  in  controller  specs.  Rails  fixtures can  also  help  solve  that  problem  if  you  use  them  judiciously. Test data builders like Fixjour, Factory Girl, Object Daddy, and Machinist can also help. But fixtures and test data builders all use  a  database,  which  slows  down  the  specs,  even  if  they maintain rapid fault isolation.
 
 
-now, implementing just enough code to change the error message we’re getting:
+
+
+now, implementing just enough code to change the error message weâ€™re getting:
 
 Download 
 rails_controllers/messages/05/app/controllers/messages_controller.rb
@@ -96,11 +96,11 @@ rails_controllers/messages/05/app/controllers/messages_controller.rb
 def create
 end
 
-Now we get a new error: Missing template messages/create. We don’t, however, want to add a template for this. The conventional approach is to redirect to a resource’s index after a successful create. Let’s shift gears for a second and get that in place.
+Now we get a new error: Missing template messages/create. We donâ€™t, however, want to add a template for this. The conventional approach is to redirect to a resourceâ€™s index after a successful create. Letâ€™s shift gears for a second and get that in place.
 
 Temporarily Pending
 
-While  we  work  on  introducing  the  redirect,  let’s  make  the  example we’ve been working on pending. Once we get the redirect working, we’ll remove the pending declaration. Until then, we can work without having to worry about this example failing.
+While  we  work  on  introducing  the  redirect,  letâ€™s  make  the  example weâ€™ve been working on pending. Once we get the redirect working, weâ€™ll remove the pending declaration. Until then, we can work without having to worry about this example failing.
  
 
 
@@ -126,7 +126,7 @@ describe MessagesController do describe "POST create" do
 	end
 end
 
-Run rake spec:controllers, and you’ll see the same message about missing a template for messages/create. To get it to pass, modify app/controllers/messages_controller.rb as follows:
+Run rake spec:controllers, and youâ€™ll see the same message about missing a template for messages/create. To get it to pass, modify app/controllers/messages_controller.rb as follows:
 
 Download 
 rails_controllers/messages/07/app/controllers/messages_controller.rb
@@ -135,7 +135,7 @@ def create
 	redirect_to :action => "index"
 end
 
-That’s  enough  to  get  that  example  to  pass.  Run  rake  spec:controllers, and you should see 3 examples, 0 failures, 2 pending. Now let’s remove the pending declaration from the first example:
+Thatâ€™s  enough  to  get  that  example  to  pass.  Run  rake  spec:controllers, and you should see 3 examples, 0 failures, 2 pending. Now letâ€™s remove the pending declaration from the first example:
 
 Download 
 rails_controllers/messages/08/spec/controllers/messages_controller_spec.rb
@@ -154,7 +154,7 @@ Failure/Error: Message.should_receive(:new).with("text" => "a quick brown fox")
 	expected: 1 time 
 	received: 0 times
 
-This  is  the  logical failure  we’ve  been  aiming  for,  and  we  are now in  a position to get this example to pass. Add the following to app/controllers/ messages_controller.rb:
+This  is  the  logical failure  weâ€™ve  been  aiming  for,  and  we  are now in  a position to get this example to pass. Add the following to app/controllers/ messages_controller.rb:
 
 Download 
 rails_controllers/messages/09/app/controllers/messages_controller.rb
@@ -193,7 +193,7 @@ def create
 	redirect_to :action => "index"
 end
 
-Run the spec again, and you’ll see the second example is now passing, but we broke the first example in the process: 3 examples, 1 failure. There is no message object in the first example, and there needs to be one for the code in the action to run.
+Run the spec again, and youâ€™ll see the second example is now passing, but we broke the first example in the process: 3 examples, 1 failure. There is no message object in the first example, and there needs to be one for the code in the action to run.
 
 We  can  get  the  first  example  to  pass  without  impacting  the  second example by introducing a mock message:
 
@@ -220,12 +220,12 @@ it "creates a new message" do
 	post :create, :message => { "text" => "a quick brown fox" }
 end
 
-Run  rake spec:controllers  again,  and  you’ll  see  3 examples, 0 failures.  No failures, no more pending.
+Run  rake spec:controllers  again,  and  youâ€™ll  see  3 examples, 0 failures.  No failures, no more pending.
 
 
 Tidy Up
 
-We’ve made progress, but we’ve also introduced some duplication between the two examples. We can clean that up by extracting the com- mon bits to a let( ) and a before(:each) hook:
+Weâ€™ve made progress, but weâ€™ve also introduced some duplication between the two examples. We can clean that up by extracting the com- mon bits to a let( ) and a before(:each) hook:
 
 Download 
 rails_controllers/messages/14/spec/controllers/messages_controller_spec.rb
@@ -260,5 +260,5 @@ end
 
 The let( ), which we introduced in Section 5.4, let(:method) {}, on page 73, defines a message( ) that returns and caches the value of the block the first time it is called in any one example and then returns the cached value on subsequent calls. The before( ) hook then instructs the Message class to return the message object.
 
-Looks  cleaner,  yes?  And  it  looks  like  we’re  done,  yes?  No!  We’ve  only specified  how  the  create  action  should  behave  when  it  successfully saves a message. But what about when the save fails?
+Looks  cleaner,  yes?  And  it  looks  like  weâ€™re  done,  yes?  No!  Weâ€™ve  only specified  how  the  create  action  should  behave  when  it  successfully saves a message. But what about when the save fails?
 

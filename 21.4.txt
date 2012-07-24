@@ -1,10 +1,10 @@
-21.4  Specifying Outcomes with View Matchers
+Ôªø21.4  Specifying Outcomes with View Matchers
 
-Simply  by  navigating  from  page  to  page  and  manipulating  forms  in Whens, youíve been implicitly verifying some behavior of your application. If a link breaks, a server error occurs, or a form field disappears, your scenario will fail. Thatís a lot of coverage against regressions for free. In Then steps, weíre usually interested in explicitly specifying the contents of pages, and Webrat provides three custom RSpec matchers to help with this.
+Simply  by  navigating  from  page  to  page  and  manipulating  forms  in Whens, you‚Äôve been implicitly verifying some behavior of your application. If a link breaks, a server error occurs, or a form field disappears, your scenario will fail. That‚Äôs a lot of coverage against regressions for free. In Then steps, we‚Äôre usually interested in explicitly specifying the contents of pages, and Webrat provides three custom RSpec matchers to help with this.
 
 contain( )
 
-The simplest possible specification of a page is to ensure it displays the right words. Webratís contain( ) takes a bit of text and ensures itís in the responseís content:
+The simplest possible specification of a page is to ensure it displays the right words. Webrat‚Äôs contain( ) takes a bit of text and ensures it‚Äôs in the response‚Äôs content:
 
 Then /^I should see Thank you!$/ do
 	response.should contain("Thank you!")
@@ -16,7 +16,7 @@ Then /^I should see Hello$/ do
 	response.should contain(/Hello/i)
 end
 
-You will find that you can accommodate almost all of your day-to-day uses of the contain( ) matcher with a couple of reusable step definitions from Cucumberís generated web_steps.rb file described in the sidebar on page 307:
+You will find that you can accommodate almost all of your day-to-day uses of the contain( ) matcher with a couple of reusable step definitions from Cucumber‚Äôs generated web_steps.rb file described in the sidebar on page 307:
 
 Then /^I should see "(.+)"$/ do |text|
 	response.should contain(text)
@@ -26,39 +26,39 @@ Then /^I should not see "(.+)"$/ do |text|
 	response.should_not contain(text)
 end
 
-contain( )  will  match  against  the  HTML-decoded  text  of  the  document, so if you want to ensure ìPeanut butter & jellyî is on the page, youíd type just that in the string, not ìPeanut butter &amp; jellyî.
+contain( )  will  match  against  the  HTML-decoded  text  of  the  document, so if you want to ensure ‚ÄúPeanut butter & jelly‚Äù is on the page, you‚Äôd type just that in the string, not ‚ÄúPeanut butter &amp; jelly‚Äù.
 
 have_selector()
 
-Imagine youíre building an online photo gallery. Specifying the text on the page probably isnít good enough if youíre looking to make sure the photo a user uploaded is being rendered in the album view. In this case, it can be quite useful to ensure the existence of a CSS selector using Webratís have_selector( ):
+Imagine you‚Äôre building an online photo gallery. Specifying the text on the page probably isn‚Äôt good enough if you‚Äôre looking to make sure the photo a user uploaded is being rendered in the album view. In this case, it can be quite useful to ensure the existence of a CSS selector using Webrat‚Äôs have_selector( ):
 
 Then /^I should see the photo$/ do
 	response.should have_selector("img.photo")
 end
 
-As youíd expect, that specifies there is at least one <img> element on the  page  with  a  class  of  photo.  Webrat  supports  the  full  set  of  CSS3 selectors like the :nth-child pseudo-class, giving it lots of flexibility. The imageís src is particularly important in this case, so we might want to check that too:
+As you‚Äôd expect, that specifies there is at least one <img> element on the  page  with  a  class  of  photo.  Webrat  supports  the  full  set  of  CSS3 selectors like the :nth-child pseudo-class, giving it lots of flexibility. The image‚Äôs src is particularly important in this case, so we might want to check that too:
 
 Then /^I should see the photo$/ do
 	response.should have_selector("img.photo", :src => photo_path(@photo))
 end
 
-Webrat will take any keys and values specified in the options hash and translate them to requirements on the elementís attributes. Itís just a more readable way to do what you can do with CSSís img[src=...] syntax but saves you from having to worry about escaping strings.
+Webrat will take any keys and values specified in the options hash and translate them to requirements on the element‚Äôs attributes. It‚Äôs just a more readable way to do what you can do with CSS‚Äôs img[src=...] syntax but saves you from having to worry about escaping strings.
 
-Occasionally the number of elements matching a given selector is important. Itís easy to imagine a scenario that describes uploading a couple  photos  and  specifying  the  number  of  photos  in  the  album  view should increase. This is supported via the special :count option:
+Occasionally the number of elements matching a given selector is important. It‚Äôs easy to imagine a scenario that describes uploading a couple  photos  and  specifying  the  number  of  photos  in  the  album  view should increase. This is supported via the special :count option:
 
 Then /^I should see the photo$/ do
 	response.should have_selector("img.photo", :count => 5)
 end
 
-When we donít care where on the page a piece of text might be, contain( ) gets  the  job  done,  but  in  some  cases  the  specific  element  the  text  is in may be important. A common example would be ensuring that the correct navigation tab is active. To help in these cases, Webrat provides the :content option. Hereís how you use it:
+When we don‚Äôt care where on the page a piece of text might be, contain( ) gets  the  job  done,  but  in  some  cases  the  specific  element  the  text  is in may be important. A common example would be ensuring that the correct navigation tab is active. To help in these cases, Webrat provides the :content option. Here‚Äôs how you use it:
 
 Then /^the Messages tab should be active$/ do
 	response.should have_selector("#nav li.selected", :content => "Messages")
 end
 
-This tells Webrat to make sure that at least one element matching the selector contains the specified string. Like contain( ), the provided string is  matched  against  the  HTML  decoded  content,  so  thereís  no  need  to use HTML escaped entities.
+This tells Webrat to make sure that at least one element matching the selector contains the specified string. Like contain( ), the provided string is  matched  against  the  HTML  decoded  content,  so  there‚Äôs  no  need  to use HTML escaped entities.
 
-Finally, for cases when you need to get fancy, have_selector( ) supports nesting. If you call it with a block, the block will be passed an object representing the elements matched by the selector, and within the block you can use any of Webratís matchers. Hereís how you might check that the third photo in an album is being rendered with the right image tag and caption:
+Finally, for cases when you need to get fancy, have_selector( ) supports nesting. If you call it with a block, the block will be passed an object representing the elements matched by the selector, and within the block you can use any of Webrat‚Äôs matchers. Here‚Äôs how you might check that the third photo in an album is being rendered with the right image tag and caption:
 
 Then /^the Vacation photo should be third in the album$/ do
 	response.should have_selector("#album li:nth-child(3)") do |li| 
@@ -67,11 +67,11 @@ Then /^the Vacation photo should be third in the album$/ do
 	end 
 end
 
-By  combining  the  power  of  CSS3  selectors  with  a  few  extra  features, Webratís  have_selector( )  should  provide  all  you  need  to  write  expecta- tions for the vast majority of your step definitions. For the rare cases where  CSS wonít  cut it, letís take a look at the have_xpath( ) matcher, which lets you go further.
+By  combining  the  power  of  CSS3  selectors  with  a  few  extra  features, Webrat‚Äôs  have_selector( )  should  provide  all  you  need  to  write  expecta- tions for the vast majority of your step definitions. For the rare cases where  CSS won‚Äôt  cut it, let‚Äôs take a look at the have_xpath( ) matcher, which lets you go further.
 
 have_xpath
 
-When CSS just isnít powerful enough, Webrat exposes have_xpath( ) as a matcher of last resort. Itís infinitely powerful, but because of the nature of XPath, itís usually not the most expressive. Hereís an example from a recent project:
+When CSS just isn‚Äôt powerful enough, Webrat exposes have_xpath( ) as a matcher of last resort. It‚Äôs infinitely powerful, but because of the nature of XPath, it‚Äôs usually not the most expressive. Here‚Äôs an example from a recent project:
 
 Then /^the page should not be indexable by search engines$/ do
 	response.should have_xpath(
@@ -82,4 +82,4 @@ end
 
 Under the hood, have_selector( ) actually works by translating CSS selectors to XPath and using the have_xpath( ) implementation. That means all the have_selector( ) features we explored work with have_xpath( ) too.
 
-This  implementation  strategy  hints  at  an  interesting  rule  about  CSS and  XPath:  all  CSS  selectors  can  be  expressed  as  XPath,  but  not  all XPath selectors can be expressed as CSS. There are a lot of occasionally useful features XPath supports that CSS does not, such as traversing up  the  document  tree  (for  example,  give  me  all  <div>s  containing  a <p>). Although an overview of XPath is outside the scope of this book, itís a good thing to get familiar with if you find yourself wanting more power than CSS selectors can provide.
+This  implementation  strategy  hints  at  an  interesting  rule  about  CSS and  XPath:  all  CSS  selectors  can  be  expressed  as  XPath,  but  not  all XPath selectors can be expressed as CSS. There are a lot of occasionally useful features XPath supports that CSS does not, such as traversing up  the  document  tree  (for  example,  give  me  all  <div>s  containing  a <p>). Although an overview of XPath is outside the scope of this book, it‚Äôs a good thing to get familiar with if you find yourself wanting more power than CSS selectors can provide.

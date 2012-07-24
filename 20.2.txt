@@ -1,10 +1,10 @@
-20.2  Direct Model Access
+Ôªø20.2  Direct Model Access
 
-Direct  Model  Access  (DMA)  step  definitions  execute  quickly,  but  that speed and isolation comes at a price. They donít provide much assurance  that  the  application  works,  and  they  are  unlikely  to  catch  bugs beyond those that should be caught by granular RSpec code examples that weíll be writing in a few chapters.
+Direct  Model  Access  (DMA)  step  definitions  execute  quickly,  but  that speed and isolation comes at a price. They don‚Äôt provide much assurance  that  the  application  works,  and  they  are  unlikely  to  catch  bugs beyond those that should be caught by granular RSpec code examples that we‚Äôll be writing in a few chapters.
 
 They  do,  however,  facilitate  conversation  between  the  customer  and developers and will catch regressions if the logic inside the models is broken in the future. In this way, DMA step definitions are useful for exercising fine-grained behaviors of a system, when driving all of them through the full stack would be too cumbersome.
  
-To see this in action, letís look at some scenarios for a movie box office system  weíll  call  Showtime.  Start  by  bootstrapping  a  Rails  app  as  we did in Section 19.2, Setting Up a Rails 3 Project , on page 286.
+To see this in action, let‚Äôs look at some scenarios for a movie box office system  we‚Äôll  call  Showtime.  Start  by  bootstrapping  a  Rails  app  as  we did in Section 19.2, Setting Up a Rails 3 Project , on page 286.
 
 The customer wants the structured movie schedule data to be distilled into a human-readable one-line showtime description for display on a website. Create a feature file named showtime_descriptions.feature in the features directory, and add the following text to it:
 
@@ -53,7 +53,7 @@ end
 
 Getting the First Scenario to Pass
 
-Weíll  implement  the  step  definitions  for  the  first  scenario  using  the Direct Model Access style. Create a file named showtime_steps.rb  in the features/step_definitions  directory,  copy  in  the  snippets  Cucumber  supplied, and modify them as follows:
+We‚Äôll  implement  the  step  definitions  for  the  first  scenario  using  the Direct Model Access style. Create a file named showtime_steps.rb  in the features/step_definitions  directory,  copy  in  the  snippets  Cucumber  supplied, and modify them as follows:
 
 Download cucumber_rails/02/features/step_definitions/showtime_steps.rb
 
@@ -70,7 +70,7 @@ Then /^the showtime description should be "([^"]*)"$/ do |showtime|
 	@movie.showtime.should eq(showtime)
 end
 
-The step definitions are executed in the context of a Rails environment, so  we  can  use  any  techniques  that  work  in  Rails  unit  tests  or  RSpec model specs, which youíll read about in Chapter 25, Rails Models, on page  365.  This  includes  creating  models  in  the  database  and  using RSpecís Expectations API.
+The step definitions are executed in the context of a Rails environment, so  we  can  use  any  techniques  that  work  in  Rails  unit  tests  or  RSpec model specs, which you‚Äôll read about in Chapter 25, Rails Models, on page  365.  This  includes  creating  models  in  the  database  and  using RSpec‚Äôs Expectations API.
 
 The steps are all run in the same object, so the @movie instance variable created in the Given( ) step is available to all subsequent steps.
 
@@ -98,7 +98,7 @@ $ rake db:test:prepare
 
 The model generator creates a movie_spec.rb because RSpec registered itself as the test framework when we ran script/rails generate rspec:install.
 
-Now run rake db:migrate and rake cucumber:wip, and you should see that the first and second steps are passing, but we get an undefined method ëshowtimeí for the third step. To get that to pass, go ahead and modify movie.rb as follows:
+Now run rake db:migrate and rake cucumber:wip, and you should see that the first and second steps are passing, but we get an undefined method ‚Äòshowtime‚Äô for the third step. To get that to pass, go ahead and modify movie.rb as follows:
 
 Download cucumber_rails/04/app/models/movie.rb
 
@@ -124,7 +124,7 @@ Now  run  rake cucumber:wip  again,  and  the  output  should  include  the foll
 3 steps (3 passed)
 0m0.263s
 
-Thatís looking much better, isnít it? This would probably be a good time to commit to a version control system. Working scenario by scenario like this, we get the benefit of ensuring we donít break previously passing scenarios as we continue to add behavior and refactor.
+That‚Äôs looking much better, isn‚Äôt it? This would probably be a good time to commit to a version control system. Working scenario by scenario like this, we get the benefit of ensuring we don‚Äôt break previously passing scenarios as we continue to add behavior and refactor.
 
 Joe Asks. . .
 
@@ -132,11 +132,11 @@ Joe Asks. . .
   
 In this example, we go straight from a Cucumber scenario to the Rails model code without any more granular code examples written in RSpec. This is really just to keep things simple and focused on Cucumber for this chapter.
 
-We have yet to introduce you to the other styles of step def- initions  or  the  Rails-specific  RSpec  contexts  provided  by  the rspec-rails  library.  As  you  learn  about  them  in  the  coming chapters,  youíll  begin  to  get  a  feel  for  how  all  these  puzzle pieces fit together and how to balance the different tools and approaches.
+We have yet to introduce you to the other styles of step def- initions  or  the  Rails-specific  RSpec  contexts  provided  by  the rspec-rails  library.  As  you  learn  about  them  in  the  coming chapters,  you‚Äôll  begin  to  get  a  feel  for  how  all  these  puzzle pieces fit together and how to balance the different tools and approaches.
 
 Completing the Feature
 
-Now that we have the first scenario passing, letís see how weíre doing on the second one. Run both scenarios with rake cucumber (without :wip), and you should see this in the output:
+Now that we have the first scenario passing, let‚Äôs see how we‚Äôre doing on the second one. Run both scenarios with rake cucumber (without :wip), and you should see this in the output:
 
 2 scenarios (2 passed)
 6 steps (6 passed)
@@ -157,4 +157,4 @@ That should be enough to get us to green:
 6 steps (6 passed)
 0m0.233s
 
-Success! Weíve completed our work on the ìShowtime Descriptionsî feature. Our passing scenarios tell us that weíve written the right code and that weíre done. Before we leap into the next chapter, letís take a second to consider what we learned.
+Success! We‚Äôve completed our work on the ‚ÄúShowtime Descriptions‚Äù feature. Our passing scenarios tell us that we‚Äôve written the right code and that we‚Äôre done. Before we leap into the next chapter, let‚Äôs take a second to consider what we learned.

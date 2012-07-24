@@ -1,12 +1,12 @@
-22.2  Writing Step Definitions for Selenium
+Ôªø22.2  Writing Step Definitions for Selenium
 
 Fortunately,  most  of  the  techniques  for  writing  and  maintaining  step definitions for simulating the browser apply equally well when automat- ing the browser with Selenium. There are a few things to watch out for and also some new tricks we can use.
 
 Setting Up Database State in Givens
 
-Just  like  when  simulating  the  browser  (as  we  saw  in  Section  21.1, Writing  Simulated  Browser  Step  Definitions,  on  page  299),  itís  useful to  use  Direct  Model  Access  to  set  up  models  in  the  Given  steps  of  a Selenium scenario. By specifying the behavior associated with creating those models in separate Cucumber features, we can do this to speed up our suite without sacrificing confidence in our coverage.
+Just  like  when  simulating  the  browser  (as  we  saw  in  Section  21.1, Writing  Simulated  Browser  Step  Definitions,  on  page  299),  it‚Äôs  useful to  use  Direct  Model  Access  to  set  up  models  in  the  Given  steps  of  a Selenium scenario. By specifying the behavior associated with creating those models in separate Cucumber features, we can do this to speed up our suite without sacrificing confidence in our coverage.
 
-Unlike when simulating the browser, we have to turn off Railsí transactional fixture setting so the records we write to the database from our test process are visible to the application process. As a side effect, we have to worry about ensuring that each scenario starts off with a clean database state.
+Unlike when simulating the browser, we have to turn off Rails‚Äô transactional fixture setting so the records we write to the database from our test process are visible to the application process. As a side effect, we have to worry about ensuring that each scenario starts off with a clean database state.
 
 There are a couple ways to achieve that goal. The simplest is to manually destroy all the records in an After hook declared in features/support/ env.rb:
 
@@ -16,7 +16,7 @@ After do
 	# ... 
 end
 
-As you might guess, this technique can get a bit cumbersome and error prone as the application grows. Eventually, you might want something that can quickly remove all the records in the database without needing to list all your model classes. Ben Mabeyís database_cleaner2  plug-in is a handy little library to give you just that. To install it, run the following command:
+As you might guess, this technique can get a bit cumbersome and error prone as the application grows. Eventually, you might want something that can quickly remove all the records in the database without needing to list all your model classes. Ben Mabey‚Äôs database_cleaner2  plug-in is a handy little library to give you just that. To install it, run the following command:
 
 script/plugin install git://github.com/bmabey/database_cleaner.git
 
@@ -36,9 +36,9 @@ Like  Givens,  Whens  work  mostly  the  same  with  Selenium  as  they  do when
 
 Dropping Down to the selenium-client API
 
-Occasionally,  you  might  want  to  perform  an  action  in  your  Selenium scenario  that  has  no  analog  in  a  simulated,  non-JavaScript  environ- ment. For example, you might want to drag and drop a photo in a gallery or double-click a <div> element. One of Webratís goals is to ensure the programmer maintains the full power of its underlying tools, so it tries to make this as easy as possible.
+Occasionally,  you  might  want  to  perform  an  action  in  your  Selenium scenario  that  has  no  analog  in  a  simulated,  non-JavaScript  environ- ment. For example, you might want to drag and drop a photo in a gallery or double-click a <div> element. One of Webrat‚Äôs goals is to ensure the programmer maintains the full power of its underlying tools, so it tries to make this as easy as possible.
 
-Under the hood, Webratís Selenium support is built on the selenium- client Ruby library maintained by Philippe Hanrigou. When you call a Webrat  method  such  as  fill_in( ),  itís  translated  to  the  appropriate  call on  an  instance  of  Selenium::Client::Driver.  Webrat  exposes  this  instance through the selenium( ) method so you can easily leverage the full sele- nium-client API:
+Under the hood, Webrat‚Äôs Selenium support is built on the selenium- client Ruby library maintained by Philippe Hanrigou. When you call a Webrat  method  such  as  fill_in( ),  it‚Äôs  translated  to  the  appropriate  call on  an  instance  of  Selenium::Client::Driver.  Webrat  exposes  this  instance through the selenium( ) method so you can easily leverage the full sele- nium-client API:
 
 selenium.dragdrop("id=#{dom_id(@photo1)}", "+350, 0")
 
@@ -46,13 +46,13 @@ An  explanation  of  the  full  selenium-client  API  is  outside  the  scope  o
 
 Waiting
 
-Each of the Webrat API methods covered in Chapter 21, Simulating the Browser with Webrat , on page 298, such as click_link( ) and fill_in( ), work similarly in Selenium mode, but thereís one additional concern intrinsic to the Selenium environment you need to watch out for: waiting.
+Each of the Webrat API methods covered in Chapter 21, Simulating the Browser with Webrat , on page 298, such as click_link( ) and fill_in( ), work similarly in Selenium mode, but there‚Äôs one additional concern intrinsic to the Selenium environment you need to watch out for: waiting.
 
 When simulating a browser, everything happens in one Ruby process. A call to click_button( ) causes your scenario to pause while your application code processes the request before returning control to your step definition to verify the response. When using Selenium, however, Cucumber and the Rails application server run in separate processes, so we have to worry about concurrency issues such as race conditions.
 
 3.  You can read more about the minor differences between TRUNCATE TABLE and DELETE at http://dev.mysql.com/doc/refman/5.1/en/truncate.html.
  
-The  typical  solution  to  this  involves  instructing  Selenium  to  wait  for various conditions at points where the server or browser must do some work before the scenario can proceed. Webrat tries to make this seamless  by  implicitly waiting  inside  each  action  or  expectation.  Hereís  an example of how it works from Webrat::SeleniumSession:
+The  typical  solution  to  this  involves  instructing  Selenium  to  wait  for various conditions at points where the server or browser must do some work before the scenario can proceed. Webrat tries to make this seamless  by  implicitly waiting  inside  each  action  or  expectation.  Here‚Äôs  an example of how it works from Webrat::SeleniumSession:
 
 def check(label_text)
 	locator = "webrat=#{label_text}"
@@ -61,25 +61,25 @@ def check(label_text)
 	selenium.click locator
 end
 
-Selenium  uses  various  locators  to  find  elements  on  the  page.  Webrat waits for the element to be available in the DOM before clicking it. In this  way,  Webratís  API  means  you  donít  have  to  think  about  concur - rency  very  much.  It  doesnít  do  any  waiting  until  your  code  interacts with the page, and then it waits for exactly what youíre trying to manipulate.
+Selenium  uses  various  locators  to  find  elements  on  the  page.  Webrat waits for the element to be available in the DOM before clicking it. In this  way,  Webrat‚Äôs  API  means  you  don‚Äôt  have  to  think  about  concur - rency  very  much.  It  doesn‚Äôt  do  any  waiting  until  your  code  interacts with the page, and then it waits for exactly what you‚Äôre trying to manipulate.
 
 So, with Webrat handling the waiting for you, why do you need to worry about it at all? There are three primary use cases:
 
-ï  The  Webratís  default  timeout  of  five  seconds  is  not  long  enough for the application code to finish. In this case, one option is to add your own explicit wait at that spot before the Webrat call:
+‚Ä¢  The  Webrat‚Äôs  default  timeout  of  five  seconds  is  not  long  enough for the application code to finish. In this case, one option is to add your own explicit wait at that spot before the Webrat call:
 
 When /^I agree to the Terms of Service$/ do
 	selenium.wait_for_element "id=tos_checkbox", :timeout_in_seconds => 10
 	check "I agree to the Terms of Service"
 end
 
-ï  You need to wait for something other than the elementís presence. In this case, you can simply add an additional wait for whatever you need before the Webrat call:
+‚Ä¢  You need to wait for something other than the element‚Äôs presence. In this case, you can simply add an additional wait for whatever you need before the Webrat call:
 
 When /^I agree to the Terms of Service$/ d 
 	selenium.wait_for_condition "window.Effect.Queue.size() == 0", 10 
 	check "I agree to the Terms of Service"
 end
 
-ï  Youíre  not  using  the  Webrat  API.  If  youíre  using  the  technique described in Section 21.5, Dropping Down to HTTP , on page 317, you  have  to  add  your  own  waits.  Webrat  provides  the  wait_for( ) method to help in these situations.
+‚Ä¢  You‚Äôre  not  using  the  Webrat  API.  If  you‚Äôre  using  the  technique described in Section 21.5, Dropping Down to HTTP , on page 317, you  have  to  add  your  own  waits.  Webrat  provides  the  wait_for( ) method to help in these situations.
  
 It takes a block:
 
@@ -87,13 +87,13 @@ wait_for(:timeout => 3) do
 	selenium.dragdrop("id=#{dom_id(@photo1)}", "+350, 0")
 end
 
-The wait_for( ) name will execute the block repeatedly until it runs without raising a Selenium, Webrat, or RSpec ExpectationNotMetEr- ror  error, or it times out. In this way, itís a wait in the Cucumber process rather than the browser.
+The wait_for( ) name will execute the block repeatedly until it runs without raising a Selenium, Webrat, or RSpec ExpectationNotMetEr- ror  error, or it times out. In this way, it‚Äôs a wait in the Cucumber process rather than the browser.
 
-You can also take a look at selenium-clientís API documentation to get an idea of the features it provides for waiting inside the web browser, which can be better for some situations.
+You can also take a look at selenium-client‚Äôs API documentation to get an idea of the features it provides for waiting inside the web browser, which can be better for some situations.
 
 Executing Arbitrary JavaScript
 
-Sometimes, for maximum flexibility, you might find yourself wanting to execute a snippet of JavaScript in the browser during the scenario execution. For example, weíve used this technique to replace a third-party Flash  component  with  a  fake  in  order  to  specify  that  our  integration with it works properly.
+Sometimes, for maximum flexibility, you might find yourself wanting to execute a snippet of JavaScript in the browser during the scenario execution. For example, we‚Äôve used this technique to replace a third-party Flash  component  with  a  fake  in  order  to  specify  that  our  integration with it works properly.
 
 The selenium-client library offers a get_eval( ) method for this:
 
@@ -108,11 +108,11 @@ JavaScript executed with get_eval( ) runs in the context of the Selenium window.
 
 Specifying Outcomes in Thens
 
-Webratís three RSpec matchers are all available in Selenium mode: contain( ), have_selector( ), and have_xpath( ). Like the methods for manipulating the application, they all implicitly wait for the expected content to appear (or disappear).
+Webrat‚Äôs three RSpec matchers are all available in Selenium mode: contain( ), have_selector( ), and have_xpath( ). Like the methods for manipulating the application, they all implicitly wait for the expected content to appear (or disappear).
 
-Itís  worth  noting  that  in  simulated  mode  Webrat  uses  the  excellent libxml2  C  library  for  XPath  lookups,  but  in  Selenium mode  it  lever - ages  the  browserís  XPath  implementation.  This  can  vary  a  bit  across browser versions (and, not surprisingly, is most error prone in Internet Explorer).
+It‚Äôs  worth  noting  that  in  simulated  mode  Webrat  uses  the  excellent libxml2  C  library  for  XPath  lookups,  but  in  Selenium mode  it  lever - ages  the  browser‚Äôs  XPath  implementation.  This  can  vary  a  bit  across browser versions (and, not surprisingly, is most error prone in Internet Explorer).
 
-For  situations  where  Webratís  API  doesnít  have  what  youíre  looking for, you can leverage the selenium-client API for more flexibility. It has about a dozen methods (prefixed with ìis_î) that check the state of the browser and return booleans:
+For  situations  where  Webrat‚Äôs  API  doesn‚Äôt  have  what  you‚Äôre  looking for, you can leverage the selenium-client API for more flexibility. It has about a dozen methods (prefixed with ‚Äúis_‚Äù) that check the state of the browser and return booleans:
 
 Then /^the first photo should be first in the album$/ do
 	wait_for do

@@ -1,4 +1,4 @@
-6.3  What We�ve Learned
+﻿6.3  What We’ve Learned
 
 In this chapter, we explored scenario outlines in Cucumber, which allow us to express groups of similar scenarios in a readable, scannable, and DRY format.
 

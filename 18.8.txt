@@ -1,4 +1,4 @@
-18.8  Scenario Outlines
+﻿18.8  Scenario Outlines
 
 For  cases  that  involve  several  similar  cases,  Cucumber  gives  us  scenario  outlines.  We  saw  this  in  the  Codebreaker  tutorial  in  Part  I  of the book, where we had several scenarios that involved the same three steps with different values each time.
 
@@ -34,7 +34,7 @@ Scenarios: all numbers correct
 The Scenarios  keyword identifies a table of input data for the outline. (3)
 See how the column headers in the table match up to the placeholders in the outline? Cucumber processes the outlined scenario once for each row in the table after the first row with the column headers. In this case, we get four scenarios.
 
-The substitutions in scenario outlines also work with multiline text and tabular input. Here�s an example:
+The substitutions in scenario outlines also work with multiline text and tabular input. Here’s an example:
 
 Scenario Outline:
 	Given a discount of <discount> 

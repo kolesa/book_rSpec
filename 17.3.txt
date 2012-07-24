@@ -1,4 +1,4 @@
-17.3  Customer Acceptance Tests
+﻿17.3  Customer Acceptance Tests
 
 A customer acceptance test represents an agreement between the stakeholder  and  delivery  team.  It  specifies  how  a  feature  should  behave. When the developers deliver code that passes the test, the stakeholder accepts that feature as done.
 

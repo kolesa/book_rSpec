@@ -1,7 +1,7 @@
-
+﻿
 Appendix B
 
- RSpec�s  Built-in  Expectations  
+ RSpec’s  Built-in  Expectations  
 
 Here is a summary of all the expectations that are supported directly by RSpec.
 

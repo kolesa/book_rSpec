@@ -1,4 +1,4 @@
-
+Ôªø
 Appendix A
 
   RubySpec  
@@ -7,22 +7,22 @@ by Brian Ford
 
 Ruby is a fabulous language. The first time I encountered it was around 1997 in response to a friend who was singing the praises of Python. I missed the part about blocks in the README and read the part about the Perl-ish globals. I had recently tried to learn Perl and I hated it, so I  closed  the  file  and  went  back  to  Python.  Fortunately,  when  I  found Programming Ruby on the Web, I gave it another try and was smitten after the first couple chapters. Maybe it was all the Python.
 
-As great as Ruby is, there were two things that bothered me. It wasnít that fast, a fact that others never tire of pointing out. And the implementation was not very sophisticated. Early on, I had signed up to the YARV  English-language  developer  mailing  list  but  never  got  past  just checking out the source and building.
+As great as Ruby is, there were two things that bothered me. It wasn‚Äôt that fast, a fact that others never tire of pointing out. And the implementation was not very sophisticated. Early on, I had signed up to the YARV  English-language  developer  mailing  list  but  never  got  past  just checking out the source and building.
 
 Then  I  heard  about  Rubinius,  a  project  attempting  to  write  a  Ruby implementation  from  scratch  and  to  write  as  much  of  it  as  possible in Ruby. Further, this guy Evan Phoenix talked about test-driving the development. I was intrigued.
 
-On another front, I had been eagerly following RSpec since Dave Astelsí blog  post,  ìA  New  Look  at  Test-Driven  Development,î  and  Steven Bakerís first implementation. I was convinced it was an excellent way to test Ruby code, and I was using it almost exclusively for all the Rails projects I was working on.
+On another front, I had been eagerly following RSpec since Dave Astels‚Äô blog  post,  ‚ÄúA  New  Look  at  Test-Driven  Development,‚Äù  and  Steven Baker‚Äôs first implementation. I was convinced it was an excellent way to test Ruby code, and I was using it almost exclusively for all the Rails projects I was working on.
 
 These two threads came together in the question, How do you write a completely  new  implementation  of  Ruby  and  ensure  that  it  performs exactly  as  the  existing  one?  In  my  mind,  there  was  only  one  answer.
 
-I  asked  Evan  in  the  #rubinius  IRC  channel  if  it  was  acceptable  to write  RSpec  specs  for  Rubinius.  Ever  adventurous,  he  replied,  ìSure, go ahead.î
+I  asked  Evan  in  the  #rubinius  IRC  channel  if  it  was  acceptable  to write  RSpec  specs  for  Rubinius.  Ever  adventurous,  he  replied,  ‚ÄúSure, go ahead.‚Äù
 
 RubySpec was born.
 
 
 A.1  The Project
 
-The  goal  of  RubySpec  is  to  write  a  complete,  executable  specification for the Ruby programming language. RubySpec attempts to capture the behavior of the reference implementation of Ruby, generally referred to as MRI for Matzís Ruby Implementation. RubySpec intends to support compatibility, development, and experimentation among the alternative Ruby implementations.
+The  goal  of  RubySpec  is  to  write  a  complete,  executable  specification for the Ruby programming language. RubySpec attempts to capture the behavior of the reference implementation of Ruby, generally referred to as MRI for Matz‚Äôs Ruby Implementation. RubySpec intends to support compatibility, development, and experimentation among the alternative Ruby implementations.
 
 Compatibility among the Ruby implementations is essential to prevent fragmentation in the community. There will inevitably be some incompatibilities,  but  they  will  be  small.  There  is  no  reason  that  the  vast majority of Ruby language features, and hence the vast majority of programs, cannot perform the same on different implementations.
 
@@ -35,7 +35,7 @@ Finally, the RubySpecs encourage experimentation. To experiment, you need code e
 
 A.2  Syntax
 
-One of the most important goals of a test suite is communication. This is also one of the greatest challenges. Indeed, communication is always a challenge. Anything that helps the process is welcome. For RubySpec, we have the four Cís  to describe the quality of the specs: correct, clear, consistent, and concise. These are ordered by priority. The specs must be correct above all. The next most important characteristic is clarity. Consistency  is  an  invaluable  aid  to  communication,  but  consistency will be trumped by clarity. Conciseness is also an aid to communica- tion, but  a  slightly  more  verbose  spec  will  be  preferred  if  it  is  more consistent with similar specs.
+One of the most important goals of a test suite is communication. This is also one of the greatest challenges. Indeed, communication is always a challenge. Anything that helps the process is welcome. For RubySpec, we have the four C‚Äôs  to describe the quality of the specs: correct, clear, consistent, and concise. These are ordered by priority. The specs must be correct above all. The next most important characteristic is clarity. Consistency  is  an  invaluable  aid  to  communication,  but  consistency will be trumped by clarity. Conciseness is also an aid to communica- tion, but  a  slightly  more  verbose  spec  will  be  preferred  if  it  is  more consistent with similar specs.
 
 The RSpec syntax provides an essential tool for communication through the specs. The describe block avoids the pressure of choosing a descrip- tive test subclass name while the string for the block provides essential documentation about the purpose of the grouping. The it  block string reads naturally in English with normal punctuation. Even the simplest code examples may have semantic nuances that can be explained only with natural language. The combination of example block strings and the code they contain provide the optimum information from two per- spectives to communicate the meaning and purpose of the spec.
 
@@ -108,7 +108,7 @@ This  simple  code  uses  no  advanced  Ruby  language  features  and  requires 
 
 A.3  Guards
 
-In  an  ideal  world,  there  would  be  a  single  version  of  Ruby  that  runs identically  on  any  hardware  platform  and  operating  system  and,  of course,  has  no  bugs.  For  better  or  worse,  we  donít  inhabit  an  ideal world.  And  neither  does  RubySpec.  Consequently,  there  must  exist some method for dealing with different byte orderings, word sizes, operating system services, versions, bugs, and implementations.
+In  an  ideal  world,  there  would  be  a  single  version  of  Ruby  that  runs identically  on  any  hardware  platform  and  operating  system  and,  of course,  has  no  bugs.  For  better  or  worse,  we  don‚Äôt  inhabit  an  ideal world.  And  neither  does  RubySpec.  Consequently,  there  must  exist some method for dealing with different byte orderings, word sizes, operating system services, versions, bugs, and implementations.
 
 For this purpose, RubySpec provides block-based helpers called guards. There are four basic categories of guard. These are document platform, version, implementation differences, and bugs in MRI.
 
@@ -186,7 +186,7 @@ MSpec is a simple, modular, event-driven, and purpose-built framework that suppo
 
 RSpec,  like  Ruby  itself,  is  both  an  implementation  and  a  standard. RSpec presents a particular syntax for writing specs. MSpec replaces the implementation while conforming to the syntax.
 
-MSpec is purpose built. It has to be because it must be able to run in a hostile proto-environment where many beloved Ruby language features donít yet exist. MSpec makes assumptions that are reasonable for its use  but not  reasonable  for  general  Ruby  applications.  MSpec  is  not intended  to,  nor  does  it  aspire  to,  serve  as  an  alternative  to  RSpecóunless youíre running the RubySpecs.
+MSpec is purpose built. It has to be because it must be able to run in a hostile proto-environment where many beloved Ruby language features don‚Äôt yet exist. MSpec makes assumptions that are reasonable for its use  but not  reasonable  for  general  Ruby  applications.  MSpec  is  not intended  to,  nor  does  it  aspire  to,  serve  as  an  alternative  to  RSpec‚Äîunless you‚Äôre running the RubySpecs.
 
 MSpec  provides  a  number  of  command-line  scripts  for  working  with RubySpec.  The  mspec  script  runs  the  specs  and  provides  options  for choosing which implementation to run the specs, selecting which specs to run, and selecting how to format the output. There is also the mspec-ci script that excludes from running the specs tagged as failing, and the mspec-tag script that aids in adding and removing tag metadata.
 
@@ -210,7 +210,7 @@ We have been using RubySpec in Rubinius for nearly four years. During that time,
 
 The Ruby community in general benefits from the availability of numerous  alternative  implementations.  In  almost  every  environment  niche today, there is a working Ruby implementation, whether it is Java or .NET,  Windows  or  Linux,  or  traditional  desktop/laptop  computers  or mobile phones. Ruby developers benefit from each of these implementations behaving the same. Users of software written in Ruby benefit from software that performs correctly, and such software is easier to write when there are not arbitrary implementation differences. Despite that some competition exists between implementations, RubySpec reminds us that we are all working toward a higher goal, bringing the beauty of the Ruby language to as many developers as want to use it.
 
-That being said, there is still a significant amount of work to do. Ruby is still evolving, and there are still many rather arbitrary platform differences that unnecessarily complicate developersí lives. For example, the  differences  between  Ruby  on  Windows  and  Ruby  on  other  platforms can be painful. Also, there are pressures on some platforms to prize special features over compatibility with MRI, the Ruby standard implementation. These pressures can lead to fragmentation of the Ruby community. RubySpec provides a means to keep these forces in check but  only  if  the  Ruby  community  widely  prizes  a  consistent  definition of Ruby and is vocal about requiring that Ruby implementers faithfully adhere to the standard specification. Everyone has a role to play in making Ruby an even better language.  RubySpec has a part to play in that endeavor. Those of us working on RubySpec hope you will join us in improving both RubySpec and Ruby.
+That being said, there is still a significant amount of work to do. Ruby is still evolving, and there are still many rather arbitrary platform differences that unnecessarily complicate developers‚Äô lives. For example, the  differences  between  Ruby  on  Windows  and  Ruby  on  other  platforms can be painful. Also, there are pressures on some platforms to prize special features over compatibility with MRI, the Ruby standard implementation. These pressures can lead to fragmentation of the Ruby community. RubySpec provides a means to keep these forces in check but  only  if  the  Ruby  community  widely  prizes  a  consistent  definition of Ruby and is vocal about requiring that Ruby implementers faithfully adhere to the standard specification. Everyone has a role to play in making Ruby an even better language.  RubySpec has a part to play in that endeavor. Those of us working on RubySpec hope you will join us in improving both RubySpec and Ruby.
  
 
 

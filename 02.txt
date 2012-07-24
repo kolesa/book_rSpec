@@ -1,4 +1,4 @@
-
+ï»¿
 Chapter 2
 
 
@@ -12,5 +12,5 @@ it is sometimes described as a domain-specific language (DSL), for
 describing the behavior of objects.  Similarly, Cucumber is a DSL for 
 describing the behavior of applications.
 
-To satisfy this requirement, we’ll write Hello  examples for both RSpec and 
-Cucumber. But first things first, let’s get the environment set up.
+To satisfy this requirement, weâ€™ll write Hello  examples for both RSpec and 
+Cucumber. But first things first, letâ€™s get the environment set up.

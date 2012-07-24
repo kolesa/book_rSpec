@@ -1,4 +1,4 @@
-18.2  World
+Ôªø18.2  World
 
 Every scenario runs in the context of a new instance of an object that we call World. By default, World  is just an instance of Object  that Cucumber  instantiates  before  each  scenario.  All  of  the  step  definitions  for  a scenario will execute their blocks in the context of this same instance.
 
@@ -23,5 +23,5 @@ World do
 	MyWorld.new
 end
 
-These  techniques  for  altering  World  can  also  be  used  by  Cucumber ìplug-insî  such  as  cucumber-rails,  which  configures  World  to  be  an instance of ActionController::IntegrationTest. It also mixes in various modules from RSpec and Webrat so that those librariesí helper methods are available from within your step definitions.
+These  techniques  for  altering  World  can  also  be  used  by  Cucumber ‚Äúplug-ins‚Äù  such  as  cucumber-rails,  which  configures  World  to  be  an instance of ActionController::IntegrationTest. It also mixes in various modules from RSpec and Webrat so that those libraries‚Äô helper methods are available from within your step definitions.
 

@@ -1,4 +1,4 @@
-17.11  Tags
+ï»¿17.11  Tags
 
 Once we get a scenario passing, any subsequent failure is considered a regression. We want to fix it quickly, ideally before committing code. The life cycle before a scenario passes the first time, however, is a different matter.
 
@@ -6,9 +6,9 @@ The Life of a Scenario
 
 Before  work  commences  on  a  feature,  each  scenario  may  go  through an approval process in which developers and customers collaborate to write a scenario that expresses the right requirements at the right level of abstraction, and so on. During this time, a scenario might be considered to be pending approval, for example.
 
-Once all parties agree and we’re ready to commence work, the feature becomes a work in progress. Even after we have one scenario passing, we might have other scenarios in the same feature that are still works in progress or pending approval to start work.
+Once all parties agree and weâ€™re ready to commence work, the feature becomes a work in progress. Even after we have one scenario passing, we might have other scenarios in the same feature that are still works in progress or pending approval to start work.
 
-We therefore want to run controlled subsets of a full suite. When we’re working on a scenario, we might want to run only that scenario until we get it passing. Our continuous integration build might run only scenarios that should be passing and ignore all of the works in progress or scenarios pending approval.
+We therefore want to run controlled subsets of a full suite. When weâ€™re working on a scenario, we might want to run only that scenario until we get it passing. Our continuous integration build might run only scenarios that should be passing and ignore all of the works in progress or scenarios pending approval.
 
 Cucumber supports running selected subsets of features and scenarios with tags.
 
@@ -55,11 +55,11 @@ Other Uses for Tags
 
 In addition to using tags to manage the life cycle of a scenario, we can also use tags to do the following:
 
-•  Identify scenarios only to be run in a certain environment
+â€¢  Identify scenarios only to be run in a certain environment
 
-•  Identify  scenarios  that  represent  different  sorts  of  testing,  like workflow vs. business rules
+â€¢  Identify  scenarios  that  represent  different  sorts  of  testing,  like workflow vs. business rules
 
-•  Run only scenarios that run fast
+â€¢  Run only scenarios that run fast
 
-•  Run scenarios related to a feature set or theme
+â€¢  Run scenarios related to a feature set or theme
 

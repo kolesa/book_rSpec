@@ -1,6 +1,6 @@
-6.1  Scenario Outlines in Cucumber
+ï»¿6.1  Scenario Outlines in Cucumber
 
-Here’s the Cucumber feature we wrote back in Section 3.3, Planning the First Iteration, on page 44:
+Hereâ€™s the Cucumber feature we wrote back in Section 3.3, Planning the First Iteration, on page 44:
 
 Download cb/15/features/codebreaker_submits_guess.feature
 
@@ -71,11 +71,11 @@ Then /^the mark should be "([^"]*)"$/ do |arg1|
 	pending # express the regexp above with the code you wish you had
 end
 
-The summary says we have fourteen scenarios, one for each nonheader row in the tables in each group of scenarios. All fourteen scenarios are considered  undefined  because  we  don’t  have  step  definitions  defined for them. So now, with that help from Cucumber, let’s write some step definitions.
+The summary says we have fourteen scenarios, one for each nonheader row in the tables in each group of scenarios. All fourteen scenarios are considered  undefined  because  we  donâ€™t  have  step  definitions  defined for them. So now, with that help from Cucumber, letâ€™s write some step definitions.
 
 Step Definitions
 
-Step definitions for scenario outlines and tables are just like the step definitions  we  learned  about  in  Chapter  4,  Automating  Features  with Cucumber , on page 53. We’ll still provide regular expressions that capture input data and a block of code that interacts with the application code.
+Step definitions for scenario outlines and tables are just like the step definitions  we  learned  about  in  Chapter  4,  Automating  Features  with Cucumber , on page 53. Weâ€™ll still provide regular expressions that capture input data and a block of code that interacts with the application code.
 
 Copy  the  first  snippet  into  features/step_definitions/codebreaker_steps.rb, and modify it as follows:
 
@@ -88,7 +88,7 @@ end
 
 The Regexp captures a group of characters in quotes. This will capture the code (1234, for example) and pass it to the body of the step definition. The first line of the body should look familiar, because it is just like the first step in I start a new game. Then the last line passes in the secret code from the match group.
 
-Now run cucumber again, and you’ll see output including this:
+Now run cucumber again, and youâ€™ll see output including this:
 
 Scenarios: no matches
 	| code | guess | mark |

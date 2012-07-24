@@ -1,20 +1,20 @@
-8.2  One Step at a Time
+ï»¿8.2  One Step at a Time
 
-The refactoring we’re about to engage in has many steps. We’re going to go one step at a time, running the specs between each step to ensure that we’re preserving behavior as we move.
+The refactoring weâ€™re about to engage in has many steps. Weâ€™re going to go one step at a time, running the specs between each step to ensure that weâ€™re preserving behavior as we move.
 
 Clarify the Smell
 
-Before  we  can  refactor  away  the  procedural  nature  of  a  method,  it  is sometimes helpful to clarify that nature first. Let’s start by rephrasing the procedure a bit:
+Before  we  can  refactor  away  the  procedural  nature  of  a  method,  it  is sometimes helpful to clarify that nature first. Letâ€™s start by rephrasing the procedure a bit:
 
-•  Count up the exact matches.
+â€¢  Count up the exact matches.
 
-•  Count up the number matches.
+â€¢  Count up the number matches.
 
-•  Add a plus sign for each exact match.
+â€¢  Add a plus sign for each exact match.
 
-•  Add a minus sign for each number match.
+â€¢  Add a minus sign for each number match.
 
-We’ll start by clarifying the first step: counting up the exact matches. Make the following modifications to the guess() method:
+Weâ€™ll start by clarifying the first step: counting up the exact matches. Make the following modifications to the guess() method:
 
 Download cb/39/lib/codebreaker/game.rb
 
@@ -33,15 +33,15 @@ def guess(guess) exact_match_count = 0
 	@output.puts '+'*exact_match_count + mark
 end
 
-Now  we’ll  introduce  a  new  exact_match_count  variable and  assign  it  a value of 0. We increment its value in the first iterator and then use the * operator on the last line to build a string of n plus signs.
+Now  weâ€™ll  introduce  a  new  exact_match_count  variable and  assign  it  a value of 0. We increment its value in the first iterator and then use the * operator on the last line to build a string of n plus signs.
 
 A Circuitous Path
 
-Wait. Didn’t we just identify temporary variables as a code smell? Why yes, we did. Refactoring is not always linear in that some steps seem to  take  us  further  away  from  our  goal  even  when  those  steps  are  in
+Wait. Didnâ€™t we just identify temporary variables as a code smell? Why yes, we did. Refactoring is not always linear in that some steps seem to  take  us  further  away  from  our  goal  even  when  those  steps  are  in
  
-service of our goal. Temporary variables can be a very useful tool in the process of refactoring. . . temporarily. By the time we’re done, we’ll have eliminated them.
+service of our goal. Temporary variables can be a very useful tool in the process of refactoring. . . temporarily. By the time weâ€™re done, weâ€™ll have eliminated them.
 
-Run the specs, and they all should pass. On to the next step. We’ll do the same thing with the number matches:
+Run the specs, and they all should pass. On to the next step. Weâ€™ll do the same thing with the number matches:
 
 Download cb/391/lib/codebreaker/game.rb
 
@@ -61,7 +61,7 @@ def guess(guess)
 	@output.puts '+'*exact_match_count + '-'*number_match_count
 end
 
-Again, we introduce a temp variable, increment its value in the second iterator,  and  then  use  it  to  build  the  string  on  the  last  line.  We  don’t need the mark variable any longer, so we’ve removed it. Run the specs, and they should still pass. On to the next step: extract the calculation of exact_match_count to a separate method.
+Again, we introduce a temp variable, increment its value in the second iterator,  and  then  use  it  to  build  the  string  on  the  last  line.  We  donâ€™t need the mark variable any longer, so weâ€™ve removed it. Run the specs, and they should still pass. On to the next step: extract the calculation of exact_match_count to a separate method.
 
 Extract Method
 
@@ -89,9 +89,9 @@ def exact_match_count
 	exact_match_count
 end
 
-We  created  a  new  method  named  exact_match_count.  Then  we  moved the declaration of the exact_match_count temp variable to the top of the new method, followed by the first iterator from the guess method. Then we  return  the  value  of  the  temp  variable  at  the  end  of  the  method. The  last  line  of  the  guess()  method  didn’t  change,  but  its  reference  to exact_match_count  now  points  to  the  method  instead  of  a  local,  temp variable.
+We  created  a  new  method  named  exact_match_count.  Then  we  moved the declaration of the exact_match_count temp variable to the top of the new method, followed by the first iterator from the guess method. Then we  return  the  value  of  the  temp  variable  at  the  end  of  the  method. The  last  line  of  the  guess()  method  didnâ€™t  change,  but  its  reference  to exact_match_count  now  points  to  the  method  instead  of  a  local,  temp variable.
 
-Run the specs, and you’ll see several failures like this one:
+Run the specs, and youâ€™ll see several failures like this one:
 
 1) Codebreaker::Game #guess with no matches sends a mark with '' 
 	Failure/Error: game.guess('5555')
@@ -104,7 +104,7 @@ rspec spec --backtrace
 
 This  tells  RSpec  to  print  out  a  full  backtrace  for  each  failure.  In  this case, the first two lines are the same in each backtrace, and they point us to the third line of the new exact_match_count() method. There is no guess variable in the scope of the method, so it finds the guess() method on the object, which requires a single argument.
 
-To resolve this error, let’s pass the guess from the guess() method to the exact_match_count() method, like this:
+To resolve this error, letâ€™s pass the guess from the guess() method to the exact_match_count() method, like this:
 
 Download cb/393/lib/codebreaker/game.rb
 
@@ -133,7 +133,7 @@ Now  the  guess  on  line  3  of  the  exact_match_count()  method  points  to t
 
 Next step!
 
-Let’s do the same thing with number_match_count. We’ll extract a number_match_count() method, this time including the guess in the method definition:
+Letâ€™s do the same thing with number_match_count. Weâ€™ll extract a number_match_count() method, this time including the guess in the method definition:
 
 Download cb/394/lib/codebreaker/game.rb
 
@@ -165,9 +165,9 @@ Run the specs, and they should all pass.
  
 Watch Out for New Smells
 
-As we’re refactoring, the design is gradually changing before our very noses.  We  need  to  keep  them  open,  constantly  sniffing  for  new  code smells. We’ve cleaned up the guess() method quite a bit, but we’ve also introduced even more duplication between the two new methods.
+As weâ€™re refactoring, the design is gradually changing before our very noses.  We  need  to  keep  them  open,  constantly  sniffing  for  new  code smells. Weâ€™ve cleaned up the guess() method quite a bit, but weâ€™ve also introduced even more duplication between the two new methods.
 
-We can reduce the duplication using Ruby’sinject iterator in each of the new methods.2  Start with the exact_match_count method:
+We can reduce the duplication using Rubyâ€™sinject iterator in each of the new methods.2  Start with the exact_match_count method:
 
 Download cb/40/lib/codebreaker/game.rb
 
@@ -177,9 +177,9 @@ def exact_match_count(guess)
 	end 
 end
 
-If you’re new to Ruby, you might find inject a bit confusing. We’re going to use it in this case because it helps us get rid of our own temp variables by providing one as a block argument.
+If youâ€™re new to Ruby, you might find inject a bit confusing. Weâ€™re going to use it in this case because it helps us get rid of our own temp variables by providing one as a block argument.
 
-What happens is that the count variable is initialized with the 0 passed to  inject  and  passed  into  the  block  as  the  first  block  argument.  The second block argument is the next value in the collection we’re iterating on: 0 the first time, 1 the second, and so on.
+What happens is that the count variable is initialized with the 0 passed to  inject  and  passed  into  the  block  as  the  first  block  argument.  The second block argument is the next value in the collection weâ€™re iterating on: 0 the first time, 1 the second, and so on.
 
 With each iteration, inject  assigns the return value of the block to the count variable.
 
@@ -193,7 +193,7 @@ def number_match_count(guess)
 	end 
 end
 
-Here is the result of all the refactoring we’ve done so far:
+Here is the result of all the refactoring weâ€™ve done so far:
 
 Download cb/41/lib/codebreaker/game.rb
 
@@ -223,23 +223,23 @@ def number_match?(guess, index)
 	@secret.include?(guess[index]) && !exact_match?(guess, index)
 end
 
-Isn’t  that  expressive?  And  look  how  much  cleaner  everything  is!  The guess method is no longer procedural, and we’ve reduced all of the temp variables to those provided as block arguments by Ruby’s iterators. All in all, this is a big improvement, but there’s more we can do. Do you see any other code smells?
+Isnâ€™t  that  expressive?  And  look  how  much  cleaner  everything  is!  The guess method is no longer procedural, and weâ€™ve reduced all of the temp variables to those provided as block arguments by Rubyâ€™s iterators. All in all, this is a big improvement, but thereâ€™s more we can do. Do you see any other code smells?
 
 Large Class
 
-Similar to the Long Method smell, the Large Class smell is not really about  size;  it’s  about  responsibilities.  Our  Game  violates  the  Single Responsibility Principle by taking on multiple concerns: it formats out- put, sends messages to output, and marks each guess. It was violating SRP since we first introduced the guess() method, but that violation and its solution are much more clear now.
+Similar to the Long Method smell, the Large Class smell is not really about  size;  itâ€™s  about  responsibilities.  Our  Game  violates  the  Single Responsibility Principle by taking on multiple concerns: it formats out- put, sends messages to output, and marks each guess. It was violating SRP since we first introduced the guess() method, but that violation and its solution are much more clear now.
 
-We have four methods that all deal with marking a guess. These methods  clearly  belong  together.  We  might  even  be  tempted  to  put  a  comment  above  the  first  one  indicating  that  the  next  four  methods  deal with  marking  the  guess.  This  is  a  strong  hint  that  we’re  missing  an abstraction in our design.
+We have four methods that all deal with marking a guess. These methods  clearly  belong  together.  We  might  even  be  tempted  to  put  a  comment  above  the  first  one  indicating  that  the  next  four  methods  deal with  marking  the  guess.  This  is  a  strong  hint  that  weâ€™re  missing  an abstraction in our design.
 
 Extract Class
 
 The Extract Class refactoring is the remedy for an SRP violation. The steps are as follows:
 
-1.  Create  an  empty  Marker  class  inside  the  Game  class.  We’ll  move it  out  to  its  own  file  later,  but  it’s  easier  to  do  the  refactoring  if everything is in one file.
+1.  Create  an  empty  Marker  class  inside  the  Game  class.  Weâ€™ll  move it  out  to  its  own  file  later,  but  itâ€™s  easier  to  do  the  refactoring  if everything is in one file.
  
 2.  Add  an  initializer  to  the  Marker  that  accepts  the  secret  code  and assigns it to an instance variable named @secret.
 
-3.  Copy  the  four  calculation  methods  directly  into  the  new  Marker class. Don’t delete the originals yet.
+3.  Copy  the  four  calculation  methods  directly  into  the  new  Marker class. Donâ€™t delete the originals yet.
 
 4.  Create a new Marker  in the guess  method, passing the @secret  instance variable to Marker.new.
 
@@ -284,11 +284,11 @@ end
  
 
 
-Now  that  we  have  this  structure,  of  course,  we  can  smell  some  new odors. First, doesn’t it seem odd that we have to pass the guess to the exact_match_count  and number_match_count() methods from the guess() method in the Game?
+Now  that  we  have  this  structure,  of  course,  we  can  smell  some  new odors. First, doesnâ€™t it seem odd that we have to pass the guess to the exact_match_count  and number_match_count() methods from the guess() method in the Game?
 
-Also,  notice  how  we  assign  the  secret  to  an  instance  variable  that  we access directly from the instance methods, whereas we’re slinging the guess around from method to method. The fact that they operate at two different  levels  of  abstraction  made  sense  in  the  context  of  the  Game object, but it no longer does in the context of the Marker.
+Also,  notice  how  we  assign  the  secret  to  an  instance  variable  that  we access directly from the instance methods, whereas weâ€™re slinging the guess around from method to method. The fact that they operate at two different  levels  of  abstraction  made  sense  in  the  context  of  the  Game object, but it no longer does in the context of the Marker.
 
-To resolve both of these issues, let’s start by passing the guess to the initializer of the Marker, like this:
+To resolve both of these issues, letâ€™s start by passing the guess to the initializer of the Marker, like this:
 
 Download cb/412/lib/codebreaker/game.rb
 
@@ -384,7 +384,7 @@ end
 
 There!  Now  we  have  good  decoupling  of  concepts  and  good  cohesion within each object. The Marker is responsible only for marking. We kept the plus and minus signs inside the Game, which is currently responsible for all the messages that get sent to output. Had we moved those into  the Marker,  we  would  have  violated  the  DRY  principle  by  having that responsibility represented in two locations.
 
-Now that we have the Marker  in pretty good shape, let’s move it to its own file. Create a marker.rb file in lib/codebreaker/, open the Codebreaker module, and copy the Marker into that file. Don’t forget to remove it from the Game class. Now require that file from lib/codebreaker.rb, like this:
+Now that we have the Marker  in pretty good shape, letâ€™s move it to its own file. Create a marker.rb file in lib/codebreaker/, open the Codebreaker module, and copy the Marker into that file. Donâ€™t forget to remove it from the Game class. Now require that file from lib/codebreaker.rb, like this:
 
 Download cb/42/lib/codebreaker.rb
 

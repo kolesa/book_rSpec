@@ -1,9 +1,9 @@
-Chapter 4
+ï»¿Chapter 4
 
 Automating Features  with  Cucumber  
 
 
-In the previous chapter, we selected the stories for the first iteration and wrote them out as features and scenarios in plain text using Cucumber. Now it’s time to put those scenarios to work to guide us as we develop code.
+In the previous chapter, we selected the stories for the first iteration and wrote them out as features and scenarios in plain text using Cucumber. Now itâ€™s time to put those scenarios to work to guide us as we develop code.
 
 At this point, the feature files should be in the features/ directory, each with the .feature file extension. Cucumber recognizes this extension and treats these files as input. Here are the contents of the two files:
 
@@ -63,9 +63,9 @@ Scenario Outline: submit guess
 		| 1234 | 1423  | +--- |
 		| 1234 | 4321  | ---- |
 
-We should also have an env.rb  file in features/support  directory. The .rb extension tells Cucumber that we’re using Ruby.
+We should also have an env.rb  file in features/support  directory. The .rb extension tells Cucumber that weâ€™re using Ruby.
 
-If  you  didn’t  try  to  run  the  features  in  the  previous  chapter,  try  it now. Open a shell to the codebreaker directory, and type cucumber. You should see output that looks just like the text in the .feature files, plus some additional information that we’ll talk about as we progress.
+If  you  didnâ€™t  try  to  run  the  features  in  the  previous  chapter,  try  it now. Open a shell to the codebreaker directory, and type cucumber. You should see output that looks just like the text in the .feature files, plus some additional information that weâ€™ll talk about as we progress.
  
  Downloada ble  Files 
  

@@ -1,4 +1,4 @@
-17.7  The cucumber Command
+ï»¿17.7  The cucumber Command
 
 Once we have a file with a feature in it, we can run it with the cucumber command: (3)
 
@@ -29,11 +29,11 @@ The  output  is  very  similar  to  the  text  in  features/booking.feature,  wi
 
 cucumber features/book_room.feature:7
 
-You should see exactly the same output as before. You’ll find yourself using this technique often as you write more features and scenarios—if you run all of the features and only a few of them fail, you only want to run the failing ones while you are working yourself back to green.
+You should see exactly the same output as before. Youâ€™ll find yourself using this technique often as you write more features and scenariosâ€”if you run all of the features and only a few of them fail, you only want to run the failing ones while you are working yourself back to green.
 
-The  next thing we  notice is  a  couple  of  lines  summarizing  how  many scenarios and steps we have and the result of running them. Cucumber reports that we had an undefined step. This is Cucumber’s way of telling us that it recognizes a step, but it doesn’t know what to do with it. We need a step definition to move on.
+The  next thing we  notice is  a  couple  of  lines  summarizing  how  many scenarios and steps we have and the result of running them. Cucumber reports that we had an undefined step. This is Cucumberâ€™s way of telling us that it recognizes a step, but it doesnâ€™t know what to do with it. We need a step definition to move on.
 
-3.  Run gem install cucumber if you haven’t already.
+3.  Run gem install cucumber if you havenâ€™t already.
 
-Cucumber always tries to be helpful and tell you the next thing to do, so  it  will  suggest  how  you  can  implement  a  step  definition  whenever it  encounters  an  undefined  step.  We’ll  talk  about  step  definitions  in Section 18.1, Step Definitions, on page 269, but, for now, let’s talk about the step keywords.
+Cucumber always tries to be helpful and tell you the next thing to do, so  it  will  suggest  how  you  can  implement  a  step  definition  whenever it  encounters  an  undefined  step.  Weâ€™ll  talk  about  step  definitions  in Section 18.1, Step Definitions, on page 269, but, for now, letâ€™s talk about the step keywords.
 

@@ -1,4 +1,4 @@
-13.2  Built-in Matchers
+Ôªø13.2  Built-in Matchers
 
 RSpec  ships  with  several  built-in  matchers  with  obvious  names  that you  can  use  in  your  examples.  In  addition  to  equal(expected),  others include the following:
 
@@ -12,11 +12,11 @@ prime_numbers.should_not include(8)
 list.should respond_to(:length)
 lambda { Object.new.explode! }.should raise_error(NameError)
 
-We  will  cover  each  of  RSpecís  built-in  matchers,  starting  with  those related to equality.
+We  will  cover  each  of  RSpec‚Äôs  built-in  matchers,  starting  with  those related to equality.
 
 Equality: Object Equivalence and Object Identity
 
-Although weíre focused on behavior, many of the expectations we want to set are about the state of the environment after some event occurs. The  two  most  common  ways  of  dealing  with  post-event  state  are  to specify that an object should have values that match our expectations (object equivalence) and to specify that an object is the very same object we are expecting (object identity).
+Although we‚Äôre focused on behavior, many of the expectations we want to set are about the state of the environment after some event occurs. The  two  most  common  ways  of  dealing  with  post-event  state  are  to specify that an object should have values that match our expectations (object equivalence) and to specify that an object is the very same object we are expecting (object identity).
 
 Most  xUnit  frameworks  support  something  like  assert_equal  to  mean that two objects are equivalent and assert_same to mean that two objects are really the same object (object identity). This comes from languages like Java, in which there are really only two constructs that deal with equality:  the  ==  operator,  which,  in  Java,  means  the  two  references point  to  the  same  object  in  memory,  and  the  equals  method,  which defaults to the same meaning as == but is normally overridden to mean equivalence.
 
@@ -34,7 +34,7 @@ a.should === b
 a.should eql(b) 
 a.should equal(b)
 
-The most common of these is should ==, because the majority of the time weíre concerned with value equality, not object identity. Here are some examples:
+The most common of these is should ==, because the majority of the time we‚Äôre concerned with value equality, not object identity. Here are some examples:
 
 (3 * 5).should == 15
 
@@ -42,7 +42,7 @@ person = Person.new(:given_name => "Yukihiro", :family_name => "Matsumoto")
 person.full_name.should == "Yukihiro Matsumoto"
 person.nickname.should == "Matz"
 
-In  these  examples,  weíre  only  interested  in  the  correct  values.  Some- times, however, weíll want to specify that an object is the exact object that weíre expecting.
+In  these  examples,  we‚Äôre  only  interested  in  the  correct  values.  Some- times, however, we‚Äôll want to specify that an object is the exact object that we‚Äôre expecting.
 
 person = Person.create!(:name => "David") 
 Person.find_by_name("David").should equal(person)
@@ -82,13 +82,13 @@ as follows:
 
 !(actual.should.==(expected))
 
-This  means  that  the  object  returned  by  should( )  receives  ==  whether the example  uses ==  or !=. And that  means that short of doing a text analysis of each example, which would slow things down considerably, RSpec cannot know that the example really means != when it receives ==.  And  because  RSpec  doesnít  know,  it  wonít  tell  you,  which  means youíll be getting false responses. So, stay away from != in examples.
+This  means  that  the  object  returned  by  should( )  receives  ==  whether the example  uses ==  or !=. And that  means that short of doing a text analysis of each example, which would slow things down considerably, RSpec cannot know that the example really means != when it receives ==.  And  because  RSpec  doesn‚Äôt  know,  it  won‚Äôt  tell  you,  which  means you‚Äôll be getting false responses. So, stay away from != in examples.
 
 Floating-Point Calculations
 
-Floating-point math can be a pain in the neck when it comes to setting expectations about the results of a calculation. And thereís little more frustrating than seeing ìexpected 5.25, got 5.251î in a failure message, especially when youíre only looking for two decimal places of precision.
+Floating-point math can be a pain in the neck when it comes to setting expectations about the results of a calculation. And there‚Äôs little more frustrating than seeing ‚Äúexpected 5.25, got 5.251‚Äù in a failure message, especially when you‚Äôre only looking for two decimal places of precision.
 
-To  solve  this  problem,  RSpec  offers  a  be_close  matcher  that  accepts an  expected  value  and  an  acceptable  delta.  So,  if  youíre  looking  for precision of two decimal places, you can say the following:
+To  solve  this  problem,  RSpec  offers  a  be_close  matcher  that  accepts an  expected  value  and  an  acceptable  delta.  So,  if  you‚Äôre  looking  for precision of two decimal places, you can say the following:
 
 result.should be_close(5.25, 0.005)
 
@@ -103,11 +103,11 @@ expected = File.open('expected_statement.txt','r') do |f|
 end
 account.statement.should == expected
 
-This  approach  of  reading  in  a  file  that  contains  text  that  has  been reviewed and approved and then comparing generated results to that text  is  known  as  the  ìGolden  Masterî  technique  and  is  described  in detail in J.B. Rainsbergerís JUnit Recipes [Rai04].
+This  approach  of  reading  in  a  file  that  contains  text  that  has  been reviewed and approved and then comparing generated results to that text  is  known  as  the  ‚ÄúGolden  Master‚Äù  technique  and  is  described  in detail in J.B. Rainsberger‚Äôs JUnit Recipes [Rai04].
 
 This serves very well as a high-level code example, but when we want more granular examples, this can sometimes feel a bit like brute force, and it can make it harder to isolate a problem when the wheels fall off.
 
-Also, there are times that we donít really care about the entire string, just a subset of it. Sometimes we only care that it is formatted a specific way but donít care about the details. Sometimes we care about a few details but not the format.
+Also, there are times that we don‚Äôt really care about the entire string, just a subset of it. Sometimes we only care that it is formatted a specific way but don‚Äôt care about the details. Sometimes we care about a few details but not the format.
 
 In  any  of  these  cases,  we  can  expect  a  matching  regular expression using either of the following patterns:
 
@@ -118,7 +118,7 @@ In the statement example, we might do something like this:
 
 statement.should =~ /Total Due: \$37\.42/m
 
-One  benefit  of  this  approach  is  that  each  example  is,  by  itself,  less brittle  and  less  prone  to  fail  due  to  unrelated  changes.  RSpecís  own code  examples  are  filled  with  expectations  like  this  related  to  failure messages,  where  we  want  to  specify  certain  things  are  in  place  but donít want the expectations to fail because of inconsequential formatting changes.
+One  benefit  of  this  approach  is  that  each  example  is,  by  itself,  less brittle  and  less  prone  to  fail  due  to  unrelated  changes.  RSpec‚Äôs  own code  examples  are  filled  with  expectations  like  this  related  to  failure messages,  where  we  want  to  specify  certain  things  are  in  place  but don‚Äôt want the expectations to fail because of inconsequential formatting changes.
 
 Ch, ch, ch, ch, changes
 
@@ -148,7 +148,7 @@ expect {
 	User.create!(:role => "admin")
 }.to change{ User.admins.count }.from(0).to(1)
 
-This does not work only with Rails. You can use it for any situation in which  you  want  to  express  a  side  effect  of  some  event.  Letís  say  you want to specify that a real estate agent gets a $7,500 commission on a $250,000 sale:
+This does not work only with Rails. You can use it for any situation in which  you  want  to  express  a  side  effect  of  some  event.  Let‚Äôs  say  you want to specify that a real estate agent gets a $7,500 commission on a $250,000 sale:
 
 expect {
 	seller.accept Offer.new(250_000)
@@ -161,7 +161,7 @@ agent.commission.should == 7_500
  
 This is pretty straightforward and might even be easier to understand at first glance. Using expect to change, however, does a nice job of identifying  what  the  event  is  and  what  the  expected  outcome  is.  It  also functions  as  a  wrapper  for  more  than  one  expectation  if  you  use  the from( ) and to( ) methods, as in the previous examples.
 
-So, which approach should you choose? It really comes down to a matter of personal taste and style. If youíre working solo, itís up to you. If youíre working on a team, have a group discussion about the relative merits of each approach.
+So, which approach should you choose? It really comes down to a matter of personal taste and style. If you‚Äôre working solo, it‚Äôs up to you. If you‚Äôre working on a team, have a group discussion about the relative merits of each approach.
 
 Expecting Errors
 
@@ -171,7 +171,7 @@ Ruby  is  filled  with  examples  of  great,  intuitive  APIs  like  this,  and 
 
 Well,  if  we  care  about  making  developers  happy,  we  should  also  care about providing meaningful feedback when the wheels fall off. We want to  provide  error  classes  and  messages  that  provide  context  that  will make it easier to understand what went wrong.
 
-Hereís a great example from the Ruby library:
+Here‚Äôs a great example from the Ruby library:
 
 $ irb 
 irb(main):001:0> 1/0
@@ -179,7 +179,7 @@ ZeroDivisionError: divided by 0
 from (irb):1:in `/'
 from (irb):1
 
-The fact that the error is named ZeroDivisionError probably tells you everything you need to know to understand what went wrong. The message ìdivided by 0î reinforces that. RSpec supports the development of informative error classes and messages with the raise_error( ) matcher.
+The fact that the error is named ZeroDivisionError probably tells you everything you need to know to understand what went wrong. The message ‚Äúdivided by 0‚Äù reinforces that. RSpec supports the development of informative error classes and messages with the raise_error( ) matcher.
 
 If a checking account has no overdraft support, then it should let us know:
 
@@ -227,9 +227,9 @@ expect {
 	/attempted to withdraw 75 dollars/
 )
 
-Which of these formats you choose depends on how specific you want to get about the type and the message. Sometimes youíll find it useful to have several code examples that get into details about messages, while others may just specify the type.
+Which of these formats you choose depends on how specific you want to get about the type and the message. Sometimes you‚Äôll find it useful to have several code examples that get into details about messages, while others may just specify the type.
 
-If you look through RSpecís own code examples, youíll see many that look like this:
+If you look through RSpec‚Äôs own code examples, you‚Äôll see many that look like this:
 
 expect {
 	@mock.rspec_verify
@@ -239,13 +239,13 @@ Since there are plenty of other examples that specify details about the error  m
 
 Expecting a Throw
 
-Like  raise( )  and  rescue( ),  Rubyís  throw( )  and  catch( )  allow  us  to  stop execution within a given scope based on some condition. The main difference is that we use throw/catch to express expected circumstances as opposed to exceptional circumstances.
+Like  raise( )  and  rescue( ),  Ruby‚Äôs  throw( )  and  catch( )  allow  us  to  stop execution within a given scope based on some condition. The main difference is that we use throw/catch to express expected circumstances as opposed to exceptional circumstances.
 
-Letís  say  weíre  writing  an  app  to  manage  registrations  for  courses  at a school, and we want to handle the situation in which two students both  try  to  register  for  the  last  available  seat  at  the  same  time.  Both were  looking  at  screens  that  say  the  course  is  still  open,  but  one  of them is going to get the last seat, and the other is going to be shut out.
+Let‚Äôs  say  we‚Äôre  writing  an  app  to  manage  registrations  for  courses  at a school, and we want to handle the situation in which two students both  try  to  register  for  the  last  available  seat  at  the  same  time.  Both were  looking  at  screens  that  say  the  course  is  still  open,  but  one  of them is going to get the last seat, and the other is going to be shut out.
 
-We could handle that by raising a CourseFullException, but a full course is not really exceptional. Itís just a different state. We could ask the Course if  it  has  availability,  but  unless  that  query  blocks  the  database,  that state could change after the question is asked and before the request to grab the seat is made.
+We could handle that by raising a CourseFullException, but a full course is not really exceptional. It‚Äôs just a different state. We could ask the Course if  it  has  availability,  but  unless  that  query  blocks  the  database,  that state could change after the question is asked and before the request to grab the seat is made.
 
-This is a great case for try/catch, and hereís how we can spec it:
+This is a great case for try/catch, and here‚Äôs how we can spec it:
 
 Download expectations/course_full.rb
 

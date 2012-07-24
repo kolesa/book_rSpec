@@ -1,21 +1,21 @@
-13.9  What Weíve Learned
+Ôªø13.9  What We‚Äôve Learned
 
-In this chapter, weíve covered the following:
+In this chapter, we‚Äôve covered the following:
 
-ï  should( ) and should_not( )
+‚Ä¢  should( ) and should_not( )
 
-ï  RSpecís built-in matchers
+‚Ä¢  RSpec‚Äôs built-in matchers
 
-ï  Predicate matchers
+‚Ä¢  Predicate matchers
 
-ï  Operator expressions
+‚Ä¢  Operator expressions
 
-ï  Generated descriptions
+‚Ä¢  Generated descriptions
 
-ï  Declaring an explicit subject( )
+‚Ä¢  Declaring an explicit subject( )
 
-ï  Using the implicit subject( )
+‚Ä¢  Using the implicit subject( )
 
-For most projects, youíll probably find that you can express what you want  to  using  just  the  tools  that  come  along  with  RSpec.  But  what about those cases where you think to yourself, ìIf only RSpec had this one  additional  matcherî?  Weíll  address  that  question  in  Chapter  16, Extending RSpec, on page 234, along with a number of other techniques for extending RSpec and tuning its DSL toward your specific projects.
+For most projects, you‚Äôll probably find that you can express what you want  to  using  just  the  tools  that  come  along  with  RSpec.  But  what about those cases where you think to yourself, ‚ÄúIf only RSpec had this one  additional  matcher‚Äù?  We‚Äôll  address  that  question  in  Chapter  16, Extending RSpec, on page 234, along with a number of other techniques for extending RSpec and tuning its DSL toward your specific projects.
 
-In the meantime, thereís still quite a bit more material to cover without extending things at all. In the next chapter, weíll introduce you to RSpecís built-in mock objects framework, a significant key to thinking in terms of behavior.
+In the meantime, there‚Äôs still quite a bit more material to cover without extending things at all. In the next chapter, we‚Äôll introduce you to RSpec‚Äôs built-in mock objects framework, a significant key to thinking in terms of behavior.

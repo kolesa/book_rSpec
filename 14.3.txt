@@ -1,4 +1,4 @@
-14.3  Message Expectations
+ï»¿14.3  Message Expectations
 
 A  message  expectation,  aka  mock  expectation,  is  a  method  stub  that will raise an error if it is never called. In RSpec, we create a message expectation using the should_receive( ) method, like this:
 
@@ -16,13 +16,13 @@ In  this  example,  if  the  generate( )  method  fails  to  ask  the  customer 
 
 Tight Coupling
 
-Clearly, this example is highly coupled to the implementation, but this coupling is easily justified. We are specifying that the statement uses the  customer’s  name!  If  that  is  the  requirement  that  we  are  expressing  in  this  example,  then  setting  a  message  expectation  is  perfectly reasonable.
+Clearly, this example is highly coupled to the implementation, but this coupling is easily justified. We are specifying that the statement uses the  customerâ€™s  name!  If  that  is  the  requirement  that  we  are  expressing  in  this  example,  then  setting  a  message  expectation  is  perfectly reasonable.
  
-On  the  flip  side,  we  want  to  avoid  setting  message  expectations  that are not meaningful in the context of an example. Generally speaking, we only want to use message expectations to express the intent of the example. To explain what we mean, let’s look at an example that uses both a method stub and a method expectation.
+On  the  flip  side,  we  want  to  avoid  setting  message  expectations  that are not meaningful in the context of an example. Generally speaking, we only want to use message expectations to express the intent of the example. To explain what we mean, letâ€™s look at an example that uses both a method stub and a method expectation.
 
 Mixing Method Stubs and Message Expectations
 
-Extending  the  statement  examples,  let’s  add  a  requirement  that  any time a statement is generated, a log entry gets created. Here’s one way we might express that:
+Extending  the  statement  examples,  letâ€™s  add  a  requirement  that  any time a statement is generated, a log entry gets created. Hereâ€™s one way we might express that:
 
 describe Statement do
 	it "logs a message on generate()" do 
@@ -35,16 +35,16 @@ describe Statement do
 	end 
 end
 
-Now we have three participants in the example: the statement, which is the subject of the example; the logger, which is the primary collaborator; and the customer, which is a secondary collaborator. The logger is the primary collaborator because the example’s docstring states that the Statement logs a message on generate().
+Now we have three participants in the example: the statement, which is the subject of the example; the logger, which is the primary collaborator; and the customer, which is a secondary collaborator. The logger is the primary collaborator because the exampleâ€™s docstring states that the Statement logs a message on generate().
 
-By using the mock( ) method to generate the logger double and the stub( ) method to generate the customer double, we’re helping to express that these objects are playing different roles in the example. This is a won- derful technique, embedding intent right in the code in the example.
+By using the mock( ) method to generate the logger double and the stub( ) method to generate the customer double, weâ€™re helping to express that these objects are playing different roles in the example. This is a won- derful technique, embedding intent right in the code in the example.
 
 Given, Then, When?
 
-The logger.should_receive()  statement is the only expectation in the example, and it comes before  the event, the When. The resulting flow is a bit different from the Given, When, Then flow that we’re accustomed to seeing. Here it’s Given, Then, When: Given a statement constructed with a customer and logger, Then the logger should receive log( ) When the statement receives generate( ).
+The logger.should_receive()  statement is the only expectation in the example, and it comes before  the event, the When. The resulting flow is a bit different from the Given, When, Then flow that weâ€™re accustomed to seeing. Here itâ€™s Given, Then, When: Given a statement constructed with a customer and logger, Then the logger should receive log( ) When the statement receives generate( ).
 
 This change in flow can be a bit jarring for those experienced in writing code examples yet new to message expectations, so much so that some in the community are beginning to solve the problem with new libraries that  take  different  approaches.  See  the  sidebar  on  the  next  page  for more on this.
 
-Of course, what we don’t see is that there is an automatic and implicit verification step that happens at the end of each example. This is facilitated  by  the  test  double  framework  hooking  into  the  life  cycle  of  the examples, listening for the end of each example, and then verifying that any  expectations  set  in  the  example  were  met.  So,  the  flow  is  really Given,  Expect,  When,  Then,  but  since  we  never  see  the  Then,  it  is admittedly a bit magical.
+Of course, what we donâ€™t see is that there is an automatic and implicit verification step that happens at the end of each example. This is facilitated  by  the  test  double  framework  hooking  into  the  life  cycle  of  the examples, listening for the end of each example, and then verifying that any  expectations  set  in  the  example  were  met.  So,  the  flow  is  really Given,  Expect,  When,  Then,  but  since  we  never  see  the  Then,  it  is admittedly a bit magical.
 
-Thus  far,  we’ve  only  talked  about  setting  method  stubs  and  message expectations  on  test  double  objects.  This  is  a  very  useful  technique when the collaborators we need either don’t exist yet or are very expen- sive to set up or use in a code example. But sometimes the collaborator we need already exists, requires little or no setup, and exposes only triv- ial behavior. For cases like this, we can add support for method stubs and message expectations directly to the real object using a technique called test-specific extensions.
+Thus  far,  weâ€™ve  only  talked  about  setting  method  stubs  and  message expectations  on  test  double  objects.  This  is  a  very  useful  technique when the collaborators we need either donâ€™t exist yet or are very expen- sive to set up or use in a code example. But sometimes the collaborator we need already exists, requires little or no setup, and exposes only triv- ial behavior. For cases like this, we can add support for method stubs and message expectations directly to the real object using a technique called test-specific extensions.

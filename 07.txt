@@ -1,7 +1,7 @@
-Chapter 7
+ï»¿Chapter 7
 
   Specifying  an  Algorithm  
 
-The RSpec code examples we wrote for the Codebreaker starts game feature  specified  a  simple  responsibility  of  the  Game:  send  messages  to the output. The next responsibility is more complex. We need to specify the algorithm we’re going to use to mark a guess submitted by the codebreaker.
+The RSpec code examples we wrote for the Codebreaker starts game feature  specified  a  simple  responsibility  of  the  Game:  send  messages  to the output. The next responsibility is more complex. We need to specify the algorithm weâ€™re going to use to mark a guess submitted by the codebreaker.
 
-We have fourteen scenarios for this, all of which are failing because the marking  algorithm  hasn’t  been  written  yet.  They  all  have  to  pass  for this feature to be done, so no single scenario is more important than the next. So, which one should we start with?
+We have fourteen scenarios for this, all of which are failing because the marking  algorithm  hasnâ€™t  been  written  yet.  They  all  have  to  pass  for this feature to be done, so no single scenario is more important than the next. So, which one should we start with?

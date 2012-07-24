@@ -1,13 +1,13 @@
-Chapter 22
+ï»¿Chapter 22
 
 Automating the Browser  with  Webrat  and  Selenium  
 
 
-In  the  previous  chapter,  we  explored  how  Webrat  can  simulate  the core  functionality  of  a  web  browser  that  you  need  when  building  a web  application—navigating  to  pages,  filling  out  forms,  and  submit- ting them to the server. This will allow you to specify 80 percent of the behavior for most applications without ever loading up Firefox.
+In  the  previous  chapter,  we  explored  how  Webrat  can  simulate  the core  functionality  of  a  web  browser  that  you  need  when  building  a web  applicationâ€”navigating  to  pages,  filling  out  forms,  and  submit- ting them to the server. This will allow you to specify 80 percent of the behavior for most applications without ever loading up Firefox.
 
-This simulated approach doesn’t help when you depend on rich client- side interactions built with JavaScript, however, and for that we look to Selenium. (1)  Selenium is a software  testing tool originally developed at ThoughtWorks that can automate most modern web browsers. Webrat supports a Selenium mode that translates the Webrat API calls to Sele- nium calls, allowing you to run the exact same Cucumber feature with and without running a real web browser.
+This simulated approach doesnâ€™t help when you depend on rich client- side interactions built with JavaScript, however, and for that we look to Selenium. (1)  Selenium is a software  testing tool originally developed at ThoughtWorks that can automate most modern web browsers. Webrat supports a Selenium mode that translates the Webrat API calls to Sele- nium calls, allowing you to run the exact same Cucumber feature with and without running a real web browser.
 
-By  writing  your  step  definitions  with  the  Webrat  API,  you  don’t  have to rewrite them as your application evolves to include more client-side enhancements. You can always use whichever execution mode is appropriate  for  a  given  scenario  (or  run  the  same  scenario  in  both  modes) without having to use different tools.
+By  writing  your  step  definitions  with  the  Webrat  API,  you  donâ€™t  have to rewrite them as your application evolves to include more client-side enhancements. You can always use whichever execution mode is appropriate  for  a  given  scenario  (or  run  the  same  scenario  in  both  modes) without having to use different tools.
 
 1.  http://seleniumhq.org/
 
@@ -23,4 +23,4 @@ group :development, :test do
 	gem "selenium-client", ">= 1.2.18"
 end
 
-Now run bundle install, and we’re all set to proceed.
+Now run bundle install, and weâ€™re all set to proceed.

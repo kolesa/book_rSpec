@@ -1,12 +1,12 @@
-9.2  Experimenting with a New Implementation
+ï»¿9.2  Experimenting with a New Implementation
 
-We need a new way to count up the number matches. We could modify the design such that we keep track of each number in the secret code and  disqualify  it  for  future  matches  once  it’s  been  matched,  but  that would require returning to the more procedural approach we left behind in the previous chapter.
+We need a new way to count up the number matches. We could modify the design such that we keep track of each number in the secret code and  disqualify  it  for  future  matches  once  itâ€™s  been  matched,  but  that would require returning to the more procedural approach we left behind in the previous chapter.
 
 Take a Step Back
 
-Let’s look at this from a different angle. We already know the number of  exact  matches.  That’s  easy  because  we  just  have  to  evaluate  one position at a time. We can do that in any order, and we don’t need to know whether positions have been matched before or not.
+Letâ€™s look at this from a different angle. We already know the number of  exact  matches.  Thatâ€™s  easy  because  we  just  have  to  evaluate  one position at a time. We can do that in any order, and we donâ€™t need to know whether positions have been matched before or not.
 
-What if we count up all the matches without regard for whether they’re in the same position and then subtract the number of exact matches? If that total is three, for example, and there are two exact matches, then we know that we have one number match remaining. Make sense?
+What if we count up all the matches without regard for whether theyâ€™re in the same position and then subtract the number of exact matches? If that total is three, for example, and there are two exact matches, then we know that we have one number match remaining. Make sense?
 
 Phrased  differently,  the  count  of  number  matches  is  the  total  match count less the exact match count. We can express that very cleanly in Ruby like this:
 
@@ -14,15 +14,15 @@ def number_match_count
 	total_match_count - exact_match_count
 end
  
-Assuming that’s correct, how do we count the total matches? The simplest  approach  would  probably  be  to  iterate  through  the  numbers  in the guess, removing matches from the secret as they are found.
+Assuming thatâ€™s correct, how do we count the total matches? The simplest  approach  would  probably  be  to  iterate  through  the  numbers  in the guess, removing matches from the secret as they are found.
 
-For  example,  if  the  secret  is  1234  and  the  guess  is  1145,  we  start  by evaluating  the  1  in  the  first  position  of  the  guess.  There  is  a  1  in  the secret, so we remove it, leaving 234. Now we look at the 1 in the second position in the guess. There is no longer a 1 in the secret, so we move on to the 4 in the third position of the guess. There is a 4 in the secret, so we remove it, leaving 23. Finally, we look at the 5 in the last position of the guess. There is no match in the secret, so we are done. We’ve removed two numbers from the secret, so that’s the total count of matches.
+For  example,  if  the  secret  is  1234  and  the  guess  is  1145,  we  start  by evaluating  the  1  in  the  first  position  of  the  guess.  There  is  a  1  in  the secret, so we remove it, leaving 234. Now we look at the 1 in the second position in the guess. There is no longer a 1 in the secret, so we move on to the 4 in the third position of the guess. There is a 4 in the secret, so we remove it, leaving 23. Finally, we look at the 5 in the last position of the guess. There is no match in the secret, so we are done. Weâ€™ve removed two numbers from the secret, so thatâ€™s the total count of matches.
 
-That seems like it might work, but it’s a very different implementation from the one we have now. One of the benefits of having the specs we have  is  that  we  can  experiment  with  alternate  implementations  very cheaply, and we’ll quickly know whether we’re on the right path. Let’s give it a whirl.
+That seems like it might work, but itâ€™s a very different implementation from the one we have now. One of the benefits of having the specs we have  is  that  we  can  experiment  with  alternate  implementations  very cheaply, and weâ€™ll quickly know whether weâ€™re on the right path. Letâ€™s give it a whirl.
 
 Experiment in the Green
 
-We’re going to experiment with a new implementation, and we want to use our existing code examples as a safety net to ensure that we’re preserving behavior as we do. We have a failing example now, so we want to disable it temporarily while we’re working. That way, if we introduce any  new  failures,  we  won’t  confuse  them  with  this  one.  Let’s  declare this example pending, like this:
+Weâ€™re going to experiment with a new implementation, and we want to use our existing code examples as a safety net to ensure that weâ€™re preserving behavior as we do. We have a failing example now, so we want to disable it temporarily while weâ€™re working. That way, if we introduce any  new  failures,  we  wonâ€™t  confuse  them  with  this  one.  Letâ€™s  declare this example pending, like this:
 
 Download cb/44/spec/codebreaker/marker_spec.rb
 
@@ -36,7 +36,7 @@ end
 
 Similar to when we called the it( ) method with no block, RSpec treats this example as pending: execution stops after the pending statement, and then RSpec lists the example as pending in the output. This gets the example out of the way while keeping it on our radar. You can read more about different ways to declare pending examples in Section 12.2, Pending Examples, on page 155.
  
-Run the specs, and you should see one pending example and zero failures. Now let’s write our experimental implementation and see how it goes. Modify marker.rb as follows:
+Run the specs, and you should see one pending example and zero failures. Now letâ€™s write our experimental implementation and see how it goes. Modify marker.rb as follows:
 
 Download cb/45/lib/codebreaker/marker.rb
 
@@ -57,14 +57,14 @@ end
 
 We iterate through the numbers in the @guess, asking the @secret each time  if  it  includes  that  number.  If  it  does,  we  ask  the  @secret  for  the index of the number and then tell it to delete at that index.
 
-Run the specs, and you’ll see a bunch of failures. The failure message in the first one gives us a pretty big hint as to what the problem is:
+Run the specs, and youâ€™ll see a bunch of failures. The failure message in the first one gives us a pretty big hint as to what the problem is:
 
 1) Codebreaker::Game #guess sends the mark to output
 	Failure/Error: game.guess('1234')
 	undefined method `delete_at' for "1234":String
 	# ./lib/codebreaker/marker.rb:22:in `total_match_count'
 
-The  implementation  is  assuming  an  array  API,  but  the  @secret  and @guess variables are actually strings. Let’s split the strings into arrays, like this:
+The  implementation  is  assuming  an  array  API,  but  the  @secret  and @guess variables are actually strings. Letâ€™s split the strings into arrays, like this:
 
 Download cb/46/lib/codebreaker/marker.rb
 
@@ -79,19 +79,19 @@ def total_match_count
 	count
 end
 
-Run the specs, and they should all pass—except for the pending example, that is, so remove the pending statement from the previous example,  and  run  them  all  again.  They  should  all  pass,  even  the  one  that was pending!
+Run the specs, and they should all passâ€”except for the pending example, that is, so remove the pending statement from the previous example,  and  run  them  all  again.  They  should  all  pass,  even  the  one  that was pending!
 
 Next, run the Cucumber scenarios, and they should pass, too. Great! We  only  spent  a  few  minutes  thinking  about  a  new  implementation, tried it out, made a small adjustment when a bunch of examples failed, and voila!
 
 You Can Always Roll Back
 
-Things don’t always work out quite this cleanly. Sometimes we’ll try to experiment like this and run into failure after failure after failure.
+Things donâ€™t always work out quite this cleanly. Sometimes weâ€™ll try to experiment like this and run into failure after failure after failure.
 
-When that happens to you, and it will, don’t let it go on too long before rolling back to the last point at which all examples were passing. Then you can proceed forward again in smaller steps.
+When that happens to you, and it will, donâ€™t let it go on too long before rolling back to the last point at which all examples were passing. Then you can proceed forward again in smaller steps.
 
 One More Refactoring
 
-Now that we have a new implementation, it can use a little bit of cleanup. Rather than going through this together, we’ll show you where we ended up after a bit of refactoring but leave the actual refactoring as an exercise for you.
+Now that we have a new implementation, it can use a little bit of cleanup. Rather than going through this together, weâ€™ll show you where we ended up after a bit of refactoring but leave the actual refactoring as an exercise for you.
 
 Here is the code we ended up with:
 
@@ -108,7 +108,7 @@ def delete_first(code, n)
 	code.delete_at(code.index(n)) if code.index(n)
 end
 
-There’s  always  more  we  can  do,  but  at  this  point  we  have  solved  for duplicate matches, and the code is well factored, readable, and maintainable.
+Thereâ€™s  always  more  we  can  do,  but  at  this  point  we  have  solved  for duplicate matches, and the code is well factored, readable, and maintainable.
 
 A Bit of Glue
 
@@ -133,7 +133,7 @@ while guess = gets.chomp
 	game.guess(guess)
 end
 
-This adds a method to generate a random secret code so you can tease your brain trying to break the code. We also added a little at_exit hook that prints the code out at the end, so you can see what you were up against when you’re unable to do so.
+This adds a method to generate a random secret code so you can tease your brain trying to break the code. We also added a little at_exit hook that prints the code out at the end, so you can see what you were up against when youâ€™re unable to do so.
 
-To  be  clear,  this  is  not  production  code  and  is  not  intended  to  be shipped. It’s just a prototype development aid we’re slapping in place so that we can enjoy the fruits of our labors and do more exploratory testing.
+To  be  clear,  this  is  not  production  code  and  is  not  intended  to  be shipped. Itâ€™s just a prototype development aid weâ€™re slapping in place so that we can enjoy the fruits of our labors and do more exploratory testing.
 

@@ -1,8 +1,8 @@
-17.6  Steps
+﻿17.6  Steps
 
 Scenarios each use an arbitrary number of steps to describe everything that happens within a scenario. A step is generally a single line of text that starts with one of the step keywords: Given, When, Then, And, and But.
 
-Let�s write some steps for the Successful booking  scenario. First, create the  directories  hotel/features/  in  an  empty  directory,  and  open  a  command prompt in the hotel directory. Now, create features/booking.feature, and paste the following code:
+Let’s write some steps for the Successful booking  scenario. First, create the  directories  hotel/features/  in  an  empty  directory,  and  open  a  command prompt in the hotel directory. Now, create features/booking.feature, and paste the following code:
 
 Download cucumber/01/features/book_room.feature
 

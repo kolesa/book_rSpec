@@ -1,8 +1,8 @@
-12.2  Pending Examples
+ï»¿12.2  Pending Examples
 
-In  Test Driven Development: By Example  [Bec02],  Kent  Beck suggests keeping  a  list  of  tests  that  you  have  yet  to  write  for  the  object  you’re working  on,  crossing  items  off  the  list  as  you  get  tests  passing,  and adding new tests to the list as you think of them.
+In  Test Driven Development: By Example  [Bec02],  Kent  Beck suggests keeping  a  list  of  tests  that  you  have  yet  to  write  for  the  object  youâ€™re working  on,  crossing  items  off  the  list  as  you  get  tests  passing,  and adding new tests to the list as you think of them.
 
-With RSpec, you can do this right in the code by calling the it( ) method with no block. Let’s say that we’re in the middle of describing the behavior of a newspaper:
+With RSpec, you can do this right in the code by calling the it( ) method with no block. Letâ€™s say that weâ€™re in the middle of describing the behavior of a newspaper:
 
 describe Newspaper do
 	it "should be black" do
@@ -35,9 +35,9 @@ Finished in 0.00191 seconds
 
 As you add code to existing pending examples and add new ones, each time you run all the examples, RSpec will remind you how many pending examples you have, so you always know how close you are to being done!
 
-Another  case  for  marking  an  example  pending  is  when  you’re  in  the middle of driving out an object, you have some examples passing, and you add a new failing example. You look at the code, see a change you want to make, and realize that the design really doesn’t support what you want to do to make this example pass.
+Another  case  for  marking  an  example  pending  is  when  youâ€™re  in  the middle of driving out an object, you have some examples passing, and you add a new failing example. You look at the code, see a change you want to make, and realize that the design really doesnâ€™t support what you want to do to make this example pass.
 
-There are a couple of different paths people choose at this juncture. One is to comment out the failing example so you can refactor  in the green and then uncomment the example and continue. This works great until you’re interrupted in the middle of this near the end of the day on Friday, and three months later you look back at that file and find examples you commented out three months ago.
+There are a couple of different paths people choose at this juncture. One is to comment out the failing example so you can refactor  in the green and then uncomment the example and continue. This works great until youâ€™re interrupted in the middle of this near the end of the day on Friday, and three months later you look back at that file and find examples you commented out three months ago.
 
 Instead of commenting the example out, you can mark it pending like this:
 
@@ -48,9 +48,9 @@ describe "onion rings" do
 	end 
 end
 
-In this case, even though the example block gets executed, it stops execution on the line with the pending( ) declaration. The subsequent code is not run, there is no failure, and the example is listed as pending in the output, so it stays on your radar. When you’ve finished refactoring, you can remove the pending declaration to execute the code example as  normal.  This  is,  clearly,  much  better  than  commenting  out  failing examples and having them get lost in the shuffle.
+In this case, even though the example block gets executed, it stops execution on the line with the pending( ) declaration. The subsequent code is not run, there is no failure, and the example is listed as pending in the output, so it stays on your radar. When youâ€™ve finished refactoring, you can remove the pending declaration to execute the code example as  normal.  This  is,  clearly,  much  better  than  commenting  out  failing examples and having them get lost in the shuffle.
 
-A third way to indicate a pending example can be quite helpful in handling  bug  reports.  Let’s  say  you  get  a  bug  report  and  the  reporter  is kind enough to provide a failing example. Or you create a failing exam- ple yourself to prove the bug exists. You don’t plan to fix it this minute, but  you  want  to  keep  the  code  handy.  Rather  than  commenting  the code, you could use the pending( ) method to keep the failing example from being executed.
+A third way to indicate a pending example can be quite helpful in handling  bug  reports.  Letâ€™s  say  you  get  a  bug  report  and  the  reporter  is kind enough to provide a failing example. Or you create a failing exam- ple yourself to prove the bug exists. You donâ€™t plan to fix it this minute, but  you  want  to  keep  the  code  handy.  Rather  than  commenting  the code, you could use the pending( ) method to keep the failing example from being executed.
 
 You can also, however, wrap the example code in a block and pass that to the pending method, like this:
 
@@ -80,10 +80,10 @@ The next step is to remove the pending wrapper and rerun the examples with your 
 
 So,  now  you  know  three  ways  to  identify  pending  examples,  each  of which can be helpful in your process in different ways:
 
-•  Add  pending  examples  as  you  think  of  new  examples  that  you want to write.
+â€¢  Add  pending  examples  as  you  think  of  new  examples  that  you want to write.
 
-•  Disable examples without losing track of them (rather than com- menting them out).
+â€¢  Disable examples without losing track of them (rather than com- menting them out).
 
-•  Wrap failing examples when you want to be notified that changes to the system cause them to pass.
+â€¢  Wrap failing examples when you want to be notified that changes to the system cause them to pass.
 
-Now that you know how to postpone writing examples, let’s talk about what happens when you actually write some!
+Now that you know how to postpone writing examples, letâ€™s talk about what happens when you actually write some!

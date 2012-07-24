@@ -1,8 +1,8 @@
-18.7  Tables in Steps
+ï»¿18.7  Tables in Steps
 
 Sentences that begin with Given, When, and Then are great for expressing activities and interactions that users have with a software system. They  are  not,  however, very  useful  for  tabular  data.  It  turns  out  that the best thing for tables is. . . tables! Cucumber supports tabular data in steps with a wiki-style table format that is well suited for both Given and Then steps.
 
-Imagine  we’re  writing  a  poker  hand  evaluator.  Here’s  how  we  might describe the cards in the hand using tables:
+Imagine  weâ€™re  writing  a  poker  hand  evaluator.  Hereâ€™s  how  we  might describe the cards in the hand using tables:
 
 Scenario: three of a kind beats two pair
 	Given a hand with the following cards:

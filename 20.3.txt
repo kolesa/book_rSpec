@@ -1,6 +1,6 @@
-20.3  What We’ve Learned
+ï»¿20.3  What Weâ€™ve Learned
 
 Like most important development decisions, when choosing a step definition  style,  there  are  opposing  forces  on  each  side  that  need to  be considered and balanced. Direct Model Access step definitions offer the speed and flexibility of model specs at the cost of reduced confidence that the application is working for its users.
 
-For most situations, it makes more sense to create a more integrated set of step definitions that ensure the models, views, and controllers are working together correctly, even though they will execute a bit slower. Next  we’ll  take  a  look  at  how  we  can  use  Webrat  to  implement  either the Simulated Browser or Automated Browser style to do just that.
+For most situations, it makes more sense to create a more integrated set of step definitions that ensure the models, views, and controllers are working together correctly, even though they will execute a bit slower. Next  weâ€™ll  take  a  look  at  how  we  can  use  Webrat  to  implement  either the Simulated Browser or Automated Browser style to do just that.
  

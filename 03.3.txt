@@ -1,16 +1,16 @@
-3.3  Planning the First Iteration
+Ôªø3.3  Planning the First Iteration
 
-Acceptance TestñDriven Planning  is  one  of  three  practices  of  BDD. (5) It is an extension of Acceptance TestñDriven Development, which is a formalization  of  the  notion  of  customer  tests  in  XP.  ATDD  involves  col- laborating  with  stakeholders  on  acceptance  tests  before  we write  any code.6
+Acceptance Test‚ÄìDriven Planning  is  one  of  three  practices  of  BDD. (5) It is an extension of Acceptance Test‚ÄìDriven Development, which is a formalization  of  the  notion  of  customer  tests  in  XP.  ATDD  involves  col- laborating  with  stakeholders  on  acceptance  tests  before  we write  any code.6
 
-The difference between ATDP and ATDD is simple. ATDD specifies that we write  acceptance  tests  before  we  write  code,  but  it  doesnít  specify when we should write them.
+The difference between ATDP and ATDD is simple. ATDD specifies that we write  acceptance  tests  before  we  write  code,  but  it  doesn‚Äôt  specify when we should write them.
 
-ATDP specifies that the acceptance tests are agreed on during or pos- sibly before, but no later than, an iteration planning meeting. This lets us  consider  the  acceptance  criteria  in  our  estimates,  which  improves our ability to plan iterations, which is why itís called Acceptance Testñ Driven Planning.
+ATDP specifies that the acceptance tests are agreed on during or pos- sibly before, but no later than, an iteration planning meeting. This lets us  consider  the  acceptance  criteria  in  our  estimates,  which  improves our ability to plan iterations, which is why it‚Äôs called Acceptance Test‚Äì Driven Planning.
 
 Narratives in Features
 
-Cucumber lets us describe application features in a simple plain-text format  and  then  use  those  descriptions  to  automate  interaction  with the  application.  Weíre  going  to  use  Cucumber  to  express  application features in this chapter and then automate them in the next.
+Cucumber lets us describe application features in a simple plain-text format  and  then  use  those  descriptions  to  automate  interaction  with the  application.  We‚Äôre  going  to  use  Cucumber  to  express  application features in this chapter and then automate them in the next.
 
-Cucumber features have three parts: a title, a brief narrative, and an arbitrary number of scenarios that serve as acceptance criteria. Hereís what  the  title  and  narrative  for  the  code-breaker  starts  game  feature might look like:
+Cucumber features have three parts: a title, a brief narrative, and an arbitrary number of scenarios that serve as acceptance criteria. Here‚Äôs what  the  title  and  narrative  for  the  code-breaker  starts  game  feature might look like:
 
 Feature: code-breaker starts game
 
@@ -18,21 +18,21 @@ Feature: code-breaker starts game
 	I want to start a game
 	So that I can break the code
 
-The title is just enough to remind us who the feature is for, the codebreaker, and what the feature is about, starting a game. Although the narrative is free-form, we generally follow the Connextra format that is described in Chapter 17, Intro to Cucumber , on page 252 or variations of it that weíll discuss at different points in the book.
+The title is just enough to remind us who the feature is for, the codebreaker, and what the feature is about, starting a game. Although the narrative is free-form, we generally follow the Connextra format that is described in Chapter 17, Intro to Cucumber , on page 252 or variations of it that we‚Äôll discuss at different points in the book.
 
 
 5.  The other two are Domain-Driven Design and Test-Driven Development.
-6.  The term acceptance test means different things to different people. Weíll discuss this in the context of BDD in Chapter 17, Intro to Cucumber , on page 252.
+6.  The term acceptance test means different things to different people. We‚Äôll discuss this in the context of BDD in Chapter 17, Intro to Cucumber , on page 252.
  
 
 
-With this narrative, we have some understanding of what we want to do with the system, but how will we know when weíve started the game? How will we know when weíve satisfied this requirement? How will we know when weíre done?
+With this narrative, we have some understanding of what we want to do with the system, but how will we know when we‚Äôve started the game? How will we know when we‚Äôve satisfied this requirement? How will we know when we‚Äôre done?
 
 Acceptance Criteria
 
-To answer these questions, weíll add acceptance criteria to the feature. Imagine that you sit down to play Codebreaker, fire up a shell, and type the codebreaker command. How do you know it started? Perhaps it says something like ìWelcome to Codebreaker!î And then, so you know what to do next, it probably says something like ìEnter a guess.î
+To answer these questions, we‚Äôll add acceptance criteria to the feature. Imagine that you sit down to play Codebreaker, fire up a shell, and type the codebreaker command. How do you know it started? Perhaps it says something like ‚ÄúWelcome to Codebreaker!‚Äù And then, so you know what to do next, it probably says something like ‚ÄúEnter a guess.‚Äù
 
-That  will  be  the  acceptance  criteria  for  this  feature.  Hereís  how  we express that in Cucumber:
+That  will  be  the  acceptance  criteria  for  this  feature.  Here‚Äôs  how  we express that in Cucumber:
 
 Feature: code-breaker starts game
 
@@ -50,21 +50,21 @@ The Scenario keyword is followed by a string and then a series of steps. Each st
 
 Given steps represent the state of the world before an event. When steps represent the event. Then steps represent the expected outcomes.
 
-And  and  But  steps  take  on  the  quality  of  the  previous  step.  In  the start game scenario, the And  step is a second Then; a second expected outcome. If we wanted to expect that the game says ìWelcome to Code- breaker!î but not ìWhat is your quest?î we would add a But step saying But I should not see ìWhat is your quest?î This would be treated as a Then.
+And  and  But  steps  take  on  the  quality  of  the  previous  step.  In  the start game scenario, the And  step is a second Then; a second expected outcome. If we wanted to expect that the game says ‚ÄúWelcome to Code- breaker!‚Äù but not ‚ÄúWhat is your quest?‚Äù we would add a But step saying But I should not see ‚ÄúWhat is your quest?‚Äù This would be treated as a Then.
 
-See how the Given and When steps in this scenario both use the first person? We choose the first-person form because it makes the narrative feel more compelling. Given x, when I  y, then I  should see a message saying ìz.î This helps keep the focus on how I  would use the system if I were in a given role (the code-breaker).
+See how the Given and When steps in this scenario both use the first person? We choose the first-person form because it makes the narrative feel more compelling. Given x, when I  y, then I  should see a message saying ‚Äúz.‚Äù This helps keep the focus on how I  would use the system if I were in a given role (the code-breaker).
  
 
 
-Given  I  am  not  yet  playing  expresses  the  context  in  which  the  subse- quent  steps  will  be  executed.  When I start a new game  is  the  event  or action that occurs because I did something. The Thens are the expected outcomesówhat we expect to happen as a result of the When.
+Given  I  am  not  yet  playing  expresses  the  context  in  which  the  subse- quent  steps  will  be  executed.  When I start a new game  is  the  event  or action that occurs because I did something. The Thens are the expected outcomes‚Äîwhat we expect to happen as a result of the When.
 
-Letís store this feature in a file. We will go over the details of the project structure later in Chapter 4, Automating Features with Cucumber ,  on page 53, but for now just create a codebreaker directory wherever you like to keep projects on your computer. This will be the root directory for  the  project,  from  which  weíll  type  all  our  shell  commands  as  we progress.
+Let‚Äôs store this feature in a file. We will go over the details of the project structure later in Chapter 4, Automating Features with Cucumber ,  on page 53, but for now just create a codebreaker directory wherever you like to keep projects on your computer. This will be the root directory for  the  project,  from  which  we‚Äôll  type  all  our  shell  commands  as  we progress.
 
 Inside  the  codebreaker  directory,  add  a  subdirectory  named  features. Create  a  new  file  named  codebreaker_starts_game.feature  in  that  direc- tory, and copy in the content of the feature, shown earlier.
 
-Now add a subdirectory inside features  named support, and inside features/support add a file named env.rb. Even though weíll leave this empty for now, Cucumber needs this file (or any .rb file) in order to know that weíre using Ruby.7
+Now add a subdirectory inside features  named support, and inside features/support add a file named env.rb. Even though we‚Äôll leave this empty for now, Cucumber needs this file (or any .rb file) in order to know that we‚Äôre using Ruby.7
 
-Now  open  a  shell,  cd  into  the  codebreaker  project  root  directory,  and type cucumber. Youíll see the same text that is in the file with some additional  context  information  and  metadata.  Weíll  discuss  what  all  that means in the next chapter when we begin to automate the scenarios.
+Now  open  a  shell,  cd  into  the  codebreaker  project  root  directory,  and type cucumber. You‚Äôll see the same text that is in the file with some additional  context  information  and  metadata.  We‚Äôll  discuss  what  all  that means in the next chapter when we begin to automate the scenarios.
 
 Submitting a Guess
 
@@ -78,7 +78,7 @@ The code-breaker submits a guess of four numbers.  The game marks the guess with
 
 For each number in the guess that matches the number and position of a number in the secret code, the mark includes one + sign. For each number in the guess that matches the number but not the position of a number in the secret code, the mark includes one - sign.
 
-This time we used a free-form narrative instead of the Connextra for- mat. This seems appropriate given that weíre describing an algorithm, which is a bit more complex than a statement such as ìI should see a welcome message.î Could we use the Connextra format? Letís give it a try and see.
+This time we used a free-form narrative instead of the Connextra for- mat. This seems appropriate given that we‚Äôre describing an algorithm, which is a bit more complex than a statement such as ‚ÄúI should see a welcome message.‚Äù Could we use the Connextra format? Let‚Äôs give it a try and see.
 
 7.  Cucumber supports several different programming languages.
 
@@ -88,7 +88,7 @@ Feature: code-breaker submits guess
 	I want to submit a guess
 	So that I can try to break the code
 
-That doesnít tell us a whole lot, so letís add a scenario:
+That doesn‚Äôt tell us a whole lot, so let‚Äôs add a scenario:
 
 Feature: code-breaker submits guess
 
@@ -101,7 +101,7 @@ Feature: code-breaker submits guess
 		When I guess "1234"
 		Then the mark should be "++++"
 
-Even when we add this narrative together with this scenario, we donít really  supply  enough context information to understand the meaning of the mark. Now look at the original narrative plus a single scenario:
+Even when we add this narrative together with this scenario, we don‚Äôt really  supply  enough context information to understand the meaning of the mark. Now look at the original narrative plus a single scenario:
 
 Feature: code-breaker submits guess
 
@@ -114,13 +114,13 @@ Feature: code-breaker submits guess
 		When I guess "1234"
 		Then the mark should be "++++"
 
-Wow, what a difference that makes. Now we have an explanation of the mark and an example of how it works in practice. Much clearer, no? So then, why donít we add some prose narrative to the Code-breaker starts game  feature as  well?  Well,  we  donít  really  need  it.  In  that  case,  the scenario  tells  us  everything  we  need  to  know  in  order  to  understand the context.
+Wow, what a difference that makes. Now we have an explanation of the mark and an example of how it works in practice. Much clearer, no? So then, why don‚Äôt we add some prose narrative to the Code-breaker starts game  feature as  well?  Well,  we  don‚Äôt  really  need  it.  In  that  case,  the scenario  tells  us  everything  we  need  to  know  in  order  to  understand the context.
  
-So, which should we use? Connextra format? Free-form prose? Some other format? The answer, of course, is that it depends, as weíve just seen.  In  the end,  itís good  to have  a  number of  tools  at  our disposal, so  we  can  pick  the  right  one  for  each  job.  Thatís  true  of  RSpec  and Cucumber. Thatís also true of narrative formats.
+So, which should we use? Connextra format? Free-form prose? Some other format? The answer, of course, is that it depends, as we‚Äôve just seen.  In  the end,  it‚Äôs good  to have  a  number of  tools  at  our disposal, so  we  can  pick  the  right  one  for  each  job.  That‚Äôs  true  of  RSpec  and Cucumber. That‚Äôs also true of narrative formats.
 
 Adding More Scenarios
 
-With an algorithm as complex as marking a guess, weíre going to need more scenarios to demonstrate what the mark should be under differ- ent  conditions.  Letís  add  a  second  scenario,  shown  here  without  the narrative:
+With an algorithm as complex as marking a guess, we‚Äôre going to need more scenarios to demonstrate what the mark should be under differ- ent  conditions.  Let‚Äôs  add  a  second  scenario,  shown  here  without  the narrative:
 
 Scenario: all exact matches
 	Given the secret code is "1234" 
@@ -132,7 +132,7 @@ Scenario: 2 exact matches and 2 number matches
 	When I guess "1243"
 	Then the mark should be "++--"
 
-The  addition  of  another  scenario  increases  the  expression  and  our understanding of the rules of the algorithm. Of course, we have a long way to go, so letís add some more:
+The  addition  of  another  scenario  increases  the  expression  and  our understanding of the rules of the algorithm. Of course, we have a long way to go, so let‚Äôs add some more:
 
 Scenario: all exact matches
 	Given the secret code is "1234" 
@@ -154,14 +154,14 @@ Scenario: 4 number matches
 	When I guess "4321"
 	Then the mark should be "----"
 
-If  we  hadnít  seen  it  before,  we  can  certainly  see  now  that  this  is  not going to scale very well. We have four scenarios, and itís already starting to become difficult to take them all in at a glance. Imagine what this would  look  like  when  we  add  scenarios  for  three  matching  numbers, two,  one,  and  then  none.  Weíll  likely  end  up  with  a  couple  of  dozen scenarios, and itís going to be quite difficult to scan them all and really understand the intent.
+If  we  hadn‚Äôt  seen  it  before,  we  can  certainly  see  now  that  this  is  not going to scale very well. We have four scenarios, and it‚Äôs already starting to become difficult to take them all in at a glance. Imagine what this would  look  like  when  we  add  scenarios  for  three  matching  numbers, two,  one,  and  then  none.  We‚Äôll  likely  end  up  with  a  couple  of  dozen scenarios, and it‚Äôs going to be quite difficult to scan them all and really understand the intent.
 
-Fortunately, Cucumber offers us a few different tools we can use to DRY things up without sacrificing expressiveness and cohesion.8  Youíll read about all of these tools in Chapter 17, Intro to Cucumber , on page 252, but the one weíre interested in right now is the scenario outline.
+Fortunately, Cucumber offers us a few different tools we can use to DRY things up without sacrificing expressiveness and cohesion.8  You‚Äôll read about all of these tools in Chapter 17, Intro to Cucumber , on page 252, but the one we‚Äôre interested in right now is the scenario outline.
 
 Scenario Outlines
 
 Cucumber  lets  us  define  a  single  scenario  outline  and  then  
-provide tables  of  input data  and  expected  output.  Hereís the  
+provide tables  of  input data  and  expected  output.  Here‚Äôs the  
 scenario  outline for our submit guess scenarios:
 
 Scenario Outline: submit guess
@@ -171,15 +171,15 @@ Scenario Outline: submit guess
 
 This  looks  a  lot  like  the  scenario  declarations  we  wrote  for  the  code- breaker submits guess feature, with two subtle differences:
 
-ï  Scenario Outline instead of Scenario
+‚Ä¢  Scenario Outline instead of Scenario
 
-ï  Variable data placeholders in angle brackets
+‚Ä¢  Variable data placeholders in angle brackets
 
-The  words  in  angle  brackets  are  placeholders  for  variable  data  that weíll  provide  in  a  tabular  format,  inspired  by  FIT  (see  the  sidebar  on the following page).
+The  words  in  angle  brackets  are  placeholders  for  variable  data  that we‚Äôll  provide  in  a  tabular  format,  inspired  by  FIT  (see  the  sidebar  on the following page).
 
 Tabular Data
 
-Here is the first of several tables weíll add, supplying data for scenarios in which all four numbers match:
+Here is the first of several tables we‚Äôll add, supplying data for scenarios in which all four numbers match:
 
 Scenarios: all numbers correct
 | code | guess | mark |
@@ -189,30 +189,30 @@ Scenarios: all numbers correct
 | 1234 | 4321  | ---- |
 
 
-8.  DRY stands for Donít Repeat Yourself. The DRY principle, as described in The Prag- matic Programmer  [HT00], states that every piece of knowledge in a system should have one authoritative, unambiguous representation.
+8.  DRY stands for Don‚Äôt Repeat Yourself. The DRY principle, as described in The Prag- matic Programmer  [HT00], states that every piece of knowledge in a system should have one authoritative, unambiguous representation.
  
  FIT  
 
-Ward Cunninghamís Framework for Integration Test (FIT) parses display tables in rich documents written with Microsoft Word or HTML, sends the contents of table cells to the system in devel- opment, and compares the results from the system to expected values in the table.*
+Ward Cunningham‚Äôs Framework for Integration Test (FIT) parses display tables in rich documents written with Microsoft Word or HTML, sends the contents of table cells to the system in devel- opment, and compares the results from the system to expected values in the table.*
 
 This  allows  teams  that  were  already  using  tools  like  Word  for requirements  documentation  to  turn  those  documents  into executable acceptance tests by specifying expected outputs resulting from prescribed inputs. This works especially well when the acceptance criteria are naturally expressed in a table.
 
-Cucumberís  scenario  outlines  and  scenario  tables  provide  a FIT-inspired  tabular  format  for  expressing  repetitive  scenarios like those in our ìsubmit guessî feature, while maintaining the Given, When, and Then language of BDD.
+Cucumber‚Äôs  scenario  outlines  and  scenario  tables  provide  a FIT-inspired  tabular  format  for  expressing  repetitive  scenarios like those in our ‚Äúsubmit guess‚Äù feature, while maintaining the Given, When, and Then language of BDD.
 
 *.  See http://fit.c2.com/ for more information about FIT.
 
 
 The  Scenarios  keyword  indicates  that  what  follows  are  rows  of example  data.  The  first  row  contains  column  headers  that  align  with  the placeholders in the scenario outline. Each subsequent row represents a single scenario.
 
-Following convention, weíve named the columns using the same names that are in angle brackets in the scenario outline, but the placeholders and columns are bound by position, not name.
+Following convention, we‚Äôve named the columns using the same names that are in angle brackets in the scenario outline, but the placeholders and columns are bound by position, not name.
 
-The <code> variable in the Given step is assigned the value 1234, from the  first  column  in  the  first  data  row  (after  the  headers).  Itís  just  as though we wrote Given the secret code is 1234.
+The <code> variable in the Given step is assigned the value 1234, from the  first  column  in  the  first  data  row  (after  the  headers).  It‚Äôs  just  as though we wrote Given the secret code is 1234.
 
 The <guess>  in the When  step gets 1234  from the second column, and the <mark> in the Then step gets ++++.
 
-With  the  scenario  outline  and  this  first  table,  weíve  expressed  four scenarios  that  would  have  taken  sixteen  lines  in  only  ten.  Weíve  also reduced  duplication  and  created  very  readable  executable  documen- tation  in  the  process.  Cucumber  lets  us  supply  as  many  groups  of scenarios as we want, supporting a very natural way to group similar scenarios.
+With  the  scenario  outline  and  this  first  table,  we‚Äôve  expressed  four scenarios  that  would  have  taken  sixteen  lines  in  only  ten.  We‚Äôve  also reduced  duplication  and  created  very  readable  executable  documen- tation  in  the  process.  Cucumber  lets  us  supply  as  many  groups  of scenarios as we want, supporting a very natural way to group similar scenarios.
 
-Hereís the whole feature with fourteen scenarios expressed in a mere 
+Here‚Äôs the whole feature with fourteen scenarios expressed in a mere 
 twenty-seven lines (beginning with the scenario outline):
 
 Feature: code-breaker submits guess
@@ -255,6 +255,6 @@ Feature: code-breaker submits guess
 	| 1234 | 1423  | +--- |
 	| 1234 | 4321  | ---- |
 
-See how easy that is to read and understand? Even a nontechnical team member can read this and figure out whatís going on. And therein lies the  power  of  Cucumber.  It  lets  us  express  requirements  in  language that  the  whole  team  can  understand  so  we  can  all  speak  the  same language.  When  we  talk  about  mark,  it  means  the  same  thing  to  the CEO as it does to the developer. The same goes for the secret code and a guess.
+See how easy that is to read and understand? Even a nontechnical team member can read this and figure out what‚Äôs going on. And therein lies the  power  of  Cucumber.  It  lets  us  express  requirements  in  language that  the  whole  team  can  understand  so  we  can  all  speak  the  same language.  When  we  talk  about  mark,  it  means  the  same  thing  to  the CEO as it does to the developer. The same goes for the secret code and a guess.
 
-We  now  have  the  acceptance  criteria  for  the  two  stories  we  want  to include  in  our  first  iteration,  so  the  planning  meeting  has  come  to  a close.  In  the  next  chapter,  weíll  use  these  same  plain-text features  to begin  to  drive  out  the  code  for  our  game,  but  first  letís  quickly  recap what weíve done.
+We  now  have  the  acceptance  criteria  for  the  two  stories  we  want  to include  in  our  first  iteration,  so  the  planning  meeting  has  come  to  a close.  In  the  next  chapter,  we‚Äôll  use  these  same  plain-text features  to begin  to  drive  out  the  code  for  our  game,  but  first  let‚Äôs  quickly  recap what we‚Äôve done.

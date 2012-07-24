@@ -1,6 +1,6 @@
-17.5  Scenarios
+Ôªø17.5  Scenarios
 
-Scenarios are concrete examples of how we want the software to behave. They are more explicit than some traditional ways to describe requirements  and  help  us  raise  and  answer  questions  that  we  might  miss otherwise. Consider this requirement: it shouldnít be possible to book a room if the hotel is full.
+Scenarios are concrete examples of how we want the software to behave. They are more explicit than some traditional ways to describe requirements  and  help  us  raise  and  answer  questions  that  we  might  miss otherwise. Consider this requirement: it shouldn‚Äôt be possible to book a room if the hotel is full.
 
 This leaves a lot of open questions. If the hotel is full, is it still possible to try to book and get an error if we try? Is the booking option disabled? Or is it hidden? What do we display?
 
@@ -13,9 +13,9 @@ Feature: Traveler books room
 
 Scenario: Successful booking
 
-Each scenario is made up of steps that appear below the Scenario keyword  and  are  typically  indented  two  spaces.  Weíll  talk  about  steps  in the next section.
+Each scenario is made up of steps that appear below the Scenario keyword  and  are  typically  indented  two  spaces.  We‚Äôll  talk  about  steps  in the next section.
 
-When you start writing a new feature, itís generally easiest to start with a  scenario  that  describes  the  most  common  ìhappy  path.î  Once  you are done with that, you can add more scenarios that describe different edge cases:
+When you start writing a new feature, it‚Äôs generally easiest to start with a  scenario  that  describes  the  most  common  ‚Äúhappy  path.‚Äù  Once  you are done with that, you can add more scenarios that describe different edge cases:
 
 Feature: Traveler books room
 	In order to reduce staff
@@ -28,4 +28,4 @@ Feature: Traveler books room
 
 	Scenario: Visitor forgets to enter email
 
-Letís  take  a  closer  look  at  the  first  scenario,  Successful booking.  What does  a  successful  booking  look  like?  We  have  to  fill  in  some  steps  to make this a concrete example.
+Let‚Äôs  take  a  closer  look  at  the  first  scenario,  Successful booking.  What does  a  successful  booking  look  like?  We  have  to  fill  in  some  steps  to make this a concrete example.

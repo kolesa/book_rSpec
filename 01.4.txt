@@ -1,9 +1,9 @@
-1.4  Cucumber
+ï»¿1.4  Cucumber
 
-As you’ll read about in Chapter 11, Writing Software That Matters, on page  
+As youâ€™ll read about in Chapter 11, Writing Software That Matters, on page  
 138,  BDD  is  a  full-stack  agile  methodology.  It  takes  some  of 
 its  cues  from  Extreme  Programming,  including  a  variation  of  Accep- 
-tance  Test–Driven  Development  called  Acceptance  Test–Driven  Plan- 
+tance  Testâ€“Driven  Development  called  Acceptance  Testâ€“Driven  Plan- 
 ning (ATDP).
 
 In  ATDP,  we  use  customer  acceptance  tests  to  drive  the  
@@ -17,7 +17,7 @@ lan- guage and format.
 
 Cucumber  reads  plain-text  descriptions  of  application  features  with 
 example scenarios and uses the scenario steps to automate interaction with 
-the code being developed. Here’s an example:
+the code being developed. Hereâ€™s an example:
 
 Line 1  Feature: pay bill on-line
 -
@@ -52,8 +52,8 @@ we later added support for plain text, opening up a whole new world of
 expressiveness and access. But as new possibilities were revealed, so were 
 limitations.
 
-In the spring of 2008, Aslak Hellesoy set out to rewrite RSpec’s Story 
-Runner with a real grammar defined with Nathan Sobo’s Treetop library. 
+In the spring of 2008, Aslak Hellesoy set out to rewrite RSpecâ€™s Story 
+Runner with a real grammar defined with Nathan Soboâ€™s Treetop library. 
 Aslak dubbed it Cucumber at the suggestion of his fiancee, Patricia 
 Carrier, thinking it would be a short-lived working title until it was 
 merged back into RSpec. Little did either of them know that Cucumber would 
@@ -66,25 +66,25 @@ Everything  up  to  and  including  the  Scenario  declaration  on  line  7
  is treated  as  documentation  (not  executable).  The  subsequent  lines  
 are steps in the scenario.
 
-In Chapter 4, Automating Features with Cucumber , on page 53, you’ll be 
+In Chapter 4, Automating Features with Cucumber , on page 53, youâ€™ll be 
 writing step definitions in Ruby. These step definitions interact with the 
 code being developed and are invoked by Cucumber as it reads in the 
 scenario.
-Don’t worry if that doesn’t make perfect sense to you just yet. For now, 
-it’s only important to understand that both RSpec and Cucumber help us  
+Donâ€™t worry if that doesnâ€™t make perfect sense to you just yet. For now, 
+itâ€™s only important to understand that both RSpec and Cucumber help us  
 specify  the  behavior  of  code  with  examples  that  are  programmati- 
 cally tied to that code. The details will become clear as you read on.
 
 
 We  use  Cucumber  to  describe  the  behavior  of  applications  and  use 
-RSpec  to  describe  the  behavior  of  objects.3 If  you’ve  ever  done  
-TDD before, you’re probably familiar with the red/green/refactor cycle. 
-With the  addition  of  a  higher -level  tool  like  Cucumber,  we’ll  
+RSpec  to  describe  the  behavior  of  objects.3 If  youâ€™ve  ever  done  
+TDD before, youâ€™re probably familiar with the red/green/refactor cycle. 
+With the  addition  of  a  higher -level  tool  like  Cucumber,  weâ€™ll  
 actually  have two concentric red/green/refactor cycles, as depicted in 
 Figure 1.1, on the following page.
 
 Both  cycles  involve  taking  small  steps  and  listening  to  the  
 feedback you get from the tools. We start with a failing step (red) in 
-Cucumber (the  outer  cycle). To  get  that  step  to  pass,  we’ll  drop 
+Cucumber (the  outer  cycle). To  get  that  step  to  pass,  weâ€™ll  drop 
  down  to  RSpec (the inner cycle) and drive out the underlying code at a 
 granular level (red/green/refactor).

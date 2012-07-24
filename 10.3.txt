@@ -1,8 +1,8 @@
-10.3  Redefining the Problem
+Ôªø10.3  Redefining the Problem
 
-Itís not all doom and gloom, though. There are many teams out there delivering  projects  on  time  and  within  budget  and  delighting  their stakeholders, and they manage to do it again and again. Itís not easy. It takes discipline and dedication and relies on a high degree of communication and collaboration, but it is possible. People who work like this tend to agree it is also a lot of fun!
+It‚Äôs not all doom and gloom, though. There are many teams out there delivering  projects  on  time  and  within  budget  and  delighting  their stakeholders, and they manage to do it again and again. It‚Äôs not easy. It takes discipline and dedication and relies on a high degree of communication and collaboration, but it is possible. People who work like this tend to agree it is also a lot of fun!
 
-Behaviour -Driven Development is one of a number of Agile methodologies. Specifically, it is a second-generation Agile methodology, building on the work of the really smart guys. Letís look at how these Agile methods  came  about  and  how  they  address  traditional  project  risks,  and then we can see how BDD allows us to concentrate on writing software that matters.
+Behaviour -Driven Development is one of a number of Agile methodologies. Specifically, it is a second-generation Agile methodology, building on the work of the really smart guys. Let‚Äôs look at how these Agile methods  came  about  and  how  they  address  traditional  project  risks,  and then we can see how BDD allows us to concentrate on writing software that matters.
 
 A Brief History of Agile
 
@@ -22,11 +22,11 @@ Responding to change over following a plan
 
 That is, while there is value in the things on the right, we value the things on the left more.
 
-The Agile Manifesto is empiricalóitís based on real experience: ìWe are uncovering better ways...by doing it.î Also notice that it doesnít dismiss traditional  ideas  like  documentation  and  contractsóa  criticism  often leveled at Agile methodsóbut rather it expresses a preference for something different: something lighter weight and more directly relevant to the customer or stakeholder.
+The Agile Manifesto is empirical‚Äîit‚Äôs based on real experience: ‚ÄúWe are uncovering better ways...by doing it.‚Äù Also notice that it doesn‚Äôt dismiss traditional  ideas  like  documentation  and  contracts‚Äîa  criticism  often leveled at Agile methods‚Äîbut rather it expresses a preference for something different: something lighter weight and more directly relevant to the customer or stakeholder.
 
 How Agile Methods Address Project Risks
 
-The authors of the manifesto go further than just the few lines quoted previously.  They  also  documented  the  principles  underpinning  their thinking. Central to these is a desire to ìdeliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.î
+The authors of the manifesto go further than just the few lines quoted previously.  They  also  documented  the  principles  underpinning  their thinking. Central to these is a desire to ‚Äúdeliver working software frequently, from a couple of weeks to a couple of months, with a preference to the shorter timescale.‚Äù
 
 Imagine for a moment you could do this, namely, delivering production- quality software every two weeks to your stakeholders, on your current project,  in  your  current  organization,  with  your  current  team,  start- ing tomorrow. How would this address the traditional delivery risks we outlined at the start of the chapter?
 
@@ -43,9 +43,9 @@ If, as we approach the deadline, the stakeholders are still having new ideas for
 
 No Longer Delivering the Wrong Thing
 
-We are delivering working software to the stakeholders every two weeks (say), which means we are delivering demonstrable features. We donít have a two-week ìdatabase schema iterationî or ìmiddleware iteration.î
+We are delivering working software to the stakeholders every two weeks (say), which means we are delivering demonstrable features. We don‚Äôt have a two-week ‚Äúdatabase schema iteration‚Äù or ‚Äúmiddleware iteration.‚Äù
 
-After each iteration, we can demonstrate the new features to the stake-holders, and they can make any tweaks or correct any misunderstandings while the work is still fresh in the development teamís mind. These regular, small-scale micro-corrections ensure that we donít end up several months down the line with software  that simply doesnít do what the stakeholders wanted.
+After each iteration, we can demonstrate the new features to the stake-holders, and they can make any tweaks or correct any misunderstandings while the work is still fresh in the development team‚Äôs mind. These regular, small-scale micro-corrections ensure that we don‚Äôt end up several months down the line with software  that simply doesn‚Äôt do what the stakeholders wanted.
 
 To kick off the next iteration, we can get together with the stakeholders to reassess the priorities of the features in case anything has changed since  last  time.(2) This  means  any  new  ideas  or  suggestions  can  get scheduled,  and  the  corresponding  amount  of  work  can  be  descoped (or extra time added).
 
@@ -62,7 +62,7 @@ In  fact,  in  an  Agile  environment,  the  relationship  between  the  devel- 
 
 No Longer Costly to Maintain
 
-This last one is one of the biggest tangible benefits of an Agile process. After their first iteration, the team is effectively in maintenance mode. They are adding features to a system that ìworks,î so they have to be very careful.
+This last one is one of the biggest tangible benefits of an Agile process. After their first iteration, the team is effectively in maintenance mode. They are adding features to a system that ‚Äúworks,‚Äù so they have to be very careful.
 
 Assuming they can solve the issues of safely changing existing code so as not to introduce regression defects, their working practices should be  exactly  the  same  as  downstream  support  developers.  It  is  not  uncommon for an Agile development team to be working on several versions of an application simultaneously, adding features to the new ver - sion,  providing  early  live  support  to  a  recently  released  version,  and providing  bug  fixing  support  to  an  older  production  version  (because we still make mistakes, and the world still moves on!).
 

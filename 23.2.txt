@@ -1,9 +1,9 @@
-23.2  Mocking Models
+ï»¿23.2  Mocking Models
 
-When working outside-in, we often discover the need for a model that doesn’t exist yet. Rather than switch focus to the model, we can create a mock_model( ) and remain focused on the view we’re working on.
+When working outside-in, we often discover the need for a model that doesnâ€™t exist yet. Rather than switch focus to the model, we can create a mock_model( ) and remain focused on the view weâ€™re working on.
 
 Mock Example
-Building on the messages example, we’ll introduce the need for a model and  continue  driving  the  view.  Following  the  convention  we  learned about earlier this chapter, add a spec named new.html.erb_spec.rb in the spec/views/messages/ directory with the content shown on the next page.
+Building on the messages example, weâ€™ll introduce the need for a model and  continue  driving  the  view.  Following  the  convention  we  learned about earlier this chapter, add a spec named new.html.erb_spec.rb in the spec/views/messages/ directory with the content shown on the next page.
  
 
 
@@ -36,7 +36,7 @@ Run the spec, and now the MissingTemplate  error is gone, but the spec still fai
 
 undefined method `model_name' for RSpec::Mocks::Mock:Class
 
-The  form_for( )  method  used  in  the  view  interacts  with  the  object  it’s given as though it were an ActiveRecord model. We’re using a stock test double, which doesn’t know how to respond to the different messages it gets from form_for( ).
+The  form_for( )  method  used  in  the  view  interacts  with  the  object  itâ€™s given as though it were an ActiveRecord model. Weâ€™re using a stock test double, which doesnâ€™t know how to respond to the different messages it gets from form_for( ).
 
 We can use the mock_model( ) method to provide a mock object that is configured to respond in this context as though it were an ActiveRecord model. Update the example to use mock_model( ) instead of double( ):
 
@@ -54,11 +54,11 @@ it "renders a form to create a message" do
 	end 
 end
 
-Run the spec again, and you’ll see this:
+Run the spec again, and youâ€™ll see this:
 
 undefined method `message_path'
 
-At this point, the example is failing because there are no routes set up for messages. But that’s not all. Do you notice something odd about the route it’s looking for?
+At this point, the example is failing because there are no routes set up for messages. But thatâ€™s not all. Do you notice something odd about the route itâ€™s looking for?
 
 By  default,  mock_model  produces  a  mock  that  acts  like  an  existing record (for example, persisted( ) returns true). When form_for gets an exist- ing record, it produces a form that posts to the update  action, which lives  at  message_path  (singular)  as  opposed  to  messages_path  (plural). We  want  a  form  that  posts  to  the  create  action  at  messages_path.  We can do this by telling the mocked model to act like a new record:
 
@@ -79,7 +79,7 @@ Now the spec fails with this:
 
 undefined method `messages_path'
 
-This is the failure message we’re looking for, and we can resolve it by adding the appropriate declaration to config/routes.rb:
+This is the failure message weâ€™re looking for, and we can resolve it by adding the appropriate declaration to config/routes.rb:
 
 Download rails_views/messages/08/config/routes.rb
 
@@ -87,7 +87,7 @@ Messages::Application.routes.draw do
 	resources :messages
 end
 
-After  adding  the  route  declaration,  run  the  spec,  and  you  should  see one example and zero failures. Now that we have the form working, let’s add some input fields. We’ll start with a text field for the message title:
+After  adding  the  route  declaration,  run  the  spec,  and  you  should  see one example and zero failures. Now that we have the form working, letâ€™s add some input fields. Weâ€™ll start with a text field for the message title:
 
 Download rails_views/messages/09/spec/views/messages/new.html.erb_spec.rb
 
@@ -119,9 +119,9 @@ Run the spec again, and this example passes, but now the first example is failin
 
 Model Message does not respond to title
 
-By  default,  an  RSpec  mock  object  will  return  false  when  asked  if  it responds to a method that it hasn’t been told to expect. In this case, the text_field( ) helper in the view asks @message if it responds to title( ). When the @message returns false, Rails raises the error shown earlier.
+By  default,  an  RSpec  mock  object  will  return  false  when  asked  if  it responds to a method that it hasnâ€™t been told to expect. In this case, the text_field( ) helper in the view asks @message if it responds to title( ). When the @message returns false, Rails raises the error shown earlier.
 
-The first example doesn’t care about the message title, so we don’t want to  have  to  tell  the  mock  to  expect  title( ).  What  we  can  do  is  tell  the mocked  message  to  ignore  any  messages  it’s  not  expecting  by  acting as a null object. This will let us write focused examples without introducing  unnecessary  verbosity  in  other  examples.  Go  ahead  and  add as_null_object( ):
+The first example doesnâ€™t care about the message title, so we donâ€™t want to  have  to  tell  the  mock  to  expect  title( ).  What  we  can  do  is  tell  the mocked  message  to  ignore  any  messages  itâ€™s  not  expecting  by  acting as a null object. This will let us write focused examples without introducing  unnecessary  verbosity  in  other  examples.  Go  ahead  and  add as_null_object( ):
 
 Download rails_views/messages/11/spec/views/messages/new.html.erb_spec.rb
 
@@ -180,7 +180,7 @@ end
 
 Run the specs again, and they should still be passing.
 
-Now let’s specify that the form has a text area for the text of the message. We can stub text() on message just as we stubbed title in the previous example:
+Now letâ€™s specify that the form has a text area for the text of the message. We can stub text() on message just as we stubbed title in the previous example:
 
 Download rails_views/messages/13/spec/views/messages/new.html.erb_spec.rb
 
@@ -200,13 +200,13 @@ This should fail with this:
 expected following output to contain a
 <textarea name='message[text]'>the message</textarea> tag;
 
-Add  <%= f.text_area :text %>  to  the  view,  and  the  example  should  pass. Note  that  adding  a  new  field  to  the  form  doesn’t  cause  other  examples  to  fail  this  time.  This  is  because  we  used  as_null_object( )  in  the before( ) block. This will hold true for any additional fields we describe in specs later, so this one-time refactoring will have benefits throughout the development of this view.
+Add  <%= f.text_area :text %>  to  the  view,  and  the  example  should  pass. Note  that  adding  a  new  field  to  the  form  doesnâ€™t  cause  other  examples  to  fail  this  time.  This  is  because  we  used  as_null_object( )  in  the before( ) block. This will hold true for any additional fields we describe in specs later, so this one-time refactoring will have benefits throughout the development of this view.
 
-Mock  models  that  act  as_null_object  keep  view  specs  lean  and  simple, allowing  each  example  to  be  explicit  about  only  the  things  it  cares about. They also save us from unwanted side effects being introduced in other examples. Now let’s take a closer look at mock_model.
+Mock  models  that  act  as_null_object  keep  view  specs  lean  and  simple, allowing  each  example  to  be  explicit  about  only  the  things  it  cares about. They also save us from unwanted side effects being introduced in other examples. Now letâ€™s take a closer look at mock_model.
 
 mock_model
 
-The mock_model( ) method sets up an RSpec mock with common Active-Record methods stubbed out. In its most basic form, mock_model can be called with a single argument, which is the class you want to represent as  an  ActiveRecord  model.  The  class  must  exist,  but  it  doesn’t  have to be a subclass of ActiveRecord::Base. Here are the default stubs on a mocked model:
+The mock_model( ) method sets up an RSpec mock with common Active-Record methods stubbed out. In its most basic form, mock_model can be called with a single argument, which is the class you want to represent as  an  ActiveRecord  model.  The  class  must  exist,  but  it  doesnâ€™t  have to be a subclass of ActiveRecord::Base. Here are the default stubs on a mocked model:
 
 new_record?  Returns  false  since  mocked  models  represent  existing records by default
 
@@ -214,14 +214,14 @@ id Returns an autogenerated number to represent an existing record
 
 to_param  Returns a string version of the id
 
-Just like standard mocks/stubs in RSpec, additional methods can be stubbed by passing in an additional Hash  argument of method name/ value pairs. Here’s an example:
+Just like standard mocks/stubs in RSpec, additional methods can be stubbed by passing in an additional Hash  argument of method name/ value pairs. Hereâ€™s an example:
 
 user = mock_model(User,
 	:login => "zdennis",
 	:email => "zdennis@example.com"
 )
 
-When we don’t want the mock to represent an existing record, we can tell it to be a new record by sending it the as_new_record( ) message:
+When we donâ€™t want the mock to represent an existing record, we can tell it to be a new record by sending it the as_new_record( ) message:
 
 new_user = mock_model(User).as_new_record
 
@@ -233,7 +233,7 @@ id Will return nil just like a new ActiveRecord object
 
 to_param  Will return nil just like a new ActiveRecord object
 
-Mock models are particularly useful when the model we need doesn’t exist  yet.  The  trade-off  is  that  we  have  to  use  as_null_object( )  to  keep them  quiet.  Once  the  model  exists,  however,  rspec-rails  offers  us  an alternative: stub_model( ).
+Mock models are particularly useful when the model we need doesnâ€™t exist  yet.  The  trade-off  is  that  we  have  to  use  as_null_object( )  to  keep them  quiet.  Once  the  model  exists,  however,  rspec-rails  offers  us  an alternative: stub_model( ).
 
 stub_model
 
@@ -250,7 +250,7 @@ user = stub_model(User,
 
 Similar to mock_model, a stubbed model represents an existing record by  default,  and  we  can  tell  it  to  act  like  a  new  record  with  as_new_ record( ). In fact, stub_model is a lot like mock_model, with just a couple of exceptions.
 
-Because  stub_model  creates  an  ActiveRecord  model  instance,  we  don’t need to tell it to act as_null_object( ) to keep it quiet when asked for its attributes. ActiveRecord will just return nil in those cases, as long as the attribute is defined in the schema.
+Because  stub_model  creates  an  ActiveRecord  model  instance,  we  donâ€™t need to tell it to act as_null_object( ) to keep it quiet when asked for its attributes. ActiveRecord will just return nil in those cases, as long as the attribute is defined in the schema.
 
 The other difference is that stub_model( ) prohibits the model instance from  accessing  the  database.  If  it  receives  any  database-related  mes- sages, such as save( ) or update_attributes( ), it will raise an error.
 
@@ -258,5 +258,5 @@ RSpec::Rails::IllegalDataAccessException: stubbed models are not allowed to \ ac
 
 This can be a good indicator that the view is doing something it should not be doing or that the method in question should really be stubbed out in the example.
 
-Neither  mock_model( )  nor  stub_model( )  is  restricted  to  view  specs.  As you’ll see later this chapter and in the following chapter on controller specs, they can be very helpful throughout the spec suite.
+Neither  mock_model( )  nor  stub_model( )  is  restricted  to  view  specs.  As youâ€™ll see later this chapter and in the following chapter on controller specs, they can be very helpful throughout the spec suite.
 

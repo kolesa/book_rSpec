@@ -1,8 +1,8 @@
-11.4  The Cycle of Delivery
+Ôªø11.4  The Cycle of Delivery
 
-The BDD delivery cycle starts with a stakeholder discussing a requirement  with  a  business  analyst.1  The  requirement  might  be  a  problem they want solved or an idea theyíve had. The analyst helps the stake- holder articulate the requirement in terms of features that make sense to the stakeholderóusing their own domain termsóand maybe further into small, verifiable chunks known as stories, which represent no more than a few days work.
+The BDD delivery cycle starts with a stakeholder discussing a requirement  with  a  business  analyst.1  The  requirement  might  be  a  problem they want solved or an idea they‚Äôve had. The analyst helps the stake- holder articulate the requirement in terms of features that make sense to the stakeholder‚Äîusing their own domain terms‚Äîand maybe further into small, verifiable chunks known as stories, which represent no more than a few days work.
 
-Next the stakeholder and business analyst work with a tester to determine  the  storiesí  scope.  What  does  done  look  like  for  each  story?  We donít want to overdesign the solution because thatís a waste of effort, but likewise we donít want to do too little; otherwise, we wonít be meet- ing the stakeholderís original need.
+Next the stakeholder and business analyst work with a tester to determine  the  stories‚Äô  scope.  What  does  done  look  like  for  each  story?  We don‚Äôt want to overdesign the solution because that‚Äôs a waste of effort, but likewise we don‚Äôt want to do too little; otherwise, we won‚Äôt be meet- ing the stakeholder‚Äôs original need.
 
 Where the business analyst thinks in abstract terms (it should be possible to withdraw money from a checking account ), the tester is typically thinking in terms of concrete scenarios. If I have $100 in an account and I withdraw $80, what happens? What about if I try to withdraw $120? What happens if I have an overdraft facility on the account? What if I try to go past my overdraft limit?
 
@@ -25,11 +25,11 @@ Achievable  helps  reduce  unrealistic  expectations.  All  credit card  transac
 
 Relevant  manages the issue of people trying to cram in every conceivable feature just in case. We want clear, concise reporting and a puppy.
 
-Timeboxed  simply  means  we  know  when  to  call  time  if  we havenít  achieved  an  outcome;  otherwise,  it  could  just trundle on forever or for as long as someone is prepared to keep paying.
+Timeboxed  simply  means  we  know  when  to  call  time  if  we haven‚Äôt  achieved  an  outcome;  otherwise,  it  could  just trundle on forever or for as long as someone is prepared to keep paying.
 
 The emphasis on the SMARTness of objectives or outcomes hap- pens a lot in command-and-control cultures where success is measured in terms of reaching individual targets. More enlight- ened companies focus on improving throughput and trusting people to act with integrity.
 
-Non-SMART,  vaguely  worded  outcomes  allow  the participantsóboth the stakeholders and the delivery teamóto be  adaptable  in  what  they  deliver  so  they  can  all  focus  on doing the best they can with the resources and time they have. This allows the stakeholders to invest incrementally in a project: as  long  as  they  are  seeing  value  delivered  they  continue  to invest;  otherwise,  they  can  stop  the  project  and  assign  the team to solving another challenge.
+Non-SMART,  vaguely  worded  outcomes  allow  the participants‚Äîboth the stakeholders and the delivery team‚Äîto be  adaptable  in  what  they  deliver  so  they  can  all  focus  on doing the best they can with the resources and time they have. This allows the stakeholders to invest incrementally in a project: as  long  as  they  are  seeing  value  delivered  they  continue  to invest;  otherwise,  they  can  stop  the  project  and  assign  the team to solving another challenge.
  
 
 
@@ -39,13 +39,13 @@ The  final  task  before  the  programmers  start  implementing  the  story is  
 
 One  of  the  most  important  characteristics  of  BDD  is  that  the  scenarios are easy to automate yet are still easily understandable to the stakeholder.  Defining  and  automating  these  scenarios  is  the  realm  of Cucumber.
 
-Now at last we can finally get down to the coding part of the delivery cycle. A developeróor ideally a pair of developersóuses RSpec to code by  example  to  get  the  scenario  working.  We  start  by  writing  a  code example3  to describe the behavior we want, then we implement the code to make that example work, and then we refactor. The RSpec portions of this book describe exactly how we do this, so we donít need to say anything more here.
+Now at last we can finally get down to the coding part of the delivery cycle. A developer‚Äîor ideally a pair of developers‚Äîuses RSpec to code by  example  to  get  the  scenario  working.  We  start  by  writing  a  code example3  to describe the behavior we want, then we implement the code to make that example work, and then we refactor. The RSpec portions of this book describe exactly how we do this, so we don‚Äôt need to say anything more here.
 
 Eventually we end up with just enough software to make the scenario work,  and  then  we  iterate  through  the  other  scenarios  until  we  are done. This then brings us full circle, such that we can demonstrate the working scenarios back to the stakeholder, and the story is done.
 
-Now imagine we could run a mini-project that just contained a single storyósomething  simple  enough  to  develop  in  a  couple  of  daysóand do just enough analysis to understand that story and then design an application to only do that one thing! How hard could that be? We could easily  implement  it  and  test  that  it  works  and  then  deploy  it  into  an environment where we could showcase it to the stakeholder who asked us for it.
+Now imagine we could run a mini-project that just contained a single story‚Äîsomething  simple  enough  to  develop  in  a  couple  of  days‚Äîand do just enough analysis to understand that story and then design an application to only do that one thing! How hard could that be? We could easily  implement  it  and  test  that  it  works  and  then  deploy  it  into  an environment where we could showcase it to the stakeholder who asked us for it.
 
-It  would  mean  we  didnít  spend  weeks  poring  over  database  schemas or  entity-relationship  diagrams,  we  didnít  go  to  town  with  UML  code generation  tools,  and  we  certainly  didnít  write  down  a  detailed  func- tional specification of every last aspect of the feature. We also havenít delivered very much yet!
+It  would  mean  we  didn‚Äôt  spend  weeks  poring  over  database  schemas or  entity-relationship  diagrams,  we  didn‚Äôt  go  to  town  with  UML  code generation  tools,  and  we  certainly  didn‚Äôt  write  down  a  detailed  func- tional specification of every last aspect of the feature. We also haven‚Äôt delivered very much yet!
 
 
 2.  BDD calls Test-Driven Development coding by example, which places the emphasis on  using  examples  to  drive  out  the  behavior  of  the  code.  The  fact  that  these  examples become tests once the code is written is a secondary concern.
@@ -54,15 +54,15 @@ It  would  mean  we  didnít  spend  weeks  poring  over  database  schemas or  e
 
  Stor ies  In,  Fea tures  Out  
 
-Many people use the words feature and story interchangeably, but  there  is  a  subtle  difference.  A  feature  is  something  that delivers cohesive value to a stakeholder. A story is a piece of demonstrable functionality that shouldnít take more than a few days to implement. So, the feature is more useful from the point of view of the stakeholder, and the story is more useful from the point of view of the team delivering the feature.
+Many people use the words feature and story interchangeably, but  there  is  a  subtle  difference.  A  feature  is  something  that delivers cohesive value to a stakeholder. A story is a piece of demonstrable functionality that shouldn‚Äôt take more than a few days to implement. So, the feature is more useful from the point of view of the stakeholder, and the story is more useful from the point of view of the team delivering the feature.
 
-Often a feature can be delivered as a single story, but some- times  the  feature  doesnít  naturally  decompose  to  that  level. For example, if we are capturing an email address, there might be some validation around that address. This could get quite involved and would take more than a few days of effort. In this case, we could separate out the ìhappy pathîówhere all the data is validóand the most important validation cases into one story and some of the less common but still useful validations into another story. Or we might separate out the security con- cerns into another story (whose stakeholder would be the secu- rity folks), so we would look at cross-site scripting or SQL injection attacks as different aspects of the same feature.
+Often a feature can be delivered as a single story, but some- times  the  feature  doesn‚Äôt  naturally  decompose  to  that  level. For example, if we are capturing an email address, there might be some validation around that address. This could get quite involved and would take more than a few days of effort. In this case, we could separate out the ‚Äúhappy path‚Äù‚Äîwhere all the data is valid‚Äîand the most important validation cases into one story and some of the less common but still useful validations into another story. Or we might separate out the security con- cerns into another story (whose stakeholder would be the secu- rity folks), so we would look at cross-site scripting or SQL injection attacks as different aspects of the same feature.
 
-As long as your stories are roughly the same size, this decom- position of features into stories provides the same kind of track- ing data as having artificial constructs like story points or ideal days, terms that can feel uncomfortable to your stakeholders. It is more natural to say, ìWeíve broken that feature into these three stories that tackle different aspects,î rather than ìThis fea- ture is seven points, and this one is four pointsî or ìThis week we delivered nine ideal daysî (to which the correct response is ìEh?î).
+As long as your stories are roughly the same size, this decom- position of features into stories provides the same kind of track- ing data as having artificial constructs like story points or ideal days, terms that can feel uncomfortable to your stakeholders. It is more natural to say, ‚ÄúWe‚Äôve broken that feature into these three stories that tackle different aspects,‚Äù rather than ‚ÄúThis fea- ture is seven points, and this one is four points‚Äù or ‚ÄúThis week we delivered nine ideal days‚Äù (to which the correct response is ‚ÄúEh?‚Äù).
 
-It  is  important  to  remember  that  we  still  decompose  along boundaries that make sense to the stakeholder, so we wouldnít break a feature into the database stuff, then the UI stuff, and then  the  wiring-up  stuff.  Instead,  we  would  deliver  different groups of scenarios.
+It  is  important  to  remember  that  we  still  decompose  along boundaries that make sense to the stakeholder, so we wouldn‚Äôt break a feature into the database stuff, then the UI stuff, and then  the  wiring-up  stuff.  Instead,  we  would  deliver  different groups of scenarios.
 
-As  we  deliver  the  stories,  we  arrange  any  artifactsósuch  as Cucumber  scenario  files  and  step  implementationsóby  fea- ture, because over time it doesnít really matter which story the behavior was implemented in so much as which feature ben- efited from that story. We call this arrangement ìstories in, fea- tures outî: the input happens to be delivered in stories, but the result is cohesive features.
+As  we  deliver  the  stories,  we  arrange  any  artifacts‚Äîsuch  as Cucumber  scenario  files  and  step  implementations‚Äîby  fea- ture, because over time it doesn‚Äôt really matter which story the behavior was implemented in so much as which feature ben- efited from that story. We call this arrangement ‚Äústories in, fea- tures out‚Äù: the input happens to be delivered in stories, but the result is cohesive features.
 
 
 
@@ -70,7 +70,7 @@ OK,  so  now  we  are  going  to  get  a  little  ambitious.  Instead  of  a  si
 
 As with any project, our estimates will most likely be wrong. Instead of delivering the seven stories we planned, we might make only five. Or we might have a great week and have capacity to spare for an extra bonus story! In any event, we will know at the end of the week how much we actually  did  deliver,  and we can use this to predict our throughput for next week! But that comes later.
 
-Right now we are more interested in what our stakeholders think about the work weíve done, so we arrange a showcase. This feedback happens very close to when the work occurredóbecause we are only showcasing the work we completed in the last iterationóand usually involves the stakeholder saying, ìThatís very nearly exactly what I wanted, but can I change some stuff?î
+Right now we are more interested in what our stakeholders think about the work we‚Äôve done, so we arrange a showcase. This feedback happens very close to when the work occurred‚Äîbecause we are only showcasing the work we completed in the last iteration‚Äîand usually involves the stakeholder saying, ‚ÄúThat‚Äôs very nearly exactly what I wanted, but can I change some stuff?‚Äù
 
 And now we are ready to plan the next mini-project. We have feedback from our stakeholders, a backlog of stories, and a priority order.
 

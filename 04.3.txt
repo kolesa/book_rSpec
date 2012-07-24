@@ -1,8 +1,8 @@
-4.3  Test Double
+ï»¿4.3  Test Double
 
-A  fake  object  that  pretends  to  be  real  object  is  called  a  test  double. You’re probably familiar with stubs and mocks. Test double is a generic name  for  them,  along  with  fakes,  spies,  and  so  on,  and  so  on.  You’ll read all about test doubles in Chapter 14, RSpec::Mocks, on page 191.
+A  fake  object  that  pretends  to  be  real  object  is  called  a  test  double. Youâ€™re probably familiar with stubs and mocks. Test double is a generic name  for  them,  along  with  fakes,  spies,  and  so  on,  and  so  on.  Youâ€™ll read all about test doubles in Chapter 14, RSpec::Mocks, on page 191.
 
-Given that we’ll use a test double for output, here is what we want the step definition to look like:
+Given that weâ€™ll use a test double for output, here is what we want the step definition to look like:
 
 Download cb/06/features/step_definitions/codebreaker_steps.rb
 
@@ -10,9 +10,9 @@ Then /^I should see "([^"]*)"$/ do |message|
 	output.messages.should include(message)
 end
 
-Again, we’re writing the code we wish we had so that we know what code to add. This line suggests that our fake object should have a messages collection. We’ll also want it to have a puts( ) method that the Game can use.
+Again, weâ€™re writing the code we wish we had so that we know what code to add. This line suggests that our fake object should have a messages collection. Weâ€™ll also want it to have a puts( ) method that the Game can use.
  
-Here’s what that looks like:
+Hereâ€™s what that looks like:
 
 Download cb/06/features/step_definitions/codebreaker_steps.rb
 
@@ -69,4 +69,4 @@ Scenario: start game
 	Then I should see "Welcome to Codebreaker!"
 		expected [] to include "Welcome to Codebreaker!"
 
-So far, all the failures we’ve seen have been because of exceptions and errors.  We  now  have  our  first  logical  error,  so  it’s  time  to  add  some behavior to our Game. For that we’re going to shift gears and jump over to RSpec. Before we do, however, let’s review what we’ve just learned.
+So far, all the failures weâ€™ve seen have been because of exceptions and errors.  We  now  have  our  first  logical  error,  so  itâ€™s  time  to  add  some behavior to our Game. For that weâ€™re going to shift gears and jump over to RSpec. Before we do, however, letâ€™s review what weâ€™ve just learned.

@@ -1,12 +1,12 @@
-18.10  What We’ve Learned
+ï»¿18.10  What Weâ€™ve Learned
 
 In  this  chapter,  we  learned  how  to  write  step  definitions  to  connect plain-text steps to the Ruby code we are developing. Each scenario is run in its own World, allowing us to share state between step definitions without leaking state across scenarios.
 
-We learned that we can call steps from inside step definitions. This can help keep things DRY but also introduces a different level of abstraction within step definitions. Some like this, some don’t. The choice is yours.
+We learned that we can call steps from inside step definitions. This can help keep things DRY but also introduces a different level of abstraction within step definitions. Some like this, some donâ€™t. The choice is yours.
 
 There are three kinds of hooks: Before  and After  hooks are run before and  after  each  scenario,  and  AfterStep  hooks  are  run  after  each  step. We can limit which scenarios and steps these hooks apply to by adding tags to their declarations.
 
 When several scenarios involve the same series of steps with different data, scenario outlines allow us to express the steps once and feed in data using a succinct tabular format.
 
-We also learned about multiline text and tables in steps. These offer us clean ways to express more complicated data in our plain-text scenar - ios. This  brings  us  to  the  end  of  our  journey  through  the  finer  details  of RSpec and Cucumber. In the next part of the book, we’ll show you how we approach BDD for Ruby on Rails projects. We’ll build on the material we’ve covered so far and add some new ideas and tools like Webrat and Selenium to the mix.
+We also learned about multiline text and tables in steps. These offer us clean ways to express more complicated data in our plain-text scenar - ios. This  brings  us  to  the  end  of  our  journey  through  the  finer  details  of RSpec and Cucumber. In the next part of the book, weâ€™ll show you how we approach BDD for Ruby on Rails projects. Weâ€™ll build on the material weâ€™ve covered so far and add some new ideas and tools like Webrat and Selenium to the mix.
  

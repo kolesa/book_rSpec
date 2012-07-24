@@ -1,4 +1,4 @@
-17.2  Features
+Ôªø17.2  Features
 
 In Cucumber, a feature is a high-level requirement expressed from the perspective of a person or another computer using the system. Features play a role similar to that of user stories in XP, but we take things a step further.
 
@@ -11,19 +11,19 @@ Feature Title
 
 The title of a Cucumber feature is typically just a few words that represent an activity for which a user might engage the system. Here are a few examples:
 
-ï  Stock clerk adds inventory item
+‚Ä¢  Stock clerk adds inventory item
 
-ï  Anonymous visitor adds blog comment
+‚Ä¢  Anonymous visitor adds blog comment
 
-ï  Code-breaker submits guess
+‚Ä¢  Code-breaker submits guess
 
-When  putting  together  an  initial  list  of  features,  keeping  them  terse like this makes it easy to assemble a big picture quickly without getting mired down with too much detail. Sooner or later, weíll need more detail if weíre going to understand what weíre developing. But even after weíve written the detail, the title provides us a clear and simple way to refer to the stories in written and verbal communication.
+When  putting  together  an  initial  list  of  features,  keeping  them  terse like this makes it easy to assemble a big picture quickly without getting mired down with too much detail. Sooner or later, we‚Äôll need more detail if we‚Äôre going to understand what we‚Äôre developing. But even after we‚Äôve written the detail, the title provides us a clear and simple way to refer to the stories in written and verbal communication.
 
-We  will  be  adding  two  levels  of  detail:  a  brief  narrative  and  detailed scenarios. Letís start with the narrative.
+We  will  be  adding  two  levels  of  detail:  a  brief  narrative  and  detailed scenarios. Let‚Äôs start with the narrative.
 
 Narrative
 
-We use a short narrative to provide context for the executable scenarios weíll be writing. These narratives are just like the narratives we write in user stories. In Extreme Programming Installed  [JAH02], which was published  in  2001,  Ron  Jeffries  provides  some  example  user  stories that vary slightly in size and detail but are generally small and simple, like ìWhen the code-breaker submits a guess, the game displays a mark that indicates how close the guess is to the secret code.î
+We use a short narrative to provide context for the executable scenarios we‚Äôll be writing. These narratives are just like the narratives we write in user stories. In Extreme Programming Installed  [JAH02], which was published  in  2001,  Ron  Jeffries  provides  some  example  user  stories that vary slightly in size and detail but are generally small and simple, like ‚ÄúWhen the code-breaker submits a guess, the game displays a mark that indicates how close the guess is to the secret code.‚Äù
 
 From that single sentence, we can glean the role of the user (the code-breaker), the action the user takes (submit a guess), and the expected response to the action (display a mark).
 
@@ -37,12 +37,12 @@ In  recent  years,  there  has  been  a  lot  of  exploration  into  standardize
 
 In  2000,  Peter  Marks  and  John  Nolan  at  Connextra  hired  Tim Mackinnon to help them with Agile. They hit upon the story card format for user stories shown in Figure 17.1, on the next page.
 
-It didnít use the terms role, feature, and business value, but the intent was very much the same. They noticed that matching the ìrequirementî with the ìreasonî fostered more discussion with the users and a deeper understanding of the requirement.
+It didn‚Äôt use the terms role, feature, and business value, but the intent was very much the same. They noticed that matching the ‚Äúrequirement‚Äù with the ‚Äúreason‚Äù fostered more discussion with the users and a deeper understanding of the requirement.
 
-When Tim joined ThoughtWorks, this format caught on with Dan North,  Chris  Matts,  and  Liz  Keogh.  From  there  it  became  the ìofficialî narrative format in BDD stories and was the most com- monly used format for Cucumber features.
+When Tim joined ThoughtWorks, this format caught on with Dan North,  Chris  Matts,  and  Liz  Keogh.  From  there  it  became  the ‚Äúofficial‚Äù narrative format in BDD stories and was the most com- monly used format for Cucumber features.
 
-More recently, Liz Keogh has been exploring similar templates that reorder the points of focus and solve problems related to expressing business value. For example, when a narrative sug- gests ìAs a visitor to the site, I want to log in,î itís unlikely that
-a real visitor actually wants to log in. Itís the security manager who wants the visitor to log in, so thatís the role that provides context for business value, even though the visitor is the active role in the narrative. See Lizís blog for more on this.*
+More recently, Liz Keogh has been exploring similar templates that reorder the points of focus and solve problems related to expressing business value. For example, when a narrative sug- gests ‚ÄúAs a visitor to the site, I want to log in,‚Äù it‚Äôs unlikely that
+a real visitor actually wants to log in. It‚Äôs the security manager who wants the visitor to log in, so that‚Äôs the role that provides context for business value, even though the visitor is the active role in the narrative. See Liz‚Äôs blog for more on this.*
 
 *.  http://lizkeogh.com
 
@@ -53,7 +53,7 @@ role of the user, the action that user takes, and, most importantly, the value p
 
 The Connextra Format
 
-The format that is probably the most well known one originated in an Agile project at Connextra and is featured in Mike Cohnís User Stories Applied [Coh04]:
+The format that is probably the most well known one originated in an Agile project at Connextra and is featured in Mike Cohn‚Äôs User Stories Applied [Coh04]:
 
 As a <role>
 I want <feature>
@@ -65,12 +65,12 @@ Figure 17.1: Connextra card
 
 what, but adding the who and the why can provide context for a lot of very important discussion.
 
-Letís take an example from a photo-editing system. A professional pho  to  want  much  more  detail  and  complexity  from  a photo-editing system than the casual red-eye remover/cropper sort of user. Being clear about the target user for a feature is going to impact the decisions you make about user interaction with the system.
+Let‚Äôs take an example from a photo-editing system. A professional pho  to  want  much  more  detail  and  complexity  from  a photo-editing system than the casual red-eye remover/cropper sort of user. Being clear about the target user for a feature is going to impact the decisions you make about user interaction with the system.
 
-The  why  is  about  business  value  and  really  gets  to  the  heart  of  any Agile development process. We want to minimize waste by keeping focus on  features  that  will  provide  some  meaningful  benefit  and  will  therefore actually be used. We say that BDD is about writing software that mattersóthis focus on features that will be used is directly related to that.
+The  why  is  about  business  value  and  really  gets  to  the  heart  of  any Agile development process. We want to minimize waste by keeping focus on  features  that  will  provide  some  meaningful  benefit  and  will  therefore actually be used. We say that BDD is about writing software that matters‚Äîthis focus on features that will be used is directly related to that.
 
 Although  this  template  is  recommended,  it  is  certainly  not  a  require- ment  of  BDD  or  of  Cucumber.  The  narrative  of  a  feature  can  be  expressed  in  completely  free  form  with  virtually  no  restrictions.2 The important  thing  is  that  we  have  a  conversation  that  covers  the  role and business value and not just the functionality itself. This template can be helpful in that regard but is not a necessity.
 
 2.  The  only  restriction  is  that  a  narrative  cannot  include  a  line  that  begins  with  a Gherkin keyword.
  
-With a title and a narrative, we have a lot to go on to make decisions about when to tackle which features, but before we move on to develop code for them, weíre going to need even more detail. This detail will be in the form of scenarios that represent executable customer acceptance tests.
+With a title and a narrative, we have a lot to go on to make decisions about when to tackle which features, but before we move on to develop code for them, we‚Äôre going to need even more detail. This detail will be in the form of scenarios that represent executable customer acceptance tests.

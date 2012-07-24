@@ -1,6 +1,6 @@
-5.2  Red: Start with a Failing Code Example
+Ôªø5.2  Red: Start with a Failing Code Example
 
-In game_spec.rb, we want to do what weíve done in the feature: specify that when we start the game, it sends the right messages to the output. Start by modifying game_spec.rb as follows:
+In game_spec.rb, we want to do what we‚Äôve done in the feature: specify that when we start the game, it sends the right messages to the output. Start by modifying game_spec.rb as follows:
 
 Download cb/09/spec/codebreaker/game_spec.rb
 
@@ -22,16 +22,16 @@ module Codebreaker describe Game do
 	end
 end
 
-Just  as  we  did  in  the  scenario,  we  want  a  test  double  to  stand  in for  the  real  STDOUT.  Instead  of  rolling  our  own  as  we  did  in  the  sce- nario,  however,  weíre  using  RSpecís  dynamic  test  double  framework, RSpec::Mocks, (2)  to  create  a  dynamic  test  double  on  the  first  line  of  the example.
+Just  as  we  did  in  the  scenario,  we  want  a  test  double  to  stand  in for  the  real  STDOUT.  Instead  of  rolling  our  own  as  we  did  in  the  sce- nario,  however,  we‚Äôre  using  RSpec‚Äôs  dynamic  test  double  framework, RSpec::Mocks, (2)  to  create  a  dynamic  test  double  on  the  first  line  of  the example.
 
 Next,  we  create  a  Game  object,  passing  it  the  test  double  output  we created on the previous line. These first two lines are the givens in this example.
 
-The  next  line  sets  up  a  message expectation:  an  expectation  that  the output object should receive the puts message with the string ìWelcome to Codebreaker!î as its only argument. If it does, then the expectation will pass. If not, weíll get a failure.
+The  next  line  sets  up  a  message expectation:  an  expectation  that  the output object should receive the puts message with the string ‚ÄúWelcome to Codebreaker!‚Äù as its only argument. If it does, then the expectation will pass. If not, we‚Äôll get a failure.
 
 2.  See Chapter 14, RSpec::Mocks, on page 191 for more about 
 RSpec::Mocks.
  
-We send the game  the start  message on the last line. The intent weíre expressing  is  that  when  we  call  game.start,  the  output  should receive puts('Welcome to Codebreaker!').
+We send the game  the start  message on the last line. The intent we‚Äôre expressing  is  that  when  we  call  game.start,  the  output  should receive puts('Welcome to Codebreaker!').
 
 Now run the rspec command again, but this time use the --color flag:
 
@@ -58,6 +58,6 @@ Failures:
 Finished in 0.00143 seconds
 2 examples, 1 failure, 1 pending
 
-And voila! We have red, a failing example. Sometimes failures are logical failures, and sometimes theyíre errors. In this case, we have an error.  Regardless, once we have red, we want to get to green.
+And voila! We have red, a failing example. Sometimes failures are logical failures, and sometimes they‚Äôre errors. In this case, we have an error.  Regardless, once we have red, we want to get to green.
 
-The summary at the bottom of the output tells us we have one failure and  one pending example. On the third line, we see FAILED - 1, which tells us that the example is the first failure recorded, the details of which are listed beginning on the line with 1). If we had more failures, theyíd each be numbered in sequence.
+The summary at the bottom of the output tells us we have one failure and  one pending example. On the third line, we see FAILED - 1, which tells us that the example is the first failure recorded, the details of which are listed beginning on the line with 1). If we had more failures, they‚Äôd each be numbered in sequence.

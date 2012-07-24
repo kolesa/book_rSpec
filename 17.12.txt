@@ -1,4 +1,4 @@
-17.12  What We’ve Learned
+ï»¿17.12  What Weâ€™ve Learned
 
 Cucumber provides a standard format for expressing requirements in the form of features and scenarios that we can use to automate the systems we write. The Gherkin language provides a common basic struc- ture and a variety of tools for describing features.
 
@@ -10,5 +10,5 @@ We  typically  group  features  in  subdirectories  of  the  features  directory
 
 We can choose which features to run under given conditions using tags in the feature files themselves and referencing those tags from the command line.
 
-In the next chapter, we’ll look more closely at the Ruby code we use to connect the plain-text scenarios to the code we’re driving out.
+In the next chapter, weâ€™ll look more closely at the Ruby code we use to connect the plain-text scenarios to the code weâ€™re driving out.
  

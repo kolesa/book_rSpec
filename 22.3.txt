@@ -1,29 +1,29 @@
-22.3  Debugging Selenium Issues
+Ôªø22.3  Debugging Selenium Issues
 
-The highly integrated nature of Selenium-backed scenarios is a double-edged  sword.  On  one  hand,  it  gives  us  the  power  to  work  with  our application in an environment very similar to how it will be deployed. On the other hand, with so many layers involved, from Selenium and Firefox all the way down to the database, thereís a much bigger chance that problems in your test environment itself will lead to programmers tearing their hair out while debugging failures.
+The highly integrated nature of Selenium-backed scenarios is a double-edged  sword.  On  one  hand,  it  gives  us  the  power  to  work  with  our application in an environment very similar to how it will be deployed. On the other hand, with so many layers involved, from Selenium and Firefox all the way down to the database, there‚Äôs a much bigger chance that problems in your test environment itself will lead to programmers tearing their hair out while debugging failures.
 
-Before  we  wrap  up,  weíll  take  a  look  at  a  few  general  problems  you might run into and some ways to approach solutions. With any luck, weíll be able to save some of your hair along the way.
+Before  we  wrap  up,  we‚Äôll  take  a  look  at  a  few  general  problems  you might run into and some ways to approach solutions. With any luck, we‚Äôll be able to save some of your hair along the way.
  
 Server Errors
 
-When  using  a  simulated  browser,  server  errors  are  easy  to  spot.  The exception bubbles up, and the scenario fails immediately with a message and a backtrace. When using Selenium, however, thatís a luxury we donít get out of the box.
+When  using  a  simulated  browser,  server  errors  are  easy  to  spot.  The exception bubbles up, and the scenario fails immediately with a message and a backtrace. When using Selenium, however, that‚Äôs a luxury we don‚Äôt get out of the box.
 
 When  investigating  a  Selenium  failure,  one  of  the  first  things  you should  always  do  is  verify  in  the  Rails  log  that  no unexpected  server errors (500s or 404s) occurred. If an Ajax  request triggered an excep- tion in your application, the information you get from the Rails log will be a lot more helpful to tracking down the root cause than the timeout exception printed to your console.
 
 Isolation Issues
 
-Isolation  issues can cause problems with any sort of automated testing  process  but  are  particularly  common  in  Selenium  environments. Theyíll usually manifest themselves as scenarios that produce a different result when running on their own compared to when run as part of a suite.
+Isolation  issues can cause problems with any sort of automated testing  process  but  are  particularly  common  in  Selenium  environments. They‚Äôll usually manifest themselves as scenarios that produce a different result when running on their own compared to when run as part of a suite.
 
-Unfortunately, thereís no catchall solution here. Be aware of any state that might carry from one scenario to the next, and isolate as much as you can. Use (or build) tools and abstractions that make keeping that isolation simple, such as database_cleaner. If youíre using data stores beyond the database (like the file system or memcached), consider how they should be ìcleanedî as well.
+Unfortunately, there‚Äôs no catchall solution here. Be aware of any state that might carry from one scenario to the next, and isolate as much as you can. Use (or build) tools and abstractions that make keeping that isolation simple, such as database_cleaner. If you‚Äôre using data stores beyond the database (like the file system or memcached), consider how they should be ‚Äúcleaned‚Äù as well.
 
-Youíll also want to be careful to isolate your Selenium suite from external dependencies. If your scenarios fail when a third-party web service hiccups, it will erode your teamís confidence in your build results.
+You‚Äôll also want to be careful to isolate your Selenium suite from external dependencies. If your scenarios fail when a third-party web service hiccups, it will erode your team‚Äôs confidence in your build results.
 
-One way we like to root out these sorts of issues is by running the Selenium suite with a computer that has its network connection turned off. If anything behaves differently, itís a pointer to an inadvertent external dependency that has crept in.
+One way we like to root out these sorts of issues is by running the Selenium suite with a computer that has its network connection turned off. If anything behaves differently, it‚Äôs a pointer to an inadvertent external dependency that has crept in.
 
 Timing Issues
 
-The last class of Selenium trouble spots to keep an eye out for is timing issues.  Because  the  Rails  application  server  is  running  in  a  separate process,  itís  impossible  for  your  Cucumber  step  definitions  to  know how  long  it  will  take  for  anything  to  complete.  This  leads  to  concurrency  bugs  such  as  race  conditions  that  cause  erratic  results.  When you run into a scenario that fails one out of ten times, this is probably the culprit.
+The last class of Selenium trouble spots to keep an eye out for is timing issues.  Because  the  Rails  application  server  is  running  in  a  separate process,  it‚Äôs  impossible  for  your  Cucumber  step  definitions  to  know how  long  it  will  take  for  anything  to  complete.  This  leads  to  concurrency  bugs  such  as  race  conditions  that  cause  erratic  results.  When you run into a scenario that fails one out of ten times, this is probably the culprit.
 
-Webrat  does  its  best  to  combat  this  by  using  generous  timeouts  and waiting for the specific conditions it needs before continuing. If you tell Webrat to click a button, for example, it will first wait for the button to exist on the page. Itís a simple technique, but Selenium does not handle it automatically, so you should consider using it whenever you access the selenium-client API directly.
+Webrat  does  its  best  to  combat  this  by  using  generous  timeouts  and waiting for the specific conditions it needs before continuing. If you tell Webrat to click a button, for example, it will first wait for the button to exist on the page. It‚Äôs a simple technique, but Selenium does not handle it automatically, so you should consider using it whenever you access the selenium-client API directly.
 
-Despite its best efforts, Webratís waiting behavior is not perfect. Webrat can check only for the existence of an element before proceeding. While your  page  is  loading,  it  might  have  a  button  in  the  DOM  before  all JavaScript events have been registered. In these cases, Webrat might see the button and proceed to click it too early. The fix will depend on the  specifics  of  your  situation  but  usually  involves  adding  additional wait statements before you call the Webrat API.
+Despite its best efforts, Webrat‚Äôs waiting behavior is not perfect. Webrat can check only for the existence of an element before proceeding. While your  page  is  loading,  it  might  have  a  button  in  the  DOM  before  all JavaScript events have been registered. In these cases, Webrat might see the button and proceed to click it too early. The fix will depend on the  specifics  of  your  situation  but  usually  involves  adding  additional wait statements before you call the Webrat API.

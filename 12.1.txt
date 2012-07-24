@@ -1,4 +1,4 @@
-12.1  Describe It!
+Ôªø12.1  Describe It!
 
 RSpec provides a domain-specific language for specifying the behavior of objects. It embraces the metaphor of describing behavior the way we might express it if we were talking to a customer or another developer. A snippet of such a conversation might look like this:
 
@@ -6,7 +6,7 @@ You:  Describe a new account.
 
 Somebody else:  It should have a balance of zero.
 
-Hereís that same conversation expressed in RSpec:
+Here‚Äôs that same conversation expressed in RSpec:
 
 describe "A new Account" do
 	it "should have a balance of 0" do
@@ -17,9 +17,9 @@ end
 
 We use the describe( ) method to define an example group. The string we pass to it represents the facet of the system that we want to describe (a new account). The block holds the code examples that make up that group.
 
-The it( ) method defines a code example. The string passed to it describes the  specific  behavior  weíre  interested  in  specifying  about  that facet (should have a balance of zero). The block holds the example code that exercises the subject code and sets expectations about its behavior.
+The it( ) method defines a code example. The string passed to it describes the  specific  behavior  we‚Äôre  interested  in  specifying  about  that facet (should have a balance of zero). The block holds the example code that exercises the subject code and sets expectations about its behavior.
 
-Using strings like this instead of legal Ruby class names and method names provides a lot of flexibility. Hereís an example from RSpecís own code examples:
+Using strings like this instead of legal Ruby class names and method names provides a lot of flexibility. Here‚Äôs an example from RSpec‚Äôs own code examples:
 
 it "matches when actual < (expected + delta)" do
 	be_close(5.0, 0.5).matches?(5.49).should be_true
@@ -27,11 +27,11 @@ end
 
 This  is  an  example  of  the  behavior  of  code,  so  the  intended  audience is  someone  who  can  read  code.  With  Test::Unit,  we  might  name  the  method  test_matches_when_value_is_less_than_target_plus_delta,  which  is pretty  readable,  but  the  ability  to  use  nonalphanumeric  characters makes the name of this example more expressive.
 
-To get a better sense of how you can unleash this expressiveness, letís take a closer look at the describe( ) and it( ) methods.
+To get a better sense of how you can unleash this expressiveness, let‚Äôs take a closer look at the describe( ) and it( ) methods.
 
 The describe Method
 
-The describe( ) method takes an arbitrary number of arguments and an optional block and returns a subclass of RSpec::Core::ExampleGroup. We typically use only one or two arguments, which represent the facet of behavior that we want to describe. They might describe an object, perhaps in a predefined state or perhaps a subset of the behavior we can expect from that object. Letís look at a few examples, with the output they produce so we can get an idea of how the arguments relate to each other:
+The describe( ) method takes an arbitrary number of arguments and an optional block and returns a subclass of RSpec::Core::ExampleGroup. We typically use only one or two arguments, which represent the facet of behavior that we want to describe. They might describe an object, perhaps in a predefined state or perhaps a subset of the behavior we can expect from that object. Let‚Äôs look at a few examples, with the output they produce so we can get an idea of how the arguments relate to each other:
 
 describe "A User" { ... }
 => A User
@@ -45,7 +45,7 @@ describe User, "with no roles assigned" { ... }
 describe User, "should require password length between 5 and 40" { ... }
 => User should require password length between 5 and 40
 
-The first argument can be either a reference to a class or module or a string. The second argument is optional and should be a string. Using the class/module for the first argument provides an interesting benefit: when we wrap ExampleGroup in a module, weíll see that moduleís name in the output. For example, if User  is in the Authentication  module, we could do something like this:
+The first argument can be either a reference to a class or module or a string. The second argument is optional and should be a string. Using the class/module for the first argument provides an interesting benefit: when we wrap ExampleGroup in a module, we‚Äôll see that module‚Äôs name in the output. For example, if User  is in the Authentication  module, we could do something like this:
 
 module Authentication
 	describe User, "with no roles assigned" do
@@ -54,7 +54,7 @@ The resulting report would look like this:
 
 Authentication::User with no roles assigned
 
-So, by wrapping the ExampleGroup  in a module, we see the fully qualified  name  Authentication::User,  followed  by  the  contents  of  the  second argument. Together, they form a descriptive string, and we get the fully qualified name for free. This is a nice way to help RSpec help us understand where things live as weíre looking at the output.
+So, by wrapping the ExampleGroup  in a module, we see the fully qualified  name  Authentication::User,  followed  by  the  contents  of  the  second argument. Together, they form a descriptive string, and we get the fully qualified name for free. This is a nice way to help RSpec help us understand where things live as we‚Äôre looking at the output.
 
 You  can  also  nest  example  groups,  which  can  be  a  very  nice  way  of expressing things in both input and output. For example, we can nest the input like this:
 
@@ -81,9 +81,9 @@ describe User do
 
 The output would be the same as when we used describe( ) on the second line, but context( ) can make it easier to scan a spec file and understand what relates to what.
 
-Whatís It All About?
+What‚Äôs It All About?
 
-Similar to describe( ), the it( ) method takes a single string, an optional hash,  and  an  optional  block.  The  string  should  be  a  sentence  that, when prefixed with ìit,î represents the detail that will be expressed in code within the block. Hereís an example specifying a stack:
+Similar to describe( ), the it( ) method takes a single string, an optional hash,  and  an  optional  block.  The  string  should  be  a  sentence  that, when prefixed with ‚Äúit,‚Äù represents the detail that will be expressed in code within the block. Here‚Äôs an example specifying a stack:
 
 describe Stack do
 	before(:each) do
@@ -114,7 +114,7 @@ describe Stack do
 	end
 end
 
-This is also exploiting RSpecís nested example groups feature to group the examples of pop( ) separately from the examples of peek( ).
+This is also exploiting RSpec‚Äôs nested example groups feature to group the examples of pop( ) separately from the examples of peek( ).
 
 When  run  with  the  --format  documentation  command-line  option,  this would produce the following output:
 
@@ -131,7 +131,7 @@ Stack
 Finished in 0.00154 seconds
 4 examples, 0 failures
  
-Looks  a  bit  like  a  specification,  doesnít  it?  In  fact,  if  we  reword  the example  names  without  the  word  should  in  them,  we  can  get  output that looks even more like documentation:
+Looks  a  bit  like  a  specification,  doesn‚Äôt  it?  In  fact,  if  we  reword  the example  names  without  the  word  should  in  them,  we  can  get  output that looks even more like documentation:
 
 Stack
 	#peek
@@ -146,5 +146,5 @@ Finished in 0.00157 seconds
 
 What?  No  should?  Remember,  the  goal  here  is  readable  sentences. Should  was  the  tool  that  Dan  North  used  to  get  people  writing  sentences but is not itself essential to the goal.
 
-The ability to pass free text to the it( ) method allows us to name and organize  examples  in  meaningful  ways.  As  with  describe( ),  the  string can even include punctuation. This is especially useful when weíre dealing with code-level concepts in which symbols have important meaning that can help us understand the intent of the example.
+The ability to pass free text to the it( ) method allows us to name and organize  examples  in  meaningful  ways.  As  with  describe( ),  the  string can even include punctuation. This is especially useful when we‚Äôre dealing with code-level concepts in which symbols have important meaning that can help us understand the intent of the example.
 

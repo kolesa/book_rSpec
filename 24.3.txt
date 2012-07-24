@@ -1,10 +1,10 @@
-24.3  Specifying ApplicationController
+Ôªø24.3  Specifying ApplicationController
 
-We  typically  specify  controller  behavior  directly  through  controller actions,  but  sometimes  we  want  behavior  applied  to  every  controller and invoked indirectly. Perhaps we want to log every incoming request or  add  application-wide  error  handling.  We  donít  want  to  specify  this over and over again on every action, so letís explore a technique that allows us to specify these sorts of behaviors just once.
+We  typically  specify  controller  behavior  directly  through  controller actions,  but  sometimes  we  want  behavior  applied  to  every  controller and invoked indirectly. Perhaps we want to log every incoming request or  add  application-wide  error  handling.  We  don‚Äôt  want  to  specify  this over and over again on every action, so let‚Äôs explore a technique that allows us to specify these sorts of behaviors just once.
 
 AccessDenied!
 
-Letís add uniform error handling for AccessDenied exceptions. Weíll start by creating spec/controllers/application_controller_spec.rb  with the following content:
+Let‚Äôs add uniform error handling for AccessDenied exceptions. We‚Äôll start by creating spec/controllers/application_controller_spec.rb  with the following content:
 
 Download rails_controllers/messages/25/spec/controllers/application_controller_spec.rb
 
@@ -24,12 +24,12 @@ This should fail with the following:
 Failure/Error: get :index
 No route matches {:controller=>"application"}
 
-In most controller specs, we write examples for controllers used directly in  the  app.  Here  we  specify  behavior  of  every  controllerís  
-superclass, ApplicationController, which isnít exposed to the app.
+In most controller specs, we write examples for controllers used directly in  the  app.  Here  we  specify  behavior  of  every  controller‚Äôs  
+superclass, ApplicationController, which isn‚Äôt exposed to the app.
 
 controller  DSL
 
-To help us out with this situation, RSpec provides a simple DSL for creating an anonymous subclass of ApplicationController right in a spec. We need an index action, so weíll add that to the controller, programming it to raise the AccessDenied error that weíre expecting in the example.
+To help us out with this situation, RSpec provides a simple DSL for creating an anonymous subclass of ApplicationController right in a spec. We need an index action, so we‚Äôll add that to the controller, programming it to raise the AccessDenied error that we‚Äôre expecting in the example.
 
 Download rails_controllers/messages/26/spec/controllers/application_controller_spec.rb
 
@@ -50,7 +50,7 @@ describe ApplicationController do
 	end
 end
 
-The  controller( )  method  also  defines  implicit  routes  for  the  controller so you donít have to set those up either. Now run the specs, and you should see this:
+The  controller( )  method  also  defines  implicit  routes  for  the  controller so you don‚Äôt have to set those up either. Now run the specs, and you should see this:
 
 uninitialized constant AccessDenied
 
@@ -67,7 +67,7 @@ Download rails_controllers/messages/27/config/application.rb
 
 config.autoload_paths += %W( #{config.root}/lib )
 
-This tells Rails to autoload classes defined in files in the lib directory. Now  the  spec  fails  with  AccessDenied,  which  is  the  logical  failure  we want. All thatís left to do is to rescue from the AccessDenied error and redirect to ì/401.htmlî in ApplicationController:
+This tells Rails to autoload classes defined in files in the lib directory. Now  the  spec  fails  with  AccessDenied,  which  is  the  logical  failure  we want. All that‚Äôs left to do is to rescue from the AccessDenied error and redirect to ‚Äú/401.html‚Äù in ApplicationController:
 
 Download rails_controllers/messages/28/app/controllers/application_controller.rb
 

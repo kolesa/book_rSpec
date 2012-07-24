@@ -1,12 +1,12 @@
-12.3  Hooks: Before, After, and Around
+ï»¿12.3  Hooks: Before, After, and Around
 
-If  we  were  developing  a  stack,  we’d  want  to  describe  how  a  stack behaves when it is empty, almost empty, almost full, and full. And we’d want  to  describe  how  the  push( ),  pop( ),  and  peek( )  methods  behave under each of those conditions.
+If  we  were  developing  a  stack,  weâ€™d  want  to  describe  how  a  stack behaves when it is empty, almost empty, almost full, and full. And weâ€™d want  to  describe  how  the  push( ),  pop( ),  and  peek( )  methods  behave under each of those conditions.
 
-If we multiply the four states by the three methods, we’re going to be describing twelve different scenarios that we’ll want to group together by  either  state  or  method.  We’ll  talk  about  grouping  by  method  later this chapter. Right now, let’s talk about grouping things by initial state, using RSpec’s before( ) hook.
+If we multiply the four states by the three methods, weâ€™re going to be describing twelve different scenarios that weâ€™ll want to group together by  either  state  or  method.  Weâ€™ll  talk  about  grouping  by  method  later this chapter. Right now, letâ€™s talk about grouping things by initial state, using RSpecâ€™s before( ) hook.
 
 
 before(:each)
-To group examples by initial state, or context , RSpec provides a before( ) method  that  can  run  either  one  time  before  :all  the  examples  in  an example  group  or  once  before  :each  of  the  examples.  In  general,  it’s better  to  use  before(:each)  because  that  re-creates  the  context  before each example and keeps state from leaking from example to example. Here’s how this might look for the stack examples:
+To group examples by initial state, or context , RSpec provides a before( ) method  that  can  run  either  one  time  before  :all  the  examples  in  an example  group  or  once  before  :each  of  the  examples.  In  general,  itâ€™s better  to  use  before(:each)  because  that  re-creates  the  context  before each example and keeps state from leaking from example to example. Hereâ€™s how this might look for the stack examples:
 
 Download describeit/stack.rb
 
@@ -49,18 +49,18 @@ In  addition  to before(:each), we  can  also  say  before(:all). This  gets  ru
 
 Consider a stack. The pop( ) method removes the top item from a stack, which means the second example that uses the same stack instance is starting off with a stack that has one less item than in the before(:all) block. When that example fails, this fact is going to make it more challenging to understand the failure.
 
-Even if it seems to you that sharing state won’t be a problem right now in any given example, this is sure to change over time. Problems created by sharing state across examples are notoriously difficult to find. If we have to be debugging at all, the last thing we want to be debugging is the examples.
+Even if it seems to you that sharing state wonâ€™t be a problem right now in any given example, this is sure to change over time. Problems created by sharing state across examples are notoriously difficult to find. If we have to be debugging at all, the last thing we want to be debugging is the examples.
 
 
 1.  In nested example groups in rspec-1.x, it gets run once per example group.
  
-So, what is before(:all) actually good for? One example might be opening a  network  connection  of  some  sort.  Generally,  this  is  something  we wouldn’t be doing in the isolated examples that RSpec is really aimed at. If we’re using RSpec to drive higher -level examples, however, then this might be a good case for using before(:all).
+So, what is before(:all) actually good for? One example might be opening a  network  connection  of  some  sort.  Generally,  this  is  something  we wouldnâ€™t be doing in the isolated examples that RSpec is really aimed at. If weâ€™re using RSpec to drive higher -level examples, however, then this might be a good case for using before(:all).
 
 after(:each)
 
-Following  the  execution  of  each  example,  before(:each)’s  counterpart after(:each) is executed. This is rarely necessary because each example runs in its own scope, and the instance variables consequently go out of scope after each example.
+Following  the  execution  of  each  example,  before(:each)â€™s  counterpart after(:each) is executed. This is rarely necessary because each example runs in its own scope, and the instance variables consequently go out of scope after each example.
 
-There are cases, however, when after(:each) can be quite useful. If you’re dealing with a system that maintains some global state that you want to modify just for one example, a common idiom for this is to set aside the global state in an instance variable in before(:each) and then restore it in after(:each), like this:
+There are cases, however, when after(:each) can be quite useful. If youâ€™re dealing with a system that maintains some global state that you want to modify just for one example, a common idiom for this is to set aside the global state in an instance variable in before(:each) and then restore it in after(:each), like this:
 
 before(:each) do
 	@original_global_value = $some_global_value
@@ -85,7 +85,7 @@ around do |example|
 	DB.transaction { example.run }
 end
 
-RSpec passes the current running example to the block, which is then responsible  for  calling  the  example’s  run( )  method.  You  can  also  pass the example to a method within the block as a block itself:
+RSpec passes the current running example to the block, which is then responsible  for  calling  the  exampleâ€™s  run( )  method.  You  can  also  pass the example to a method within the block as a block itself:
 
 around do |example| 
 	DB.transaction &example
@@ -117,6 +117,6 @@ after  { do_some_stuff_after }
 
 after hooks are guaranteed to run even if there is an error in an example or  a  before,  so  this  removes  the  burden  of  error  handling  we  have  in around hooks and is arguably more readable.
 
-So, we’ve now explored before  and after :each  and before  and after :all. These methods are very useful in helping to organize our examples by removing duplication—not just for the sake of removing duplication but with the express purpose of improving clarity and thereby making the examples easier to understand.
+So, weâ€™ve now explored before  and after :each  and before  and after :all. These methods are very useful in helping to organize our examples by removing duplicationâ€”not just for the sake of removing duplication but with the express purpose of improving clarity and thereby making the examples easier to understand.
 
 But sometimes we want to share things across a wider scope. The next two sections will address that problem by introducing helper methods and shared examples.

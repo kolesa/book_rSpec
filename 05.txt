@@ -1,7 +1,7 @@
-Chapter 5
+ï»¿Chapter 5
 
   Describing  Code  with  RSpec  
 
-In the previous chapter, we introduced and used Cucumber to describe the behavior of our Codebreaker game from the outside, at the appli- cation  level.  We  wrote  step  definitions  for  our  first  Cucumber  feature that will handle the steps in the scenario, and we left off with a failing step: we’re expecting Game  to send a message to our fake Output, but its array of messages is empty.
+In the previous chapter, we introduced and used Cucumber to describe the behavior of our Codebreaker game from the outside, at the appli- cation  level.  We  wrote  step  definitions  for  our  first  Cucumber  feature that will handle the steps in the scenario, and we left off with a failing step: weâ€™re expecting Game  to send a message to our fake Output, but its array of messages is empty.
 
-In this chapter, we’re going to use RSpec to describe behavior at a much more  granular  level:  the  expected  behavior  of  instances  of  the  Game class.
+In this chapter, weâ€™re going to use RSpec to describe behavior at a much more  granular  level:  the  expected  behavior  of  instances  of  the  Game class.

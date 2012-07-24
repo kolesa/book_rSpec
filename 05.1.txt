@@ -1,6 +1,6 @@
-5.1  Getting Started with RSpec
+Ôªø5.1  Getting Started with RSpec
 
-To get going, create a spec directory, with a subdirectory named codebreaker. Now create a file named game_spec.rb in spec/codebreaker/. As we progress, weíll maintain a parallel structure like this in which each source file (for example, lib/codebreaker/game.rb) has a parallel spec file (for  example,  spec/codebreaker/game_spec.rb).  See  the  Joe Asks. . .  on the next page for more on this. Add the following to game_spec.rb:
+To get going, create a spec directory, with a subdirectory named codebreaker. Now create a file named game_spec.rb in spec/codebreaker/. As we progress, we‚Äôll maintain a parallel structure like this in which each source file (for example, lib/codebreaker/game.rb) has a parallel spec file (for  example,  spec/codebreaker/game_spec.rb).  See  the  Joe Asks. . .  on the next page for more on this. Add the following to game_spec.rb:
 
 Download cb/08/spec/codebreaker/game_spec.rb
 
@@ -18,22 +18,22 @@ Line 1  require 'spec_helper'
 
 Joe Asks. . .
 
- Shouldní t  We  Avoid  a  One-to-One  Mapping ?  
+ Shouldn‚Äô t  We  Avoid  a  One-to-One  Mapping ?  
   
 
-Perhaps  youíve  heard  that  a  one-to-one  mapping  between objects and their specs is a BDD no-no. There is some truth to this, but the devil is in the details.
+Perhaps  you‚Äôve  heard  that  a  one-to-one  mapping  between objects and their specs is a BDD no-no. There is some truth to this, but the devil is in the details.
 
 We want to avoid a strict  adherence to a structure  in which every object has a single example group and every method has  a  single  code  example.  That  sort  of  structure  leads  to long examples that take an object through many phases, set- ting expectations at several stopping points in each example. Examples like these are difficult to write to begin with and much more difficult to understand and debug later.
 
 A  one-to-one  mapping  of  spec-file  to  application-code-file, however,  is  not  only  perfectly  fine  but  actually  beneficial.  It makes it easier to understand where to find the specs for code you  might  be  looking  at.  It  also  makes  it  easier  for  tools  to automate  shortcuts  like  the  one  in  the  RSpec  TextMate  bun- dle, which switches between spec-file and application-code- file with Ctrl+Shift+Down.
 
-The  first  two  statements  are  standard  Ruby.  We  require  a  file  named spec_helper.rb on line 1. Weíll actually store that file in the spec directory, which RSpec adds to the global $LOAD_PATH. More on that in a minute.
+The  first  two  statements  are  standard  Ruby.  We  require  a  file  named spec_helper.rb on line 1. We‚Äôll actually store that file in the spec directory, which RSpec adds to the global $LOAD_PATH. More on that in a minute.
 
-The  second  statement  declares  a  Ruby  module  named  Codebreaker. This isnít necessary in order to run the specs, but it provides some conveniences. For example, we donít have to fully qualify Game on line 4.
+The  second  statement  declares  a  Ruby  module  named  Codebreaker. This isn‚Äôt necessary in order to run the specs, but it provides some conveniences. For example, we don‚Äôt have to fully qualify Game on line 4.
 
-The describe( ) method hooks into RSpecís API and returns a subclass of  RSpec::Core::ExampleGroup.  As  its  name  suggests,  this  is  a  group  of examples  of  the  expected  behavior  of  an  object.  If  youíre  accustomed to xUnit tools like Test::Unit, you can think  of an ExampleGroup as being akin to a TestCase.
+The describe( ) method hooks into RSpec‚Äôs API and returns a subclass of  RSpec::Core::ExampleGroup.  As  its  name  suggests,  this  is  a  group  of examples  of  the  expected  behavior  of  an  object.  If  you‚Äôre  accustomed to xUnit tools like Test::Unit, you can think  of an ExampleGroup as being akin to a TestCase.
 
-The it( ) method creates an example. Technically, itís an instance of the ExampleGroup returned by describe( ), but you really donít need to worry about  that  at  this  point.  Weíll  get  into  the  details  of  the  underlying framework in Chapter 12, Code Examples, on page 150.
+The it( ) method creates an example. Technically, it‚Äôs an instance of the ExampleGroup returned by describe( ), but you really don‚Äôt need to worry about  that  at  this  point.  We‚Äôll  get  into  the  details  of  the  underlying framework in Chapter 12, Code Examples, on page 150.
  
 Connect the Specs to the Code
 
@@ -43,7 +43,7 @@ Download cb/08/spec/spec_helper.rb
 
 require 'codebreaker'
 
-Similar  to  what  we  did  with  Cucumberís  env.rb  in  the  previous  chap- ter,  spec/codebreaker/game_spec.rb  requires  spec/spec_helper.rb,  which requires  lib/codebreaker.rb,  which,  in  turn,  requires  lib/codebreaker/ game.rb.
+Similar  to  what  we  did  with  Cucumber‚Äôs  env.rb  in  the  previous  chap- ter,  spec/codebreaker/game_spec.rb  requires  spec/spec_helper.rb,  which requires  lib/codebreaker.rb,  which,  in  turn,  requires  lib/codebreaker/ game.rb.
 
 Open a shell and cd to the codebreaker project root directory, and run the game_spec.rb file with the rspec command, (1)  like this:
 
@@ -68,7 +68,7 @@ The --format doc option tells RSpec to format the output using the same nesting 
 
 The second line shows the string we passed to describe( ), and the third and fourth lines show the strings we passed to it( ). 
 
-ìPENDING:  Not  Yet  Implementedî  tells  us  that  we  have  to  implement those  examples,  which  we  do  by  passing  a  block  to  the  it( )  method. Without the block, the example is considered pending.
+‚ÄúPENDING:  Not  Yet  Implemented‚Äù  tells  us  that  we  have  to  implement those  examples,  which  we  do  by  passing  a  block  to  the  it( )  method. Without the block, the example is considered pending.
 
 1.  The rspec command is installed when you install the rspec gem.
  

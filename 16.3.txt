@@ -1,6 +1,6 @@
-16.3  Filtering
+ï»¿16.3  Filtering
 
-Sometimes  we  want  to  run  just  one  or  two  examples,  or  perhaps  a group, that relate to the work in process. We can accomplish this using methods provided to us by the Configuration class, combined with metadata we add to the examples or groups we’re interested in.
+Sometimes  we  want  to  run  just  one  or  two  examples,  or  perhaps  a group, that relate to the work in process. We can accomplish this using methods provided to us by the Configuration class, combined with metadata we add to the examples or groups weâ€™re interested in.
 
 Inclusion
 
@@ -69,7 +69,7 @@ Both  group  names  are  reported,  but  only  the  examples  in  the  group wit
 
 Exclusion
 
-When there are one or two examples that run very slowly, we tend to try  to  disable  them  so  we  can  run  rest  of  the  suite  faster  while we’re working in other areas. We can use an exclusion filter combined with metadata to accomplish this:
+When there are one or two examples that run very slowly, we tend to try  to  disable  them  so  we  can  run  rest  of  the  suite  faster  while weâ€™re working in other areas. We can use an exclusion filter combined with metadata to accomplish this:
 
 Download extending_rspec/exclusion_filter.rb
 
@@ -101,7 +101,7 @@ Lambdas
 
 Inclusion and exclusion filters can accept lambdas with arbitrarily complex  code  for  more  sophisticated  filtering.  This  gives  us  much  more power than primitive values give us.
 
-Imagine an app that connects to an external service. Most of the examples stub out the service, but there is one example that really talks to the service as a sanity check. The problem is that this example can run only when the computer is connected to a network, and we don’t want to have to worry about disabling it when there is no network available.
+Imagine an app that connects to an external service. Most of the examples stub out the service, but there is one example that really talks to the service as a sanity check. The problem is that this example can run only when the computer is connected to a network, and we donâ€™t want to have to worry about disabling it when there is no network available.
 
 We can use an exclusion filter with a lambda for this, like so:
 
@@ -127,4 +127,4 @@ describe "network group" do
 	end
 end
 
-Try running this example with your computer connected to a network and then again while not connected. You should see that the first example runs only when you’re connected.
+Try running this example with your computer connected to a network and then again while not connected. You should see that the first example runs only when youâ€™re connected.

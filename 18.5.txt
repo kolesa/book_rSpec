@@ -1,4 +1,4 @@
-18.5  Background
+﻿18.5  Background
 
 Backgrounds let us write steps once that will be invoked before every scenario in a given feature. We use them instead of Before hooks when we want the steps to be visible in the feature file because they create logical context for each scenario.
 

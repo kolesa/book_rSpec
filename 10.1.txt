@@ -1,23 +1,23 @@
-10.1  How Traditional Projects Fail
+ï»¿10.1  How Traditional Projects Fail
 
-Traditional projects fail for all sorts of reasons. A good way to identify the different failure modes is to ask your project manager what keeps them up at night. (It’s nice to do this from time to time anyway—it helps their self-esteem.) It is likely your project manager will come up with a list of fears similar to ours.
+Traditional projects fail for all sorts of reasons. A good way to identify the different failure modes is to ask your project manager what keeps them up at night. (Itâ€™s nice to do this from time to time anywayâ€”it helps their self-esteem.) It is likely your project manager will come up with a list of fears similar to ours.
 
 Delivering Late or Over Budget
 
-We  estimate,  we  plan,  we  have  every  contingency  down  to  the  nthdegree, and then much to our disappointment, real life happens. When we slip the first date, no one minds too much. After all, it will only be a couple of weeks. If it goes on for long enough—slipping week by week and month by month—enough people will have left and joined that we can  finally  put  the  project  out  of  its  misery.  Eighteen  months  to  two years is usually enough. This is software that doesn’t matter.
+We  estimate,  we  plan,  we  have  every  contingency  down  to  the  nthdegree, and then much to our disappointment, real life happens. When we slip the first date, no one minds too much. After all, it will only be a couple of weeks. If it goes on for long enoughâ€”slipping week by week and month by monthâ€”enough people will have left and joined that we can  finally  put  the  project  out  of  its  misery.  Eighteen  months  to  two years is usually enough. This is software that doesnâ€™t matter.
 
 Delivering the Wrong Thing
 
-Most  of  us  use  software  that  was  delivered  late  and  over budget—on our desktops, in our mobile phones, in our offices and homes. In fact, we have become used to systems that update themselves with bug fixes and new features in the form of service packs and system updates or websites that grow new features over time. But none of us use software that doesn’t solve the problem we have.
+Most  of  us  use  software  that  was  delivered  late  and  over budgetâ€”on our desktops, in our mobile phones, in our offices and homes. In fact, we have become used to systems that update themselves with bug fixes and new features in the form of service packs and system updates or websites that grow new features over time. But none of us use software that doesnâ€™t solve the problem we have.
 
-It is surprising how much project management effort is spent looking after the schedule or budget when late software is infinitely more useful than irrelevant software. This is software that doesn’t matter.
+It is surprising how much project management effort is spent looking after the schedule or budget when late software is infinitely more useful than irrelevant software. This is software that doesnâ€™t matter.
 
 Unstable in Production
 
-Hooray!  The  project  came  in  on  time  and  on  budget,  and  the  users looked at it and decided they like it, so we put it into production. The problem  is  it  crashes  twice  a  day.  We  think  it’s  a  memory  thing  or  a configuration thing or a clustering thing or an infrastructure thing or — who are we kidding? We don’t really know what’s causing it except that it’s rather embarrassing and it’s costing us a lot of money. If only we had spent more time testing it. People will use this once and then give up when it keeps crashing. This is software that doesn’t matter.
+Hooray!  The  project  came  in  on  time  and  on  budget,  and  the  users looked at it and decided they like it, so we put it into production. The problem  is  it  crashes  twice  a  day.  We  think  itâ€™s  a  memory  thing  or  a configuration thing or a clustering thing or an infrastructure thing or â€” who are we kidding? We donâ€™t really know whatâ€™s causing it except that itâ€™s rather embarrassing and itâ€™s costing us a lot of money. If only we had spent more time testing it. People will use this once and then give up when it keeps crashing. This is software that doesnâ€™t matter.
 
 Costly to Maintain
 
-There are a number of things we don’t need to consider if we are writing disposable software. Maintainability is one of them. However, if we expect to follow Release 1 with a Release 2, Release 3, or even a Pro- fessional Super -Cow Power Edition, then we can easily paint ourselves into a corner by not considering downstream developers.
+There are a number of things we donâ€™t need to consider if we are writing disposable software. Maintainability is one of them. However, if we expect to follow Release 1 with a Release 2, Release 3, or even a Pro- fessional Super -Cow Power Edition, then we can easily paint ourselves into a corner by not considering downstream developers.
 
-Over time, the rate at which they can introduce new features will diminish until they end up spending more of their time tracking down unexpected regressions and unpicking spaghetti code than actually getting work done. At some point, the software will cost more to improve than the revenue it can generate. This is software that doesn’t matter.
+Over time, the rate at which they can introduce new features will diminish until they end up spending more of their time tracking down unexpected regressions and unpicking spaghetti code than actually getting work done. At some point, the software will cost more to improve than the revenue it can generate. This is software that doesnâ€™t matter.

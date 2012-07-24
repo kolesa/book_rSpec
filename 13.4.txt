@@ -1,10 +1,10 @@
-13.4  Be True in the Eyes of Ruby
+ï»¿13.4  Be True in the Eyes of Ruby
 
 In Ruby, there are two values that evaluate to false in a Boolean expression. One of them is, of course, false. The other is nil. Every other value is evaluated as true. Even 0:
 
 puts "0 evals to true" if 0
 
-RSpec’s be_true and be_false matchers can be used to specify methods that  should  return  values  that  Ruby  will  evaluate  as  true  or  false,  as opposed to the actual values true and false:
+RSpecâ€™s be_true and be_false matchers can be used to specify methods that  should  return  values  that  Ruby  will  evaluate  as  true  or  false,  as opposed to the actual values true and false:
 
 true.should be_true
 0.should be_true
@@ -18,4 +18,4 @@ For the rare cases in which we care that methods return the values true or false
 true.should equal(true)
 false.should equal(false)
 
-Up until now we’ve been discussing expectations about the state of an object.  The  object  should  be_in_some_state.  But  what  about  when  the state we’re interested in is not in the object itself but in an object that it owns?
+Up until now weâ€™ve been discussing expectations about the state of an object.  The  object  should  be_in_some_state.  But  what  about  when  the state weâ€™re interested in is not in the object itself but in an object that it owns?

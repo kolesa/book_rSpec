@@ -1,4 +1,4 @@
-
+Ôªø
   Index  
 
 
@@ -17,12 +17,12 @@ abstractions, 90
 isolation in testing, 329
 Accept header, 318
 acceptance criteria, 44, 50, 52
-adding, 45ñ46 automated, 62, 219 components of, 146 customer -defined, 284
+adding, 45‚Äì46 automated, 62, 219 components of, 146 customer -defined, 284
 scenarios to define done, 147
 tester role, 147
-Acceptance TestñDriven Development,
+Acceptance Test‚ÄìDriven Development,
 26, 44
-Acceptance TestñDriven Planning, 26,
+Acceptance Test‚ÄìDriven Planning, 26,
 44, 44n, 52 acceptance tests, 44n, 50 access_denied.rb file, 363
 AccessDenied error, 362
 achievable outcome, 142
@@ -45,12 +45,12 @@ After hooks, 161, 274, 324 after(:all) method, 160 after(:each) method, 160
 after(scope = :each, options={}, &block)
 method, 239
 AfterStep hooks, 274
-Agile, 125ñ136
+Agile, 125‚Äì136
 Manifesto, 131n
 Agile 2006 Conference, 40
 Agile methodology, 26
 Ajax, 292, 328 ajax.requestCounter, 328 ajax_requests, 328 algorithms, 77, 
-84ñ95
+84‚Äì95
 :all scope, 239
 analysis phase, programming projects,
 127
@@ -114,7 +114,7 @@ Background keyword, 258
 Backgrounds, 275
 backtrace, 225, 275, 329
 --backtrace flag, 100, 228
-Bad Request (400ñ499) HTTP Status
+Bad Request (400‚Äì499) HTTP Status
 Code, 305
 Baker, Steven, 25, 388
 Basic authentication mechanism, 318
@@ -140,7 +140,7 @@ adding, 62
 application level, 290 applications, 25, 26, 28, 30 in BDD, 24
 benefit, 146
 changing, 72
-describing, 63, 139, 151ñ155
+describing, 63, 139, 151‚Äì155
 designing, 218
 distinguishing from context, 73
 documenting, 109 example, 152 expectations, 152 expressing, 299 facet, 152
@@ -159,11 +159,11 @@ without changing, 88, 96
 wrapping, 239
 Behaviour -Driven Development (BDD)
 acceptance criteria, 146
-benefits, 125ñ137
+benefits, 125‚Äì137
 coding by example, 143
 Cucumber role, 253
 cycle, 28
-delivery cycle, 141ñ145
+delivery cycle, 141‚Äì145
 description, 138
 easy to automate scenarios, 143
 getting started, 37
@@ -171,10 +171,10 @@ Given, When, Then triad, 25, 262
 integration tests, 147
 mechanics, 138
 one-to-one mapping, 64 outside-in philosophy, 58 practices, 44
-principles, 38, 138ñ139
+principles, 38, 138‚Äì139
 role in communication, 24
 Ruby on Rails, 283
-software methodology, 138ñ147
+software methodology, 138‚Äì147
 testing practice, 111
 Big Design Up Front, 38, 111
 bin directory, 75, 122
@@ -183,7 +183,7 @@ Boolean expressions, 181 brittleness, 24, 217 browsers, automating, 320
 Buck, Jamis, 373
 bug reports, 157
 bugs, 23, 97, 112, 392 built-in expectations, 171 built-in formatters, 248
-built-in matchers, 172ñ180
+built-in matchers, 172‚Äì180
 protocol, 240
 Bundler, 287
 business analysts, 141, 146, 264
@@ -194,7 +194,7 @@ But() method, 56
 But keyword, 45, 258
 by() method, 176
  C  
-4 Cís, 390
+4 C‚Äôs, 390
 caching behavior, 174
 method return value, 74
 technique, 61
@@ -232,11 +232,11 @@ description methods, 151
 executable, 150, 151, 169, 170
 expressive, 247
 formatting, 175
-groups, 150, 158, 164ñ166 helper methods, 162ñ164 hooks overview, 158ñ161 
+groups, 150, 158, 164‚Äì166 helper methods, 162‚Äì164 hooks overview, 158‚Äì161 
 implementation detail, 217 it() method, 151, 153
 less brittle, 175 missing, 112 noise level, 163
 organizing, 155, 162, 166
-code smells, 96ñ97
+code smells, 96‚Äì97
 Large Class smell, 103
 new, 112
 code snippets, 270
@@ -258,7 +258,7 @@ coding phase, programming projects,
 127
 cohesion, 49, 107, 169, 265
 cohesive models, 374
-Cohn, Mike, 40 collaboration, 114ñ118 collaborators
+Cohn, Mike, 40 collaboration, 114‚Äì118 collaborators
 immediate, 194 interactions with, 218 nonexistent, 197 nonimplemented, 215
 primary and secondary, 196
 return values, 208
@@ -271,7 +271,7 @@ command-and-control cultures, 142 commit() method, 211 communication, 170,
 compatibility, Ruby implementations,
 389
 compile helpers, 393
-complexity adding, 91ñ93
+complexity adding, 91‚Äì93
 procedural code, 97 concentric cycles, 62 conceptual cohesion, 169 
 conciseness, 189, 390 concurrency, 326, 329 config block argument, 235
 Configuration object, 235, 239
@@ -290,9 +290,9 @@ controlled context, 25
 controller() method, 362
 ControllerMacros class, 247
 controllers, 284, 345
-context-specific examples, 352ñ361
+context-specific examples, 352‚Äì361
 Rails views, 331
-specs, 247, 345ñ352, 358 model interfaces, 365 removing duplication, 356
+specs, 247, 345‚Äì352, 358 model interfaces, 365 removing duplication, 356
 convenience methods, 204 conversation, 254, 256 core stakeholders, 139 
 correctness, 390
 cost of maintenance, 126, 133
@@ -315,16 +315,16 @@ CRUD actions/views, 343
 CSS3 selectors, 314, 315
 Ctrl+C, 41
 Ctrl+Shift+Down, 64
-Cucumber, 26ñ27
-application features, 26, 44ñ52 automating features, 53ñ62 automating 
+Cucumber, 26‚Äì27
+application features, 26, 44‚Äì52 automating features, 53‚Äì62 automating 
 scenarios, 143
-BDD software methodology, 138 for collaboration, 114ñ118 configuration, 280
+BDD software methodology, 138 for collaboration, 114‚Äì118 configuration, 280
 DRY principle, 52
 etymology, 27
 Given, When, Then triad, 25, 262
-installation, 30ñ31 overview, 252ñ268 plug-ins, 272
-Rails, 290ñ297
-scenario outlines, 49, 77ñ80
+installation, 30‚Äì31 overview, 252‚Äì268 plug-ins, 272
+Rails, 290‚Äì297
+scenario outlines, 49, 77‚Äì80
 Selenium, 322
 tagging feature, 252 cucumber command argument, 56
 loading step definitions, 34
@@ -335,7 +335,7 @@ step definitions, 253
 usage, 31
 workings of, 261
 Cucumber cycle, 28
-cucumber features command, 33ñ35
+cucumber features command, 33‚Äì35
 Cucumber gem, 30
 Cucumber scenarios, 76, 83 cucumber-rails plug-in, 272, 273 cucumber.rake 
 file, 288 cucumber.yml file, 280, 288
@@ -345,10 +345,10 @@ CucumberGreeter class, 35
 Cuke4Duke project, 269
 Cunningham, Ward, 50
 @current tag, 265 current_url() method, 317 current_user() method, 341 
-custom adapters, 221ñ222
-custom expectation matchers, 166 custom formatters, 247ñ250 custom macros, 
+custom adapters, 221‚Äì222
+custom expectation matchers, 166 custom formatters, 247‚Äì250 custom macros, 
 385
-custom matchers, 181, 240ñ244, 386
+custom matchers, 181, 240‚Äì244, 386
 custom tasks, 230
 customer acceptance tests, 252, 257
 customer tests in XP, 44
@@ -365,7 +365,7 @@ declarative steps, 264
 decoupling of concepts, 107 default output format, 225 default parameter, 
 83
 Deliver stakeholder value principle, 139
-delivery cycle, 141ñ145
+delivery cycle, 141‚Äì145
 delivery team, 139, 252
 Demyanovich, Craig, 345
 Dennis, Zach, 365
@@ -407,7 +407,7 @@ does_not_match? method, 244
 Domain-Driven Design, 44n, 138 domain-specific expectations, 171 
 domain-specific language, see DSL Domain-Driven Design (Evans, Eric),
 146
-Donít Repeat Yourself principle, see
+Don‚Äôt Repeat Yourself principle, see
 DRY principle
 done, 252, 290
 dot, 32, 225, 229
@@ -415,7 +415,7 @@ double() method, 192, 194, 201
 double object, 74
 double-quoted string, 393
 DRY principle implementing, 69
-Cucumber scenario outlines, 77ñ83
+Cucumber scenario outlines, 77‚Äì83
 definition, 49n method stub, 195
 nested examples, 167
 steps, 273
@@ -449,7 +449,7 @@ and logical failures, 62, 67
 raising, 210
 reports, 229 errors_on() method, 385 events, 45, 147, 167
 exact_match?() method, 90 exact_match?() method, 106 exact_match_count() 
-method, 98ñ100,
+method, 98‚Äì100,
 102, 104, 117
 example method, aliases, 187
 example object, 249
@@ -475,7 +475,7 @@ method, 249 example_started(example) method, 249
 ExampleGroup class, 166, 341, 366
 ExampleGroup object, 64, 152
 examples brittle, 220
-coding for passing, 68ñ72, 194
+coding for passing, 68‚Äì72, 194
 count, 66
 coupling to a type, 206
 declaring, 31
@@ -504,7 +504,7 @@ Expectations API, 294
 expected arguments, 204, 206 expected behavior, 25, 63, 64, 150 expected 
 outcomes, 45, 167, 177 expected statement, 175
 expected values, 50 explicit receiver, 189 explicit subject, 188
-exploratory testing, 111ñ112 exponential cost curve, 129 expressive tests, 
+exploratory testing, 111‚Äì112 exponential cost curve, 129 expressive tests, 
 245
 expressiveness, 103, 152, 171, 185,
 317
@@ -525,7 +525,7 @@ F (in output), 225, 229
 *.feature extension, 261
 facet, 151, 152
 FactoryGirl, 348, 385
-FAILED message in summary, 67 failing code example, 66ñ67 failing examples
+FAILED message in summary, 67 failing code example, 66‚Äì67 failing examples
 --backtrace, 229
 changing to pass, 71, 88
 commenting out, 156
@@ -573,7 +573,7 @@ feature sets, 140, 265
 feature-wise development, 135
 Feature keyword, 258, 266
 features adding, 94
-adding a feature, 77ñ83 as requirements, 141 automating, 53
+adding a feature, 77‚Äì83 as requirements, 141 automating, 53
 definition, 253
 delivering, 141
 difference with stories, 144
@@ -584,13 +584,13 @@ see also stories
 .features file extension, 53
 features directory, 33, 53, 55, 264, 270
 feedback
-how to use, 114ñ123 meaningful, 172, 177 rapid, 94, 101, 109 
+how to use, 114‚Äì123 meaningful, 172, 177 rapid, 94, 101, 109 
 field_labeled() method, 317 field_named() method, 317 field_with_id() 
 method, 317
 File object, 248
 file systems, 213
 fill_in() method, 308, 325
-filtering, 234ñ238
+filtering, 234‚Äì238
 find() method, 197, 200 find_by_name() method, 173 finger charts, 145
 Firefox, 320, 323, 328 first iteration, 44, 52, 53 first-person form, 45
 FIT, see Framework for Integration Test
@@ -599,7 +599,7 @@ FixtureReplacement, 385
 fixtures, 366
 fixtures directory, 311 flash[:notice], 353 flexibility, 152, 276, 280
 :flexmock symbol, 239
-floating point calculations, 174ñ190
+floating point calculations, 174‚Äì190
 flow control, 145
 fluent interfaces, 194n
 :foreign_key option, 372
@@ -609,8 +609,8 @@ form_for() method, 335
 --format documentation option, 154
 --formatter, 228
 Formatter API, 248
-formatters, 225, 227ñ228
-custom, 247ñ250
+formatters, 225, 227‚Äì228
+custom, 247‚Äì250
 
 410
 FORMS 
@@ -619,8 +619,8 @@ FORMS
 METHOD
 
 
-forms, 316ñ317
-4 Cís, 390
+forms, 316‚Äì317
+4 C‚Äôs, 390
 Fowler, Martin, 72, 96
 fragmentation, 389
 Framework for Integration Test, 50
@@ -642,7 +642,7 @@ game.rb file, 59, 65, 82
 Game.start() method, 80
 game_spec.rb file, 63, 72, 91
 Gemfile file, 286, 332
-generated descriptions, 187ñ188 generated statement, 175 generated URLs, 
+generated descriptions, 187‚Äì188 generated statement, 175 generated URLs, 
 323
 GET requests, 305
 get() method, 247
@@ -671,10 +671,10 @@ Grenning, James, 58
 Grimm, Avdi, 384
 Groovy, step definitions, 269
 guards, 392
-guess() method, 82, 86ñ88, 90, 96, 97,
+guess() method, 82, 86‚Äì88, 90, 96, 97,
 103, 104
 @guess instance variable, 105, 120
-guess, submitting for Codebreaker game, 46ñ48
+guess, submitting for Codebreaker game, 46‚Äì48
 
  H  
 Hanrigou, Philippe, 325
@@ -687,17 +687,17 @@ have matcher sequence, 184 have_ prefix, 182 have_exactly() method, 184
 have_selector() method, 314 have_selector matcher, 327
 have_xpath matcher, 315, 327
 header() method, 318
-Hello Cucumber example, 33ñ36
+Hello Cucumber example, 33‚Äì36
 hello directory, 33
-Hello RSpec example, 31ñ33
+Hello RSpec example, 31‚Äì33
 Hello World example, 30, 32
 --help, 224
 help option, 224
 helper() method, 342
-helper methods, 162ñ164, 271
+helper methods, 162‚Äì164, 271
 helper specs, 342 helpers, 341 heredoc, 393
 highly coupled code, 220
-hooks, 158ñ161, 166, 235, 273
+hooks, 158‚Äì161, 166, 235, 273
 global, 239
 hooks.rb file, 274
 HTML decoded content, 315
@@ -726,7 +726,7 @@ incidental stakeholders, 139
 include(*modules, options={}) method,
 238
 include(item) matcher, 172
-inclusion, 235ñ237
+inclusion, 235‚Äì237
 incremental approach, 94, 97, 121
 index action, 362 index cards, 39n infrastructure, 75 initial state, 158
 initialize() method, 163, 248, 278
@@ -735,7 +735,7 @@ inner cycle, 28
 inner group, 166
 instance variables, 73, 160, 188 instance_of() method, 181, 205 
 integrate_views() method, 360n integration testing, 147, 302 intent
-embedding, 196 expressing, 89ñ94, 206 hiding, 203
+embedding, 196 expressing, 89‚Äì94, 206 hiding, 203
 inter -module call, 58 interactions, 150, 217, 277, 345 interface 
 discovery, 216
 internal structure, 24
@@ -750,7 +750,7 @@ expressiveness, 152
 free text argument, 155
 RSpec code example, 25, 31, 119
 it_behaves_like() method, 165
-Itís all behavior principle, 139
+It‚Äôs all behavior principle, 139
 @iteration_12 tag, 265
 iteration planning, 44
 iteration planning meeting, 52 iterations, 52, 92, 132, 145, 257 iterative 
@@ -799,7 +799,7 @@ MACROS
  MOCK  OBJECTS
 
 
-macros, 238, 244ñ247, 385
+macros, 238, 244‚Äì247, 385
 maintainability, 121, 126, 191
 calling steps, 273
 cost of, 133
@@ -810,7 +810,7 @@ Marker class, 103, 107, 117
 Marker object, 105, 107, 114
 Marker.new constructor, 117 marker.rb file, 107, 120 marker_spec.rb file, 
 107, 117 marking algorithm
-Codebreaker guessing game, 84ñ95,
+Codebreaker guessing game, 84‚Äì95,
 109
 efficiency of, 77
 flaws, 112 implementation, 40, 94 modifying, 116
@@ -838,11 +838,11 @@ matches? matcher, 243
 matches? method, return value, 171 matches?(object) method, 171 
 matches?(self) method, 171, 185
 Matts, Chris, 255
-Matzís Ruby Implementation, 389
+Matz‚Äôs Ruby Implementation, 389
 Measurable outcome, 142 memcached, 329 memoization, 61, 74
 Message class, 347
 Rails models, 366
-message expectations, 195ñ197 in Codebreaker game, 66 creating, 195
+message expectations, 195‚Äì197 in Codebreaker game, 66 creating, 195
 Given, Then, What, 196 implementation details, 203 mixing with method 
 stubs, 196 ordering, 210
 Widget class, 200 message formatters, 247 message routes, 336
@@ -859,9 +859,9 @@ Meszaros, Gerard, 193 metadata, 234, 395 metaprogramming model, 197 method
 calls, 55
 method chaining, 194
 method definitions, 55
-method stubs, 196ñ197, 200, 212
+method stubs, 196‚Äì197, 200, 212
 creating, 194
-generating, 193ñ195
+generating, 193‚Äì195
 method-level concepts, 192 method_missing() method, 182, 184 metrics, 232
 migrations, 284
 MIME type, application behavior and,
@@ -870,7 +870,7 @@ minus sign, 87, 91, 92, 97, 107, 117
 MissingTemplate error, 335, 355n
 :mocha symbol, 239
 mock() method, 192, 196, 201, 222
-mock models, 334ñ341
+mock models, 334‚Äì341
 mock objects, 337
 see also test doubles
 
@@ -880,7 +880,7 @@ MOCK_MODEL() METHOD
  OBJECT -LEVEL  CONCEPTS
 
 
-mock_model() method, 334ñ341, 371
+mock_model() method, 334‚Äì341, 371
 mock_with() method, 222, 239
 MockExpectationError class, 179
 Mock Roles, not Objects (Freeman, Steve et al.), 216
@@ -890,14 +890,14 @@ method stubs; test doubles model objects, 201
 Model View Controller (MVC), 291
 ModelExampleGroup class, 366
 models
-business rules, 373ñ382
+business rules, 373‚Äì382
 custom macros, 387
-Db, 383ñ386 exercise, 382ñ383 generating, 347 matches, 387
+Db, 383‚Äì386 exercise, 382‚Äì383 generating, 347 matches, 387
 Rails views, 331
-specs, 365ñ373
+specs, 365‚Äì373
 Module object, 152
 modules, 164, 235
-MRI, see Matzís Ruby Implementation
+MRI, see Matz‚Äôs Ruby Implementation
 MSpec, 394
 mspec script, 394
 mspec-ci script, 394, 395 mspec-tag script, 394, 395 multiline text, 175, 
@@ -908,12 +908,12 @@ MVC (Model View Controller), 291
 .NET library, 389, 395
 NameError, 59
 names, abstractions, 90
-narratives, 44ñ48, 254
+narratives, 44‚Äì48, 254
 Nathan, Sobo, 27
 negative expectations, 204
 nested doubles, 219
 nested example groups, 85, 159,
-166ñ169, 227 nested scopes, 85 nesting, 315
+166‚Äì169, 227 nested scopes, 85 nesting, 315
 network, 213, 237, 329 network calls, 203 network_double() method, 204 new 
 template, 354
 new() method, 351, 365
@@ -923,8 +923,8 @@ new_record? stub, 339
 persisted? method, 336
 A New Look at Test-Driven Development
 (Astels, Dave), 22
-ìA New Look at Test-Driven
-Developmentî (Astels, Dave), 388
+‚ÄúA New Look at Test-Driven
+Development‚Äù (Astels, Dave), 388
 nil value, 181
 *nix system, 75
 *nix users, 111
@@ -988,7 +988,7 @@ outside-in development, 58, 76
 parallel spec file, 63
 parameterized step definitions, 307
 parameterizing, 208 partial mocking, 197, 200 partial stubbing, 197
-passing code examples, 68ñ72, 75, 157,
+passing code examples, 68‚Äì72, 75, 157,
 355
 passing scenarios, 270 passing specs, 80, 81 passing steps, 56, 57, 81
 @passing tag, 265
@@ -1003,7 +1003,7 @@ PENDING: Not Yet Implemented
 message, 65
 pending() method, 156, 157
 pending examples, 119 colorized output, 229 identifying, 158
-it() method for, 155ñ158
+it() method for, 155‚Äì158
 MessagesController, 346 notification of, 67 temporarily pending, 348 
 validation specs, 366
 pending statement, 119, 121
@@ -1023,7 +1023,7 @@ planning phase, programming projects,
 127
 plus signs, 92, 97, 107 points of failure, 213 pop() method, 154
 POROs, 331, 365 post() method, 359 post-event state, 172
-post_via_redirect() method, 299 predicate matchers, 180ñ181 predicate 
+post_via_redirect() method, 299 predicate matchers, 180‚Äì181 predicate 
 methods, 180 presentation logic, 342 primary collaborator, 196
 Proc class, 242
 procedural code, 97
@@ -1032,7 +1032,7 @@ production code, 122, 136
 stable, 133
 unstable, 126
 profiles, Cucumber, 280
-Programming Ruby: The Pragmatic Programmerís Guide (Thomas, Dave with Chad 
+Programming Ruby: The Pragmatic Programmer‚Äôs Guide (Thomas, Dave with Chad 
 Fowler and Andy Hunt), 30n, 102n, 388
 progress bar formatter, 225, 227, 248
 progressive setup, 167
@@ -1047,7 +1047,7 @@ PROTOTYPE
 
 
 failures, 125, 127
-inception, 139ñ141 management, 126 purpose, 139
+inception, 139‚Äì141 management, 126 purpose, 139
 risks, 131
 root, 33, 55
 root directory, 75
@@ -1069,13 +1069,13 @@ query method, stubbing, 219
 race conditions, 326, 329
 Rails
 BDD cycle, 284
-Cucumber, 290ñ297 helpers, 341 introduction, 283ñ284
-outside-in development, 284ñ286
+Cucumber, 290‚Äì297 helpers, 341 introduction, 283‚Äì284
+outside-in development, 284‚Äì286
 running spec files, 225
-Selenium, 320ñ330
+Selenium, 320‚Äì330
 see also controllers; models; views; Webrat
 Rails 2, 289
-Rails 3, 239, 286ñ288, 346
+Rails 3, 239, 286‚Äì288, 346
 Rainsberger, J. B., 175 raise() method, 179 raise_error() method, 305
 raise_error matcher, 177, 179
 raise_error(type) matcher, 172
@@ -1102,24 +1102,24 @@ Rails, 284
 refactoring step, 94
 role in BDD cycle, 28
 redirect_to() method, 361
-Redirection (300ñ399) HTTP Status
+Redirection (300‚Äì399) HTTP Status
 Code, 305
 redundancy, 355
 Refactoring (Fowler, Martin), 72, 96
 refactoring
 in the green, 72, 156
-code smells, 96ñ97, 107ñ110 coding with RSpec, 72ñ75 definition, 72, 96
-eliminating duplication, 72, 88ñ89
+code smells, 96‚Äì97, 107‚Äì110 coding with RSpec, 72‚Äì75 definition, 72, 96
+eliminating duplication, 72, 88‚Äì89
 example, 68
-to express intent, 89ñ91
+to express intent, 89‚Äì91
 Extract Class, 103
 Extract Method, 90, 99
 in moderation, 110
 in the red, 72
-incremental approach, 98ñ107
+incremental approach, 98‚Äì107
 leaky examples, 369
 linearity, 98
-new implementation, 121 summary, 112ñ113 testing, 72, 111ñ112
+new implementation, 121 summary, 112‚Äì113 testing, 72, 111‚Äì112
 Regexp class, 34, 57
 Regexp error messages, 178
 Regexp object, 79, 207 register() method, 24 registrations collection, 24
@@ -1173,18 +1173,18 @@ Autotest, 224, 230
 --backtrace, 100
 BDD software methodology, 138
 before hooks, 158, 235
-built-in expectations, 150, 397ñ400
+built-in expectations, 150, 397‚Äì400
 code base, 151
 command-line tools, 150
 configuration, 235
-custom formatters, 247ñ250 custom matchers, 240ñ244 cycle, 28
+custom formatters, 247‚Äì250 custom matchers, 240‚Äì244 cycle, 28
 describing behavior, 63
 Domain-Specific Language, 151
 drilling down to, 83
 DSL, 30
-extending, 150, 234 filtering, 235ñ238 getting started, 63ñ64
-IDE integration, 150 installation, 30ñ31 macros, 244ñ247 outputting 
-strings, 66 overview, 25ñ26 passing example, 32 patterns, 193
+extending, 150, 234 filtering, 235‚Äì238 getting started, 63‚Äì64
+IDE integration, 150 installation, 30‚Äì31 macros, 244‚Äì247 outputting 
+strings, 66 overview, 25‚Äì26 passing example, 32 patterns, 193
 pending examples, 119, 155
 Rake, 224, 227, 230, 232, 333
 RCov, 232
@@ -1196,7 +1196,7 @@ underlying objects , 76 see also code examples; expectations; mocks
 rspec command
 --backtrace flag, 100
 --color flag, 67 duplications, 187 failure coding, 117
-ñformat doc option, 65
+‚Äìformat doc option, 65
 help, 30 options, 224 overview, 25
 usage example, 30, 32, 36
 rspec gem, 30, 65n
@@ -1219,7 +1219,7 @@ class, 248
 
 417
 RSPEC::CORE::RAKETASK  CLASS  
-  SER VER  ERROR  (500ñ599) 
+  SER VER  ERROR  (500‚Äì599) 
 HTTP STATUS  CODE
 
 
@@ -1249,20 +1249,20 @@ step definitions, 253
 versions, 30n
 Ruby on Rails, 176, 197, 275, 283
 ruby_bug guard, 392
-Rubygems, 30n RubySpec, 388ñ396 run() method, 161 runtime errors, 81
+Rubygems, 30n RubySpec, 388‚Äì396 run() method, 161 runtime errors, 81
 
  S  
 @secret instance variable, 120
 save() method, 197, 340, 350, 353, 354
 save_and_open_page() method, 318
 Scala, step definitions, 269
-scenario outlines, 49ñ50, 52, 77ñ80,
+scenario outlines, 49‚Äì50, 52, 77‚Äì80,
 115, 278
 scenario tables, 50
 Scenario keyword, 45, 50, 258, 259, 266
 Scenario Outline keyword, 258
 scenarios, 26
-adding, 48ñ49
+adding, 48‚Äì49
 artificial structure, 147
 as integration tests, 147
 automating, 143
@@ -1282,7 +1282,7 @@ scope, 160, 239, 316
 secondary collaborator, 196
 @secret instance variable, 104 select() method, 309 select_date() method, 
 310 select_datetime() method, 310 select_time() method, 310
-Selenium, 291, 299, 320ñ330 selenium() method, 325 selenium-client API, 325
+Selenium, 291, 299, 320‚Äì330 selenium() method, 325 selenium-client API, 325
 selenium.browserbot.getCurrentWindow()
 method, 327
 Selenium::Client::Driver class, 325
@@ -1293,7 +1293,7 @@ method, 375, 376 sender_id field, 378
 sent_messages() method, 378
 Sequel library, 239
 sequences, 215
-Server Error (500ñ599) HTTP Status
+Server Error (500‚Äì599) HTTP Status
 Code, 305
 
 
@@ -1307,7 +1307,7 @@ DEFINITIONS
 server errors, 329
 servers, 213 service packs, 126 session hash, 359
 set_hidden_field() method, 311 set_status() method, 163 
-setup_mocks_for_rspec() method, 221 shared examples, 162, 164ñ166, 245
+setup_mocks_for_rspec() method, 221 shared examples, 162, 164‚Äì166, 245
 shared_examples_for() method, 164, 165
 shortcuts, 201
 should expectation, 170
@@ -1320,19 +1320,19 @@ should_not() method, 171, 172, 189,
 should_not== method, 174 should_not_receive() method, 204 should_receive() 
 method, 195, 203, 208 shoulda library, 245
 should eql() method, 173 shouldequal() method, 173 show.html.erb template, 
-333 simplest example, 84ñ88
+333 simplest example, 84‚Äì88
 Simulated Browser style, 291, 298,
 300, 311
 single iterator, breaking into two, 94
 Single Responsibility Principle (SRP),
 97, 103, 373
 size property, 183, 185
-ìSkinny Controller, Fat Modelî (Buck, Jamis), 373
+‚ÄúSkinny Controller, Fat Model‚Äù (Buck, Jamis), 373
 Smalltalk, 25
 SMAR T outcomes, 140, 142 smells, see code smells snapshots, 55
 software
 delivery challenges and successes,
-125ñ126, 130ñ136
+125‚Äì126, 130‚Äì136
 design, 134
 development of, 126, 127 internal structure, 96 understandability, 96 
 some_helper() method, 271
@@ -1350,16 +1350,16 @@ spec_opts() method, 232 spec directory, 33, 63, 65 specdoc format, 232
 Specific outcome, 142 specifications, 155, 218 specify() method, 187 specs
 benefits, 119
 churn and confusion, 395 code coverage, 232 communication, 390 connecting 
-to the code, 65ñ66 declarative nature, 393 definition, 150
+to the code, 65‚Äì66 declarative nature, 393 definition, 150
 flexibility, 217 less brittle, 217 metadata, 395 passing, 86 statistical, 
 215
-updating after refactoring, 107ñ110
+updating after refactoring, 107‚Äì110
 see also spec files SpecTask class, 231 speculative code, 87
 speed, 300, 304, 324, 384
 SRP, see Single Responsibility Principle stable sequences, 215
 stack example, 158
 stack-based instruction set, 393
-stakeholders, 138ñ141, 252
+stakeholders, 138‚Äì141, 252
 feedback, 145
 language, 146
 working scenarios, 143 start() method, 59, 80, 81, 85 start message, 67
@@ -1368,7 +1368,7 @@ start_dump() method, 249
 state, sharing, 159, 167
 state-based expectations, 150
 STDOUT, 60, 66, 248, 250
-step definitions, 269ñ271
+step definitions, 269‚Äì271
 arguments, 271
 Backgrounds, 275
 block, 34
@@ -1382,23 +1382,23 @@ step_definitions DIRECTOR Y
 
 calling steps, 272
 code snippets, 270 decoupling, 309 definition, 34 example, 60
-helper methods, 271 implementing, 299 invocation, 27 methods, 55ñ60
+helper methods, 271 implementing, 299 invocation, 27 methods, 55‚Äì60
 model interfaces, 365 multiline text, 276, 277 overlap with view specs, 343 
 overview, 253
 reusable, 307
-scenario outlines, 79ñ80
+scenario outlines, 79‚Äì80
 Selenium, 324
 Simulated Browser style, 299
 storing, 34
-styles, 290ñ292
+styles, 290‚Äì292
 Webrat API, 320
 step_definitions directory, 34, 55, 270,
 288
 steps, 34, 55, 260
 calling within step definitions,
-272ñ273, 273 skipped, 35 undefined, 34
+272‚Äì273, 273 skipped, 35 undefined, 34
 Stevenson, Chris, 226
-stories, 141ñ147
+stories, 141‚Äì147
 Stories In, Features Out arrangement,
 144
 storing() method, 24
@@ -1407,16 +1407,16 @@ String arguments, 271
 String object, 153, 155, 207
 string variables, 120
 Strings, 152, 178, 183 structural discrepancies, 81 structural error, 83
-stub() method, 192, 194ñ196, 201, 202,
+stub() method, 192, 194‚Äì196, 201, 202,
 222
 stub chains, 202
 stub_chain() method, 203 stub_model() method, 340, 341 stubbed 
-dependencies, 214 subject, 188ñ190
+dependencies, 214 subject, 188‚Äì190
 subject() method, 188 subject code, 150, 152 submit_form() method, 312
 Subscription class, 381
 success contexts, 357
 success path examples, 352
-Successful (200ñ299) HTTP Status
+Successful (200‚Äì299) HTTP Status
 Code, 305
 sudo command, 30, 31
 :suite scope, 239
@@ -1433,12 +1433,12 @@ systems thinking terminology, 129
  T  
 --tags argument, 266
 tables in steps, 79, 81, 277
-tabular data, 49ñ52
+tabular data, 49‚Äì52
 tagged hooks, 274
-tags, 265ñ267, 280, 394
+tags, 265‚Äì267, 280, 394
 target() method, 99
 target object, 185
-TDD (Test-Driven Development), 22ñ24,
+TDD (Test-Driven Development), 22‚Äì24,
 44n
 design and documentation, 150
 teardown_mocks_for_rspec() method, 221
@@ -1449,22 +1449,22 @@ test data builders, 348, 384
 test doubles
 advantages in code, 70
 in automated Cucumber features,
-60ñ62
+60‚Äì62
 built-in support, 220
-choosing other frameworks, 220ñ222
+choosing other frameworks, 220‚Äì222
 creating, 192, 194
-custom adapters, 221ñ222
+custom adapters, 221‚Äì222
 definition, 192
 dynamic, 66
-method stubs, 193ñ196
+method stubs, 193‚Äì196
 nomenclature, 193
 one-at-a-time rule, 222
-risks and trade-offs, 218ñ220
+risks and trade-offs, 218‚Äì220
 as stand-ins, 203
 test-specific extensions, 193,
-197ñ201
+197‚Äì201
 views, 334
-when to use, 213ñ218
+when to use, 213‚Äì218
 see also message expectations
 
 
@@ -1481,15 +1481,15 @@ Test Spy pattern, 198
 test stubs, see test doubles test suites, 24
 Test-Driven Design, traditional, 194
 Test-Driven Development, see TDD
-test-specific extensions, 193, 197ñ201
-when to use, 213ñ218
+test-specific extensions, 193, 197‚Äì201
+when to use, 213‚Äì218
 test.log file, 318
 Test::Unit class, 64, 151, 176, 220
 TestCase class, 64
 TestDox, 226
 Test Driven Development: By Example
 (Beck, Kent), 155
-tester role, 147 testers, 23ñ25 testing
+tester role, 147 testers, 23‚Äì25 testing
 list, 155 overview, 22 practices, 111
 Rails, 283
 Simulated Browser style, 299
@@ -1523,7 +1523,7 @@ Time class, 311
 Timeboxed outcome, 142 title attribute, 366, 368 tmp directory, 319
 to() method, 176 to_i() method, 328 to_param stub, 339
 to_s() method, 174, 241 top-level groups, 166 traceability, 140
-traditional projects, 125ñ130
+traditional projects, 125‚Äì130
 traditional top-down decomposition,
 140
 transaction() method, 161 transactional fixtures, 324 transactions, turning 
@@ -1543,9 +1543,9 @@ User class, 374, 381
 User example, 153 user interfaces, 331 user stories, 253, 254
 as a planning tool, 43
 characteristics, 43
-commercial distribution, 41ñ42
+commercial distribution, 41‚Äì42
 context, 42
-as conversation token, 39ñ41
+as conversation token, 39‚Äì41
 generating, 39 properties, 254 selecting, 52
 user_spec.rb file, 380
 users, 277
@@ -1572,9 +1572,9 @@ view logic, 341
 view matchers, 313
 view specs
 directory structure, 334
-helpers, 341ñ342
-mock models, 334ñ341 naming conventions, 334 summary, 343
-writing, 331ñ334
+helpers, 341‚Äì342
+mock models, 334‚Äì341 naming conventions, 334 summary, 343
+writing, 331‚Äì334
 view templates, 360
 Vim editor, 230
 visibility, 274
@@ -1588,23 +1588,23 @@ web_steps.rb file, 288, 307, 314
 Webrat, 343
 API, 291
 DOM, 330
-forms, 307ñ313, 317
+forms, 307‚Äì313, 317
 functional testing, 283
 HTTP, 317
-introduction, 298ñ299
-page navigation, 304ñ307
-RSpec matchers, 313ñ316
+introduction, 298‚Äì299
+page navigation, 304‚Äì307
+RSpec matchers, 313‚Äì316
 scope, 316
-Selenium, 320ñ330
-step definitions, 299ñ304
+Selenium, 320‚Äì330
+step definitions, 299‚Äì304
 summary, 319
-timeouts, 330 troubleshooting, 318ñ319 view specs, 343
+timeouts, 330 troubleshooting, 318‚Äì319 view specs, 343
 Webrat library, 272
 Webrat::NotFoundError error, 316, 318
 Webrat::PageLoadError error, 305
 Webrat::SeleniumSession class, 326
 well-factored code, 121
-When() method, 34, 50, 56ñ59, 81
+When() method, 34, 50, 56‚Äì59, 81
 When block, see When method
 When framework element, 31, 298,
 304, 325

@@ -1,24 +1,24 @@
-25.5  What We’ve Learned
+ï»¿25.5  What Weâ€™ve Learned
 
 Throughout this chapter we focused on the behavior of models by setting clear expectations through examples. By combining the outside-in approach with our knowledge of Rails, we were able to write good clean specs while still taking advantage of ActiveRecord benefits in our implementation.
 
-•  Models  reflect  the  problem  domain  for  which  you’re  providing  a software solution, and they vary significantly from model to model and from app to app.
+â€¢  Models  reflect  the  problem  domain  for  which  youâ€™re  providing  a software solution, and they vary significantly from model to model and from app to app.
 
-•  Models house the domain logic for an application.
+â€¢  Models house the domain logic for an application.
 
-•  Models in Rails usually refer to ActiveRecord models, although you may find you create models that are straight-up POROs.
+â€¢  Models in Rails usually refer to ActiveRecord models, although you may find you create models that are straight-up POROs.
 
-•  Model specs use a custom example group provided by the rspec- rails library.
+â€¢  Model specs use a custom example group provided by the rspec- rails library.
 
-•  Model  specs  live  in  a  directory  tree  parallel  to  the  models  them- selves  and  follow  a  naming  convention  of  spec/model/my_model_spec.rb for app/model/my_model.rb.
+â€¢  Model  specs  live  in  a  directory  tree  parallel  to  the  models  them- selves  and  follow  a  naming  convention  of  spec/model/my_model_spec.rb for app/model/my_model.rb.
 
-•  Focusing  on  model  behavior  while  taking  advantage  of  ActiveRecord-provided features can save time and effort.
+â€¢  Focusing  on  model  behavior  while  taking  advantage  of  ActiveRecord-provided features can save time and effort.
 
-•  Use mock_model( ) and stub_model( ) to isolate controller specs from the database and underlying business logic of your models.
+â€¢  Use mock_model( ) and stub_model( ) to isolate controller specs from the database and underlying business logic of your models.
 
-•  Test data builder libraries can be used to reduce unneeded verbosity and improve clarity, maintainability of specs, and even step definitions for Cucumber scenarios.
+â€¢  Test data builder libraries can be used to reduce unneeded verbosity and improve clarity, maintainability of specs, and even step definitions for Cucumber scenarios.
 
-•  You can extract duplication and common patterns in your model specs  into  custom  macros  and  matchers  using  the  same  tech- niques you’d use for view specs and controller specs.
+â€¢  You can extract duplication and common patterns in your model specs  into  custom  macros  and  matchers  using  the  same  tech- niques youâ€™d use for view specs and controller specs.
 
-•  rspec-rails provides a few helpful ActiveRecord  matchers to make writing  model  examples  more  expressive:  be_valid( ),  errors_on( ), and records( ).
+â€¢  rspec-rails provides a few helpful ActiveRecord  matchers to make writing  model  examples  more  expressive:  be_valid( ),  errors_on( ), and records( ).
  

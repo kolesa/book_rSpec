@@ -1,6 +1,6 @@
-2.3  Hello Cucumber
+ï»¿2.3  Hello Cucumber
 
-For Cucumber, we’re going to need a little bit more structure, so let’s create  a  small  project  directory  named  hello.  Inside  the  hello  directory, add two directories named features  and spec, and then move the greeter_spec.rb file from the RSpec example into the hello/spec directory. Now create a file greeter_says_hello.feature  in the features  directory, and enter the following text:
+For Cucumber, weâ€™re going to need a little bit more structure, so letâ€™s create  a  small  project  directory  named  hello.  Inside  the  hello  directory, add two directories named features  and spec, and then move the greeter_spec.rb file from the RSpec example into the hello/spec directory. Now create a file greeter_says_hello.feature  in the features  directory, and enter the following text:
 
 Download hello/3/features/greeter_says_hello.feature
 
@@ -44,10 +44,10 @@ Then /^I should see "([^"]*)"$/ do |arg1|
 	pending # express the regexp above with the code you wish you had 
 end
 
-We’ll go into the details of this output later, but the high points are that we see the feature and scenario text from the greeter_says_hello.feature file, a summary of everything that was run, and then some code snip- pets that we can use for our step definitions.
+Weâ€™ll go into the details of this output later, but the high points are that we see the feature and scenario text from the greeter_says_hello.feature file, a summary of everything that was run, and then some code snip- pets that we can use for our step definitions.
 
 A step definition is a method that creates a step. In this example, we use the Given( ), When( ), and Then( ) methods to write step definitions, each of which takes a Regexp and a block. Cucumber will read the first step in the scenario, Given a greeter ; look for a step definition whose regular 
-expression matches that step; and then execute that step definition’s block.
+expression matches that step; and then execute that step definitionâ€™s block.
 To get this scenario to pass, we need to store step definitions in a file that Cucumber can load. Go ahead and add a step_definitions  directory inside hello/features, and add a file named greeter_steps.rb  with the following code:
 
 Download hello/4/features/step_definitions/greeter_steps.rb
@@ -64,7 +64,7 @@ Then /^I should see "([^"]*)"$/ do |greeting|
 	@message.should == greeting
 end
 
-This  looks  a  lot  like  the  code  snippets  that  we  got  from  running  the cucumber command, but we’ve added some code in each step definition. Now run cucumber features again, and the output should look more like this:
+This  looks  a  lot  like  the  code  snippets  that  we  got  from  running  the cucumber command, but weâ€™ve added some code in each step definition. Now run cucumber features again, and the output should look more like this:
 
 Feature: greeter says hello
 	In order to start learning RSpec and Cucumber
@@ -93,7 +93,7 @@ hello
 3 steps (1 failed, 2 skipped)
 0m0.003s
 
-The first step is failing because we haven’t defined a CucumberGreeter. The next two steps are being skipped because the first one failed. Again, to  keep  things  simple,  go  ahead  and  define  the  missing  class  right alongside the step definitions in greeter_steps.rb.
+The first step is failing because we havenâ€™t defined a CucumberGreeter. The next two steps are being skipped because the first one failed. Again, to  keep  things  simple,  go  ahead  and  define  the  missing  class  right alongside the step definitions in greeter_steps.rb.
 
 Here is the full listing:
 
@@ -135,4 +135,4 @@ Then I should see "Hello Cucumber!" # features/step_definitions/greeter_steps.rb
 
 This  time,  the  scenario  and  all  of  its  steps  pass.  So,  now  we  have  a passing  RSpec example and  a  passing  Cucumber  scenario.  You   can type rspec spec, and the rspec command will run everything inside the spec  directory. If you moved greeter_spec.rb to the spec  directory, then you  should  see  output  similar  to  the  output  you  saw  at  the  end  of Section 2.2, Hello RSpec, on page 31.
 
-There is certainly a lot of detail yet to cover here, but that’s why this is a book and not a blog post! In the chapters that follow, you’ll learn all about RSpec and Cucumber and how to use them in the context of Behaviour -Driven Development. So, what are you waiting for? All the good stuff is yet to come. Turn the page already!
+There is certainly a lot of detail yet to cover here, but thatâ€™s why this is a book and not a blog post! In the chapters that follow, youâ€™ll learn all about RSpec and Cucumber and how to use them in the context of Behaviour -Driven Development. So, what are you waiting for? All the good stuff is yet to come. Turn the page already!

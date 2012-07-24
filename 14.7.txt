@@ -1,10 +1,10 @@
-14.7  When to Use Test Doubles and Test-Specific Extensions
+Ôªø14.7  When to Use Test Doubles and Test-Specific Extensions
 
-Now that we know how to use test doubles and test-specific extensions, the next question is when to use them! There are a lot of opinions about this, and weíre not going to be able to cover every topic (this could easily fill an entire book), but letís look at some guidelines that can help you navigate your way.
+Now that we know how to use test doubles and test-specific extensions, the next question is when to use them! There are a lot of opinions about this, and we‚Äôre not going to be able to cover every topic (this could easily fill an entire book), but let‚Äôs look at some guidelines that can help you navigate your way.
 
 Isolation from Dependencies
 
-Even the most highly decoupled code has some dependencies. Sometimes they are on objects that are cheap and easy to construct and have no complex state. These generally donít present a problem, so there is no need to create stubs for them.
+Even the most highly decoupled code has some dependencies. Sometimes they are on objects that are cheap and easy to construct and have no complex state. These generally don‚Äôt present a problem, so there is no need to create stubs for them.
 
 The problematic dependencies are the ones that are expensive to construct, involve external systems (network, servers, even the file system), have dependencies on other expensive objects, or function slowly. We want  to  isolate  our  examples  from  these  dependencies  because  they complicate setup, slow down runtimes, and increase potential points of failure.
 
@@ -46,13 +46,13 @@ Doubles  can  disconnect  our  examples  from  real  implementations  of these d
 
 Nondeterminism  can  also  be  local.  A  random  generator  may  well  be local  but  is  clearly  a  source  of  nondeterminism.  We  would  want  to replace  the  real  random  generator  with  stable  sequences  to  specify different responses from our code. Each example can have a pseudorandom sequence tailored for the behavior being specified.
 
-Consider  a  system  that  uses  a  die,  like  the  one  shown  Figure 14.3. Because a die is a random generator, there is no way to use it to write a deterministic example. Any specifications would have to be statistical in nature, and that can get quite complicated. Statistical specs are useful when weíre specifying the random generators directly, but when weíre specifying their clients, all that extra noise takes focus away from the behavior of the object we should be focused on.
+Consider  a  system  that  uses  a  die,  like  the  one  shown  Figure 14.3. Because a die is a random generator, there is no way to use it to write a deterministic example. Any specifications would have to be statistical in nature, and that can get quite complicated. Statistical specs are useful when we‚Äôre specifying the random generators directly, but when we‚Äôre specifying their clients, all that extra noise takes focus away from the behavior of the object we should be focused on.
 
-If  we  replace  the  die  with  something  that  generates  a  repeatable  sequence, as shown in Figure 14.4, on the following page, then we can write examples that illustrate the systemís behavior based on that sequence. A stub is perfect for this, because each example can specify a different sequence.
+If  we  replace  the  die  with  something  that  generates  a  repeatable  sequence, as shown in Figure 14.4, on the following page, then we can write examples that illustrate the system‚Äôs behavior based on that sequence. A stub is perfect for this, because each example can specify a different sequence.
 
 Making Progress Without Implemented Dependencies
 
-Sometimes  we  are  specifying  an  object  whose  collaborators  havenít been implemented yet. Even if weíve already designed their APIs, they might be on another teamís task list and just havenít gotten to it yet.
+Sometimes  we  are  specifying  an  object  whose  collaborators  haven‚Äôt been implemented yet. Even if we‚Äôve already designed their APIs, they might be on another team‚Äôs task list and just haven‚Äôt gotten to it yet.
  
 
 Code                  Stub
@@ -60,31 +60,31 @@ Example     Subject   Die      3,20,7,14,1, ...
 
 Figure 14.4: Dependency on a repeatable sequence
 
-Rather  than  break  focus  on  the  object  weíre  specifying  to  implement that dependency, we can use a test double to make the example work. Not only  does  this  keep  us  focused  on  the  task  at  hand,  but  it  also provides an opportunity to explore that dependency and possible alter - native APIs before it is committed to code.
+Rather  than  break  focus  on  the  object  we‚Äôre  specifying  to  implement that dependency, we can use a test double to make the example work. Not only  does  this  keep  us  focused  on  the  task  at  hand,  but  it  also provides an opportunity to explore that dependency and possible alter - native APIs before it is committed to code.
 
 Interface Discovery
 
-When weíre implementing the behavior of one object, we often discover that it needs some service from another object that may not yet exist. Sometimes itís an existing interface with existing implementations, but itís missing the method that the object weíre specifying really wants to use. Other times, the interface doesnít even exist at all yet. This process is known as interface discovery and is the cornerstone of mock objects.
+When we‚Äôre implementing the behavior of one object, we often discover that it needs some service from another object that may not yet exist. Sometimes it‚Äôs an existing interface with existing implementations, but it‚Äôs missing the method that the object we‚Äôre specifying really wants to use. Other times, the interface doesn‚Äôt even exist at all yet. This process is known as interface discovery and is the cornerstone of mock objects.
 
 In  cases  like  these,  we  can  introduce  a  mock  object,  which  we  can program  to  behave  as  the  object  we  are  currently  specifying  expects. This  is  a  very  powerful  approach  to  writing  object-oriented  software, because it allows us to design new interfaces as they are needed, mak- ing decisions about them as late as possible, when we have the most information about how they will be used.
 
 Focus on Role
 
-In  2004,  Steve Freeman,  Nat  Pryce,  Tim  Mackinnon,  and  Joe  Walnes presented  a  paper  entitled  ìMock  Roles,  not  Objects.î5  The  basic premise  is  that  we  should  think  of  roles  rather  than  specific  objects when weíre using mocks to discover interfaces.
+In  2004,  Steve Freeman,  Nat  Pryce,  Tim  Mackinnon,  and  Joe  Walnes presented  a  paper  entitled  ‚ÄúMock  Roles,  not  Objects.‚Äù5  The  basic premise  is  that  we  should  think  of  roles  rather  than  specific  objects when we‚Äôre using mocks to discover interfaces.
 
 5.  http://mockobjects.com/files/mockrolesnotobjects.pdf
 
-In the logging example in Section 14.3, Mixing Method Stubs and Message Expectations, on page 196, the logger could be called a logger, a messenger, a recorder, a reporter, and so on. What the object is doesnít matter in that example. The only thing that matters is that it represents an object that will act out the role of a logger at runtime. Based on that example, in order to act like a logger, the object has to respond to the log( ) method.
+In the logging example in Section 14.3, Mixing Method Stubs and Message Expectations, on page 196, the logger could be called a logger, a messenger, a recorder, a reporter, and so on. What the object is doesn‚Äôt matter in that example. The only thing that matters is that it represents an object that will act out the role of a logger at runtime. Based on that example, in order to act like a logger, the object has to respond to the log( ) method.
 
 Focusing  on  roles  rather  than  objects  frees  us  up  to  assign  roles  to different objects as they come into existence. Not only does this allow for very loose coupling between objects at runtime, but it provides loose coupling between concepts as well.
 
 Focus on Interaction Rather Than State
 
-Object-oriented  systems  are  all  about  interfaces  and  interactions.  An objectís  internal  state  is  an  implementation  detail  and  not  part  of  its observable  behavior.  As  such,  it  is  more  subject  to change  than  the objectís  interface.  We  can  therefore  keep  specs  more  flexible  and  less brittle  by avoiding reference to the internal state of an object.
+Object-oriented  systems  are  all  about  interfaces  and  interactions.  An object‚Äôs  internal  state  is  an  implementation  detail  and  not  part  of  its observable  behavior.  As  such,  it  is  more  subject  to change  than  the object‚Äôs  interface.  We  can  therefore  keep  specs  more  flexible  and  less brittle  by avoiding reference to the internal state of an object.
 
 Even if we already have a well-designed API up front, mocks still provide value because they focus on interactions between objects rather than side-effects on the internal state of any individual object.
 
-This may seem to contradict the idea that we want to avoid implementation detail in code examples. Isnít that what weíre doing when we specify what messages an object sends? In some cases, this is a perfectly valid observation. Consider this example with a method stub:
+This may seem to contradict the idea that we want to avoid implementation detail in code examples. Isn‚Äôt that what we‚Äôre doing when we specify what messages an object sends? In some cases, this is a perfectly valid observation. Consider this example with a method stub:
 
 describe Statement do
 	it "uses the customer's name in the header (with a stub)" do 
@@ -107,7 +107,7 @@ end
  
 Figure 14.5: Focus on state vs. interaction
 
-In this case, there is not much value added by using a message expectation  in  the  second  example  instead  of  the  method  stub  in  the  first example.  The  code  in  the  second  example  is  more  verbose  and  more tightly bound to the underlying implementation of the header( ) method. Fair enough. But consider the logger example earlier this chapter. That is a perfect case for a message expectation, because weíre specifying an  interaction with a collaborator, not an outcome.
+In this case, there is not much value added by using a message expectation  in  the  second  example  instead  of  the  method  stub  in  the  first example.  The  code  in  the  second  example  is  more  verbose  and  more tightly bound to the underlying implementation of the header( ) method. Fair enough. But consider the logger example earlier this chapter. That is a perfect case for a message expectation, because we‚Äôre specifying an  interaction with a collaborator, not an outcome.
 
 A nice way to visualize this is to compare the left and right diagrams in Figure 14.5. When we focus on state, we design objects. When we focus on interaction, we design behavior. There is a time and place for each approach, but when we choose the latter, mock objects make it much easier to achieve.
 

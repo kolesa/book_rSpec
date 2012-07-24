@@ -1,10 +1,10 @@
-8.4  Exploratory Testing
+ï»¿8.4  Exploratory Testing
 
-Exploratory testing is a practice in which we discover the behavior of an  application  by  interacting  with  it  directly.  It  is  the  opposite  of  the process  we’ve  been  learning  about,  in  that  we’re  looking  to  see  what the  app  actually  does  and  then  question  whether  that  is  the  correct behavior.
+Exploratory testing is a practice in which we discover the behavior of an  application  by  interacting  with  it  directly.  It  is  the  opposite  of  the process  weâ€™ve  been  learning  about,  in  that  weâ€™re  looking  to  see  what the  app  actually  does  and  then  question  whether  that  is  the  correct behavior.
 
 It has a rich history and is a deep craft in its own right, the breadth of which is outside the scope of this book. For our purposes, we want you to simply fire up the Codebreaker game and enter guesses and analyze the outcomes.
 
-Now  that  the  game  can  mark  a  guess  for  us,  we  just  need  a  minor adjustment  to  bin/codebreaker,  and  we  can  begin interacting  with  the game. Here’s the script for *nix users:
+Now  that  the  game  can  mark  a  guess  for  us,  we  just  need  a  minor adjustment  to  bin/codebreaker,  and  we  can  begin interacting  with  the game. Hereâ€™s the script for *nix users:
 
 Download cb/42/bin/codebreaker
 
@@ -24,11 +24,11 @@ Download cb/42/bin/codebreaker.bat
 
 @"ruby.exe" "%~dpn0" %*
 
-Clearly, the game won’t be too much fun because it has the same code every  time,  but  at  least  at  this  point,  you  can  try  it  and  maybe  even show your friends.
+Clearly, the game wonâ€™t be too much fun because it has the same code every  time,  but  at  least  at  this  point,  you  can  try  it  and  maybe  even show your friends.
 
-Perhaps  you’re  wondering  why  we’d  want  to  do  exploratory  testing  if we’ve already tested the app. Well, we haven’t. Remember that BDD is a design practice, not a testing practice. We’re using executable examples of how we want the application to behave. But just as Big Design Up Front fails to allow for discovery of features and designs that naturally emerge through iterative development, driving out behavior with examples  fails  to  unearth  all  of  the  corner  cases  that  we’ll  naturally discover by simply using the software.
+Perhaps  youâ€™re  wondering  why  weâ€™d  want  to  do  exploratory  testing  if weâ€™ve already tested the app. Well, we havenâ€™t. Remember that BDD is a design practice, not a testing practice. Weâ€™re using executable examples of how we want the application to behave. But just as Big Design Up Front fails to allow for discovery of features and designs that naturally emerge through iterative development, driving out behavior with examples  fails  to  unearth  all  of  the  corner  cases  that  weâ€™ll  naturally discover by simply using the software.
 
-As you explore the Codebreaker game, try to find the flaws in the marking  algorithm.  You’ll  know  what  the  not-so-secret  code  is,  so  try  different  inputs  and  see  what  happens.  What  happens  when  you  input non-numeric characters? How about too many or too few? What about duplicates  in  the  guess  that  match  one  of  the  numbers  in  the  secret code?
+As you explore the Codebreaker game, try to find the flaws in the marking  algorithm.  Youâ€™ll  know  what  the  not-so-secret  code  is,  so  try  different  inputs  and  see  what  happens.  What  happens  when  you  input non-numeric characters? How about too many or too few? What about duplicates  in  the  guess  that  match  one  of  the  numbers  in  the  secret code?
 
-As  you’re  doing  this,  flaws  will  appear  for  a  variety  of reasons.  Perhaps  there  are  missing  scenarios  or  code  examples.  Some  flaws  may stem  from  naive  design  choices.  The  reasons  for  these  flaws  are  not important. What is important is that the investment we’ve made to get this far has been very, very small compared to an exhaustive up-front requirements-gathering  process.  An  interactive  session  with  working software is worth a thousand meetings.
+As  youâ€™re  doing  this,  flaws  will  appear  for  a  variety  of reasons.  Perhaps  there  are  missing  scenarios  or  code  examples.  Some  flaws  may stem  from  naive  design  choices.  The  reasons  for  these  flaws  are  not important. What is important is that the investment weâ€™ve made to get this far has been very, very small compared to an exhaustive up-front requirements-gathering  process.  An  interactive  session  with  working software is worth a thousand meetings.
 

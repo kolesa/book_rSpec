@@ -1,8 +1,8 @@
-6.2  Responding to Change
+Ôªø6.2  Responding to Change
 
-At this point, all the RSpec code examples are passing, but we have failing Cucumber scenarios. Weíre ìin the meantime,î so to speak, where changing  requirements  from  the  outside  are  rendering  our  requirements on the inside incorrect.
+At this point, all the RSpec code examples are passing, but we have failing Cucumber scenarios. We‚Äôre ‚Äúin the meantime,‚Äù so to speak, where changing  requirements  from  the  outside  are  rendering  our  requirements on the inside incorrect.
 
-Our new step definition wants Game.start( ) to accept the secret code as an argument, but our RSpec examples assume that start( ) does not take any arguments. If we just add the argument to start( ), then the specs fail  with  an  argument  error  as  well,  but  with  0 for 1  instead  of  1 for 0. To keep the specs passing while weíre making changes to support the scenarios, modify start( ) to accept an argument with a default value, like so:
+Our new step definition wants Game.start( ) to accept the secret code as an argument, but our RSpec examples assume that start( ) does not take any arguments. If we just add the argument to start( ), then the specs fail  with  an  argument  error  as  well,  but  with  0 for 1  instead  of  1 for 0. To keep the specs passing while we‚Äôre making changes to support the scenarios, modify start( ) to accept an argument with a default value, like so:
 
 Download cb/17/lib/codebreaker/game.rb
 
@@ -45,7 +45,7 @@ Run the examples one more time, and they should still pass. Now run the codebrea
 
 Assess the Impact on Other Features
 
-Now  that  we  donít  have  any  failures  in  the  feature  weíre  working  on or the specs, run cucumber with no arguments to run all (both) of the features. The output should include this:
+Now  that  we  don‚Äôt  have  any  failures  in  the  feature  we‚Äôre  working  on or the specs, run cucumber with no arguments to run all (both) of the features. The output should include this:
 
 When I start a new game
 	wrong number of arguments (0 for 1) (ArgumentError)
@@ -83,7 +83,7 @@ Given /^the secret code is "([^"]*)"$/ do |secret|
 	@game.start(secret)
 end
 
-Run the features again, and youíll see this in the output:
+Run the features again, and you‚Äôll see this in the output:
 
 Scenarios: no matches
 	| code | guess | mark |
@@ -91,7 +91,7 @@ Scenarios: no matches
 	undefined method `guess' for #<Codebreaker::Game:0x10219f728> 
 	(NoMethodError)
 
-We wrote the code we wish we had, but we donít have it! The Game has no guess( ) method, so weíll need to add one. Add this to game.rb:
+We wrote the code we wish we had, but we don‚Äôt have it! The Game has no guess( ) method, so we‚Äôll need to add one. Add this to game.rb:
 
 Download cb/21/lib/codebreaker/game.rb
 
@@ -137,5 +137,5 @@ Scenarios: no matches
 	expected ["Welcome to Codebreaker!", "Enter guess:"] to include ""
 	(Spec::Expectations::ExpectationNotMetError)
 
-Fantastic! Instead of an exception or a structural error, weíre getting a logical failure on the Then step. Even though this is happening in all fourteen scenarios, this is good news because we know that we have all the step definitions we need and everything is wired up correctly. Now itís time to drill down to RSpec and drive out the solution with isolated code examples.
+Fantastic! Instead of an exception or a structural error, we‚Äôre getting a logical failure on the Then step. Even though this is happening in all fourteen scenarios, this is good news because we know that we have all the step definitions we need and everything is wired up correctly. Now it‚Äôs time to drill down to RSpec and drive out the solution with isolated code examples.
 
